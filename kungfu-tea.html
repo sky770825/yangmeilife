@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>功夫茶菜單 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-tea: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.category-tab {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: #667eea;
+  color: white;
+}
+
+.tab-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.drink-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 5px solid #4facfe;
+}
+
+.drink-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.drink-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.drink-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.drink-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4facfe;
+}
+
+.drink-description {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.drink-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #e5e7eb;
+  color: #374151;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.tag.hot {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.tag.new {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.tag.popular {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.size-options {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.size-btn {
+  background: rgba(79, 172, 254, 0.1);
+  color: #4facfe;
+  border: 2px solid #4facfe;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.size-btn.active {
+  background: #4facfe;
+  color: white;
+}
+
+.size-btn:hover {
+  background: #4facfe;
+  color: white;
+}
+
+.store-info {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-center;
+}
+
+.store-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.store-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.store-detail {
+  text-align: center;
+}
+
+.store-detail-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.store-detail-label {
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.store-detail-value {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .menu-card,
+.dark .drink-item,
+.dark .store-info {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .tab-btn {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: #818cf8;
+  color: #818cf8;
+}
+
+.dark .tab-btn.active {
+  background: #818cf8;
+  color: white;
+}
+
+.dark .tab-btn:hover {
+  background: #818cf8;
+  color: white;
+}
+
+.dark .drink-title,
+.dark .store-title,
+.dark .store-detail-label {
+  color: #f9fafb;
+}
+
+.dark .drink-price {
+  color: #60a5fa;
+}
+
+.dark .size-btn {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: #60a5fa;
+  color: #60a5fa;
+}
+
+.dark .size-btn.active {
+  background: #60a5fa;
+  color: white;
+}
+
+.dark .size-btn:hover {
+  background: #60a5fa;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">🍹 功夫茶菜單</h1>
+    <p class="text-xl text-white opacity-90">專業茶飲，品質保證</p>
+  </div>
+
+  <!-- 店家資訊 -->
+  <div class="store-info mb-8">
+    <div class="store-title">功夫茶 信義店</div>
+    <div class="store-meta">
+      <div class="store-detail">
+        <div class="store-detail-icon">📍</div>
+        <div class="store-detail-label">地址</div>
+        <div class="store-detail-value">台北市信義區信義路五段7號</div>
+      </div>
+      <div class="store-detail">
+        <div class="store-detail-icon">📞</div>
+        <div class="store-detail-label">電話</div>
+        <div class="store-detail-value">02-2345-6789</div>
+      </div>
+      <div class="store-detail">
+        <div class="store-detail-icon">🕒</div>
+        <div class="store-detail-label">營業時間</div>
+        <div class="store-detail-value">週一至週日 10:00-22:00</div>
+      </div>
+      <div class="store-detail">
+        <div class="store-detail-icon">🚚</div>
+        <div class="store-detail-label">外送服務</div>
+        <div class="store-detail-value">滿200元免費外送</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 類別篩選 -->
+  <div class="menu-card">
+    <h2 class="text-lg font-bold mb-4">🏷️ 飲品類別</h2>
+    <div class="category-tab">
+      <button class="tab-btn active" onclick="showCategory('all')">全部</button>
+      <button class="tab-btn" onclick="showCategory('tea')">茶類</button>
+      <button class="tab-btn" onclick="showCategory('milk')">奶類</button>
+      <button class="tab-btn" onclick="showCategory('fruit')">果茶</button>
+      <button class="tab-btn" onclick="showCategory('special')">特調</button>
+      <button class="tab-btn" onclick="showCategory('seasonal')">季節限定</button>
+    </div>
+  </div>
+
+  <!-- 飲品菜單 -->
+  <div id="menuContent">
+    <!-- 經典茶類 -->
+    <div class="menu-card mb-8" data-category="tea">
+      <h2 class="text-xl font-bold mb-4 flex items-center">
+        <span class="text-2xl mr-2">🍵</span>
+        經典茶類
+      </h2>
+      <div class="space-y-4">
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">功夫紅茶</div>
+              <div class="drink-tags">
+                <span class="tag popular">熱門</span>
+              </div>
+            </div>
+            <div class="drink-price">$35</div>
+          </div>
+          <div class="drink-description">
+            選用優質紅茶葉，茶香濃郁，口感順滑。經典功夫茶代表作品，深受顧客喜愛。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $35</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $45</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">四季春茶</div>
+              <div class="drink-tags">
+                <span class="tag">清香</span>
+              </div>
+            </div>
+            <div class="drink-price">$30</div>
+          </div>
+          <div class="drink-description">
+            台灣特色茶種，清香淡雅，回甘持久。適合喜歡清淡口味的顧客。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $30</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $40</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">烏龍茶</div>
+              <div class="drink-tags">
+                <span class="tag">濃郁</span>
+              </div>
+            </div>
+            <div class="drink-price">$40</div>
+          </div>
+          <div class="drink-description">
+            精選烏龍茶葉，香氣濃郁，口感醇厚。茶味層次豐富，是茶類愛好者的首選。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $40</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $50</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 奶類飲品 -->
+    <div class="menu-card mb-8" data-category="milk">
+      <h2 class="text-xl font-bold mb-4 flex items-center">
+        <span class="text-2xl mr-2">🥛</span>
+        奶類飲品
+      </h2>
+      <div class="space-y-4">
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">珍珠奶茶</div>
+              <div class="drink-tags">
+                <span class="tag popular">熱門</span>
+                <span class="tag hot">經典</span>
+              </div>
+            </div>
+            <div class="drink-price">$55</div>
+          </div>
+          <div class="drink-description">
+            功夫茶招牌飲品，Q彈珍珠搭配香濃奶茶。經典組合，永不過時。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $55</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $65</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">布丁奶茶</div>
+              <div class="drink-tags">
+                <span class="tag">滑嫩</span>
+              </div>
+            </div>
+            <div class="drink-price">$60</div>
+          </div>
+          <div class="drink-description">
+            香滑布丁與濃郁奶茶的完美結合，口感豐富，甜而不膩。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $60</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $70</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">芋頭牛奶</div>
+              <div class="drink-tags">
+                <span class="tag">濃郁</span>
+                <span class="tag new">新品</span>
+              </div>
+            </div>
+            <div class="drink-price">$65</div>
+          </div>
+          <div class="drink-description">
+            新鮮芋頭製作，搭配香濃牛奶，口感綿密，香氣濃郁。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $65</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $75</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 果茶系列 -->
+    <div class="menu-card mb-8" data-category="fruit">
+      <h2 class="text-xl font-bold mb-4 flex items-center">
+        <span class="text-2xl mr-2">🍊</span>
+        果茶系列
+      </h2>
+      <div class="space-y-4">
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">檸檬綠茶</div>
+              <div class="drink-tags">
+                <span class="tag">清爽</span>
+              </div>
+            </div>
+            <div class="drink-price">$45</div>
+          </div>
+          <div class="drink-description">
+            新鮮檸檬汁搭配清香綠茶，酸甜清爽，夏日必備。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $45</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $55</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">百香果綠茶</div>
+              <div class="drink-tags">
+                <span class="tag">酸甜</span>
+              </div>
+            </div>
+            <div class="drink-price">$50</div>
+          </div>
+          <div class="drink-description">
+            百香果的酸甜與綠茶的清香完美融合，口感層次豐富。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $50</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $60</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">芒果綠茶</div>
+              <div class="drink-tags">
+                <span class="tag">香甜</span>
+                <span class="tag seasonal">季節限定</span>
+              </div>
+            </div>
+            <div class="drink-price">$55</div>
+          </div>
+          <div class="drink-description">
+            新鮮芒果與綠茶的完美結合，香甜可口，夏日限定。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $55</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $65</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 特調飲品 -->
+    <div class="menu-card mb-8" data-category="special">
+      <h2 class="text-xl font-bold mb-4 flex items-center">
+        <span class="text-2xl mr-2">✨</span>
+        特調飲品
+      </h2>
+      <div class="space-y-4">
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">功夫特調</div>
+              <div class="drink-tags">
+                <span class="tag popular">招牌</span>
+                <span class="tag new">獨家</span>
+              </div>
+            </div>
+            <div class="drink-price">$70</div>
+          </div>
+          <div class="drink-description">
+            功夫茶獨家配方，多種茶葉調配，口感層次豐富，香氣獨特。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $70</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $80</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">黑糖珍珠鮮奶</div>
+              <div class="drink-tags">
+                <span class="tag hot">熱門</span>
+              </div>
+            </div>
+            <div class="drink-price">$65</div>
+          </div>
+          <div class="drink-description">
+            濃郁黑糖搭配Q彈珍珠，加入新鮮牛奶，香甜濃郁。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $65</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $75</button>
+          </div>
+        </div>
+
+        <div class="drink-item">
+          <div class="drink-header">
+            <div>
+              <div class="drink-title">抹茶拿鐵</div>
+              <div class="drink-tags">
+                <span class="tag">日式</span>
+              </div>
+            </div>
+            <div class="drink-price">$60</div>
+          </div>
+          <div class="drink-description">
+            精選抹茶粉與牛奶的完美融合，口感順滑，茶香濃郁。
+          </div>
+          <div class="size-options">
+            <button class="size-btn active" onclick="selectSize(this, 'M')">M杯 $60</button>
+            <button class="size-btn" onclick="selectSize(this, 'L')">L杯 $70</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="glass rounded-2xl p-6 text-center">
+    <h3 class="text-xl font-bold text-white mb-4">📞 訂購專線</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+      <div>
+        <div class="text-2xl mb-2">📱</div>
+        <div class="font-bold">訂購專線</div>
+        <div class="text-sm opacity-90">02-2345-6789</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">🚚</div>
+        <div class="font-bold">外送服務</div>
+        <div class="text-sm opacity-90">滿200元免費外送</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">🕒</div>
+        <div class="font-bold">營業時間</div>
+        <div class="text-sm opacity-90">10:00-22:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 顯示類別
+function showCategory(category) {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('[data-category]');
+  
+  // 更新標籤狀態
+  tabs.forEach(tab => tab.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // 顯示對應內容
+  contents.forEach(content => {
+    if (category === 'all' || content.dataset.category === category) {
+      content.style.display = 'block';
+      content.classList.add('fade-in');
+    } else {
+      content.style.display = 'none';
+    }
+  });
+}
+
+// 選擇尺寸
+function selectSize(button, size) {
+  const parent = button.parentElement;
+  const buttons = parent.querySelectorAll('.size-btn');
+  
+  buttons.forEach(btn => btn.classList.remove('active'));
+  button.classList.add('active');
+  
+  // 更新價格顯示
+  const priceElement = button.closest('.drink-item').querySelector('.drink-price');
+  const basePrice = button.textContent.match(/\$(\d+)/)[1];
+  priceElement.textContent = `$${basePrice}`;
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全域搜尋 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --grad-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+
+.suggestion-item {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.suggestion-item:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.filter-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.filter-group {
+  margin-bottom: 1.5rem;
+}
+
+.filter-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.filter-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.result-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.result-type {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.result-type.property { background: #dbeafe; color: #1e40af; }
+.result-type.tool { background: #dcfce7; color: #166534; }
+.result-type.service { background: #fef3c7; color: #92400e; }
+.result-type.game { background: #e9d5ff; color: #7c3aed; }
+
+.recent-search {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.recent-search:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.trending-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.trending-item:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateX(5px);
+}
+
+.trending-rank {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #667eea;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.trending-rank.top3 {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .search-container,
+.dark .filter-section,
+.dark .result-item,
+.dark .trending-item {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .search-input,
+.dark .filter-select {
+  background: rgba(55, 65, 81, 0.5);
+  border-color: #4b5563;
+  color: white;
+}
+
+.dark .search-suggestions {
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .suggestion-item {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.dark .filter-label {
+  color: #d1d5db;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">🔍 全域搜尋</h1>
+    <p class="text-xl text-white opacity-90">快速找到您需要的服務和資訊</p>
+  </div>
+
+  <!-- 搜尋框 -->
+  <div class="search-container relative">
+    <div class="relative">
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="搜尋房產工具、生活服務、遊戲..."
+        autocomplete="off"
+      >
+      <div class="search-suggestions" id="searchSuggestions"></div>
+    </div>
+    
+    <!-- 熱門搜尋 -->
+    <div class="mt-4">
+      <div class="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">🔥 熱門搜尋</div>
+      <div id="hotSearches">
+        <span class="recent-search" onclick="searchKeyword('房貸試算')">房貸試算</span>
+        <span class="recent-search" onclick="searchKeyword('天氣')">天氣</span>
+        <span class="recent-search" onclick="searchKeyword('垃圾車')">垃圾車</span>
+        <span class="recent-search" onclick="searchKeyword('發票對獎')">發票對獎</span>
+        <span class="recent-search" onclick="searchKeyword('遊戲')">遊戲</span>
+        <span class="recent-search" onclick="searchKeyword('裝潢估價')">裝潢估價</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 篩選器 -->
+  <div class="filter-section">
+    <h3 class="text-lg font-bold mb-4">🎯 篩選器</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="filter-group">
+        <label class="filter-label">類別</label>
+        <select class="filter-select" id="categoryFilter">
+          <option value="">全部類別</option>
+          <option value="property">房產工具</option>
+          <option value="life">生活服務</option>
+          <option value="game">趣味遊戲</option>
+          <option value="service">專業服務</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">功能</label>
+        <select class="filter-select" id="functionFilter">
+          <option value="">全部功能</option>
+          <option value="calculator">計算工具</option>
+          <option value="information">資訊查詢</option>
+          <option value="entertainment">娛樂休閒</option>
+          <option value="utility">實用工具</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">排序</label>
+        <select class="filter-select" id="sortFilter">
+          <option value="relevance">相關度</option>
+          <option value="popularity">熱門度</option>
+          <option value="alphabetical">字母順序</option>
+          <option value="recent">最近更新</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 搜尋趨勢 -->
+  <div class="search-container">
+    <h3 class="text-lg font-bold mb-4">📈 搜尋趨勢</h3>
+    <div id="trendingList">
+      <div class="trending-item" onclick="searchKeyword('房貸試算')">
+        <div class="trending-rank top3">1</div>
+        <div>
+          <div class="font-bold">房貸試算</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">熱門度 95%</div>
+        </div>
+      </div>
+      <div class="trending-item" onclick="searchKeyword('天氣資訊')">
+        <div class="trending-rank top3">2</div>
+        <div>
+          <div class="font-bold">天氣資訊</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">熱門度 88%</div>
+        </div>
+      </div>
+      <div class="trending-item" onclick="searchKeyword('記憶配對')">
+        <div class="trending-rank top3">3</div>
+        <div>
+          <div class="font-bold">記憶配對</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">熱門度 82%</div>
+        </div>
+      </div>
+      <div class="trending-item" onclick="searchKeyword('垃圾車提醒')">
+        <div class="trending-rank">4</div>
+        <div>
+          <div class="font-bold">垃圾車提醒</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">熱門度 76%</div>
+        </div>
+      </div>
+      <div class="trending-item" onclick="searchKeyword('發票對獎')">
+        <div class="trending-rank">5</div>
+        <div>
+          <div class="font-bold">發票對獎</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">熱門度 71%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 搜尋結果 -->
+  <div id="searchResults" class="space-y-4">
+    <!-- 搜尋結果將在這裡顯示 -->
+  </div>
+
+  <!-- 推薦內容 -->
+  <div id="recommendations" class="search-container">
+    <h3 class="text-lg font-bold mb-4">💡 推薦內容</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="result-item" onclick="openTool('loan-calc.html')">
+        <div class="result-type property">房產工具</div>
+        <h4 class="font-bold text-lg mb-2">💰 房貸試算</h4>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">快速計算房貸月付金額，幫助您規劃購屋預算</p>
+      </div>
+      <div class="result-item" onclick="openTool('games.html')">
+        <div class="result-type game">趣味遊戲</div>
+        <h4 class="font-bold text-lg mb-2">🎮 遊戲大廳</h4>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">多種小遊戲，放鬆娛樂的好選擇</p>
+      </div>
+      <div class="result-item" onclick="openTool('weather.html')">
+        <div class="result-type service">生活服務</div>
+        <h4 class="font-bold text-lg mb-2">🌦 天氣資訊</h4>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">即時天氣預報，出門前必查</p>
+      </div>
+      <div class="result-item" onclick="openTool('receipt.html')">
+        <div class="result-type service">生活服務</div>
+        <h4 class="font-bold text-lg mb-2">🧾 發票對獎</h4>
+        <p class="text-gray-600 dark:text-gray-400 text-sm">統一發票對獎查詢，輕鬆對獎不遺漏</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 搜尋數據
+const searchData = [
+  { title: '房貸試算', description: '快速計算房貸月付金額', type: 'property', url: 'loan-calc.html', keywords: ['房貸', '試算', '計算', '購屋', '貸款'] },
+  { title: '裝潢估價', description: '裝潢費用估算工具', type: 'property', url: 'decor-calc.html', keywords: ['裝潢', '估價', '裝修', '費用'] },
+  { title: '稅費試算', description: '房產相關稅費計算', type: 'property', url: 'tax-calc.html', keywords: ['稅費', '試算', '房產稅'] },
+  { title: '即時利率', description: '銀行利率資訊查詢', type: 'property', url: 'rate.html', keywords: ['利率', '銀行', '房貸利率'] },
+  { title: '驗屋檢測', description: '專業驗屋清單工具', type: 'service', url: 'inspection.html', keywords: ['驗屋', '檢測', '檢查'] },
+  { title: '委託出租', description: '房屋委託出租服務', type: 'service', url: 'rental-mgmt.html', keywords: ['委託', '出租', '租賃'] },
+  { title: '天氣資訊', description: '即時天氣預報查詢', type: 'service', url: 'weather.html', keywords: ['天氣', '預報', '氣象'] },
+  { title: '垃圾車提醒', description: '垃圾車清運時間提醒', type: 'service', url: 'garbage.html', keywords: ['垃圾車', '清運', '提醒'] },
+  { title: '發票對獎', description: '統一發票對獎查詢', type: 'service', url: 'receipt.html', keywords: ['發票', '對獎', '統一發票'] },
+  { title: '公車即時', description: '公車即時資訊查詢', type: 'service', url: 'bus.html', keywords: ['公車', '即時', '交通'] },
+  { title: '遊戲大廳', description: '多種趣味小遊戲', type: 'game', url: 'games.html', keywords: ['遊戲', '娛樂', '小遊戲'] },
+  { title: '記憶配對', description: '記憶力訓練遊戲', type: 'game', url: 'games.html', keywords: ['記憶', '配對', '遊戲'] },
+  { title: '滑動消除', description: '益智消除遊戲', type: 'game', url: 'games.html', keywords: ['滑動', '消除', '益智'] },
+  { title: '反應測試', description: '反應速度測試遊戲', type: 'game', url: 'games.html', keywords: ['反應', '測試', '速度'] },
+  { title: '數字合併', description: '2048數字合併遊戲', type: 'game', url: 'games.html', keywords: ['數字', '合併', '2048'] },
+  { title: '今日運勢', description: '每日運勢占卜', type: 'game', url: 'fortune.html', keywords: ['運勢', '占卜', '今日'] },
+  { title: 'MBTI測驗', description: '性格類型測驗', type: 'game', url: 'mbti.html', keywords: ['MBTI', '性格', '測驗'] },
+  { title: '每日金句', description: '正能量語錄分享', type: 'game', url: 'daily-quote.html', keywords: ['金句', '語錄', '正能量'] }
+];
+
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 搜尋關鍵字
+function searchKeyword(keyword) {
+  document.getElementById('searchInput').value = keyword;
+  performSearch(keyword);
+}
+
+// 執行搜尋
+function performSearch(query) {
+  if (!query.trim()) {
+    showRecommendations();
+    return;
+  }
+
+  const results = searchData.filter(item => {
+    return item.title.toLowerCase().includes(query.toLowerCase()) ||
+           item.description.toLowerCase().includes(query.toLowerCase()) ||
+           item.keywords.some(keyword => keyword.toLowerCase().includes(query.toLowerCase()));
+  });
+
+  displayResults(results, query);
+}
+
+// 顯示搜尋結果
+function displayResults(results, query) {
+  const resultsContainer = document.getElementById('searchResults');
+  const recommendationsContainer = document.getElementById('recommendations');
+
+  if (results.length === 0) {
+    resultsContainer.innerHTML = `
+      <div class="search-container text-center">
+        <div class="text-4xl mb-4">🔍</div>
+        <h3 class="text-xl font-bold mb-2">找不到相關結果</h3>
+        <p class="text-gray-600 dark:text-gray-400">請嘗試其他關鍵字或瀏覽推薦內容</p>
+      </div>
+    `;
+    recommendationsContainer.style.display = 'block';
+  } else {
+    resultsContainer.innerHTML = `
+      <div class="search-container">
+        <h3 class="text-lg font-bold mb-4">搜尋結果 (${results.length} 項)</h3>
+        <div class="space-y-4">
+          ${results.map(item => `
+            <div class="result-item fade-in" onclick="openTool('${item.url}')">
+              <div class="result-type ${item.type}">${getTypeLabel(item.type)}</div>
+              <h4 class="font-bold text-lg mb-2">${highlightMatch(item.title, query)}</h4>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">${highlightMatch(item.description, query)}</p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    recommendationsContainer.style.display = 'none';
+  }
+}
+
+// 高亮匹配文字
+function highlightMatch(text, query) {
+  if (!query) return text;
+  const regex = new RegExp(`(${query})`, 'gi');
+  return text.replace(regex, '<mark class="bg-yellow-200 dark:bg-yellow-800">$1</mark>');
+}
+
+// 獲取類型標籤
+function getTypeLabel(type) {
+  const labels = {
+    'property': '房產工具',
+    'service': '生活服務',
+    'game': '趣味遊戲',
+    'utility': '實用工具'
+  };
+  return labels[type] || '其他';
+}
+
+// 顯示推薦內容
+function showRecommendations() {
+  document.getElementById('searchResults').innerHTML = '';
+  document.getElementById('recommendations').style.display = 'block';
+}
+
+// 開啟工具
+function openTool(url) {
+  if (url.startsWith('http')) {
+    window.open(url, '_blank');
+  } else {
+    window.location.href = url;
+  }
+}
+
+// 搜尋建議
+function showSuggestions(query) {
+  const suggestionsContainer = document.getElementById('searchSuggestions');
+  
+  if (!query.trim()) {
+    suggestionsContainer.style.display = 'none';
+    return;
+  }
+
+  const suggestions = searchData
+    .filter(item => 
+      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.keywords.some(keyword => keyword.toLowerCase().includes(query.toLowerCase()))
+    )
+    .slice(0, 5);
+
+  if (suggestions.length > 0) {
+    suggestionsContainer.innerHTML = suggestions.map(item => `
+      <div class="suggestion-item" onclick="selectSuggestion('${item.title}')">
+        <div class="font-medium">${item.title}</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">${item.description}</div>
+      </div>
+    `).join('');
+    suggestionsContainer.style.display = 'block';
+  } else {
+    suggestionsContainer.style.display = 'none';
+  }
+}
+
+// 選擇建議
+function selectSuggestion(title) {
+  document.getElementById('searchInput').value = title;
+  document.getElementById('searchSuggestions').style.display = 'none';
+  performSearch(title);
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+  
+  // 檢查是否有從主頁傳來的搜尋關鍵字
+  const savedQuery = localStorage.getItem('searchQuery');
+  if (savedQuery) {
+    document.getElementById('searchInput').value = savedQuery;
+    performSearch(savedQuery);
+    localStorage.removeItem('searchQuery'); // 清除已使用的查詢
+  }
+  
+  const searchInput = document.getElementById('searchInput');
+  
+  // 搜尋輸入事件
+  searchInput.addEventListener('input', function() {
+    const query = this.value;
+    showSuggestions(query);
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => performSearch(query), 300);
+  });
+
+  // 點擊外部關閉建議
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-container')) {
+      document.getElementById('searchSuggestions').style.display = 'none';
+    }
+  });
+
+  // 篩選器變更事件
+  document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+  document.getElementById('functionFilter').addEventListener('change', applyFilters);
+  document.getElementById('sortFilter').addEventListener('change', applyFilters);
+});
+
+// 應用篩選器
+function applyFilters() {
+  const category = document.getElementById('categoryFilter').value;
+  const functionType = document.getElementById('functionFilter').value;
+  const sort = document.getElementById('sortFilter').value;
+  
+  let filteredResults = searchData;
+  
+  if (category) {
+    filteredResults = filteredResults.filter(item => item.type === category);
+  }
+  
+  // 這裡可以添加更多篩選邏輯
+  
+  displayResults(filteredResults, '');
+}
+</script>
+</body>
+</html>

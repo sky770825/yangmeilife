@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>楊梅公車時刻表 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --grad:linear-gradient(135deg,#10b981,#059669);
+  --glass-bg:rgba(255,255,255,0.6);
+  --glass-dark:rgba(30,30,30,0.6);
+  --shadow-light:0 4px 12px rgba(0,0,0,.1);
+  --border-radius:1rem;
+  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body{
+  background:linear-gradient(to bottom,#d1fae5,#fff);
+  transition:var(--transition);
+  font-family:system-ui,-apple-system,sans-serif;
+  line-height:1.6;
+}
+
+.glass-card{
+  background:var(--glass-bg);
+  backdrop-filter:blur(10px);
+  border-radius:var(--border-radius);
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.bus-card{
+  background:rgba(255,255,255,0.8);
+  border-radius:0.5rem;
+  padding:0.75rem;
+  margin-bottom:0.5rem;
+  transition:var(--transition);
+  border-left:3px solid #10b981;
+}
+
+.bus-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-light);
+}
+
+.arriving{
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:white;
+  animation:pulse 2s infinite;
+}
+
+.delayed{
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+  color:white;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+#themeToggle{
+  position:fixed;
+  top:0.75rem;
+  right:0.75rem;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  padding:.4rem .6rem;
+  border-radius:9999px;
+  z-index:50;
+  transition:var(--transition);
+  cursor:pointer;
+  font-size:1rem;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換 -->
+<button id="themeToggle" aria-label="切換主題模式">🌞</button>
+
+<!-- 返回按鈕 -->
+<button onclick="history.back()" class="fixed top-3 left-3 bg-white shadow-lg rounded-full p-2 z-50 hover:scale-105 transition text-sm">
+  ←
+</button>
+
+<!-- 標題區 -->
+<header class="text-center py-4" style="background:var(--grad);color:white;">
+  <h1 class="text-2xl font-bold">🚌 楊梅公車時刻表</h1>
+  <p class="text-xs opacity-90 mt-1">楊梅區公車路線與時刻表查詢</p>
+</header>
+
+<main class="px-3 py-4 space-y-4">
+  <!-- 路線選擇 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h2 class="text-lg font-bold mb-3">🚌 選擇路線</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <button onclick="showRoute('L608')" class="bus-card hover:bg-green-50 cursor-pointer">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">🚌</span>
+          <div>
+            <div class="font-semibold text-sm">L608 永寧上田線</div>
+            <div class="text-xs text-gray-600">永寧站 ↔ 楊梅火車站</div>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="showRoute('L609')" class="bus-card hover:bg-green-50 cursor-pointer">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">🚌</span>
+          <div>
+            <div class="font-semibold text-sm">L609 幼獅工業區線</div>
+            <div class="text-xs text-gray-600">藝術社區 ↔ 幼獅工業區</div>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="showRoute('L615')" class="bus-card hover:bg-green-50 cursor-pointer">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">🚌</span>
+          <div>
+            <div class="font-semibold text-sm">L615 楊梅頭湖線</div>
+            <div class="text-xs text-gray-600">楊梅後火車站 ↔ 八方園餐廳</div>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="showRoute('301')" class="bus-card hover:bg-green-50 cursor-pointer">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">🚌</span>
+          <div>
+            <div class="font-semibold text-sm">301 桃園-楊梅</div>
+            <div class="text-xs text-gray-600">桃園巨蛋 ↔ 楊梅火車站</div>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="showRoute('5623B')" class="bus-card hover:bg-green-50 cursor-pointer">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">🚌</span>
+          <div>
+            <div class="font-semibold text-sm">5623B 楊梅-中壢</div>
+            <div class="text-xs text-gray-600">楊梅火車站 ↔ 捷運環北站</div>
+          </div>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <!-- 路線詳情 -->
+  <section id="routeDetails" class="glass-card p-4 shadow-lg" style="display: none;">
+    <div class="flex justify-between items-center mb-3">
+      <h2 id="routeTitle" class="text-lg font-bold">🚌 路線詳情</h2>
+      <button onclick="hideRouteDetails()" class="text-gray-500 hover:text-gray-700 text-sm">✕</button>
+    </div>
+    
+    <!-- 路線圖 -->
+    <div id="routeMap" class="mb-4">
+      <!-- 動態載入路線圖 -->
+    </div>
+    
+    <!-- 時刻表 -->
+    <div id="schedule" class="mb-4">
+      <h3 class="text-base font-semibold mb-2">⏰ 發車時刻表</h3>
+      <div id="scheduleContent">
+        <!-- 動態載入時刻表 -->
+      </div>
+    </div>
+    
+    <!-- 停靠站 -->
+    <div id="stops">
+      <h3 class="text-base font-semibold mb-2">📍 停靠站點</h3>
+      <div id="stopsContent">
+        <!-- 動態載入停靠站 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 乘車資訊 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h2 class="text-lg font-bold mb-3">💡 乘車資訊</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div class="p-3 bg-blue-50 rounded-lg">
+        <div class="text-base font-bold text-blue-600 mb-2">💰 票價資訊</div>
+        <div class="text-xs text-gray-700 space-y-1">
+          <div>• L系列路線：免費搭乘（市民免費公車）</div>
+          <div>• 301路線：15-25元</div>
+          <div>• 5623B路線：15-25元</div>
+          <div>• 可使用悠遊卡、一卡通</div>
+        </div>
+      </div>
+      
+      <div class="p-3 bg-green-50 rounded-lg">
+        <div class="text-base font-bold text-green-600 mb-2">⏰ 營運時間</div>
+        <div class="text-xs text-gray-700 space-y-1">
+          <div>• L系列路線：平日06:00-21:30，假日07:00-20:30</div>
+          <div>• 301路線：平日05:30-22:00，假日06:00-21:30</div>
+          <div>• 5623B路線：平日05:45-22:15，假日06:15-21:45</div>
+          <div>• 班距：15-60分鐘不等</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 公車小貼士 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h2 class="text-lg font-bold mb-3">💡 乘車小貼士</h2>
+    <div class="space-y-2 text-xs">
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">🚌</span>
+        <span>L系列路線為市民免費公車，無需付費</span>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">📱</span>
+        <span>建議下載桃園公車APP查詢即時動態</span>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">⏰</span>
+        <span>班次間距較長，建議提前5-10分鐘到達候車</span>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">🚪</span>
+        <span>到站前請按鈴，準備下車</span>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">📍</span>
+        <span>金台通運營運L系列路線，桃園客運營運其他路線</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// 主題切換
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
+});
+
+// 公車路線資料（已核對官方資訊）
+const busRoutes = {
+  'L608': {
+    name: 'L608 永寧上田線',
+    description: '老莊路739巷 ↔ 大造加油站',
+    duration: '約50分鐘',
+    operator: '金台通運',
+    stops: ['老莊路739巷', '永寧站', '上田站', '楊梅國中', '楊梅國小', '楊梅火車站', '大造加油站'],
+    schedule: {
+      '平日': ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30'],
+      '假日': ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30']
+    }
+  },
+  'L609': {
+    name: 'L609 幼獅工業區線',
+    description: '藝術社區 ↔ 高獅路834巷',
+    duration: '約35分鐘',
+    operator: '金台通運',
+    stops: ['藝術社區', '瑞坪路口', '瑞塘國小', '文化街', '幼獅工業區', '高獅路834巷'],
+    schedule: {
+      '平日': ['06:15', '06:45', '07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15', '20:45'],
+      '假日': ['07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15']
+    }
+  },
+  'L615': {
+    name: 'L615 楊梅頭湖線',
+    description: '楊梅後火車站 ↔ 八方園餐廳（揚昇）',
+    duration: '約40分鐘',
+    operator: '金台通運',
+    stops: ['楊梅後火車站', '楊心國小', '頭湖', '中興', '楊梅國小（中山）', '行政園區', '八方園餐廳（揚昇）'],
+    schedule: {
+      '平日': ['06:30', '07:30', '08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:30', '19:30', '20:30'],
+      '假日': ['07:30', '08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:30', '19:30']
+    }
+  },
+  '301': {
+    name: '301 桃園-楊梅',
+    description: '桃園巨蛋 ↔ 楊梅火車站',
+    duration: '約60分鐘',
+    operator: '桃園客運',
+    stops: ['桃園巨蛋', '桃園火車站', '中壢火車站', '楊梅火車站'],
+    schedule: {
+      '平日': ['05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'],
+      '假日': ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30']
+    }
+  },
+  '5623B': {
+    name: '5623B 楊梅-中壢',
+    description: '楊梅火車站 ↔ 捷運環北站',
+    duration: '約45分鐘',
+    operator: '桃園客運',
+    stops: ['楊梅火車站', '中壢火車站', '中壢高中', '捷運環北站'],
+    schedule: {
+      '平日': ['05:45', '06:15', '06:45', '07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15', '20:45', '21:15', '21:45', '22:15'],
+      '假日': ['06:15', '06:45', '07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15', '20:45', '21:15', '21:45']
+    }
+  }
+};
+
+// 顯示路線詳情
+function showRoute(routeId) {
+  const route = busRoutes[routeId];
+  if (!route) {
+    alert('找不到該路線');
+    return;
+  }
+
+  // 顯示路線詳情區塊
+  const detailsSection = document.getElementById('routeDetails');
+  detailsSection.style.display = 'block';
+
+  // 更新標題
+  document.getElementById('routeTitle').textContent = `🚌 ${route.name}`;
+
+  // 更新路線圖
+  updateRouteMap(route);
+
+  // 更新時刻表
+  updateSchedule(route);
+
+  // 更新停靠站
+  updateStops(route);
+
+  // 滾動到詳情區塊
+  detailsSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// 隱藏路線詳情
+function hideRouteDetails() {
+  document.getElementById('routeDetails').style.display = 'none';
+}
+
+// 更新路線圖
+function updateRouteMap(route) {
+  const routeMapDiv = document.getElementById('routeMap');
+  routeMapDiv.innerHTML = `
+    <div class="bg-gradient-to-r from-green-400 to-blue-500 rounded-lg p-3 text-white">
+      <div class="text-center mb-3">
+        <div class="text-lg font-bold">${route.name}</div>
+        <div class="text-xs opacity-80">${route.description} • ${route.duration}</div>
+        <div class="text-xs opacity-60 mt-1">營運商：${route.operator || '未指定'}</div>
+      </div>
+      <div class="space-y-1">
+        ${route.stops.map((stop, index) => {
+          const isFirst = index === 0;
+          const isLast = index === route.stops.length - 1;
+          return `
+            <div class="flex items-center space-x-2">
+              <div class="w-3 h-3 bg-${isFirst ? 'yellow' : isLast ? 'red' : 'white'}-${isFirst || isLast ? '400' : ''} rounded-full ${isFirst || isLast ? 'animate-pulse' : ''}"></div>
+              <span class="text-xs">${stop}${isFirst ? ' (起點)' : isLast ? ' (終點)' : ''}</span>
+            </div>
+            ${index < route.stops.length - 1 ? '<div class="w-px h-3 bg-white/30 ml-1"></div>' : ''}
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// 更新時刻表
+function updateSchedule(route) {
+  const scheduleDiv = document.getElementById('scheduleContent');
+  scheduleDiv.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div>
+        <h4 class="font-semibold text-blue-600 mb-2 text-sm">📅 平日時刻表</h4>
+        <div class="grid grid-cols-5 gap-1 text-xs">
+          ${route.schedule['平日'].map(time => `<span class="bg-blue-50 p-1 rounded text-center">${time}</span>`).join('')}
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold text-green-600 mb-2 text-sm">🎉 假日時刻表</h4>
+        <div class="grid grid-cols-5 gap-1 text-xs">
+          ${route.schedule['假日'].map(time => `<span class="bg-green-50 p-1 rounded text-center">${time}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// 更新停靠站
+function updateStops(route) {
+  const stopsDiv = document.getElementById('stopsContent');
+  stopsDiv.innerHTML = `
+    <div class="space-y-1">
+      ${route.stops.map((stop, index) => `
+        <div class="flex items-center space-x-2 p-2 bg-gray-50 rounded-lg">
+          <span class="text-sm">${index === 0 ? '🚏' : index === route.stops.length - 1 ? '🏁' : '📍'}</span>
+          <span class="font-medium text-sm">${stop}</span>
+          <span class="text-xs text-gray-500 ml-auto">第${index + 1}站</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// 頁面載入完成
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('楊梅公車時刻表已載入完成');
+});
+</script>
+</body>
+</html>

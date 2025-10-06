@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>委託出租 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --grad-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  background: rgba(102, 126, 234, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.step-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  border-left: 4px solid #667eea;
+}
+
+.step-number {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 30px;
+  height: 30px;
+  background: #667eea;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.contact-form {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.3s ease;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: #667eea;
+  color: white;
+}
+
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .service-card,
+.dark .step-card,
+.dark .contact-form {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .form-label {
+  color: #d1d5db;
+}
+
+.dark .form-input,
+.dark .form-textarea {
+  background: rgba(55, 65, 81, 0.5);
+  border-color: #4b5563;
+  color: white;
+}
+
+.dark .form-input:focus,
+.dark .form-textarea:focus {
+  border-color: #667eea;
+}
+
+.dark .feature-item {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.dark .feature-item:hover {
+  background: rgba(102, 126, 234, 0.2);
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">🏘 委託出租</h1>
+    <p class="text-xl text-white opacity-90">專業出租管理，讓您的房產穩定獲利</p>
+  </div>
+
+  <!-- 服務優勢 -->
+  <div class="glass rounded-2xl p-6 mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6 text-center">✨ 服務優勢</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="feature-item">
+        <div class="text-2xl mr-3">💰</div>
+        <div>
+          <div class="font-bold">穩定收益</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">專業定價策略，確保穩定租金收入</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="text-2xl mr-3">🔍</div>
+        <div>
+          <div class="font-bold">租客篩選</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">嚴格審核租客背景，降低風險</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="text-2xl mr-3">🛠️</div>
+        <div>
+          <div class="font-bold">維護管理</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">24小時維修服務，房屋保值</div>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="text-2xl mr-3">📋</div>
+        <div>
+          <div class="font-bold">法律保障</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">完整租賃契約，保障雙方權益</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 服務流程 -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6 text-center">📋 服務流程</h2>
+    <div class="space-y-4">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3 class="text-xl font-bold mb-2">房屋評估</h3>
+        <p class="text-gray-600 dark:text-gray-400">專業團隊現場評估房屋狀況，制定出租策略</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3 class="text-xl font-bold mb-2">市場定價</h3>
+        <p class="text-gray-600 dark:text-gray-400">根據市場行情和房屋條件，制定合理租金</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3 class="text-xl font-bold mb-2">廣告行銷</h3>
+        <p class="text-gray-600 dark:text-gray-400">多平台刊登廣告，擴大曝光範圍</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3 class="text-xl font-bold mb-2">租客篩選</h3>
+        <p class="text-gray-600 dark:text-gray-400">嚴格審核租客資料，確保租賃安全</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <h3 class="text-xl font-bold mb-2">簽約交屋</h3>
+        <p class="text-gray-600 dark:text-gray-400">協助簽訂租賃契約，完成交屋手續</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">6</div>
+        <h3 class="text-xl font-bold mb-2">後續管理</h3>
+        <p class="text-gray-600 dark:text-gray-400">持續管理租賃關係，處理各項事務</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 服務內容 -->
+  <div class="service-card mb-8">
+    <h2 class="text-xl font-bold mb-4">🛠️ 服務內容</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <h3 class="font-bold mb-2">📊 出租管理</h3>
+        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+          <li>• 市場租金評估</li>
+          <li>• 租客背景調查</li>
+          <li>• 租賃契約制定</li>
+          <li>• 租金收取管理</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">🔧 維修服務</h3>
+        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+          <li>• 24小時緊急維修</li>
+          <li>• 定期房屋檢查</li>
+          <li>• 設備維護保養</li>
+          <li>• 清潔服務安排</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">📞 客服支援</h3>
+        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+          <li>• 租客問題處理</li>
+          <li>• 糾紛調解服務</li>
+          <li>• 定期狀況報告</li>
+          <li>• 法律諮詢協助</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-bold mb-2">💰 財務管理</h3>
+        <ul class="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+          <li>• 租金收入記錄</li>
+          <li>• 費用支出管理</li>
+          <li>• 稅務申報協助</li>
+          <li>• 財務報表提供</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 收費標準 -->
+  <div class="service-card mb-8">
+    <h2 class="text-xl font-bold mb-4">💰 收費標準</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="text-center p-4 border border-gray-200 rounded-lg">
+        <div class="text-2xl font-bold text-blue-600">5%</div>
+        <div class="font-bold">基本服務費</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">月租金收入的5%</div>
+      </div>
+      <div class="text-center p-4 border border-gray-200 rounded-lg">
+        <div class="text-2xl font-bold text-green-600">免費</div>
+        <div class="font-bold">維修服務</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">一般維修免費</div>
+      </div>
+      <div class="text-center p-4 border border-gray-200 rounded-lg">
+        <div class="text-2xl font-bold text-purple-600">面議</div>
+        <div class="font-bold">特殊服務</div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">大型維修另行計費</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 聯絡表單 -->
+  <div class="contact-form">
+    <h2 class="text-2xl font-bold mb-6 text-center">📞 立即諮詢</h2>
+    <form id="contactForm" onsubmit="submitForm(event)">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="form-group">
+          <label class="form-label">姓名 *</label>
+          <input type="text" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">聯絡電話 *</label>
+          <input type="tel" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">電子郵件</label>
+          <input type="email" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label">房屋地址 *</label>
+          <input type="text" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">房屋類型</label>
+          <select class="form-input">
+            <option value="">請選擇</option>
+            <option value="apartment">公寓</option>
+            <option value="house">透天厝</option>
+            <option value="studio">套房</option>
+            <option value="office">辦公室</option>
+            <option value="shop">店面</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">期望租金</label>
+          <input type="number" class="form-input" placeholder="每月租金">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">其他需求</label>
+        <textarea class="form-textarea" placeholder="請描述您的其他需求或問題..."></textarea>
+      </div>
+      <div class="flex gap-4">
+        <button type="submit" class="btn-primary flex-1">📤 送出諮詢</button>
+        <button type="button" onclick="callNow()" class="btn-secondary">📞 立即來電</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="glass rounded-2xl p-6 mt-8 text-center">
+    <h3 class="text-xl font-bold text-white mb-4">📞 聯絡資訊</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+      <div>
+        <div class="text-2xl mb-2">📱</div>
+        <div class="font-bold">電話</div>
+        <div class="text-sm opacity-90">0925-666-597</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">📧</div>
+        <div class="font-bold">信箱</div>
+        <div class="text-sm opacity-90">service@realtor.com</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">🕒</div>
+        <div class="font-bold">服務時間</div>
+        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 提交表單
+function submitForm(event) {
+  event.preventDefault();
+  
+  // 獲取表單數據
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData);
+  
+  // 顯示成功訊息
+  alert('感謝您的諮詢！我們將於24小時內與您聯絡。');
+  
+  // 重置表單
+  event.target.reset();
+  
+  // 這裡可以添加實際的表單提交邏輯
+  console.log('表單數據:', data);
+}
+
+// 立即來電
+function callNow() {
+  window.location.href = 'tel:0925-666-597';
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+});
+</script>
+</body>
+</html>

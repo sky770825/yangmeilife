@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>裝修改造 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --grad-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.renovation-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.renovation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.step-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  border-left: 4px solid #667eea;
+}
+
+.step-number {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 30px;
+  height: 30px;
+  background: #667eea;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.tool-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  background: rgba(102, 126, 234, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.tool-item:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: translateX(5px);
+}
+
+.case-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.case-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.case-image {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.case-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.case-meta {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.case-description {
+  color: #4b5563;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.budget-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-center;
+}
+
+.budget-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 0.5rem;
+}
+
+.budget-label {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.budget-breakdown {
+  text-align: left;
+}
+
+.budget-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.budget-item:last-child {
+  border-bottom: none;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.tip-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-left: 5px solid #10b981;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.tip-title {
+  color: #10b981;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.tip-content {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .renovation-card,
+.dark .step-card,
+.dark .case-item,
+.dark .budget-card,
+.dark .tip-card {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .tool-item:hover {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+.dark .case-title {
+  color: #f9fafb;
+}
+
+.dark .budget-value {
+  color: #818cf8;
+}
+
+.dark .tip-title {
+  color: #34d399;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">🏗️ 裝修改造</h1>
+    <p class="text-xl text-white opacity-90">專業裝潢指南，打造理想居家空間</p>
+  </div>
+
+  <!-- 裝潢工具 -->
+  <div class="renovation-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">🛠️</span>
+      裝潢工具
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="tool-item" onclick="openTool('decor-calc.html')">
+        <div class="text-3xl mr-3">💰</div>
+        <div class="flex-1">
+          <div class="font-bold">裝潢估價</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">快速估算裝潢費用</div>
+        </div>
+        <div class="text-2xl opacity-60">→</div>
+      </div>
+      <div class="tool-item" onclick="openTool('loan-calc.html')">
+        <div class="text-3xl mr-3">📊</div>
+        <div class="flex-1">
+          <div class="font-bold">裝潢貸款</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">裝潢貸款試算工具</div>
+        </div>
+        <div class="text-2xl opacity-60">→</div>
+      </div>
+      <div class="tool-item" onclick="openTool('grant-renovation.html')">
+        <div class="text-3xl mr-3">💸</div>
+        <div class="flex-1">
+          <div class="font-bold">裝潢補助</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">政府裝潢補助申請</div>
+        </div>
+        <div class="text-2xl opacity-60">→</div>
+      </div>
+      <div class="tool-item" onclick="openTool('inspection.html')">
+        <div class="text-3xl mr-3">🔍</div>
+        <div class="flex-1">
+          <div class="font-bold">驗屋檢測</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">裝潢前房屋檢測</div>
+        </div>
+        <div class="text-2xl opacity-60">→</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 裝潢流程 -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6 text-center">📋 裝潢流程</h2>
+    <div class="space-y-4">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3 class="text-xl font-bold mb-2">需求規劃</h3>
+        <p class="text-gray-600 dark:text-gray-400">確定裝潢風格、預算範圍和功能需求</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3 class="text-xl font-bold mb-2">設計規劃</h3>
+        <p class="text-gray-600 dark:text-gray-400">室內設計師規劃空間配置和風格設計</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3 class="text-xl font-bold mb-2">預算評估</h3>
+        <p class="text-gray-600 dark:text-gray-400">詳細估算各項工程費用和材料成本</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3 class="text-xl font-bold mb-2">施工監工</h3>
+        <p class="text-gray-600 dark:text-gray-400">專業監工確保施工品質和進度</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">5</div>
+        <h3 class="text-xl font-bold mb-2">驗收交屋</h3>
+        <p class="text-gray-600 dark:text-gray-400">完工驗收和後續保固服務</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 預算參考 -->
+  <div class="budget-card mb-8">
+    <h2 class="text-xl font-bold mb-4">💰 裝潢預算參考</h2>
+    <div class="budget-value">8-15萬/坪</div>
+    <div class="budget-label">一般住宅裝潢費用</div>
+    <div class="budget-breakdown">
+      <div class="budget-item">
+        <span>水電工程</span>
+        <span>15-20%</span>
+      </div>
+      <div class="budget-item">
+        <span>木作工程</span>
+        <span>25-30%</span>
+      </div>
+      <div class="budget-item">
+        <span>泥作工程</span>
+        <span>15-20%</span>
+      </div>
+      <div class="budget-item">
+        <span>油漆工程</span>
+        <span>10-15%</span>
+      </div>
+      <div class="budget-item">
+        <span>家具家電</span>
+        <span>20-25%</span>
+      </div>
+      <div class="budget-item">
+        <span>總計</span>
+        <span>100%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 裝潢案例 -->
+  <div class="renovation-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">🏠</span>
+      精選案例
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="case-item">
+        <div class="case-image">
+          <div class="text-center">
+            <div class="text-4xl mb-2">🏡</div>
+            <div>現代簡約風</div>
+          </div>
+        </div>
+        <div class="case-title">信義區 25坪 現代簡約</div>
+        <div class="case-meta">預算: 320萬 | 工期: 45天</div>
+        <div class="case-description">
+          採用簡約設計風格，大量使用木質元素和白色調，營造溫馨舒適的居住環境。開放式廚房設計增加空間感。
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-image">
+          <div class="text-center">
+            <div class="text-4xl mb-2">🏰</div>
+            <div>北歐風格</div>
+          </div>
+        </div>
+        <div class="case-title">大安區 30坪 北歐風格</div>
+        <div class="case-meta">預算: 380萬 | 工期: 50天</div>
+        <div class="case-description">
+          以北歐風格為主題，運用自然材質和明亮色調，創造清新自然的居住空間。多功能收納設計提升實用性。
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-image">
+          <div class="text-center">
+            <div class="text-4xl mb-2">🎨</div>
+            <div>工業風格</div>
+          </div>
+        </div>
+        <div class="case-title">松山區 20坪 工業風格</div>
+        <div class="case-meta">預算: 280萬 | 工期: 40天</div>
+        <div class="case-description">
+          工業風設計，裸露管線和金屬元素，搭配復古家具，營造個性化的居住氛圍。開放式設計增加空間感。
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-image">
+          <div class="text-center">
+            <div class="text-4xl mb-2">🌿</div>
+            <div>自然風格</div>
+          </div>
+        </div>
+        <div class="case-title">中山區 35坪 自然風格</div>
+        <div class="case-meta">預算: 450萬 | 工期: 60天</div>
+        <div class="case-description">
+          融入自然元素，大量使用植物和天然材質，創造與自然和諧共存的居住環境。大面落地窗增加採光。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 裝潢小貼士 -->
+  <div class="tip-card mb-8">
+    <div class="tip-title">💡 裝潢小貼士</div>
+    <div class="tip-content">
+      <ul class="space-y-2">
+        <li>• 提前規劃預算，建議預留10-15%的應急資金</li>
+        <li>• 選擇信譽良好的裝潢公司，查看過往案例和客戶評價</li>
+        <li>• 簽約前詳細確認工程項目和材料規格</li>
+        <li>• 定期監工，確保施工品質符合預期</li>
+        <li>• 保留所有發票和保固書，便於後續維護</li>
+        <li>• 考慮通風和採光，避免過度裝潢影響居住品質</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 材料選擇指南 -->
+  <div class="renovation-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">🔨</span>
+      材料選擇指南
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+        <h3 class="font-bold text-blue-800 dark:text-blue-200 mb-2">🏠 地板材料</h3>
+        <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+          <li>• 實木地板：質感佳，價格高</li>
+          <li>• 複合地板：性價比高，易保養</li>
+          <li>• 磁磚：耐用，適合潮濕區域</li>
+          <li>• 塑膠地板：經濟實惠</li>
+        </ul>
+      </div>
+      <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
+        <h3 class="font-bold text-green-800 dark:text-green-200 mb-2">🎨 牆面材料</h3>
+        <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
+          <li>• 乳膠漆：經濟實惠，色彩豐富</li>
+          <li>• 壁紙：圖案多樣，易更換</li>
+          <li>• 木皮：自然質感，價格較高</li>
+          <li>• 石材：質感佳，維護需注意</li>
+        </ul>
+      </div>
+      <div class="bg-purple-50 dark:bg-purple-900 p-4 rounded-lg">
+        <h3 class="font-bold text-purple-800 dark:text-purple-200 mb-2">💡 燈光設計</h3>
+        <ul class="text-sm text-purple-700 dark:text-purple-300 space-y-1">
+          <li>• 主燈：提供主要照明</li>
+          <li>• 輔助燈：營造氛圍</li>
+          <li>• 工作燈：特定區域照明</li>
+          <li>• LED燈：節能環保</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="glass rounded-2xl p-6 text-center">
+    <h3 class="text-xl font-bold text-white mb-4">📞 裝潢諮詢專線</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+      <div>
+        <div class="text-2xl mb-2">📱</div>
+        <div class="font-bold">裝潢專線</div>
+        <div class="text-sm opacity-90">0925-666-597</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">📧</div>
+        <div class="font-bold">設計信箱</div>
+        <div class="text-sm opacity-90">design@realtor.com</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">🕒</div>
+        <div class="font-bold">服務時間</div>
+        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 開啟工具
+function openTool(url) {
+  if (url.startsWith('http')) {
+    window.open(url, '_blank');
+  } else {
+    window.location.href = url;
+  }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+});
+</script>
+</body>
+</html>

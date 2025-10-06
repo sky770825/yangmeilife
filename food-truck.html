@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>餐車排班 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-food: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.schedule-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.schedule-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.truck-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border-left: 5px solid #fa709a;
+}
+
+.truck-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.truck-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.truck-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.truck-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.truck-status.open {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.truck-status.closed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.truck-status.coming {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.truck-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.truck-description {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.truck-menu {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.truck-menu h4 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.truck-menu ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  color: #4b5563;
+}
+
+.truck-menu li {
+  margin-bottom: 0.25rem;
+}
+
+.truck-schedule {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.truck-schedule h4 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-day {
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.schedule-time {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.location-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.location-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.location-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.location-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.location-description {
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.day-filter {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background: #667eea;
+  color: white;
+}
+
+.filter-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .schedule-card,
+.dark .truck-item,
+.dark .location-item {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .filter-btn {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: #818cf8;
+  color: #818cf8;
+}
+
+.dark .filter-btn.active {
+  background: #818cf8;
+  color: white;
+}
+
+.dark .filter-btn:hover {
+  background: #818cf8;
+  color: white;
+}
+
+.dark .truck-title,
+.dark .location-title,
+.dark .truck-menu h4,
+.dark .truck-schedule h4,
+.dark .schedule-day {
+  color: #f9fafb;
+}
+
+.dark .truck-menu,
+.dark .truck-schedule {
+  background: rgba(55, 65, 81, 0.5);
+}
+
+.dark .schedule-item {
+  border-bottom-color: #4b5563;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">🚚 餐車排班</h1>
+    <p class="text-xl text-white opacity-90">美味餐車，隨時為您服務</p>
+  </div>
+
+  <!-- 今日餐車 -->
+  <div class="schedule-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">🍽️</span>
+      今日餐車
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="text-center p-4 bg-green-50 dark:bg-green-900 rounded-lg">
+        <div class="text-2xl mb-2">🚚</div>
+        <div class="font-bold text-green-800 dark:text-green-200">營業中</div>
+        <div class="text-sm text-green-600 dark:text-green-400">3台餐車</div>
+      </div>
+      <div class="text-center p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
+        <div class="text-2xl mb-2">⏰</div>
+        <div class="font-bold text-yellow-800 dark:text-yellow-200">即將到達</div>
+        <div class="text-sm text-yellow-600 dark:text-yellow-400">2台餐車</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 日期篩選 -->
+  <div class="schedule-card">
+    <h2 class="text-lg font-bold mb-4">📅 選擇日期</h2>
+    <div class="day-filter">
+      <button class="filter-btn active" onclick="filterByDay('today')">今天</button>
+      <button class="filter-btn" onclick="filterByDay('tomorrow')">明天</button>
+      <button class="filter-btn" onclick="filterByDay('week')">本週</button>
+      <button class="filter-btn" onclick="filterByDay('all')">全部</button>
+    </div>
+  </div>
+
+  <!-- 餐車列表 -->
+  <div id="truckList">
+    <!-- 阿婆滷肉飯餐車 -->
+    <div class="truck-item" data-day="today tomorrow">
+      <div class="truck-header">
+        <div>
+          <div class="truck-title">阿婆滷肉飯餐車</div>
+          <div class="truck-meta">
+            <span>📍 信義區</span>
+            <span>🍽️ 台菜</span>
+            <span>💰 $50-100</span>
+          </div>
+        </div>
+        <div class="truck-status open">營業中</div>
+      </div>
+      <div class="truck-description">
+        傳承三代的老字號滷肉飯，使用獨家秘方滷製，肥瘦適中，香氣四溢。配菜豐富，價格親民。
+      </div>
+      <div class="truck-menu">
+        <h4>招牌菜單：</h4>
+        <ul>
+          <li>滷肉飯 - $50</li>
+          <li>滷蛋 - $15</li>
+          <li>滷豆腐 - $20</li>
+          <li>滷白菜 - $30</li>
+          <li>貢丸湯 - $25</li>
+        </ul>
+      </div>
+      <div class="truck-schedule">
+        <h4>營業時間：</h4>
+        <div class="schedule-item">
+          <span class="schedule-day">週一至週五</span>
+          <span class="schedule-time">11:00-14:00, 17:00-20:00</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-day">週六至週日</span>
+          <span class="schedule-time">10:00-21:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 功夫茶餐車 -->
+    <div class="truck-item" data-day="today tomorrow">
+      <div class="truck-header">
+        <div>
+          <div class="truck-title">功夫茶餐車</div>
+          <div class="truck-meta">
+            <span>📍 大安區</span>
+            <span>🍹 飲品</span>
+            <span>💰 $30-80</span>
+          </div>
+        </div>
+        <div class="truck-status open">營業中</div>
+      </div>
+      <div class="truck-description">
+        專業茶飲品牌，提供各種手搖飲品和輕食。茶葉品質優良，製作精細，環境舒適。
+      </div>
+      <div class="truck-menu">
+        <h4>招牌菜單：</h4>
+        <ul>
+          <li>珍珠奶茶 - $55</li>
+          <li>功夫紅茶 - $35</li>
+          <li>檸檬綠茶 - $45</li>
+          <li>布丁奶茶 - $60</li>
+          <li>四季春茶 - $30</li>
+        </ul>
+      </div>
+      <div class="truck-schedule">
+        <h4>營業時間：</h4>
+        <div class="schedule-item">
+          <span class="schedule-day">週一至週日</span>
+          <span class="schedule-time">10:00-22:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 夜市小吃攤 -->
+    <div class="truck-item" data-day="today tomorrow">
+      <div class="truck-header">
+        <div>
+          <div class="truck-title">夜市小吃攤</div>
+          <div class="truck-meta">
+            <span>📍 中山區</span>
+            <span>🌙 夜市</span>
+            <span>💰 $30-80</span>
+          </div>
+        </div>
+        <div class="truck-status coming">即將到達</div>
+      </div>
+      <div class="truck-description">
+        傳統夜市美食，包括蚵仔煎、臭豆腐、大腸包小腸等經典小吃。價格實惠，口味地道。
+      </div>
+      <div class="truck-menu">
+        <h4>招牌菜單：</h4>
+        <ul>
+          <li>蚵仔煎 - $60</li>
+          <li>臭豆腐 - $40</li>
+          <li>大腸包小腸 - $50</li>
+          <li>鹽酥雞 - $45</li>
+          <li>珍珠奶茶 - $35</li>
+        </ul>
+      </div>
+      <div class="truck-schedule">
+        <h4>營業時間：</h4>
+        <div class="schedule-item">
+          <span class="schedule-day">週一至週日</span>
+          <span class="schedule-time">18:00-24:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 日式料理餐車 -->
+    <div class="truck-item" data-day="tomorrow">
+      <div class="truck-header">
+        <div>
+          <div class="truck-title">日式料理餐車</div>
+          <div class="truck-meta">
+            <span>📍 松山區</span>
+            <span>🍣 日式</span>
+            <span>💰 $80-150</span>
+          </div>
+        </div>
+        <div class="truck-status closed">休息中</div>
+      </div>
+      <div class="truck-description">
+        正宗日式料理，包括壽司、拉麵、丼飯等。食材新鮮，製作精細，口味地道。
+      </div>
+      <div class="truck-menu">
+        <h4>招牌菜單：</h4>
+        <ul>
+          <li>綜合壽司 - $120</li>
+          <li>豚骨拉麵 - $100</li>
+          <li>親子丼 - $80</li>
+          <li>天婦羅 - $90</li>
+          <li>味噌湯 - $30</li>
+        </ul>
+      </div>
+      <div class="truck-schedule">
+        <h4>營業時間：</h4>
+        <div class="schedule-item">
+          <span class="schedule-day">週二至週日</span>
+          <span class="schedule-time">11:30-14:00, 17:30-21:00</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-day">週一</span>
+          <span class="schedule-time">休息</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 義式料理餐車 -->
+    <div class="truck-item" data-day="week">
+      <div class="truck-header">
+        <div>
+          <div class="truck-title">義式料理餐車</div>
+          <div class="truck-meta">
+            <span>📍 信義區</span>
+            <span>🍝 義式</span>
+            <span>💰 $100-200</span>
+          </div>
+        </div>
+        <div class="truck-status closed">休息中</div>
+      </div>
+      <div class="truck-description">
+        正宗義式料理，包括義大利麵、披薩、燉飯等。使用進口食材，口味濃郁。
+      </div>
+      <div class="truck-menu">
+        <h4>招牌菜單：</h4>
+        <ul>
+          <li>義大利麵 - $120</li>
+          <li>瑪格麗特披薩 - $150</li>
+          <li>海鮮燉飯 - $180</li>
+          <li>凱撒沙拉 - $80</li>
+          <li>提拉米蘇 - $60</li>
+        </ul>
+      </div>
+      <div class="truck-schedule">
+        <h4>營業時間：</h4>
+        <div class="schedule-item">
+          <span class="schedule-day">週三至週日</span>
+          <span class="schedule-time">12:00-14:30, 18:00-21:30</span>
+        </div>
+        <div class="schedule-item">
+          <span class="schedule-day">週一至週二</span>
+          <span class="schedule-time">休息</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 熱門地點 -->
+  <div class="schedule-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">📍</span>
+      熱門地點
+    </h2>
+    <div class="space-y-4">
+      <div class="location-item">
+        <div class="location-title">信義區市民廣場</div>
+        <div class="location-meta">
+          <span>📍 台北市信義區信義路五段7號</span>
+          <span>🕒 11:00-21:00</span>
+        </div>
+        <div class="location-description">
+          信義區最熱鬧的餐車聚集地，平日有3-5台餐車營業，週末可達8台以上。交通便利，停車方便。
+        </div>
+      </div>
+      <div class="location-item">
+        <div class="location-title">大安區公園</div>
+        <div class="location-meta">
+          <span>📍 台北市大安區復興南路二段</span>
+          <span>🕒 10:00-22:00</span>
+        </div>
+        <div class="location-description">
+          大安區居民最愛的餐車地點，環境優美，適合全家大小一起用餐。平日有2-4台餐車營業。
+        </div>
+      </div>
+      <div class="location-item">
+        <div class="location-title">中山區夜市</div>
+        <div class="location-meta">
+          <span>📍 台北市中山區南京東路二段</span>
+          <span>🕒 18:00-24:00</span>
+        </div>
+        <div class="location-description">
+          傳統夜市氛圍，夜間最熱鬧的餐車聚集地。各種夜市小吃應有盡有，是體驗台灣夜市文化的好去處。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="glass rounded-2xl p-6 text-center">
+    <h3 class="text-xl font-bold text-white mb-4">📞 餐車服務</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+      <div>
+        <div class="text-2xl mb-2">📱</div>
+        <div class="font-bold">服務專線</div>
+        <div class="text-sm opacity-90">0925-666-597</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">📧</div>
+        <div class="font-bold">合作信箱</div>
+        <div class="text-sm opacity-90">foodtruck@realtor.com</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">🕒</div>
+        <div class="font-bold">服務時間</div>
+        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 按日期篩選
+function filterByDay(day) {
+  const buttons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.truck-item');
+  
+  // 更新按鈕狀態
+  buttons.forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // 篩選項目
+  items.forEach(item => {
+    if (day === 'all' || item.dataset.day.includes(day)) {
+      item.style.display = 'block';
+      item.classList.add('fade-in');
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+});
+</script>
+</body>
+</html>

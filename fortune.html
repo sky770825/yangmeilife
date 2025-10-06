@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今日運勢 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --grad:linear-gradient(135deg,#4c1d95,#7c3aed,#a855f7,#c084fc);
+  --grad-dark:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95,#6366f1);
+  --glass-bg:rgba(255,255,255,0.1);
+  --glass-dark:rgba(15,15,35,0.8);
+  --shadow-light:0 2px 8px rgba(139,92,246,0.3);
+  --shadow-mystical:0 0 15px rgba(139,92,246,0.4), 0 0 30px rgba(168,85,247,0.2);
+  --border-radius:0.75rem;
+  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --mystical-glow:0 0 10px rgba(139,92,246,0.6);
+  --container-padding: clamp(0.5rem, 1.5vw, 1rem);
+  --section-gap: clamp(0.5rem, 2vw, 1rem);
+  --card-padding: clamp(0.5rem, 2vw, 0.75rem);
+}
+
+body{
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d1b69 50%, #1a1a3e 75%, #0f0f23 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  transition:var(--transition);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height:1.6;
+  color: #e0e7ff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: sparkle 20s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes sparkle {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-100px); }
+}
+
+.glass-card{
+  background:var(--glass-dark);
+  backdrop-filter:blur(20px);
+  border-radius:var(--border-radius);
+  border:1px solid rgba(139,92,246,0.3);
+  box-shadow:var(--shadow-mystical);
+  position: relative;
+  z-index: 2;
+  padding: var(--card-padding);
+  margin-bottom: var(--section-gap);
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--border-radius);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(168,85,247,0.3), rgba(139,92,246,0.5));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+.fortune-card{
+  background:rgba(15,15,35,0.6);
+  border-radius:0.5rem;
+  padding:clamp(0.5rem, 1.5vw, 0.75rem);
+  margin-bottom:0.5rem;
+  transition:var(--transition);
+  border:1px solid rgba(139,92,246,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.fortune-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.1), transparent);
+  transition: left 0.5s;
+}
+
+.fortune-card:hover::before {
+  left: 100%;
+}
+
+.fortune-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(139,92,246,0.3);
+  border-color: rgba(139,92,246,0.4);
+}
+
+.crystal-ball{
+  width:clamp(60px, 12vw, 90px);
+  height:clamp(60px, 12vw, 90px);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(139,92,246,0.8), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(168,85,247,0.6), transparent 70%),
+    linear-gradient(135deg, rgba(139,92,246,0.3), rgba(168,85,247,0.5), rgba(192,132,252,0.3));
+  border-radius:50%;
+  margin:0 auto;
+  position:relative;
+  animation:float 4s ease-in-out infinite, rotate 20s linear infinite;
+  box-shadow:
+    0 0 20px rgba(139,92,246,0.6),
+    0 0 40px rgba(168,85,247,0.3),
+    inset 0 0 20px rgba(255,255,255,0.1);
+  border: 1px solid rgba(139,92,246,0.3);
+}
+
+.crystal-ball::before{
+  content:'';
+  position:absolute;
+  top:25%;
+  left:35%;
+  width:clamp(8px, 1.5vw, 12px);
+  height:clamp(8px, 1.5vw, 12px);
+  background:radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
+  border-radius:50%;
+  animation:sparkle 3s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255,255,255,0.8);
+}
+
+.crystal-ball::after{
+  content:'';
+  position:absolute;
+  top:60%;
+  left:20%;
+  width:clamp(6px, 1vw, 8px);
+  height:clamp(6px, 1vw, 8px);
+  background:radial-gradient(circle, rgba(139,92,246,0.8), transparent);
+  border-radius:50%;
+  animation:sparkle 2.5s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes mystical-pulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 20px rgba(139,92,246,0.4),
+      0 0 40px rgba(168,85,247,0.2),
+      inset 0 0 20px rgba(255,255,255,0.1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 30px rgba(139,92,246,0.6),
+      0 0 60px rgba(168,85,247,0.4),
+      inset 0 0 30px rgba(255,255,255,0.2);
+  }
+}
+
+.fortune-result{
+  background:var(--grad);
+  color:white;
+  border-radius:var(--border-radius);
+  padding:var(--card-padding);
+  text-align:center;
+  animation:mystical-pulse 3s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+  margin-bottom: var(--section-gap);
+}
+
+.fortune-result::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: rotate 8s linear infinite;
+  z-index: 0;
+}
+
+.fortune-result > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 
+      0 0 30px rgba(139,92,246,0.4),
+      0 0 60px rgba(168,85,247,0.2),
+      inset 0 0 30px rgba(255,255,255,0.1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 50px rgba(139,92,246,0.6),
+      0 0 100px rgba(168,85,247,0.4),
+      inset 0 0 50px rgba(255,255,255,0.2);
+  }
+}
+
+#themeToggle{
+  position:fixed;
+  top:1rem;
+  right:1rem;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  padding:.75rem 1rem;
+  border-radius:9999px;
+  z-index:50;
+  transition:var(--transition);
+  cursor:pointer;
+  font-size:1.2rem;
+  box-shadow:var(--shadow-mystical);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(139,92,246,0.6);
+}
+
+.mystical-symbol {
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+  animation: sparkle 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+.mystical-symbol:nth-child(2n) {
+  animation-delay: 0.5s;
+}
+
+.mystical-symbol:nth-child(3n) {
+  animation-delay: 1s;
+}
+
+.zodiac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(60px, 12vw, 80px), 1fr));
+  gap: clamp(0.25rem, 1.5vw, 0.5rem);
+}
+
+.zodiac-item {
+  background: rgba(15,15,35,0.7);
+  border: 1px solid rgba(139,92,246,0.3);
+  border-radius: 0.5rem;
+  padding: clamp(0.25rem, 1.5vw, 0.5rem);
+  text-align: center;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.zodiac-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.1), transparent);
+  transition: left 0.5s;
+}
+
+.zodiac-item:hover::before {
+  left: 100%;
+}
+
+.zodiac-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(139,92,246,0.4);
+  border-color: rgba(139,92,246,0.5);
+}
+</style>
+</head>
+<body>
+<!-- 主題切換 -->
+<button id="themeToggle" aria-label="切換主題模式">🌞</button>
+
+<!-- 返回按鈕 -->
+<button onclick="history.back()" class="fixed top-4 left-4 bg-white shadow-lg rounded-full p-3 z-50 hover:scale-105 transition">
+  ←
+</button>
+
+<!-- 標題區 -->
+<header class="text-center py-2 md:py-3 relative overflow-hidden" style="background:var(--grad);color:white;">
+  <div class="absolute inset-0 opacity-20">
+    <span class="mystical-symbol">✦</span>
+    <span class="mystical-symbol">✧</span>
+    <span class="mystical-symbol">✦</span>
+    <span class="mystical-symbol">✧</span>
+    <span class="mystical-symbol">✦</span>
+  </div>
+  <div class="relative z-10">
+    <h1 class="text-xl md:text-2xl lg:text-3xl font-bold mb-0.5">
+      <span class="mystical-symbol">🔮</span>
+      今日運勢
+      <span class="mystical-symbol">✨</span>
+    </h1>
+    <p class="text-xs opacity-90 mt-0.5">探索今日的幸運密碼</p>
+    <div class="mt-1 text-xs opacity-75">2024年3月15日 星期五</div>
+  </div>
+</header>
+
+<main class="px-1 md:px-2 py-2 md:py-3 space-y-2 md:space-y-3">
+  <!-- 水晶球 -->
+  <section class="glass-card text-center">
+    <div class="crystal-ball mb-2"></div>
+    <h2 class="text-sm md:text-base font-bold mb-1">
+      <span class="mystical-symbol">🔮</span>
+      點擊水晶球查看今日運勢
+      <span class="mystical-symbol">🌟</span>
+    </h2>
+    <button onclick="generateFortune()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-sm">
+      <span class="mystical-symbol">✨</span>
+      開始占卜
+      <span class="mystical-symbol">⚡</span>
+    </button>
+  </section>
+
+  <!-- 運勢結果 -->
+  <section id="fortuneResult" class="fortune-result" style="display:none;">
+    <h3 class="text-base md:text-lg font-bold mb-1">
+      <span class="mystical-symbol">🌟</span>
+      今日運勢
+      <span class="mystical-symbol">✨</span>
+    </h3>
+    <div class="text-2xl md:text-3xl font-bold mb-1" id="fortuneLevel">★★★★☆</div>
+    <div class="text-sm md:text-base mb-1" id="fortuneTitle">運勢良好</div>
+    <div class="text-xs opacity-90 mb-2" id="fortuneDescription">
+      今日整體運勢不錯，適合進行重要的決策和行動。
+    </div>
+    <div class="grid grid-cols-2 gap-2 text-center">
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-lg md:text-xl font-bold mb-0.5" id="luckyNumber">7</div>
+        <div class="text-xs opacity-80">幸運數字</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-lg md:text-xl font-bold mb-0.5" id="luckyColor">紫色</div>
+        <div class="text-xs opacity-80">幸運色彩</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 各項運勢 -->
+  <section class="glass-card">
+    <h2 class="text-sm md:text-base font-bold mb-1">
+      <span class="mystical-symbol">📊</span>
+      各項運勢
+      <span class="mystical-symbol">🔮</span>
+    </h2>
+    <div class="space-y-1">
+      <div class="fortune-card">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <span class="text-base">💼</span>
+            <div>
+              <div class="font-semibold text-white text-xs md:text-sm">事業運</div>
+              <div class="text-xs text-gray-300">工作發展</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm md:text-base font-bold text-green-400" id="careerFortune">★★★★☆</div>
+            <div class="text-xs text-gray-400">良好</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fortune-card">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <span class="text-base">💰</span>
+            <div>
+              <div class="font-semibold text-white text-xs md:text-sm">財運</div>
+              <div class="text-xs text-gray-300">金錢運勢</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm md:text-base font-bold text-yellow-400" id="moneyFortune">★★★☆☆</div>
+            <div class="text-xs text-gray-400">普通</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fortune-card">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <span class="text-base">❤️</span>
+            <div>
+              <div class="font-semibold text-white text-xs md:text-sm">愛情運</div>
+              <div class="text-xs text-gray-300">感情發展</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm md:text-base font-bold text-pink-400" id="loveFortune">★★★★★</div>
+            <div class="text-xs text-gray-400">極佳</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fortune-card">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <span class="text-base">🏥</span>
+            <div>
+              <div class="font-semibold text-white text-xs md:text-sm">健康運</div>
+              <div class="text-xs text-gray-300">身體狀況</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm md:text-base font-bold text-blue-400" id="healthFortune">★★★★☆</div>
+            <div class="text-xs text-gray-400">良好</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 今日建議 -->
+  <section class="glass-card">
+    <h2 class="text-sm md:text-base font-bold mb-1">
+      <span class="mystical-symbol">💡</span>
+      今日建議
+      <span class="mystical-symbol">🔮</span>
+    </h2>
+    <div class="space-y-1">
+      <div class="p-1.5 bg-green-500 bg-opacity-20 border-l-4 border-green-400 rounded-lg backdrop-blur-sm">
+        <div class="flex items-center space-x-1">
+          <span class="text-green-400 text-sm">✅</span>
+          <span class="font-semibold text-green-300 text-xs">適合做的事</span>
+        </div>
+        <p class="text-xs text-green-200 mt-0.5" id="suitableActivities">與朋友聚會、學習新技能、整理房間</p>
+      </div>
+
+      <div class="p-1.5 bg-red-500 bg-opacity-20 border-l-4 border-red-400 rounded-lg backdrop-blur-sm">
+        <div class="flex items-center space-x-1">
+          <span class="text-red-400 text-sm">❌</span>
+          <span class="font-semibold text-red-300 text-xs">避免的事</span>
+        </div>
+        <p class="text-xs text-red-200 mt-0.5" id="avoidActivities">衝動消費、與人爭執、熬夜</p>
+      </div>
+
+      <div class="p-1.5 bg-blue-500 bg-opacity-20 border-l-4 border-blue-400 rounded-lg backdrop-blur-sm">
+        <div class="flex items-center space-x-1">
+          <span class="text-blue-400 text-sm">🎯</span>
+          <span class="font-semibold text-blue-300 text-xs">開運方位</span>
+        </div>
+        <p class="text-xs text-blue-200 mt-0.5" id="luckyDirection">東南方</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 星座資訊 -->
+  <section class="glass-card">
+    <h2 class="text-sm md:text-base font-bold mb-1">
+      <span class="mystical-symbol">♈</span>
+      星座運勢
+      <span class="mystical-symbol">⭐</span>
+    </h2>
+    <div class="zodiac-grid">
+      <div class="zodiac-item">
+        <div class="text-xs font-bold text-white">♈ 牡羊座</div>
+        <div class="text-xs text-purple-300">★★★☆☆</div>
+      </div>
+      <div class="zodiac-item">
+        <div class="text-xs font-bold text-white">♉ 金牛座</div>
+        <div class="text-xs text-purple-300">★★★★☆</div>
+      </div>
+      <div class="zodiac-item">
+        <div class="text-xs font-bold text-white">♊ 雙子座</div>
+        <div class="text-xs text-purple-300">★★★★★</div>
+      </div>
+      <div class="zodiac-item">
+        <div class="text-xs font-bold text-white">♋ 巨蟹座</div>
+        <div class="text-xs text-purple-300">★★★☆☆</div>
+      </div>
+      <div class="zodiac-item">
+        <div class="text-xs font-bold text-white">♌ 獅子座</div>
+        <div class="text-xs text-purple-300">★★★★☆</div>
+      </div>
+      <div class="zodiac-item">
+        <div class="text-xs font-bold text-white">♍ 處女座</div>
+        <div class="text-xs text-purple-300">★★★☆☆</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// 主題切換
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
+  
+  // 添加切換動畫效果
+  const cards = document.querySelectorAll('.glass-card');
+  cards.forEach(card => {
+    card.style.transform = 'scale(0.98)';
+    setTimeout(() => {
+      card.style.transform = 'scale(1)';
+    }, 150);
+  });
+});
+
+// 運勢資料
+const fortuneData = {
+  levels: [
+    { stars: '★☆☆☆☆', title: '運勢較弱', desc: '需要多加注意，避免重大決定' },
+    { stars: '★★☆☆☆', title: '運勢普通', desc: '保持平常心，穩健行事' },
+    { stars: '★★★☆☆', title: '運勢尚可', desc: '整體還算順利，但要謹慎' },
+    { stars: '★★★★☆', title: '運勢良好', desc: '今日整體運勢不錯，適合行動' },
+    { stars: '★★★★★', title: '運勢極佳', desc: '今天是幸運日，把握機會' }
+  ],
+  luckyNumbers: [1, 3, 7, 9, 13, 21, 27, 33, 42, 49, 56, 63, 77, 88, 99],
+  luckyColors: ['紅色', '橙色', '黃色', '綠色', '藍色', '紫色', '粉色', '金色', '銀色'],
+  suitableActivities: [
+    '與朋友聚會', '學習新技能', '整理房間', '運動健身', '閱讀書籍',
+    '投資理財', '約會戀愛', '工作專案', '旅行計畫', '創作藝術'
+  ],
+  avoidActivities: [
+    '衝動消費', '與人爭執', '熬夜', '暴飲暴食', '危險運動',
+    '重大決定', '借錢', '簽約', '搬家', '換工作'
+  ],
+  directions: ['北方', '南方', '東方', '西方', '東北方', '東南方', '西北方', '西南方']
+};
+
+// 生成運勢
+function generateFortune() {
+  // 隨機選擇運勢等級
+  const levelIndex = Math.floor(Math.random() * fortuneData.levels.length);
+  const level = fortuneData.levels[levelIndex];
+  
+  // 隨機選擇幸運數字和顏色
+  const luckyNumber = fortuneData.luckyNumbers[Math.floor(Math.random() * fortuneData.luckyNumbers.length)];
+  const luckyColor = fortuneData.luckyColors[Math.floor(Math.random() * fortuneData.luckyColors.length)];
+  
+  // 隨機選擇建議
+  const suitableActivity = fortuneData.suitableActivities[Math.floor(Math.random() * fortuneData.suitableActivities.length)];
+  const avoidActivity = fortuneData.avoidActivities[Math.floor(Math.random() * fortuneData.avoidActivities.length)];
+  const direction = fortuneData.directions[Math.floor(Math.random() * fortuneData.directions.length)];
+  
+  // 生成各項運勢（基於主要運勢等級）
+  const baseLevel = levelIndex;
+  const careerLevel = Math.max(0, Math.min(4, baseLevel + Math.floor(Math.random() * 3) - 1));
+  const moneyLevel = Math.max(0, Math.min(4, baseLevel + Math.floor(Math.random() * 3) - 1));
+  const loveLevel = Math.max(0, Math.min(4, baseLevel + Math.floor(Math.random() * 3) - 1));
+  const healthLevel = Math.max(0, Math.min(4, baseLevel + Math.floor(Math.random() * 3) - 1));
+  
+  // 更新顯示
+  document.getElementById('fortuneLevel').textContent = level.stars;
+  document.getElementById('fortuneTitle').textContent = level.title;
+  document.getElementById('fortuneDescription').textContent = level.desc;
+  document.getElementById('luckyNumber').textContent = luckyNumber;
+  document.getElementById('luckyColor').textContent = luckyColor;
+  
+  // 更新各項運勢
+  document.getElementById('careerFortune').textContent = fortuneData.levels[careerLevel].stars;
+  document.getElementById('moneyFortune').textContent = fortuneData.levels[moneyLevel].stars;
+  document.getElementById('loveFortune').textContent = fortuneData.levels[loveLevel].stars;
+  document.getElementById('healthFortune').textContent = fortuneData.levels[healthLevel].stars;
+  
+  // 更新建議
+  document.getElementById('suitableActivities').textContent = suitableActivity;
+  document.getElementById('avoidActivities').textContent = avoidActivity;
+  document.getElementById('luckyDirection').textContent = direction;
+  
+  // 顯示結果
+  const resultSection = document.getElementById('fortuneResult');
+  resultSection.style.display = 'block';
+  resultSection.style.opacity = '0';
+  resultSection.style.transform = 'translateY(20px)';
+  
+  // 添加顯示動畫
+  setTimeout(() => {
+    resultSection.style.transition = 'all 0.6s ease-out';
+    resultSection.style.opacity = '1';
+    resultSection.style.transform = 'translateY(0)';
+  }, 100);
+  
+  resultSection.scrollIntoView({ behavior: 'smooth' });
+  
+  // 添加水晶球動畫效果
+  const crystalBall = document.querySelector('.crystal-ball');
+  crystalBall.style.animation = 'none';
+  setTimeout(() => {
+    crystalBall.style.animation = 'float 4s ease-in-out infinite, rotate 20s linear infinite';
+  }, 100);
+  
+  // 添加神秘符號動畫
+  const symbols = document.querySelectorAll('.mystical-symbol');
+  symbols.forEach((symbol, index) => {
+    setTimeout(() => {
+      symbol.style.animation = 'sparkle 2s ease-in-out infinite';
+    }, index * 100);
+  });
+}
+
+// 頁面載入時自動生成運勢
+window.addEventListener('load', () => {
+  setTimeout(generateFortune, 1000);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通知設定 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.notification-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.notification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-title {
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.setting-description {
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: #667eea;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+.time-selector {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.time-input {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  width: 80px;
+  text-align: center;
+}
+
+.time-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.notification-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.notification-item.unread {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.notification-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.notification-item-title {
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.notification-item-time {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.notification-item-message {
+  color: #4b5563;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+.status-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-center;
+}
+
+.status-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.status-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.status-description {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.status-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.status-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.status-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .notification-card,
+.dark .status-card,
+.dark .notification-item {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .setting-title,
+.dark .status-title,
+.dark .notification-item-title {
+  color: #f9fafb;
+}
+
+.dark .setting-item {
+  border-bottom-color: #4b5563;
+}
+
+.dark .time-input {
+  background: rgba(55, 65, 81, 0.5);
+  border-color: #4b5563;
+  color: white;
+}
+
+.dark .time-input:focus {
+  border-color: #818cf8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">🔔 通知設定</h1>
+    <p class="text-xl text-white opacity-90">管理您的通知偏好設定</p>
+  </div>
+
+  <!-- 通知狀態 -->
+  <div class="status-card mb-8">
+    <div class="status-icon" id="statusIcon">🔔</div>
+    <div class="status-title" id="statusTitle">檢查通知權限</div>
+    <div class="status-description" id="statusDescription">
+      點擊下方按鈕開啟推播通知，即時接收重要訊息
+    </div>
+    <button class="status-button" id="permissionButton" onclick="togglePermission()">
+      開啟通知權限
+    </button>
+  </div>
+
+  <!-- 推播通知設定 -->
+  <div class="notification-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">📱</span>
+      推播通知設定
+    </h2>
+    <div class="space-y-4">
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">垃圾車提醒</div>
+          <div class="setting-description">提醒您倒垃圾的時間</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="garbageNotification" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">天氣提醒</div>
+          <div class="setting-description">每日天氣資訊提醒</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="weatherNotification" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">利率變動</div>
+          <div class="setting-description">房貸利率變動通知</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="rateNotification" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">房產資訊</div>
+          <div class="setting-description">新物件上架和價格變動通知</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="propertyNotification" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">補助資訊</div>
+          <div class="setting-description">政府補助申請截止提醒</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="subsidyNotification" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 提醒時間設定 -->
+  <div class="notification-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">⏰</span>
+      提醒時間設定
+    </h2>
+    <div class="space-y-4">
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">垃圾車提醒時間</div>
+          <div class="setting-description">設定垃圾車提醒的時間</div>
+        </div>
+        <div class="time-selector">
+          <input type="time" class="time-input" id="garbageTime" value="19:30">
+          <span class="text-sm text-gray-600 dark:text-gray-400">前30分鐘提醒</span>
+        </div>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">天氣提醒時間</div>
+          <div class="setting-description">每日天氣提醒的時間</div>
+        </div>
+        <div class="time-selector">
+          <input type="time" class="time-input" id="weatherTime" value="08:00">
+          <span class="text-sm text-gray-600 dark:text-gray-400">每日提醒</span>
+        </div>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">利率提醒時間</div>
+          <div class="setting-description">利率資訊提醒的時間</div>
+        </div>
+        <div class="time-selector">
+          <input type="time" class="time-input" id="rateTime" value="09:00">
+          <span class="text-sm text-gray-600 dark:text-gray-400">每週一提醒</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通知偏好設定 -->
+  <div class="notification-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">🎯</span>
+      通知偏好設定
+    </h2>
+    <div class="space-y-4">
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">靜音模式</div>
+          <div class="setting-description">關閉通知聲音，僅顯示視覺提醒</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="silentMode">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <div class="setting-info">
+          <div class="setting-title">免打擾時段</div>
+          <div class="setting-description">設定免打擾的時間段</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="doNotDisturb" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="setting-item" id="doNotDisturbTime" style="display: none;">
+        <div class="setting-info">
+          <div class="setting-title">免打擾時間</div>
+          <div class="setting-description">22:00 - 08:00</div>
+        </div>
+        <div class="time-selector">
+          <input type="time" class="time-input" id="dndStartTime" value="22:00">
+          <span class="text-sm text-gray-600 dark:text-gray-400">至</span>
+          <input type="time" class="time-input" id="dndEndTime" value="08:00">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最近通知 -->
+  <div class="notification-card mb-8">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold flex items-center">
+        <span class="text-2xl mr-2">📋</span>
+        最近通知
+      </h2>
+      <button onclick="clearAllNotifications()" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
+        清除全部
+      </button>
+    </div>
+    <div class="notification-list" id="notificationList">
+      <!-- 通知項目將由 JavaScript 動態生成 -->
+    </div>
+  </div>
+
+  <!-- 測試通知 -->
+  <div class="notification-card mb-8">
+    <h2 class="text-xl font-bold mb-4 flex items-center">
+      <span class="text-2xl mr-2">🧪</span>
+      測試通知
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <button onclick="testNotification('garbage')" class="status-button">
+        🗑️ 測試垃圾車提醒
+      </button>
+      <button onclick="testNotification('weather')" class="status-button">
+        🌤️ 測試天氣提醒
+      </button>
+      <button onclick="testNotification('rate')" class="status-button">
+        📈 測試利率提醒
+      </button>
+      <button onclick="testNotification('property')" class="status-button">
+        🏠 測試房產提醒
+      </button>
+    </div>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="glass rounded-2xl p-6 text-center">
+    <h3 class="text-xl font-bold text-white mb-4">📞 通知服務支援</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+      <div>
+        <div class="text-2xl mb-2">📱</div>
+        <div class="font-bold">技術支援</div>
+        <div class="text-sm opacity-90">0925-666-597</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">📧</div>
+        <div class="font-bold">服務信箱</div>
+        <div class="text-sm opacity-90">support@realtor.com</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">🕒</div>
+        <div class="font-bold">服務時間</div>
+        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="notification-system.js"></script>
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 切換通知權限
+async function togglePermission() {
+  const button = document.getElementById('permissionButton');
+  const statusIcon = document.getElementById('statusIcon');
+  const statusTitle = document.getElementById('statusTitle');
+  const statusDescription = document.getElementById('statusDescription');
+
+  if (notificationSystem.permission === 'granted') {
+    // 已開啟，顯示狀態
+    statusIcon.textContent = '✅';
+    statusTitle.textContent = '通知權限已開啟';
+    statusDescription.textContent = '您將收到重要的推播通知';
+    button.textContent = '權限已開啟';
+    button.disabled = true;
+  } else {
+    // 請求權限
+    button.textContent = '正在請求權限...';
+    button.disabled = true;
+    
+    const granted = await notificationSystem.requestPermission();
+    
+    if (granted) {
+      statusIcon.textContent = '✅';
+      statusTitle.textContent = '通知權限已開啟';
+      statusDescription.textContent = '您將收到重要的推播通知';
+      button.textContent = '權限已開啟';
+    } else {
+      statusIcon.textContent = '❌';
+      statusTitle.textContent = '通知權限被拒絕';
+      statusDescription.textContent = '請手動開啟瀏覽器通知權限';
+      button.textContent = '重新請求權限';
+      button.disabled = false;
+    }
+  }
+}
+
+// 測試通知
+function testNotification(type) {
+  const notifications = {
+    garbage: {
+      title: '🗑️ 垃圾車提醒',
+      message: '今晚8點有垃圾車，請記得倒垃圾！',
+      icon: '🗑️'
+    },
+    weather: {
+      title: '🌤️ 今日天氣',
+      message: '今天多雲時晴，氣溫24-28°C，適合外出看房！',
+      icon: '🌤️'
+    },
+    rate: {
+      title: '📈 利率資訊',
+      message: '本週房貸利率維持在2.85%，投資環境良好！',
+      icon: '📈'
+    },
+    property: {
+      title: '🏠 新物件上架',
+      message: '信義區精華地段，2房2廳，總價1,200萬，搶手物件！',
+      icon: '🏠'
+    }
+  };
+
+  const notification = notifications[type];
+  if (notification) {
+    notificationSystem.addNotification(notification);
+    notificationSystem.sendNotification(notification.title, {
+      body: notification.message,
+      tag: type
+    });
+  }
+}
+
+// 清除所有通知
+function clearAllNotifications() {
+  if (confirm('確定要清除所有通知嗎？')) {
+    notificationSystem.clearAll();
+    loadNotifications();
+  }
+}
+
+// 載入通知列表
+function loadNotifications() {
+  const list = document.getElementById('notificationList');
+  if (!list) return;
+
+  if (notificationSystem.notifications.length === 0) {
+    list.innerHTML = '<div class="text-center text-gray-500 py-8">暫無通知</div>';
+    return;
+  }
+
+  list.innerHTML = notificationSystem.notifications.map(notification => `
+    <div class="notification-item ${!notification.read ? 'unread' : ''}">
+      <div class="notification-item-header">
+        <div class="notification-item-title">${notification.title}</div>
+        <div class="notification-item-time">${notificationSystem.formatTime(notification.timestamp)}</div>
+      </div>
+      <div class="notification-item-message">${notification.message}</div>
+    </div>
+  `).join('');
+}
+
+// 設置免打擾時段顯示
+function setupDoNotDisturbToggle() {
+  const toggle = document.getElementById('doNotDisturb');
+  const timeSection = document.getElementById('doNotDisturbTime');
+  
+  toggle.addEventListener('change', function() {
+    timeSection.style.display = this.checked ? 'flex' : 'none';
+  });
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+  loadNotifications();
+  setupDoNotDisturbToggle();
+  
+  // 檢查通知權限狀態
+  setTimeout(() => {
+    if (notificationSystem.permission === 'granted') {
+      togglePermission();
+    }
+  }, 1000);
+  
+  // 定期更新通知列表
+  setInterval(loadNotifications, 5000);
+});
+</script>
+</body>
+</html>

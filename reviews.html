@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用戶評價 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.review-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.rating-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-center;
+}
+
+.rating-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.rating-item {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.rating-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 0.5rem;
+}
+
+.rating-label {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.rating-stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.rating-bar-container {
+  margin-top: 1rem;
+}
+
+.rating-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.rating-bar-label {
+  width: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.rating-bar {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+}
+
+.rating-bar-count {
+  width: 30px;
+  text-align: right;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.rating-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.rating-category {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.rating-category-title {
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.rating-category-stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.rating-category-value {
+  color: #667eea;
+  font-weight: bold;
+}
+
+.comment-form {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+.form-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.form-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statistic-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.statistic-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 0.5rem;
+}
+
+.statistic-label {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+}
+
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .review-card,
+.dark .rating-section,
+.dark .comment-form,
+.dark .statistic-item,
+.dark .rating-category {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .form-label,
+.dark .rating-category-title,
+.dark .statistic-label {
+  color: #f9fafb;
+}
+
+.dark .form-input {
+  background: rgba(55, 65, 81, 0.5);
+  border-color: #4b5563;
+  color: white;
+}
+
+.dark .form-input:focus {
+  border-color: #818cf8;
+}
+
+.dark .rating-value,
+.dark .statistic-value {
+  color: #818cf8;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">⭐ 用戶評價</h1>
+    <p class="text-xl text-white opacity-90">分享您的使用體驗，幫助其他用戶</p>
+  </div>
+
+  <!-- 評分統計 -->
+  <div class="rating-section mb-8">
+    <h2 class="text-xl font-bold mb-4">📊 整體評分</h2>
+    <div class="rating-overview">
+      <div class="rating-item">
+        <div class="rating-value" id="averageRating">4.5</div>
+        <div class="rating-label">平均評分</div>
+        <div class="rating-stars">
+          <span class="rating-star active">⭐</span>
+          <span class="rating-star active">⭐</span>
+          <span class="rating-star active">⭐</span>
+          <span class="rating-star active">⭐</span>
+          <span class="rating-star">⭐</span>
+        </div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-value" id="totalComments">0</div>
+        <div class="rating-label">總評論數</div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-value" id="totalLikes">0</div>
+        <div class="rating-label">總點讚數</div>
+      </div>
+    </div>
+
+    <!-- 評分分佈 -->
+    <div class="rating-bar-container">
+      <h3 class="text-lg font-bold mb-4">評分分佈</h3>
+      <div class="rating-bar-item">
+        <span class="rating-bar-label">5</span>
+        <div class="rating-bar">
+          <div class="rating-bar-fill" id="rating-bar-5" style="width: 60%"></div>
+        </div>
+        <span class="rating-bar-count">12</span>
+      </div>
+      <div class="rating-bar-item">
+        <span class="rating-bar-label">4</span>
+        <div class="rating-bar">
+          <div class="rating-bar-fill" id="rating-bar-4" style="width: 25%"></div>
+        </div>
+        <span class="rating-bar-count">5</span>
+      </div>
+      <div class="rating-bar-item">
+        <span class="rating-bar-label">3</span>
+        <div class="rating-bar">
+          <div class="rating-bar-fill" id="rating-bar-3" style="width: 10%"></div>
+        </div>
+        <span class="rating-bar-count">2</span>
+      </div>
+      <div class="rating-bar-item">
+        <span class="rating-bar-label">2</span>
+        <div class="rating-bar">
+          <div class="rating-bar-fill" id="rating-bar-2" style="width: 3%"></div>
+        </div>
+        <span class="rating-bar-count">1</span>
+      </div>
+      <div class="rating-bar-item">
+        <span class="rating-bar-label">1</span>
+        <div class="rating-bar">
+          <div class="rating-bar-fill" id="rating-bar-1" style="width: 2%"></div>
+        </div>
+        <span class="rating-bar-count">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 分類評分 -->
+  <div class="review-card mb-8">
+    <h2 class="text-xl font-bold mb-4">🎯 分類評分</h2>
+    <div class="rating-categories">
+      <div class="rating-category">
+        <div class="rating-category-title">服務品質</div>
+        <div class="rating-category-stars" id="rating-service">
+          <span class="rating-star active" data-rating="1" data-category="service">⭐</span>
+          <span class="rating-star active" data-rating="2" data-category="service">⭐</span>
+          <span class="rating-star active" data-rating="3" data-category="service">⭐</span>
+          <span class="rating-star active" data-rating="4" data-category="service">⭐</span>
+          <span class="rating-star" data-rating="5" data-category="service">⭐</span>
+        </div>
+        <div class="rating-category-value">4.2</div>
+      </div>
+      <div class="rating-category">
+        <div class="rating-category-title">溝通能力</div>
+        <div class="rating-category-stars" id="rating-communication">
+          <span class="rating-star active" data-rating="1" data-category="communication">⭐</span>
+          <span class="rating-star active" data-rating="2" data-category="communication">⭐</span>
+          <span class="rating-star active" data-rating="3" data-category="communication">⭐</span>
+          <span class="rating-star active" data-rating="4" data-category="communication">⭐</span>
+          <span class="rating-star active" data-rating="5" data-category="communication">⭐</span>
+        </div>
+        <div class="rating-category-value">4.8</div>
+      </div>
+      <div class="rating-category">
+        <div class="rating-category-title">專業程度</div>
+        <div class="rating-category-stars" id="rating-professionalism">
+          <span class="rating-star active" data-rating="1" data-category="professionalism">⭐</span>
+          <span class="rating-star active" data-rating="2" data-category="professionalism">⭐</span>
+          <span class="rating-star active" data-rating="3" data-category="professionalism">⭐</span>
+          <span class="rating-star active" data-rating="4" data-category="professionalism">⭐</span>
+          <span class="rating-star active" data-rating="5" data-category="professionalism">⭐</span>
+        </div>
+        <div class="rating-category-value">4.9</div>
+      </div>
+      <div class="rating-category">
+        <div class="rating-category-title">準時性</div>
+        <div class="rating-category-stars" id="rating-timeliness">
+          <span class="rating-star active" data-rating="1" data-category="timeliness">⭐</span>
+          <span class="rating-star active" data-rating="2" data-category="timeliness">⭐</span>
+          <span class="rating-star active" data-rating="3" data-category="timeliness">⭐</span>
+          <span class="rating-star active" data-rating="4" data-category="timeliness">⭐</span>
+          <span class="rating-star" data-rating="5" data-category="timeliness">⭐</span>
+        </div>
+        <div class="rating-category-value">4.1</div>
+      </div>
+      <div class="rating-category">
+        <div class="rating-category-title">整體滿意度</div>
+        <div class="rating-category-stars" id="rating-overall">
+          <span class="rating-star active" data-rating="1" data-category="overall">⭐</span>
+          <span class="rating-star active" data-rating="2" data-category="overall">⭐</span>
+          <span class="rating-star active" data-rating="3" data-category="overall">⭐</span>
+          <span class="rating-star active" data-rating="4" data-category="overall">⭐</span>
+          <span class="rating-star" data-rating="5" data-category="overall">⭐</span>
+        </div>
+        <div class="rating-category-value">4.5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 統計數據 -->
+  <div class="statistics-grid mb-8">
+    <div class="statistic-item">
+      <div class="statistic-value" id="statTotalComments">20</div>
+      <div class="statistic-label">總評論數</div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic-value" id="statTotalLikes">156</div>
+      <div class="statistic-label">總點讚數</div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic-value" id="statAverageRating">4.5</div>
+      <div class="statistic-label">平均評分</div>
+    </div>
+    <div class="statistic-item">
+      <div class="statistic-value" id="statResponseRate">95%</div>
+      <div class="statistic-label">回覆率</div>
+    </div>
+  </div>
+
+  <!-- 評論表單 -->
+  <div class="comment-form mb-8">
+    <h2 class="text-xl font-bold mb-4">✍️ 撰寫評論</h2>
+    <form id="commentForm">
+      <div class="form-group">
+        <label class="form-label" for="commentName">姓名 *</label>
+        <input type="text" id="commentName" class="form-input" placeholder="請輸入您的姓名" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="commentEmail">電子郵件</label>
+        <input type="email" id="commentEmail" class="form-input" placeholder="請輸入您的電子郵件（選填）">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="commentRating">評分 *</label>
+        <select id="commentRating" class="form-input form-select" required>
+          <option value="5">5 星 - 非常滿意</option>
+          <option value="4">4 星 - 滿意</option>
+          <option value="3">3 星 - 普通</option>
+          <option value="2">2 星 - 不滿意</option>
+          <option value="1">1 星 - 非常不滿意</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="commentContent">評論內容 *</label>
+        <textarea id="commentContent" class="form-input form-textarea" placeholder="請分享您的使用體驗..." required></textarea>
+      </div>
+      <button type="submit" class="form-button">
+        📝 提交評論
+      </button>
+    </form>
+  </div>
+
+  <!-- 評論列表 -->
+  <div class="review-card mb-8">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">💬 用戶評論</h2>
+      <div class="flex gap-2">
+        <button onclick="commentsSystem.exportComments()" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
+          📥 導出數據
+        </button>
+      </div>
+    </div>
+    <div id="commentsList">
+      <!-- 評論項目將由 JavaScript 動態生成 -->
+    </div>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="glass rounded-2xl p-6 text-center">
+    <h3 class="text-xl font-bold text-white mb-4">📞 服務支援</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
+      <div>
+        <div class="text-2xl mb-2">📱</div>
+        <div class="font-bold">客服專線</div>
+        <div class="text-sm opacity-90">0925-666-597</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">📧</div>
+        <div class="font-bold">客服信箱</div>
+        <div class="text-sm opacity-90">service@realtor.com</div>
+      </div>
+      <div>
+        <div class="text-2xl mb-2">🕒</div>
+        <div class="font-bold">服務時間</div>
+        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="comments-system.js"></script>
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 更新統計數據
+function updateStatistics() {
+  const stats = commentsSystem.getStatistics();
+  document.getElementById('statTotalComments').textContent = stats.totalComments;
+  document.getElementById('statTotalLikes').textContent = stats.totalLikes;
+  document.getElementById('statAverageRating').textContent = stats.averageRating;
+  document.getElementById('averageRating').textContent = stats.averageRating;
+  document.getElementById('totalComments').textContent = stats.totalComments;
+  document.getElementById('totalLikes').textContent = stats.totalLikes;
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+  
+  // 等待評論系統初始化完成
+  setTimeout(() => {
+    updateStatistics();
+    commentsSystem.renderComments();
+    commentsSystem.updateRatings();
+  }, 100);
+  
+  // 定期更新統計數據
+  setInterval(updateStatistics, 5000);
+});
+</script>
+</body>
+</html>

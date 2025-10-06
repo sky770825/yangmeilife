@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# 允許所有搜尋引擎爬取
+Sitemap: https://realtor-platform.com/sitemap.xml
+
+# 禁止爬取的目錄（如果有的話）
+# Disallow: /admin/
+# Disallow: /private/
+
+# 允許爬取的檔案類型
+Allow: *.html
+Allow: *.css
+Allow: *.js
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.gif
+Allow: *.svg
+Allow: *.ico
+
+# 爬取延遲（秒）
+Crawl-delay: 1

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="濬瑒房產生活平台 - 趣味小遊戲">
+<title>遊戲大廳 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --grad-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --grad-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --grad-info: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 主題切換 */
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --grad-secondary: linear-gradient(135deg, #0f3460 0%, #533483 100%);
+  --grad-success: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+  --grad-warning: linear-gradient(135deg, #0f4c75 0%, #bbe1fa 100%);
+  --grad-danger: linear-gradient(135deg, #2c1810 0%, #8b4513 100%);
+  --grad-info: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.dark body {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+/* 玻璃效果 */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 遊戲卡片 */
+.game-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .game-card {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.game-card:hover::before {
+  left: 100%;
+}
+
+.game-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 動畫 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+  60% { transform: translateY(-3px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(102, 126, 234, 0.4); }
+  50% { box-shadow: 0 0 16px rgba(102, 126, 234, 0.6), 0 0 24px rgba(102, 126, 234, 0.4); }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.float { animation: float 4s ease-in-out infinite; }
+.pulse { animation: pulse 3s ease-in-out infinite; }
+.rotate { animation: rotate 12s linear infinite; }
+.bounce { animation: bounce 1.5s ease-in-out infinite; }
+.glow { animation: glow 3s ease-in-out infinite; }
+.slide-in { animation: slideInUp 0.6s ease-out; }
+.fade-in { animation: fadeIn 0.8s ease-out; }
+
+/* 遊戲圖標 */
+.game-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* 分數顯示 */
+.score-display {
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.dark .score-display {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+/* 按鈕樣式 */
+.btn-game {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-game:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.25);
+}
+
+.btn-game:active {
+  transform: translateY(0);
+}
+
+.btn-game::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-game:hover::before {
+  left: 100%;
+}
+
+/* 主題切換按鈕 */
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 返回按鈕 */
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* 手機優化 */
+.game-area {
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 觸控優化 */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* 響應式設計 */
+@media (max-width: 1024px) {
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .game-card {
+    padding: 0.875rem;
+  }
+  
+  .game-icon {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-card {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .game-icon {
+    font-size: 2rem;
+  }
+  
+  #themeToggle, .back-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  
+  .game-modal-content {
+    padding: 1rem;
+    max-width: 98vw;
+    max-height: 98vh;
+    margin: 0.5rem;
+  }
+  
+  .btn-game {
+    padding: 7px 14px;
+    font-size: 0.75rem;
+  }
+  
+  .grid {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .game-card {
+    padding: 0.625rem;
+    margin-bottom: 0.375rem;
+  }
+  
+  .game-icon {
+    font-size: 1.75rem;
+  }
+  
+  .btn-game {
+    padding: 6px 12px;
+    font-size: 0.7rem;
+  }
+  
+  .grid {
+    gap: 0.375rem;
+  }
+  
+  .text-4xl {
+    font-size: 1.75rem;
+  }
+  
+  .text-6xl {
+    font-size: 2.5rem;
+  }
+}
+
+/* 遊戲模態框 */
+.game-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1rem;
+}
+
+.game-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.game-modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+  padding: 1.25rem;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow-y: auto;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.dark .game-modal-content {
+  background: rgba(26, 26, 46, 0.95);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.dark .close-modal {
+  color: #ccc;
+}
+
+.close-modal:hover {
+  color: #333;
+}
+
+.dark .close-modal:hover {
+  color: #fff;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()" class="float">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+  <!-- 頁面標題 -->
+  <div class="container mx-auto px-4 py-6">
+    <div class="text-center mb-6">
+      <h1 class="text-3xl md:text-5xl font-bold text-white mb-3 glow slide-in">🎮 遊戲大廳</h1>
+      <p class="text-lg text-white opacity-90 fade-in">選擇你喜歡的遊戲，放鬆一下！</p>
+    </div>
+
+  <!-- 總分顯示 -->
+  <div class="glass rounded-xl p-3 mb-5 text-center">
+    <h2 class="text-lg font-bold text-white mb-1">🏆 總積分</h2>
+    <div class="score-display">
+      <span id="totalScore" class="text-2xl font-bold text-indigo-600">0</span>
+      <p class="text-gray-600 dark:text-gray-300 mt-1 text-sm">繼續遊戲獲得更多積分！</p>
+    </div>
+  </div>
+
+  <!-- 手機遊戲列表 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-5">
+    <!-- 記憶配對遊戲 -->
+    <div class="game-card" onclick="openGame('memory')">
+      <div class="text-center">
+        <div class="game-icon float">🧠</div>
+        <h3 class="text-base font-bold mb-1 text-gray-800 dark:text-white">記憶配對</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">點擊翻牌找出相同卡片</p>
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-gray-500 dark:text-gray-400">最高: <span id="memoryHighScore">0</span></span>
+          <span class="text-xs text-gray-500 dark:text-gray-400">⭐ 簡單</span>
+        </div>
+        <button class="btn-game w-full text-xs">開始遊戲</button>
+      </div>
+    </div>
+
+    <!-- 滑動消除遊戲 -->
+    <div class="game-card" onclick="openGame('eliminate')">
+      <div class="text-center">
+        <div class="game-icon pulse">🎯</div>
+        <h3 class="text-base font-bold mb-1 text-gray-800 dark:text-white">滑動消除</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">滑動方塊創造三個連線</p>
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-gray-500 dark:text-gray-400">最高: <span id="eliminateHighScore">0</span></span>
+          <span class="text-xs text-gray-500 dark:text-gray-400">⭐⭐ 中等</span>
+        </div>
+        <button class="btn-game w-full text-xs">開始遊戲</button>
+      </div>
+    </div>
+
+    <!-- 反應測試遊戲 -->
+    <div class="game-card" onclick="openGame('reaction')">
+      <div class="text-center">
+        <div class="game-icon bounce">⚡</div>
+        <h3 class="text-base font-bold mb-1 text-gray-800 dark:text-white">反應測試</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">測試你的反應速度</p>
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-gray-500 dark:text-gray-400">最高: <span id="reactionHighScore">0</span></span>
+          <span class="text-xs text-gray-500 dark:text-gray-400">⭐ 簡單</span>
+        </div>
+        <button class="btn-game w-full text-xs">開始遊戲</button>
+      </div>
+    </div>
+
+    <!-- 數字合併遊戲 -->
+    <div class="game-card" onclick="openGame('merge')">
+      <div class="text-center">
+        <div class="game-icon glow">🔢</div>
+        <h3 class="text-base font-bold mb-1 text-gray-800 dark:text-white">數字合併</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">滑動合併數字達到2048</p>
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-xs text-gray-500 dark:text-gray-400">最高: <span id="mergeHighScore">0</span></span>
+          <span class="text-xs text-gray-500 dark:text-gray-400">⭐⭐ 中等</span>
+        </div>
+        <button class="btn-game w-full text-xs">開始遊戲</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成就系統 -->
+  <div class="glass rounded-xl p-3">
+    <h2 class="text-lg font-bold text-white mb-2 text-center">🏅 成就系統</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <div class="achievement-item text-center p-2 rounded-lg bg-white bg-opacity-10">
+        <div class="text-lg mb-1">🎮</div>
+        <div class="text-xs text-white">遊戲新手</div>
+        <div class="text-xs text-gray-300">玩過1個遊戲</div>
+      </div>
+      <div class="achievement-item text-center p-2 rounded-lg bg-white bg-opacity-10">
+        <div class="text-lg mb-1">🏆</div>
+        <div class="text-xs text-white">積分達人</div>
+        <div class="text-xs text-gray-300">獲得1000分</div>
+      </div>
+      <div class="achievement-item text-center p-2 rounded-lg bg-white bg-opacity-10">
+        <div class="text-lg mb-1">🧠</div>
+        <div class="text-xs text-white">記憶大師</div>
+        <div class="text-xs text-gray-300">記憶遊戲滿分</div>
+      </div>
+      <div class="achievement-item text-center p-2 rounded-lg bg-white bg-opacity-10">
+        <div class="text-lg mb-1">⚡</div>
+        <div class="text-xs text-white">速度之王</div>
+        <div class="text-xs text-gray-300">打字遊戲滿分</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 遊戲模態框 -->
+<div id="gameModal" class="game-modal">
+  <div class="game-modal-content">
+    <button class="close-modal" onclick="closeGame()">×</button>
+    <div id="gameContent"></div>
+  </div>
+</div>
+
+<script src="mobile-games.js"></script>
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 遊戲數據
+let gameData = {
+  totalScore: 0,
+  highScores: {
+    memory: 0,
+    eliminate: 0,
+    reaction: 0,
+    merge: 0
+  },
+  achievements: {
+    gameNewbie: false,
+    scoreMaster: false,
+    memoryMaster: false,
+    speedKing: false
+  }
+};
+
+// 載入遊戲數據
+function loadGameData() {
+  const saved = localStorage.getItem('gameData');
+  if (saved) {
+    gameData = JSON.parse(saved);
+    updateScoreDisplay();
+  }
+}
+
+// 儲存遊戲數據
+function saveGameData() {
+  localStorage.setItem('gameData', JSON.stringify(gameData));
+}
+
+// 更新分數顯示
+function updateScoreDisplay() {
+  document.getElementById('totalScore').textContent = gameData.totalScore;
+  document.getElementById('memoryHighScore').textContent = gameData.highScores.memory;
+  document.getElementById('eliminateHighScore').textContent = gameData.highScores.eliminate;
+  document.getElementById('reactionHighScore').textContent = gameData.highScores.reaction;
+  document.getElementById('mergeHighScore').textContent = gameData.highScores.merge;
+}
+
+// 開啟遊戲
+function openGame(gameType) {
+  const modal = document.getElementById('gameModal');
+  const content = document.getElementById('gameContent');
+  
+  switch(gameType) {
+    case 'memory':
+      content.innerHTML = createMemoryGame();
+      break;
+    case 'eliminate':
+      content.innerHTML = createEliminateGame();
+      break;
+    case 'reaction':
+      content.innerHTML = createReactionGame();
+      break;
+    case 'merge':
+      content.innerHTML = createMergeGame();
+      break;
+  }
+  
+  modal.classList.add('active');
+}
+
+// 關閉遊戲
+function closeGame() {
+  const modal = document.getElementById('gameModal');
+  modal.classList.remove('active');
+}
+
+// 更新分數
+function updateScore(gameType, score) {
+  if (score > gameData.highScores[gameType]) {
+    gameData.highScores[gameType] = score;
+  }
+  gameData.totalScore += score;
+  updateScoreDisplay();
+  saveGameData();
+  checkAchievements();
+}
+
+// 檢查成就
+function checkAchievements() {
+  // 遊戲新手
+  if (gameData.totalScore > 0 && !gameData.achievements.gameNewbie) {
+    gameData.achievements.gameNewbie = true;
+    showAchievement('遊戲新手', '🎮');
+  }
+  
+  // 積分達人
+  if (gameData.totalScore >= 1000 && !gameData.achievements.scoreMaster) {
+    gameData.achievements.scoreMaster = true;
+    showAchievement('積分達人', '🏆');
+  }
+  
+  // 記憶大師
+  if (gameData.highScores.memory >= 1000 && !gameData.achievements.memoryMaster) {
+    gameData.achievements.memoryMaster = true;
+    showAchievement('記憶大師', '🧠');
+  }
+  
+  // 速度之王
+  if (gameData.highScores.typing >= 100 && !gameData.achievements.speedKing) {
+    gameData.achievements.speedKing = true;
+    showAchievement('速度之王', '⚡');
+  }
+}
+
+// 顯示成就
+function showAchievement(title, icon) {
+  const notification = document.createElement('div');
+  notification.className = 'fixed top-20 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50';
+  notification.innerHTML = `
+    <div class="flex items-center">
+      <span class="text-2xl mr-2">${icon}</span>
+      <div>
+        <div class="font-bold">成就解鎖！</div>
+        <div class="text-sm">${title}</div>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
+// 記憶配對遊戲
+function createMemoryGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-2xl font-bold mb-4">🧠 記憶配對</h2>
+      <div class="mb-4 flex justify-center gap-4 text-sm">
+        <span>分數: <span id="memoryScore" class="font-bold">0</span></span>
+        <span>時間: <span id="memoryTime" class="font-bold">90</span>s</span>
+        <span>移動: <span id="memoryMoves" class="font-bold">0</span></span>
+      </div>
+      <div id="memoryGrid" class="game-area mb-4"></div>
+      <div class="flex justify-center gap-2">
+        <button onclick="startMemoryGame()" class="btn-game text-sm">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game text-sm">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 滑動消除遊戲
+function createEliminateGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-2xl font-bold mb-4">🎯 滑動消除</h2>
+      <div class="mb-4 flex justify-center gap-4 text-sm">
+        <span>分數: <span id="eliminateScore" class="font-bold">0</span></span>
+        <span>目標: <span id="eliminateTarget" class="font-bold">1000</span></span>
+        <span>步數: <span id="eliminateMoves" class="font-bold">30</span></span>
+      </div>
+      <div id="eliminateGrid" class="game-area mb-4"></div>
+      <div class="text-xs text-gray-600 mb-4">滑動相鄰方塊創造三個連線</div>
+      <div class="flex justify-center gap-2">
+        <button onclick="startEliminateGame()" class="btn-game text-sm">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game text-sm">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 反應測試遊戲
+function createReactionGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-2xl font-bold mb-4">⚡ 反應測試</h2>
+      <div id="reactionArea" class="game-area mb-4"></div>
+      <div class="text-xs text-gray-600 mb-4">等按鈕變綠色時快速點擊</div>
+      <div class="flex justify-center gap-2">
+        <button onclick="startReactionGame()" class="btn-game text-sm">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game text-sm">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 數字合併遊戲
+function createMergeGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-2xl font-bold mb-4">🔢 數字合併</h2>
+      <div class="mb-4">
+        <span class="text-lg">分數: <span id="mergeScore" class="font-bold">0</span></span>
+      </div>
+      <div id="mergeGrid" class="game-area mb-4"></div>
+      <div id="mergeArea" class="mb-4">
+        <div class="text-xs text-gray-600 mb-2">滑動螢幕控制方向</div>
+        <div class="flex justify-center gap-1">
+          <button onclick="currentGameInstance.move('up')" class="w-12 h-12 bg-gray-300 rounded text-lg">↑</button>
+        </div>
+        <div class="flex justify-center gap-1">
+          <button onclick="currentGameInstance.move('left')" class="w-12 h-12 bg-gray-300 rounded text-lg">←</button>
+          <button onclick="currentGameInstance.move('down')" class="w-12 h-12 bg-gray-300 rounded text-lg">↓</button>
+          <button onclick="currentGameInstance.move('right')" class="w-12 h-12 bg-gray-300 rounded text-lg">→</button>
+        </div>
+      </div>
+      <div class="flex justify-center gap-2">
+        <button onclick="startMergeGame()" class="btn-game text-sm">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game text-sm">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 數字拼圖遊戲
+function createPuzzleGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-3xl font-bold mb-4">🧩 數字拼圖</h2>
+      <div class="mb-4">
+        <span class="text-lg">移動次數: <span id="puzzleMoves">0</span></span>
+        <span class="text-lg ml-4">時間: <span id="puzzleTime">0</span>s</span>
+      </div>
+      <div id="puzzleGrid" class="grid grid-cols-4 gap-1 max-w-md mx-auto"></div>
+      <div class="mt-4">
+        <button onclick="startPuzzleGame()" class="btn-game mr-2">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 房產大富翁遊戲
+function createMonopolyGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-3xl font-bold mb-4">🏠 房產大富翁</h2>
+      <div class="mb-4">
+        <span class="text-lg">資金: $<span id="monopolyMoney">1000</span></span>
+        <span class="text-lg ml-4">回合: <span id="monopolyRound">1</span></span>
+      </div>
+      <div id="monopolyBoard" class="grid grid-cols-4 gap-2 max-w-lg mx-auto"></div>
+      <div class="mt-4">
+        <button onclick="startMonopolyGame()" class="btn-game mr-2">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 幸運轉盤遊戲
+function createWheelGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-3xl font-bold mb-4">🎯 幸運轉盤</h2>
+      <div class="mb-4">
+        <span class="text-lg">積分: <span id="wheelScore">0</span></span>
+        <span class="text-lg ml-4">次數: <span id="wheelSpins">3</span></span>
+      </div>
+      <div class="relative w-64 h-64 mx-auto mb-4">
+        <canvas id="wheelCanvas" width="256" height="256" class="border-4 border-gray-300 rounded-full"></canvas>
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2">
+          <div class="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-red-500"></div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <button onclick="spinWheel()" class="btn-game mr-2">轉動轉盤</button>
+        <button onclick="closeGame()" class="btn-game">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 2048遊戲
+function create2048Game() {
+  return `
+    <div class="text-center">
+      <h2 class="text-3xl font-bold mb-4">🔢 2048</h2>
+      <div class="mb-4">
+        <span class="text-lg">分數: <span id="game2048Score">0</span></span>
+        <span class="text-lg ml-4">最高: <span id="game2048Best">0</span></span>
+      </div>
+      <div id="game2048Grid" class="grid grid-cols-4 gap-1 max-w-md mx-auto"></div>
+      <div class="mt-4">
+        <button onclick="start2048Game()" class="btn-game mr-2">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game">關閉</button>
+      </div>
+      <div class="mt-2 text-sm text-gray-600">
+        使用方向鍵或WASD控制
+      </div>
+    </div>
+  `;
+}
+
+// 打字遊戲
+function createTypingGame() {
+  return `
+    <div class="text-center">
+      <h2 class="text-3xl font-bold mb-4">⌨️ 打字挑戰</h2>
+      <div class="mb-4">
+        <span class="text-lg">WPM: <span id="typingWPM">0</span></span>
+        <span class="text-lg ml-4">準確率: <span id="typingAccuracy">0</span>%</span>
+      </div>
+      <div class="mb-4">
+        <div id="typingText" class="text-lg p-4 bg-gray-100 rounded-lg min-h-20"></div>
+        <input type="text" id="typingInput" class="w-full p-2 border rounded-lg mt-2" placeholder="開始打字...">
+      </div>
+      <div class="mt-4">
+        <button onclick="startTypingGame()" class="btn-game mr-2">開始遊戲</button>
+        <button onclick="closeGame()" class="btn-game">關閉</button>
+      </div>
+    </div>
+  `;
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+  loadGameData();
+});
+</script>
+</body>
+</html>

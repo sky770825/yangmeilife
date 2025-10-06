@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>稅費試算 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --grad:linear-gradient(135deg,#3b82f6,#1d4ed8);
+  --glass-bg:rgba(255,255,255,0.6);
+  --glass-dark:rgba(30,30,30,0.6);
+  --shadow-light:0 2px 8px rgba(0,0,0,.08);
+  --border-radius:0.75rem;
+  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body{
+  background:linear-gradient(to bottom,#dbeafe,#fff);
+  transition:var(--transition);
+  font-family:system-ui,-apple-system,sans-serif;
+  line-height:1.5;
+}
+
+.glass-card{
+  background:var(--glass-bg);
+  backdrop-filter:blur(10px);
+  border-radius:var(--border-radius);
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.tax-item{
+  background:rgba(255,255,255,0.8);
+  border-radius:0.5rem;
+  padding:0.75rem;
+  margin-bottom:0.5rem;
+  transition:var(--transition);
+}
+
+.result-card{
+  background:var(--grad);
+  color:white;
+  border-radius:var(--border-radius);
+  padding:1rem;
+  text-align:center;
+}
+
+#themeToggle{
+  position:fixed;
+  top:0.75rem;
+  right:0.75rem;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  padding:.4rem .6rem;
+  border-radius:9999px;
+  z-index:50;
+  transition:var(--transition);
+  cursor:pointer;
+  font-size:1rem;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換 -->
+<button id="themeToggle" aria-label="切換主題模式">🌞</button>
+
+<!-- 返回按鈕 -->
+<button onclick="history.back()" class="fixed top-3 left-3 bg-white shadow-lg rounded-full p-2.5 z-50 hover:scale-105 transition">
+  ←
+</button>
+
+<!-- 標題區 -->
+<header class="text-center py-4" style="background:var(--grad);color:white;">
+  <h1 class="text-2xl font-bold">📄 稅費試算工具</h1>
+  <p class="text-xs opacity-90 mt-1">2025年房地合一稅2.0最新稅制</p>
+</header>
+
+<main class="px-3 py-4 space-y-4">
+  <!-- 基本資訊 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h2 class="text-lg font-bold mb-3">📏 房屋資訊</h2>
+    <div class="space-y-3">
+      <div>
+        <label class="block text-sm font-medium mb-1">房屋總價 (萬元)</label>
+        <input type="number" id="housePrice" class="w-full p-2 border rounded-lg text-sm" placeholder="例如：1500" value="1500">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">房屋類型</label>
+        <select id="houseType" class="w-full p-2 border rounded-lg text-sm">
+          <option value="new">新建房屋</option>
+          <option value="used" selected>中古屋</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">持有年限</label>
+        <select id="holdYears" class="w-full p-2 border rounded-lg text-sm">
+          <option value="1">1年內</option>
+          <option value="2">1-2年</option>
+          <option value="5">2-5年</option>
+          <option value="10" selected>5-10年</option>
+          <option value="20">10年以上</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">房屋用途</label>
+        <select id="houseUsage" class="w-full p-2 border rounded-lg text-sm">
+          <option value="self" selected>自用住宅</option>
+          <option value="investment">投資用途</option>
+          <option value="business">營業用途</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">取得成本 (萬元)</label>
+        <input type="number" id="costPrice" class="w-full p-2 border rounded-lg text-sm" placeholder="例如：1200" value="1200">
+      </div>
+    </div>
+  </section>
+
+  <!-- 買方稅費 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h2 class="text-lg font-bold mb-3">💰 買方稅費</h2>
+    <div class="space-y-2">
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">🏠 契稅</h3>
+            <p class="text-xs text-gray-600">房屋移轉登記稅</p>
+          </div>
+          <span class="font-semibold text-blue-600 text-sm" id="deedTax">NT$ 45,000</span>
+        </div>
+      </div>
+
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">📋 印花稅</h3>
+            <p class="text-xs text-gray-600">契約書印花稅</p>
+          </div>
+          <span class="font-semibold text-blue-600 text-sm" id="stampTax">NT$ 1,500</span>
+        </div>
+      </div>
+
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">📝 登記規費</h3>
+            <p class="text-xs text-gray-600">地政事務所規費</p>
+          </div>
+          <span class="font-semibold text-blue-600 text-sm" id="registrationFee">NT$ 3,000</span>
+        </div>
+      </div>
+
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">🏦 銀行費用</h3>
+            <p class="text-xs text-gray-600">貸款設定費、手續費</p>
+          </div>
+          <span class="font-semibold text-blue-600 text-sm" id="bankFee">NT$ 8,000</span>
+        </div>
+      </div>
+
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">🏢 代書費</h3>
+            <p class="text-xs text-gray-600">代書服務費用</p>
+          </div>
+          <span class="font-semibold text-blue-600 text-sm" id="notaryFee">NT$ 15,000</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 賣方稅費 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h2 class="text-lg font-bold mb-3">💸 賣方稅費</h2>
+    <div class="space-y-2">
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">📊 房地合一稅2.0</h3>
+            <p class="text-xs text-gray-600" id="unifiedTaxDesc">依持有年限計算</p>
+          </div>
+          <span class="font-semibold text-red-600 text-sm" id="unifiedTax">NT$ 0</span>
+        </div>
+      </div>
+
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">🏠 土地增值稅</h3>
+            <p class="text-xs text-gray-600">土地增值部分稅負</p>
+          </div>
+          <span class="font-semibold text-red-600 text-sm" id="landTax">NT$ 30,000</span>
+        </div>
+      </div>
+
+      <div class="tax-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold text-sm">🏢 仲介費</h3>
+            <p class="text-xs text-gray-600">房屋仲介服務費</p>
+          </div>
+          <span class="font-semibold text-red-600 text-sm" id="agentFee">NT$ 30,000</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 稅費總計 -->
+  <section class="result-card">
+    <h3 class="text-lg font-bold mb-3">💰 稅費總計</h3>
+    <div class="grid grid-cols-2 gap-3 text-center">
+      <div>
+        <div class="text-xl font-bold" id="buyerTotal">NT$ 72,500</div>
+        <div class="text-xs opacity-80">買方負擔</div>
+      </div>
+      <div>
+        <div class="text-xl font-bold" id="sellerTotal">NT$ 60,000</div>
+        <div class="text-xs opacity-80">賣方負擔</div>
+      </div>
+    </div>
+    <div class="mt-3 pt-3 border-t border-white/20">
+      <div class="text-2xl font-bold" id="totalTax">NT$ 132,500</div>
+      <div class="text-xs opacity-80">總稅費</div>
+    </div>
+  </section>
+
+  <!-- 節稅建議 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h3 class="text-lg font-bold mb-3">💡 節稅建議</h3>
+    <div class="space-y-2 text-xs">
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">💡</span>
+        <span>持有超過5年可適用房地合一稅優惠稅率</span>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">💡</span>
+        <span>自用住宅重購退稅：2年內重購可申請退稅</span>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">💡</span>
+        <span>善用400萬自用住宅免稅額</span>
+      </div>
+      <div class="flex items-start space-x-2">
+        <span class="text-green-500">💡</span>
+        <span>夫妻可善用每人每年220萬贈與免稅額</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 房地合一稅2.0說明 -->
+  <section class="glass-card p-4 shadow-lg">
+    <h3 class="text-lg font-bold mb-3">📚 房地合一稅2.0說明</h3>
+    <div class="space-y-2 text-xs">
+      <div class="p-2 bg-red-50 rounded-lg">
+        <h4 class="font-semibold text-red-800">持有1年內</h4>
+        <p class="text-red-700">稅率45%</p>
+      </div>
+      <div class="p-2 bg-orange-50 rounded-lg">
+        <h4 class="font-semibold text-orange-800">持有1-2年</h4>
+        <p class="text-orange-700">稅率35%</p>
+      </div>
+      <div class="p-2 bg-yellow-50 rounded-lg">
+        <h4 class="font-semibold text-yellow-800">持有2-5年</h4>
+        <p class="text-yellow-700">稅率20%</p>
+      </div>
+      <div class="p-2 bg-green-50 rounded-lg">
+        <h4 class="font-semibold text-green-800">持有5-10年</h4>
+        <p class="text-green-700">稅率15%</p>
+      </div>
+      <div class="p-2 bg-blue-50 rounded-lg">
+        <h4 class="font-semibold text-blue-800">持有10年以上</h4>
+        <p class="text-blue-700">稅率15%</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// 主題切換
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
+});
+
+// 計算稅費
+function calculateTaxes() {
+  const housePrice = parseFloat(document.getElementById('housePrice').value) * 10000;
+  const houseType = document.getElementById('houseType').value;
+  const holdYears = parseInt(document.getElementById('holdYears').value);
+  const houseUsage = document.getElementById('houseUsage').value;
+  const costPrice = parseFloat(document.getElementById('costPrice').value) * 10000;
+
+  if (!housePrice || !costPrice) return;
+
+  // 買方稅費
+  const deedTax = Math.round(housePrice * 0.03); // 契稅約3%
+  const stampTax = Math.round(housePrice * 0.001); // 印花稅0.1%
+  const registrationFee = Math.round(housePrice * 0.002); // 登記規費0.2%
+  const bankFee = 8000; // 銀行費用固定
+  const notaryFee = 15000; // 代書費固定
+
+  // 房地合一稅2.0計算
+  const profit = housePrice - costPrice; // 交易所得
+  let unifiedTax = 0;
+  let taxRate = 0;
+  let taxDesc = '';
+
+  if (profit > 0) {
+    if (holdYears === 1) {
+      taxRate = 0.45;
+      taxDesc = '持有1年內稅率45%';
+    } else if (holdYears === 2) {
+      taxRate = 0.35;
+      taxDesc = '持有1-2年稅率35%';
+    } else if (holdYears === 5) {
+      taxRate = 0.20;
+      taxDesc = '持有2-5年稅率20%';
+    } else if (holdYears === 10) {
+      if (houseUsage === 'self') {
+        // 自用住宅400萬免稅額
+        const taxableProfit = Math.max(0, profit - 4000000);
+        unifiedTax = Math.round(taxableProfit * 0.15);
+        taxDesc = '持有5-10年稅率15% (自用住宅400萬免稅額)';
+      } else {
+        unifiedTax = Math.round(profit * 0.15);
+        taxDesc = '持有5-10年稅率15%';
+      }
+    } else if (holdYears === 20) {
+      if (houseUsage === 'self') {
+        // 自用住宅400萬免稅額
+        const taxableProfit = Math.max(0, profit - 4000000);
+        unifiedTax = Math.round(taxableProfit * 0.15);
+        taxDesc = '持有10年以上稅率15% (自用住宅400萬免稅額)';
+      } else {
+        unifiedTax = Math.round(profit * 0.15);
+        taxDesc = '持有10年以上稅率15%';
+      }
+    }
+
+    // 如果不是長期持有，直接計算
+    if (holdYears < 10) {
+      unifiedTax = Math.round(profit * taxRate);
+    }
+  }
+
+  const landTax = Math.round(housePrice * 0.02); // 土地增值稅約2%
+  const agentFee = Math.round(housePrice * 0.02); // 仲介費2%
+
+  // 更新顯示
+  document.getElementById('deedTax').textContent = `NT$ ${deedTax.toLocaleString()}`;
+  document.getElementById('stampTax').textContent = `NT$ ${stampTax.toLocaleString()}`;
+  document.getElementById('registrationFee').textContent = `NT$ ${registrationFee.toLocaleString()}`;
+  document.getElementById('bankFee').textContent = `NT$ ${bankFee.toLocaleString()}`;
+  document.getElementById('notaryFee').textContent = `NT$ ${notaryFee.toLocaleString()}`;
+  document.getElementById('unifiedTax').textContent = `NT$ ${unifiedTax.toLocaleString()}`;
+  document.getElementById('unifiedTaxDesc').textContent = taxDesc || '依持有年限計算';
+  document.getElementById('landTax').textContent = `NT$ ${landTax.toLocaleString()}`;
+  document.getElementById('agentFee').textContent = `NT$ ${agentFee.toLocaleString()}`;
+
+  // 計算總計
+  const buyerTotal = deedTax + stampTax + registrationFee + bankFee + notaryFee;
+  const sellerTotal = unifiedTax + landTax + agentFee;
+  const totalTax = buyerTotal + sellerTotal;
+
+  document.getElementById('buyerTotal').textContent = `NT$ ${buyerTotal.toLocaleString()}`;
+  document.getElementById('sellerTotal').textContent = `NT$ ${sellerTotal.toLocaleString()}`;
+  document.getElementById('totalTax').textContent = `NT$ ${totalTax.toLocaleString()}`;
+}
+
+// 監聽變化
+document.querySelectorAll('input, select').forEach(element => {
+  element.addEventListener('input', calculateTaxes);
+});
+
+// 初始計算
+calculateTaxes();
+</script>
+</body>
+</html>

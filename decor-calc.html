@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>裝潢估價 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --grad:linear-gradient(135deg,#f59e0b,#f97316);
+  --glass-bg:rgba(255,255,255,0.6);
+  --glass-dark:rgba(30,30,30,0.6);
+  --shadow-light:0 4px 12px rgba(0,0,0,.1);
+  --border-radius:1rem;
+  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body{
+  background:linear-gradient(to bottom,#fef3c7,#fff);
+  transition:var(--transition);
+  font-family:system-ui,-apple-system,sans-serif;
+  line-height:1.6;
+}
+
+.glass-card{
+  background:var(--glass-bg);
+  backdrop-filter:blur(10px);
+  border-radius:var(--border-radius);
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.decor-item{
+  background:rgba(255,255,255,0.8);
+  border-radius:0.75rem;
+  padding:1rem;
+  margin-bottom:0.75rem;
+  transition:var(--transition);
+}
+
+.decor-item:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-light);
+}
+
+.result-card{
+  background:var(--grad);
+  color:white;
+  border-radius:var(--border-radius);
+  padding:1.5rem;
+  text-align:center;
+}
+
+#themeToggle{
+  position:fixed;
+  top:1rem;
+  right:1rem;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  padding:.5rem .75rem;
+  border-radius:9999px;
+  z-index:50;
+  transition:var(--transition);
+  cursor:pointer;
+  font-size:1.2rem;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換 -->
+<button id="themeToggle" aria-label="切換主題模式">🌞</button>
+
+<!-- 返回按鈕 -->
+<button onclick="history.back()" class="fixed top-4 left-4 bg-white shadow-lg rounded-full p-3 z-50 hover:scale-105 transition">
+  ←
+</button>
+
+<!-- 標題區 -->
+<header class="text-center py-8" style="background:var(--grad);color:white;">
+  <h1 class="text-3xl font-bold">🛋️ 裝潢估價工具</h1>
+  <p class="text-sm opacity-90 mt-2">精準估算您的裝潢預算</p>
+</header>
+
+<main class="px-4 py-6 space-y-6">
+  <!-- 基本資訊 -->
+  <section class="glass-card p-6 shadow-lg">
+    <h2 class="text-xl font-bold mb-4">📏 房屋資訊</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-2">坪數</label>
+        <input type="number" id="area" class="w-full p-3 border rounded-lg" placeholder="例如：30" value="30">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">房間數</label>
+        <select id="rooms" class="w-full p-3 border rounded-lg">
+          <option value="1">1房</option>
+          <option value="2">2房</option>
+          <option value="3" selected>3房</option>
+          <option value="4">4房</option>
+          <option value="5">5房以上</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- 裝潢項目 -->
+  <section class="glass-card p-6 shadow-lg">
+    <h2 class="text-xl font-bold mb-4">🔨 裝潢項目</h2>
+    <div class="space-y-3">
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🏠 基礎工程</h3>
+            <p class="text-sm text-gray-600">水電、泥作、油漆</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 80,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🚪 門窗工程</h3>
+            <p class="text-sm text-gray-600">大門、窗戶、紗窗</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 120,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🧱 地面工程</h3>
+            <p class="text-sm text-gray-600">地板、磁磚、地毯</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 150,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🛏️ 臥室裝潢</h3>
+            <p class="text-sm text-gray-600">床組、衣櫃、梳妝台</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 200,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🍳 廚房設備</h3>
+            <p class="text-sm text-gray-600">廚具、電器、收納</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 180,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🚿 衛浴設備</h3>
+            <p class="text-sm text-gray-600">馬桶、洗手台、淋浴</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 100,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🛋️ 客廳家具</h3>
+            <p class="text-sm text-gray-600">沙發、茶几、電視櫃</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 120,000</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="decor-item">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">💡 燈具照明</h3>
+            <p class="text-sm text-gray-600">吊燈、壁燈、崁燈</p>
+          </div>
+          <label class="flex items-center">
+            <input type="checkbox" class="mr-2" checked>
+            <span class="text-green-600 font-semibold">NT$ 50,000</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 估價結果 -->
+  <section id="resultSection" class="result-card">
+    <h3 class="text-xl font-bold mb-4">💰 估價結果</h3>
+    <div class="text-4xl font-bold mb-2" id="totalEstimate">NT$ 1,000,000</div>
+    <div class="text-sm opacity-80">預估總金額</div>
+    <div class="mt-4 text-sm opacity-80">
+      平均每坪：<span id="perPing">NT$ 33,333</span>
+    </div>
+  </section>
+
+  <!-- 裝潢等級參考 -->
+  <section class="glass-card p-6 shadow-lg">
+    <h3 class="text-lg font-bold mb-4">📊 裝潢等級參考</h3>
+    <div class="space-y-3">
+      <div class="p-3 bg-green-50 rounded-lg border-l-4 border-green-400">
+        <div class="flex justify-between">
+          <span class="font-semibold text-green-800">經濟型</span>
+          <span class="text-green-600 font-bold">NT$ 20,000-30,000/坪</span>
+        </div>
+        <p class="text-sm text-green-700 mt-1">基本裝修，實用為主</p>
+      </div>
+      <div class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+        <div class="flex justify-between">
+          <span class="font-semibold text-blue-800">標準型</span>
+          <span class="text-blue-600 font-bold">NT$ 30,000-50,000/坪</span>
+        </div>
+        <p class="text-sm text-blue-700 mt-1">中等品質，美觀實用</p>
+      </div>
+      <div class="p-3 bg-purple-50 rounded-lg border-l-4 border-purple-400">
+        <div class="flex justify-between">
+          <span class="font-semibold text-purple-800">豪華型</span>
+          <span class="text-purple-600 font-bold">NT$ 50,000-80,000/坪</span>
+        </div>
+        <p class="text-sm text-purple-700 mt-1">高級材料，設計感強</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 省錢建議 -->
+  <section class="glass-card p-6 shadow-lg">
+    <h3 class="text-lg font-bold mb-4">💡 省錢建議</h3>
+    <div class="space-y-3 text-sm">
+      <div class="flex items-start space-x-3">
+        <span class="text-green-500">💡</span>
+        <span>優先處理基礎工程，家具可分批購買</span>
+      </div>
+      <div class="flex items-start space-x-3">
+        <span class="text-green-500">💡</span>
+        <span>選擇國產建材可節省30-50%成本</span>
+      </div>
+      <div class="flex items-start space-x-3">
+        <span class="text-green-500">💡</span>
+        <span>淡季裝潢（冬季）通常有較好價格</span>
+      </div>
+      <div class="flex items-start space-x-3">
+        <span class="text-green-500">💡</span>
+        <span>多比較3-5家廠商報價</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// 主題切換
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
+});
+
+// 裝潢項目價格
+const decorPrices = {
+  '基礎工程': 80000,
+  '門窗工程': 120000,
+  '地面工程': 150000,
+  '臥室裝潢': 200000,
+  '廚房設備': 180000,
+  '衛浴設備': 100000,
+  '客廳家具': 120000,
+  '燈具照明': 50000
+};
+
+// 計算總價
+function calculateTotal() {
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  let total = 0;
+  
+  checkboxes.forEach(checkbox => {
+    if (checkbox.checked) {
+      const priceText = checkbox.nextElementSibling.textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, ''));
+      total += price;
+    }
+  });
+
+  const area = parseInt(document.getElementById('area').value) || 30;
+  const perPing = Math.round(total / area);
+  
+  document.getElementById('totalEstimate').textContent = `NT$ ${total.toLocaleString()}`;
+  document.getElementById('perPing').textContent = `NT$ ${perPing.toLocaleString()}`;
+}
+
+// 監聽變化
+document.querySelectorAll('input[type="checkbox"], #area').forEach(element => {
+  element.addEventListener('change', calculateTotal);
+});
+
+// 初始計算
+calculateTotal();
+</script>
+</body>
+</html>

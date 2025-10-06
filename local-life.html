@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在地生活 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --grad-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.25rem;
+  --spacing-2xl: 1.5rem;
+  --border-radius: 12px;
+  --border-radius-lg: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--grad-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.local-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.local-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.category-tab {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border: 1.5px solid #667eea;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tab-btn.active {
+  background: #667eea;
+  color: white;
+  transform: scale(1.02);
+}
+
+.tab-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: scale(1.02);
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-xs);
+  background: rgba(102, 126, 234, 0.04);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid rgba(102, 126, 234, 0.08);
+}
+
+.service-item:hover {
+  background: rgba(102, 126, 234, 0.08);
+  transform: translateX(3px);
+  border-color: rgba(102, 126, 234, 0.15);
+}
+
+.restaurant-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.restaurant-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.restaurant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.restaurant-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: var(--spacing-xs);
+}
+
+.restaurant-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.restaurant-meta {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  font-size: 0.85rem;
+  color: #6b7280;
+  flex-wrap: wrap;
+}
+
+.restaurant-description {
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: var(--spacing-md);
+  font-size: 0.9rem;
+}
+
+.restaurant-tags {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #f3f4f6;
+  color: #374151;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
+}
+
+.event-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  border-left: 3px solid #10b981;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.event-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.event-title {
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+.event-date {
+  font-size: 0.75rem;
+  color: #10b981;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.event-location {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: var(--spacing-xs);
+}
+
+.event-description {
+  color: #4b5563;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.weather-widget {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.weather-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.weather-temp {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: var(--spacing-xs);
+}
+
+.weather-desc {
+  color: #6b7280;
+  margin-bottom: var(--spacing-md);
+  font-size: 0.9rem;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  text-align: center;
+}
+
+.weather-detail {
+  font-size: 0.85rem;
+}
+
+.weather-detail-value {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.weather-detail-label {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+#themeToggle {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: 1000;
+  background: var(--grad-primary);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#themeToggle:hover {
+  transform: scale(1.05);
+}
+
+.back-btn {
+  position: fixed;
+  top: var(--spacing-lg);
+  left: var(--spacing-lg);
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.dark {
+  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.dark .local-card,
+.dark .restaurant-item,
+.dark .event-item,
+.dark .weather-widget {
+  background: rgba(30, 30, 30, 0.95);
+  color: white;
+}
+
+.dark .service-item:hover {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+.dark .tab-btn {
+  background: rgba(30, 30, 30, 0.95);
+  border-color: #818cf8;
+  color: #818cf8;
+}
+
+.dark .tab-btn.active {
+  background: #818cf8;
+  color: white;
+}
+
+.dark .tab-btn:hover {
+  background: #818cf8;
+  color: white;
+}
+
+.dark .restaurant-title,
+.dark .event-title {
+  color: #f9fafb;
+}
+
+.dark .weather-temp {
+  color: #818cf8;
+}
+
+.dark .weather-detail-value {
+  color: #f9fafb;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .container {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+  
+  .category-tab {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-xs);
+  }
+  
+  .tab-btn {
+    font-size: 0.75rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+  
+  .restaurant-meta {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .weather-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .local-card {
+    padding: var(--spacing-md);
+  }
+  
+  .service-item {
+    padding: var(--spacing-sm);
+  }
+  
+  .service-item .text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  #themeToggle, .back-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-tab {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .weather-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .restaurant-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .restaurant-tags {
+    gap: var(--spacing-xs);
+  }
+  
+  .tag {
+    font-size: 0.7rem;
+    padding: 2px var(--spacing-xs);
+  }
+}
+
+/* 現代化動畫效果 */
+@media (prefers-reduced-motion: no-preference) {
+  .local-card, .service-item, .restaurant-item, .event-item {
+    animation: slideInUp 0.6s ease-out;
+  }
+  
+  .local-card:nth-child(1) { animation-delay: 0.1s; }
+  .local-card:nth-child(2) { animation-delay: 0.2s; }
+  .local-card:nth-child(3) { animation-delay: 0.3s; }
+  .local-card:nth-child(4) { animation-delay: 0.4s; }
+  .local-card:nth-child(5) { animation-delay: 0.5s; }
+  .local-card:nth-child(6) { animation-delay: 0.6s; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 現代化滾動條 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.5);
+}
+</style>
+</head>
+<body>
+<!-- 主題切換按鈕 -->
+<button id="themeToggle" onclick="toggleTheme()">🌓</button>
+
+<!-- 返回按鈕 -->
+<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
+
+<!-- 頁面標題 -->
+<div class="container mx-auto px-4 py-6">
+  <div class="text-center mb-6">
+    <h1 class="text-3xl md:text-5xl font-bold text-white mb-2">🍹 楊梅在地生活</h1>
+    <p class="text-lg text-white opacity-90">探索桃園楊梅區在地生活，享受美好時光</p>
+  </div>
+
+  <!-- 天氣資訊 -->
+  <div class="weather-widget mb-6">
+    <div class="weather-icon">☀️</div>
+    <div class="weather-temp">24°C</div>
+    <div class="weather-desc">晴朗，適合外出</div>
+    <div class="weather-details">
+      <div class="weather-detail">
+        <div class="weather-detail-value">65%</div>
+        <div class="weather-detail-label">濕度</div>
+      </div>
+      <div class="weather-detail">
+        <div class="weather-detail-value">2m/s</div>
+        <div class="weather-detail-label">風速</div>
+      </div>
+      <div class="weather-detail">
+        <div class="weather-detail-value">18-26°C</div>
+        <div class="weather-detail-label">溫度範圍</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 類別標籤 -->
+  <div class="local-card">
+    <h2 class="text-base font-bold mb-3">🏷️ 生活類別</h2>
+    <div class="category-tab">
+      <button class="tab-btn active" onclick="showCategory('all')">全部</button>
+      <button class="tab-btn" onclick="showCategory('food')">美食</button>
+      <button class="tab-btn" onclick="showCategory('shopping')">購物</button>
+      <button class="tab-btn" onclick="showCategory('entertainment')">娛樂</button>
+      <button class="tab-btn" onclick="showCategory('transport')">交通</button>
+      <button class="tab-btn" onclick="showCategory('health')">醫療</button>
+      <button class="tab-btn" onclick="showCategory('education')">教育</button>
+    </div>
+  </div>
+
+  <!-- 生活服務 -->
+  <div id="servicesContent">
+    <!-- 美食推薦 -->
+    <div class="local-card" data-category="food">
+      <h2 class="text-lg font-bold mb-3 flex items-center">
+        <span class="text-xl mr-2">🍽️</span>
+        美食推薦
+      </h2>
+      <div class="space-y-4">
+        <div class="restaurant-item">
+          <div class="restaurant-header">
+            <div>
+              <div class="restaurant-title">楊梅阿婆滷肉飯</div>
+              <div class="restaurant-rating">
+                <span>⭐⭐⭐⭐⭐</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">4.7分</span>
+              </div>
+            </div>
+          </div>
+          <div class="restaurant-meta">
+            <span>📍 楊梅區大成路</span>
+            <span>💰 $50-100</span>
+            <span>🕒 11:00-21:00</span>
+          </div>
+          <div class="restaurant-description">
+            楊梅在地老字號滷肉飯，傳承三代的好味道。使用獨家秘方滷製，肥瘦適中，香氣四溢。配菜豐富，價格親民，是楊梅居民的最愛。
+          </div>
+          <div class="restaurant-tags">
+            <span class="tag">台菜</span>
+            <span class="tag">平價</span>
+            <span class="tag">老字號</span>
+          </div>
+        </div>
+
+        <div class="restaurant-item">
+          <div class="restaurant-header">
+            <div>
+              <div class="restaurant-title">楊梅老街豆花</div>
+              <div class="restaurant-rating">
+                <span>⭐⭐⭐⭐</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">4.6分</span>
+              </div>
+            </div>
+          </div>
+          <div class="restaurant-meta">
+            <span>📍 楊梅區老街</span>
+            <span>💰 $40-80</span>
+            <span>🕒 13:00-22:00</span>
+          </div>
+          <div class="restaurant-description">
+            楊梅老街知名豆花店，手工製作傳統豆花，口感滑嫩，配料豐富。還有各種傳統甜品，是夏日消暑的好選擇。
+          </div>
+          <div class="restaurant-tags">
+            <span class="tag">甜品</span>
+            <span class="tag">傳統</span>
+            <span class="tag">手工</span>
+          </div>
+        </div>
+
+        <div class="restaurant-item">
+          <div class="restaurant-header">
+            <div>
+              <div class="restaurant-title">楊梅夜市</div>
+              <div class="restaurant-rating">
+                <span>⭐⭐⭐⭐</span>
+                <span class="text-sm text-gray-600 dark:text-gray-400">4.4分</span>
+              </div>
+            </div>
+          </div>
+          <div class="restaurant-meta">
+            <span>📍 楊梅區中正路</span>
+            <span>💰 $30-80</span>
+            <span>🕒 18:00-24:00</span>
+          </div>
+          <div class="restaurant-description">
+            楊梅在地夜市，提供各種傳統小吃，包括蚵仔煎、臭豆腐、大腸包小腸等經典美食。價格實惠，口味地道，是體驗楊梅夜市文化的好去處。
+          </div>
+          <div class="restaurant-tags">
+            <span class="tag">夜市</span>
+            <span class="tag">小吃</span>
+            <span class="tag">傳統</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 購物資訊 -->
+    <div class="local-card" data-category="shopping">
+      <h2 class="text-lg font-bold mb-3 flex items-center">
+        <span class="text-xl mr-2">🛍️</span>
+        購物資訊
+      </h2>
+      <div class="space-y-4">
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏪</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅全聯福利中心</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">大成路店，日常生活用品，價格實惠</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏬</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅家樂福</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">中正路店，大型量販店，商品齊全</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏪</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅便利商店</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">7-11、全家等，24小時營業，服務便利</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('kungfu-tea.html')">
+          <div class="text-3xl mr-3">🍹</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅功夫茶</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">中正路店，專業茶飲，品質保證</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('food-truck.html')">
+          <div class="text-3xl mr-3">🚚</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅餐車排班</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">在地美味餐車，隨時為您服務</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 娛樂場所 -->
+    <div class="local-card" data-category="entertainment">
+      <h2 class="text-lg font-bold mb-3 flex items-center">
+        <span class="text-xl mr-2">🎬</span>
+        娛樂場所
+      </h2>
+      <div class="space-y-4">
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏞️</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅秀才步道</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">登山健行，欣賞自然美景</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏛️</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅故事館</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">了解楊梅歷史文化</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🎭</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅圖書館</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">閱讀學習，文化活動</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 交通資訊 -->
+    <div class="local-card" data-category="transport">
+      <h2 class="text-lg font-bold mb-3 flex items-center">
+        <span class="text-xl mr-2">🚌</span>
+        交通資訊
+      </h2>
+      <div class="space-y-4">
+        <div class="service-item" onclick="openTool('bus.html')">
+          <div class="text-3xl mr-3">🚌</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅公車即時</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">桃園客運、中壢客運到站時間查詢</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🚂</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅火車站</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">台鐵縱貫線，連接台北、新竹</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🚗</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅停車場</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">火車站前、市區停車場位置和費用</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 醫療服務 -->
+    <div class="local-card" data-category="health">
+      <h2 class="text-lg font-bold mb-3 flex items-center">
+        <span class="text-xl mr-2">🏥</span>
+        醫療服務
+      </h2>
+      <div class="space-y-4">
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏥</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅天成醫院</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">區域醫院，24小時急診服務</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🩺</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅區衛生所</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">預防保健、疫苗接種、健康檢查</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">💊</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅藥局</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">康是美、屈臣氏、在地藥局</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🦷</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅牙醫診所</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">一般牙科、矯正、植牙服務</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">👁️</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅眼科診所</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">視力檢查、眼疾治療</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 教育資源 -->
+    <div class="local-card" data-category="education">
+      <h2 class="text-lg font-bold mb-3 flex items-center">
+        <span class="text-xl mr-2">🎓</span>
+        教育資源
+      </h2>
+      <div class="space-y-4">
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏫</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅國小</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">楊梅區主要國小，優質教育環境</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🏫</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅國中</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">楊梅區主要國中，升學輔導完善</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">📚</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅圖書館</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">豐富藏書，親子活動，學習資源</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">✏️</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅補習班</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">升學補習、才藝課程、語言學習</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+        <div class="service-item" onclick="openTool('https://maps.google.com')">
+          <div class="text-3xl mr-3">🎨</div>
+          <div class="flex-1">
+            <div class="font-bold">楊梅才藝班</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">音樂、美術、舞蹈等才藝課程</div>
+          </div>
+          <div class="text-2xl opacity-60">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 在地活動 -->
+  <div class="local-card">
+    <h2 class="text-lg font-bold mb-3 flex items-center">
+      <span class="text-xl mr-2">📅</span>
+      在地活動
+    </h2>
+    <div class="space-y-4">
+      <div class="event-item">
+        <div class="event-title">楊梅秀才步道健行</div>
+        <div class="event-date">每週六 08:00-12:00</div>
+        <div class="event-location">📍 楊梅秀才步道</div>
+        <div class="event-description">
+          免費健行活動，由專業導覽員帶領，欣賞楊梅自然美景，了解在地生態環境。適合全家大小參與。
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-title">楊梅老街市集</div>
+        <div class="event-date">每週日 09:00-16:00</div>
+        <div class="event-location">📍 楊梅老街</div>
+        <div class="event-description">
+          在地農民和手工藝者直銷新鮮蔬果、手工製品等。支持在地農業，體驗楊梅傳統文化。
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-title">楊梅圖書館親子活動</div>
+        <div class="event-date">每週六 14:00-16:00</div>
+        <div class="event-location">📍 楊梅圖書館</div>
+        <div class="event-description">
+          專業老師帶領親子共讀，培養閱讀興趣。活動包含故事時間、手工製作等豐富內容，增進親子關係。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 聯絡資訊 -->
+  <div class="glass rounded-2xl p-4 text-center">
+    <h3 class="text-lg font-bold text-white mb-3">📞 在地生活諮詢</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-white">
+      <div>
+        <div class="text-xl mb-1">📱</div>
+        <div class="font-bold text-sm">諮詢專線</div>
+        <div class="text-xs opacity-90">0925-666-597</div>
+      </div>
+      <div>
+        <div class="text-xl mb-1">📧</div>
+        <div class="font-bold text-sm">生活信箱</div>
+        <div class="text-xs opacity-90">local@realtor.com</div>
+      </div>
+      <div>
+        <div class="text-xl mb-1">🕒</div>
+        <div class="font-bold text-sm">服務時間</div>
+        <div class="text-xs opacity-90">週一至週五 9:00-18:00</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 主題切換
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+}
+
+// 載入主題
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  }
+}
+
+// 返回主頁
+function goBack() {
+  window.location.href = '主頁.html';
+}
+
+// 顯示類別
+function showCategory(category) {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('[data-category]');
+  
+  // 更新標籤狀態
+  tabs.forEach(tab => {
+    tab.classList.remove('active');
+    if (tab.textContent.trim() === getCategoryName(category)) {
+      tab.classList.add('active');
+    }
+  });
+  
+  // 顯示對應內容
+  contents.forEach(content => {
+    if (category === 'all' || content.dataset.category === category) {
+      content.style.display = 'block';
+      content.classList.add('fade-in');
+    } else {
+      content.style.display = 'none';
+    }
+  });
+}
+
+// 獲取類別名稱
+function getCategoryName(category) {
+  const categoryNames = {
+    'all': '全部',
+    'food': '美食',
+    'shopping': '購物',
+    'entertainment': '娛樂',
+    'transport': '交通',
+    'health': '醫療',
+    'education': '教育'
+  };
+  return categoryNames[category] || category;
+}
+
+// 開啟工具
+function openTool(url) {
+  if (url.startsWith('http')) {
+    window.open(url, '_blank');
+  } else {
+    window.location.href = url;
+  }
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadTheme();
+});
+</script>
+</body>
+</html>
