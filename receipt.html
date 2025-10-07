@@ -222,34 +222,87 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 200px;
-  height: 100px;
-  border: 2px solid #10b981;
-  border-radius: 8px;
-  background: rgba(16, 185, 129, 0.1);
+  width: 250px;
+  height: 120px;
+  border: 3px solid #10b981;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.05);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  animation: scanFramePulse 2s infinite;
 }
 
 .scan-frame::before,
 .scan-frame::after {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
-  border: 3px solid #10b981;
+  width: 25px;
+  height: 25px;
+  border: 4px solid #10b981;
+  border-radius: 2px;
 }
 
 .scan-frame::before {
-  top: -3px;
-  left: -3px;
+  top: -4px;
+  left: -4px;
   border-right: none;
   border-bottom: none;
+  border-top-left-radius: 8px;
 }
 
 .scan-frame::after {
-  bottom: -3px;
-  right: -3px;
+  bottom: -4px;
+  right: -4px;
   border-left: none;
   border-top: none;
+  border-bottom-right-radius: 8px;
+}
+
+/* 掃描框脈衝動畫 */
+@keyframes scanFramePulse {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    border-color: #10b981;
+  }
+  50% { 
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+    border-color: #059669;
+  }
+}
+
+/* 掃描框角落指示器 */
+.scan-frame::before,
+.scan-frame::after {
+  animation: cornerGlow 1.5s infinite alternate;
+}
+
+@keyframes cornerGlow {
+  0% { 
+    border-color: #10b981;
+    box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+  }
+  100% { 
+    border-color: #059669;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.8);
+  }
+}
+
+/* 對焦指示器動畫 */
+@keyframes focusIndicatorPulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+    border-color: #ffffff;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+    border-color: #10b981;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+    border-color: #059669;
+  }
 }
 
 /* 掃描線動畫 */
@@ -286,7 +339,7 @@ body{
 <button id="themeToggle" aria-label="切換主題模式">🌞</button>
 
 <!-- 返回按鈕 -->
-<button onclick="history.back()" class="fixed top-4 left-4 bg-white shadow-lg rounded-full p-3 z-50 hover:scale-105 transition">
+<button onclick="goBack()" class="fixed top-4 left-4 bg-white shadow-lg rounded-full p-3 z-50 hover:scale-105 transition" title="返回上一頁">
   ←
 </button>
 
@@ -514,6 +567,18 @@ document.getElementById('themeToggle').addEventListener('click', () => {
   const isDark = document.body.classList.contains('dark');
   document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
 });
+
+// 返回上一頁功能
+function goBack() {
+  // 檢查是否有歷史記錄可以返回
+  if (document.referrer && document.referrer !== window.location.href) {
+    // 如果有來源頁面且不是當前頁面，則返回
+    history.back();
+  } else {
+    // 如果沒有來源頁面或來源是當前頁面，則跳轉到首頁
+    window.location.href = 'index.html';
+  }
+}
 
 // 開獎號碼資料 - 將從API獲取
 let winningNumbers = {
@@ -937,18 +1002,66 @@ async function startCameraScan() {
       throw new Error('您的瀏覽器不支援相機功能');
     }
     
+    // 獲取設備信息來優化相機配置
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
+    // 優化的相機配置
+    const videoConstraints = {
+      facingMode: 'environment', // 使用後置相機
+      width: { 
+        ideal: isMobile ? 1280 : 1920,
+        min: 640,
+        max: 1920
+      },
+      height: { 
+        ideal: isMobile ? 720 : 1080,
+        min: 480,
+        max: 1080
+      },
+      // 對焦配置
+      focusMode: 'continuous', // 連續自動對焦
+      focusDistance: { ideal: 0.1, min: 0.1, max: 1.0 }, // 近距離對焦
+      // 曝光配置
+      exposureMode: 'continuous',
+      exposureCompensation: { ideal: 0, min: -2, max: 2 },
+      // 白平衡配置
+      whiteBalanceMode: 'continuous',
+      // 其他優化
+      frameRate: { ideal: 30, min: 15, max: 60 }
+    };
+    
+    // iOS特殊配置
+    if (isIOS) {
+      videoConstraints.width = { ideal: 1280 };
+      videoConstraints.height = { ideal: 720 };
+      // iOS需要更簡單的配置
+      delete videoConstraints.focusDistance;
+      delete videoConstraints.exposureCompensation;
+    }
+    
     // 請求相機權限
     mediaStream = await navigator.mediaDevices.getUserMedia({ 
-      video: { 
-        facingMode: 'environment', // 使用後置相機
-        width: { ideal: 640 },
-        height: { ideal: 480 }
-      } 
+      video: videoConstraints
     });
     
     const video = document.getElementById('video');
     video.srcObject = mediaStream;
     document.getElementById('cameraContainer').style.display = 'block';
+    
+    // 等待視頻載入完成
+    await new Promise((resolve) => {
+      video.onloadedmetadata = () => {
+        video.play();
+        resolve();
+      };
+    });
+    
+    // 添加對焦控制按鈕
+    addFocusControls();
+    
+    // 添加觸控對焦功能
+    addTouchFocus();
     
     // 啟動條碼掃描
     await startBarcodeScanner();
@@ -968,6 +1081,14 @@ async function startBarcodeScanner() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     
+    // 優化的掃描區域配置
+    const scanArea = {
+      top: "25%",
+      right: "15%", 
+      left: "15%",
+      bottom: "25%"
+    };
+    
     // 根據設備類型優化配置
     const config = {
       inputStream: {
@@ -975,17 +1096,19 @@ async function startBarcodeScanner() {
         type: "LiveStream",
         target: document.querySelector('#cameraContainer'),
         constraints: {
-          width: isMobile ? { ideal: 1280 } : { ideal: 640 },
-          height: isMobile ? { ideal: 720 } : { ideal: 480 },
+          width: isMobile ? { ideal: 1280, min: 640 } : { ideal: 1920, min: 640 },
+          height: isMobile ? { ideal: 720, min: 480 } : { ideal: 1080, min: 480 },
           facingMode: "environment",
-          focusMode: "continuous"
+          focusMode: "continuous",
+          // 優化對焦配置
+          focusDistance: { ideal: 0.1, min: 0.1, max: 0.5 },
+          // 曝光配置
+          exposureMode: "continuous",
+          exposureCompensation: { ideal: 0, min: -1, max: 1 },
+          // 白平衡配置
+          whiteBalanceMode: "continuous"
         },
-        area: { // 限制掃描區域提高準確度
-          top: "20%",
-          right: "10%", 
-          left: "10%",
-          bottom: "20%"
-        }
+        area: scanArea
       },
       decoder: {
         readers: [
@@ -994,31 +1117,65 @@ async function startBarcodeScanner() {
           "ean_8_reader", 
           "code_39_reader",
           "upc_reader",
-          "upc_e_reader"
+          "upc_e_reader",
+          "codabar_reader",     // 添加更多條碼格式支援
+          "i2of5_reader"
         ],
         debug: {
           drawBoundingBox: true,
           showFrequency: false,
           drawScanline: true,
-          showPatch: false
+          showPatch: false,
+          showFoundPatches: false,
+          showSkeleton: false,
+          showLabels: false,
+          showPatchLabels: false,
+          boxFromPatches: {
+            showTransformed: true,
+            showTransformedBox: true,
+            showBB: true
+          }
         }
       },
       locate: true,
       locator: {
         patchSize: isMobile ? "large" : "medium",
-        halfSample: false
+        halfSample: true,  // 啟用半採樣提高性能
+        showCanvas: false,
+        showPatches: false,
+        showFoundPatches: false,
+        showSkeleton: false,
+        showLabels: false,
+        showPatchLabels: false,
+        boxFromPatches: {
+          showTransformed: true,
+          showTransformedBox: true,
+          showBB: true
+        }
       },
       numOfWorkers: isMobile ? 2 : 4,
-      frequency: isMobile ? 10 : 20
+      frequency: isMobile ? 15 : 25,  // 提高掃描頻率
+      // 添加更多優化配置
+      halfSample: true,
+      patchSize: isMobile ? "large" : "medium",
+      // 條碼檢測配置
+      detection: {
+        minSize: 0.1,
+        maxSize: 0.9,
+        minScore: 0.5
+      }
     };
     
     // iOS特殊配置
     if (isIOS) {
-      config.inputStream.constraints.video = {
+      config.inputStream.constraints = {
         facingMode: "environment",
-        width: { ideal: 1280 },
-        height: { ideal: 720 }
+        width: { ideal: 1280, min: 640 },
+        height: { ideal: 720, min: 480 }
       };
+      // iOS需要更簡單的配置
+      delete config.inputStream.constraints.focusDistance;
+      delete config.inputStream.constraints.exposureCompensation;
     }
     
     await Quagga.init(config, function(err) {
@@ -1040,7 +1197,21 @@ async function startBarcodeScanner() {
         if (isValidReceiptNumber(code)) {
           handleScanSuccess(code);
         } else {
-          showScanError('掃描到的條碼不是有效的發票號碼格式');
+          // 嘗試從條碼中提取發票號碼
+          const extractedNumber = extractReceiptNumber(code);
+          if (extractedNumber) {
+            handleScanSuccess(extractedNumber);
+          } else {
+            showScanError('掃描到的條碼不是有效的發票號碼格式');
+          }
+        }
+      });
+      
+      // 監聽掃描進度
+      Quagga.onProcessed(function(result) {
+        if (result && result.codeResult) {
+          // 可以添加掃描進度指示
+          updateScanProgress(result.codeResult);
         }
       });
       
@@ -1051,6 +1222,34 @@ async function startBarcodeScanner() {
   } catch (error) {
     console.error('條碼掃描器啟動失敗:', error);
     showScanError('條碼掃描器啟動失敗: ' + error.message);
+  }
+}
+
+// 從條碼中提取發票號碼
+function extractReceiptNumber(code) {
+  // 移除所有非數字字符
+  const numbers = code.replace(/\D/g, '');
+  
+  // 檢查是否包含8位數字
+  const match = numbers.match(/\d{8}/);
+  if (match) {
+    return match[0];
+  }
+  
+  // 如果沒有8位數字，嘗試其他格式
+  if (numbers.length >= 8) {
+    return numbers.slice(-8); // 取最後8位
+  }
+  
+  return null;
+}
+
+// 更新掃描進度
+function updateScanProgress(codeResult) {
+  const progress = document.getElementById('scanProgress');
+  if (progress) {
+    const confidence = Math.round(codeResult.decodedCodes * 100 / codeResult.codeResult.decodedCodes);
+    progress.innerHTML = `🔍 正在掃描... (信心度: ${confidence}%)`;
   }
 }
 
@@ -1069,6 +1268,252 @@ function showScanProgress() {
   }, 3000);
 }
 
+// 添加對焦控制按鈕
+function addFocusControls() {
+  const cameraContainer = document.getElementById('cameraContainer');
+  
+  // 檢查是否已經有對焦控制按鈕
+  if (document.getElementById('focusControls')) {
+    return;
+  }
+  
+  const focusControls = document.createElement('div');
+  focusControls.id = 'focusControls';
+  focusControls.className = 'absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10';
+  focusControls.innerHTML = `
+    <button onclick="triggerAutoFocus()" class="bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600 transition">
+      🔍 自動對焦
+    </button>
+    <button onclick="toggleManualFocus()" class="bg-green-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-green-600 transition">
+      📏 手動對焦
+    </button>
+    <button onclick="resetFocus()" class="bg-gray-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-600 transition">
+      🔄 重置
+    </button>
+  `;
+  
+  cameraContainer.appendChild(focusControls);
+}
+
+// 觸發自動對焦
+async function triggerAutoFocus() {
+  try {
+    if (!mediaStream) return;
+    
+    const videoTrack = mediaStream.getVideoTracks()[0];
+    if (!videoTrack) return;
+    
+    const capabilities = videoTrack.getCapabilities();
+    const settings = videoTrack.getSettings();
+    
+    // 檢查是否支援對焦控制
+    if (capabilities.focusMode && capabilities.focusMode.includes('continuous')) {
+      await videoTrack.applyConstraints({
+        advanced: [{ focusMode: 'continuous' }]
+      });
+      showFocusFeedback('自動對焦已啟動');
+    } else if (capabilities.focusDistance) {
+      // 嘗試手動對焦到近距離
+      await videoTrack.applyConstraints({
+        advanced: [{ focusDistance: 0.1 }]
+      });
+      showFocusFeedback('手動對焦已調整');
+    } else {
+      showFocusFeedback('此設備不支援對焦控制');
+    }
+  } catch (error) {
+    console.error('對焦控制失敗:', error);
+    showFocusFeedback('對焦控制失敗');
+  }
+}
+
+// 切換手動對焦
+async function toggleManualFocus() {
+  try {
+    if (!mediaStream) return;
+    
+    const videoTrack = mediaStream.getVideoTracks()[0];
+    if (!videoTrack) return;
+    
+    const capabilities = videoTrack.getCapabilities();
+    
+    if (capabilities.focusMode && capabilities.focusMode.includes('manual')) {
+      await videoTrack.applyConstraints({
+        advanced: [{ focusMode: 'manual' }]
+      });
+      showFocusFeedback('手動對焦模式已啟用');
+      
+      // 添加手動對焦滑桿
+      addManualFocusSlider();
+    } else {
+      showFocusFeedback('此設備不支援手動對焦');
+    }
+  } catch (error) {
+    console.error('手動對焦切換失敗:', error);
+    showFocusFeedback('手動對焦切換失敗');
+  }
+}
+
+// 添加手動對焦滑桿
+function addManualFocusSlider() {
+  const cameraContainer = document.getElementById('cameraContainer');
+  
+  // 檢查是否已經有滑桿
+  if (document.getElementById('manualFocusSlider')) {
+    return;
+  }
+  
+  const sliderContainer = document.createElement('div');
+  sliderContainer.id = 'manualFocusSlider';
+  sliderContainer.className = 'absolute bottom-16 left-4 right-4 bg-black bg-opacity-50 p-3 rounded-lg';
+  sliderContainer.innerHTML = `
+    <div class="text-white text-sm mb-2">手動對焦距離</div>
+    <input type="range" id="focusDistanceSlider" min="0.1" max="1.0" step="0.1" value="0.3" 
+           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+    <div class="flex justify-between text-xs text-white mt-1">
+      <span>近</span>
+      <span>遠</span>
+    </div>
+  `;
+  
+  cameraContainer.appendChild(sliderContainer);
+  
+  // 綁定滑桿事件
+  const slider = document.getElementById('focusDistanceSlider');
+  slider.addEventListener('input', async (e) => {
+    const focusDistance = parseFloat(e.target.value);
+    await setManualFocusDistance(focusDistance);
+  });
+}
+
+// 設置手動對焦距離
+async function setManualFocusDistance(distance) {
+  try {
+    if (!mediaStream) return;
+    
+    const videoTrack = mediaStream.getVideoTracks()[0];
+    if (!videoTrack) return;
+    
+    await videoTrack.applyConstraints({
+      advanced: [{ focusDistance: distance }]
+    });
+  } catch (error) {
+    console.error('設置對焦距離失敗:', error);
+  }
+}
+
+// 重置對焦
+async function resetFocus() {
+  try {
+    if (!mediaStream) return;
+    
+    const videoTrack = mediaStream.getVideoTracks()[0];
+    if (!videoTrack) return;
+    
+    // 重置為自動對焦
+    await videoTrack.applyConstraints({
+      advanced: [{ focusMode: 'continuous' }]
+    });
+    
+    // 移除手動對焦滑桿
+    const slider = document.getElementById('manualFocusSlider');
+    if (slider) {
+      slider.remove();
+    }
+    
+    showFocusFeedback('對焦已重置');
+  } catch (error) {
+    console.error('重置對焦失敗:', error);
+    showFocusFeedback('重置對焦失敗');
+  }
+}
+
+// 添加觸控對焦功能
+function addTouchFocus() {
+  const video = document.getElementById('video');
+  const cameraContainer = document.getElementById('cameraContainer');
+  
+  // 添加觸控對焦事件
+  cameraContainer.addEventListener('click', async (e) => {
+    if (!mediaStream) return;
+    
+    const videoTrack = mediaStream.getVideoTracks()[0];
+    if (!videoTrack) return;
+    
+    const capabilities = videoTrack.getCapabilities();
+    
+    // 檢查是否支援觸控對焦
+    if (capabilities.focusMode && capabilities.focusMode.includes('manual')) {
+      try {
+        // 計算點擊位置相對於視頻的比例
+        const rect = video.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        
+        // 設置對焦點
+        await videoTrack.applyConstraints({
+          advanced: [
+            { focusMode: 'manual' },
+            { pointsOfInterest: [{ x: x, y: y }] }
+          ]
+        });
+        
+        // 顯示對焦指示器
+        showFocusIndicator(e.clientX, e.clientY);
+        showFocusFeedback('觸控對焦已設置');
+        
+      } catch (error) {
+        console.error('觸控對焦失敗:', error);
+        showFocusFeedback('觸控對焦失敗');
+      }
+    } else {
+      showFocusFeedback('此設備不支援觸控對焦');
+    }
+  });
+  
+  // 添加雙擊重置對焦
+  cameraContainer.addEventListener('dblclick', async () => {
+    await resetFocus();
+  });
+}
+
+// 顯示對焦指示器
+function showFocusIndicator(x, y) {
+  // 移除現有的指示器
+  const existingIndicator = document.getElementById('focusIndicator');
+  if (existingIndicator) {
+    existingIndicator.remove();
+  }
+  
+  const indicator = document.createElement('div');
+  indicator.id = 'focusIndicator';
+  indicator.className = 'fixed w-8 h-8 border-2 border-white rounded-full pointer-events-none z-50';
+  indicator.style.left = (x - 16) + 'px';
+  indicator.style.top = (y - 16) + 'px';
+  indicator.style.animation = 'focusIndicatorPulse 1s ease-out forwards';
+  
+  document.body.appendChild(indicator);
+  
+  // 1秒後移除指示器
+  setTimeout(() => {
+    if (indicator.parentNode) {
+      indicator.remove();
+    }
+  }, 1000);
+}
+
+// 顯示對焦反饋
+function showFocusFeedback(message) {
+  const feedback = document.createElement('div');
+  feedback.className = 'fixed top-40 right-4 bg-blue-500 text-white px-3 py-2 rounded-lg text-sm z-50';
+  feedback.textContent = message;
+  document.body.appendChild(feedback);
+  
+  setTimeout(() => {
+    feedback.remove();
+  }, 2000);
+}
+
 // 停止相機掃描
 function stopCameraScan() {
   scannerActive = false;
@@ -1084,9 +1529,35 @@ function stopCameraScan() {
     mediaStream = null;
   }
   
+  // 移除對焦控制按鈕
+  const focusControls = document.getElementById('focusControls');
+  if (focusControls) {
+    focusControls.remove();
+  }
+  
+  // 移除手動對焦滑桿
+  const manualSlider = document.getElementById('manualFocusSlider');
+  if (manualSlider) {
+    manualSlider.remove();
+  }
+  
+  // 移除對焦指示器
+  const focusIndicator = document.getElementById('focusIndicator');
+  if (focusIndicator) {
+    focusIndicator.remove();
+  }
+  
   // 移除掃描進度指示
   const progress = document.getElementById('scanProgress');
   if (progress) progress.remove();
+  
+  // 移除觸控對焦事件監聽器
+  const cameraContainer = document.getElementById('cameraContainer');
+  if (cameraContainer) {
+    // 克隆元素來移除所有事件監聽器
+    const newContainer = cameraContainer.cloneNode(true);
+    cameraContainer.parentNode.replaceChild(newContainer, cameraContainer);
+  }
   
   document.getElementById('cameraContainer').style.display = 'none';
 }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>即時利率 - 濬瑒房產生活平台</title>
+<title>2025年即時利率 - 濬瑒房產生活平台</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 :root{
@@ -79,23 +79,30 @@ body{
 
 <!-- 標題區 -->
 <header class="text-center py-8" style="background:var(--grad);color:white;">
-  <h1 class="text-3xl font-bold">🏦 即時利率查詢</h1>
-  <p class="text-sm opacity-90 mt-2">最新房貸利率資訊</p>
+  <h1 class="text-3xl font-bold">🏦 2025年即時利率查詢</h1>
+  <p class="text-sm opacity-90 mt-2">最新房貸利率資訊 | 央行重貼現率 2.5%</p>
   <div class="mt-4 text-xs opacity-75">更新時間：<span id="updateTime"></span></div>
 </header>
 
 <main class="px-4 py-6 space-y-6">
   <!-- 利率概覽 -->
   <section class="glass-card p-6 shadow-lg">
-    <h2 class="text-xl font-bold mb-4">📊 市場利率概覽</h2>
+    <h2 class="text-xl font-bold mb-4">📊 2025年市場利率概覽</h2>
     <div class="grid grid-cols-2 gap-4 text-center">
       <div class="p-4 bg-blue-50 rounded-lg">
-        <div class="text-2xl font-bold text-blue-600">2.35%</div>
+        <div class="text-2xl font-bold text-blue-600">2.45%</div>
         <div class="text-sm text-blue-800">平均房貸利率</div>
+        <div class="text-xs text-red-600 mt-1">↑ 較上月+0.1%</div>
       </div>
       <div class="p-4 bg-green-50 rounded-lg">
-        <div class="text-2xl font-bold text-green-600">2.05%</div>
+        <div class="text-2xl font-bold text-green-600">2.15%</div>
         <div class="text-sm text-green-800">青年首購利率</div>
+        <div class="text-xs text-red-600 mt-1">↑ 較上月+0.1%</div>
+      </div>
+    </div>
+    <div class="mt-4 p-3 bg-yellow-50 rounded-lg">
+      <div class="text-sm text-yellow-800">
+        <span class="font-semibold">⚠️ 重要提醒：</span>央行重貼現率已調升至2.5%，各銀行陸續跟進調整房貸利率
       </div>
     </div>
   </section>
@@ -111,8 +118,9 @@ body{
             <p class="text-sm text-gray-600">一般房貸</p>
           </div>
           <div class="text-right">
-            <div class="rate-badge">2.28%</div>
+            <div class="rate-badge">2.38%</div>
             <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
           </div>
         </div>
       </div>
@@ -124,8 +132,9 @@ body{
             <p class="text-sm text-gray-600">青年安心成家</p>
           </div>
           <div class="text-right">
-            <div class="rate-badge">2.05%</div>
+            <div class="rate-badge">2.15%</div>
             <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
           </div>
         </div>
       </div>
@@ -137,8 +146,9 @@ body{
             <p class="text-sm text-gray-600">首購優惠</p>
           </div>
           <div class="text-right">
-            <div class="rate-badge">2.22%</div>
+            <div class="rate-badge">2.32%</div>
             <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
           </div>
         </div>
       </div>
@@ -150,8 +160,9 @@ body{
             <p class="text-sm text-gray-600">優質客戶</p>
           </div>
           <div class="text-right">
-            <div class="rate-badge">2.35%</div>
+            <div class="rate-badge">2.45%</div>
             <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
           </div>
         </div>
       </div>
@@ -163,8 +174,9 @@ body{
             <p class="text-sm text-gray-600">一般房貸</p>
           </div>
           <div class="text-right">
-            <div class="rate-badge">2.41%</div>
+            <div class="rate-badge">2.51%</div>
             <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
           </div>
         </div>
       </div>
@@ -176,8 +188,37 @@ body{
             <p class="text-sm text-gray-600">公教優惠</p>
           </div>
           <div class="text-right">
-            <div class="rate-badge">2.12%</div>
+            <div class="rate-badge">2.22%</div>
             <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bank-card">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🏦 玉山銀行</h3>
+            <p class="text-sm text-gray-600">數位房貸</p>
+          </div>
+          <div class="text-right">
+            <div class="rate-badge">2.28%</div>
+            <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bank-card">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">🏪 中信銀行</h3>
+            <p class="text-sm text-gray-600">優質客戶</p>
+          </div>
+          <div class="text-right">
+            <div class="rate-badge">2.35%</div>
+            <div class="text-xs text-gray-500 mt-1">起</div>
+            <div class="text-xs text-red-600">↑ +0.1%</div>
           </div>
         </div>
       </div>
@@ -219,50 +260,67 @@ body{
 
   <!-- 利率趨勢 -->
   <section class="glass-card p-6 shadow-lg">
-    <h2 class="text-xl font-bold mb-4">📈 利率趨勢</h2>
+    <h2 class="text-xl font-bold mb-4">📈 2025年利率趨勢</h2>
     <div class="space-y-3">
       <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
         <span>2024年12月</span>
-        <span class="font-semibold text-red-600">↑ 2.15%</span>
+        <span class="font-semibold text-red-600">↑ 2.25%</span>
       </div>
       <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
         <span>2025年1月</span>
-        <span class="font-semibold text-red-600">↑ 2.22%</span>
+        <span class="font-semibold text-red-600">↑ 2.35%</span>
       </div>
       <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
         <span>2025年2月</span>
-        <span class="font-semibold text-red-600">↑ 2.28%</span>
+        <span class="font-semibold text-red-600">↑ 2.45%</span>
       </div>
       <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-        <span>本月預測</span>
-        <span class="font-semibold text-blue-600">→ 2.35%</span>
+        <span>2025年3月預測</span>
+        <span class="font-semibold text-blue-600">→ 2.50%</span>
+      </div>
+      <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+        <span>2025年Q2預測</span>
+        <span class="font-semibold text-orange-600">↗ 2.55-2.65%</span>
+      </div>
+    </div>
+    <div class="mt-4 p-3 bg-red-50 rounded-lg">
+      <div class="text-sm text-red-800">
+        <span class="font-semibold">📊 趨勢分析：</span>央行持續緊縮政策，預期2025年上半年利率將持續上升
       </div>
     </div>
   </section>
 
   <!-- 利率小知識 -->
   <section class="glass-card p-6 shadow-lg">
-    <h2 class="text-xl font-bold mb-4">💡 利率小知識</h2>
+    <h2 class="text-xl font-bold mb-4">💡 2025年利率小知識</h2>
     <div class="space-y-3 text-sm">
       <div class="flex items-start space-x-3">
         <span class="text-green-500">📊</span>
-        <span>央行重貼現率目前為2.375%，影響房貸利率走勢</span>
+        <span>央行重貼現率已調升至2.5%，各銀行房貸利率全面跟進上調</span>
       </div>
       <div class="flex items-start space-x-3">
         <span class="text-green-500">🏠</span>
-        <span>青年首購貸款仍有0.2-0.3%的利率優惠空間</span>
+        <span>青年首購貸款優惠幅度縮小至0.1-0.2%，但仍具競爭優勢</span>
       </div>
       <div class="flex items-start space-x-3">
         <span class="text-green-500">💰</span>
-        <span>提高自備款比例至30%以上可爭取更優惠利率</span>
+        <span>自備款比例提高至35%以上可爭取更優惠利率，部分銀行提供額外折扣</span>
       </div>
       <div class="flex items-start space-x-3">
         <span class="text-green-500">📈</span>
-        <span>2025年利率環境持續緊縮，建議審慎評估購屋時機</span>
+        <span>2025年利率環境持續緊縮，預期上半年將再調升1-2碼</span>
       </div>
       <div class="flex items-start space-x-3">
         <span class="text-green-500">🔍</span>
-        <span>多家銀行比較，部分銀行提供限時優惠利率，但整體利率趨勢向上</span>
+        <span>數位銀行如玉山、中信提供線上申貸優惠，但整體利率趨勢持續向上</span>
+      </div>
+      <div class="flex items-start space-x-3">
+        <span class="text-green-500">⚡</span>
+        <span>建議購屋族把握利率相對低點，可考慮固定利率方案鎖定成本</span>
+      </div>
+      <div class="flex items-start space-x-3">
+        <span class="text-green-500">🏦</span>
+        <span>公股銀行如土銀、合庫提供較穩定利率，民營銀行競爭激烈但波動較大</span>
       </div>
     </div>
   </section>

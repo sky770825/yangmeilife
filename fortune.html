@@ -92,8 +92,8 @@ body::before {
 .fortune-card{
   background:rgba(15,15,35,0.6);
   border-radius:0.5rem;
-  padding:clamp(0.5rem, 1.5vw, 0.75rem);
-  margin-bottom:0.5rem;
+  padding:clamp(0.375rem, 1vw, 0.75rem);
+  margin-bottom:clamp(0.25rem, 1vw, 0.5rem);
   transition:var(--transition);
   border:1px solid rgba(139,92,246,0.2);
   position: relative;
@@ -240,6 +240,46 @@ body::before {
   }
 }
 
+@keyframes fortune-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes card-flip {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(90deg); }
+  100% { transform: rotateY(0deg); }
+}
+
+@keyframes magic-pulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 20px rgba(139,92,246,0.6),
+      0 0 40px rgba(168,85,247,0.4),
+      0 0 60px rgba(192,132,252,0.2);
+  }
+  50% { 
+    box-shadow: 
+      0 0 40px rgba(139,92,246,0.8),
+      0 0 80px rgba(168,85,247,0.6),
+      0 0 120px rgba(192,132,252,0.4);
+  }
+}
+
+.crystal-ball:hover {
+  animation: magic-pulse 2s ease-in-out infinite;
+}
+
+.fortune-loading {
+  animation: fortune-spin 2s ease-in-out;
+}
+
+.tarot-card {
+  transition: all 0.3s ease;
+  animation: card-flip 0.6s ease-in-out;
+}
+
 #themeToggle{
   position:fixed;
   top:1rem;
@@ -348,147 +388,408 @@ body::before {
 <main class="px-1 md:px-2 py-2 md:py-3 space-y-2 md:space-y-3">
   <!-- 水晶球 -->
   <section class="glass-card text-center">
-    <div class="crystal-ball mb-2"></div>
+    <div class="crystal-ball mb-2" id="crystalBall" onclick="generateFortune()" style="cursor: pointer;"></div>
     <h2 class="text-sm md:text-base font-bold mb-1">
       <span class="mystical-symbol">🔮</span>
       點擊水晶球查看今日運勢
       <span class="mystical-symbol">🌟</span>
     </h2>
-    <button onclick="generateFortune()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-sm">
-      <span class="mystical-symbol">✨</span>
-      開始占卜
-      <span class="mystical-symbol">⚡</span>
+    <div class="grid grid-cols-2 gap-2 md:gap-3 mb-3">
+      <button onclick="generateFortune()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-2 md:px-4 py-2 md:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-sm">
+        <div class="flex flex-col items-center space-y-1">
+          <span class="text-lg md:text-xl">🔮</span>
+          <div>
+            <div class="font-bold">水晶占卜</div>
+            <div class="text-xs opacity-80">今日運勢</div>
+          </div>
+        </div>
     </button>
+      <button onclick="generateTarot()" class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-2 md:px-4 py-2 md:py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-sm">
+        <div class="flex flex-col items-center space-y-1">
+          <span class="text-lg md:text-xl">🃏</span>
+          <div>
+            <div class="font-bold">塔羅占卜</div>
+            <div class="text-xs opacity-80">三牌解讀</div>
+          </div>
+        </div>
+      </button>
+    </div>
+    
+    <!-- 新增占卜選項 -->
+    <div class="grid grid-cols-3 gap-1 md:gap-2">
+      <button onclick="generatePoetry()" class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-300 text-xs">
+        <div class="flex flex-col items-center space-y-0.5">
+          <span class="text-sm md:text-base">📜</span>
+          <div class="text-xs">籤詩</div>
+        </div>
+      </button>
+      <button onclick="generateZodiac()" class="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-amber-700 hover:to-orange-700 transition-all duration-300 text-xs">
+        <div class="flex flex-col items-center space-y-0.5">
+          <span class="text-sm md:text-base">⭐</span>
+          <div class="text-xs">星座</div>
+        </div>
+      </button>
+      <button onclick="generateNumber()" class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-cyan-700 hover:to-blue-700 transition-all duration-300 text-xs">
+        <div class="flex flex-col items-center space-y-0.5">
+          <span class="text-sm md:text-base">🔢</span>
+          <div class="text-xs">數字</div>
+        </div>
+      </button>
+    </div>
+    
+    <div class="grid grid-cols-2 gap-1 md:gap-2 mt-1">
+      <button onclick="generateColor()" class="bg-gradient-to-r from-rose-600 to-pink-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-rose-700 hover:to-pink-700 transition-all duration-300 text-xs">
+        <div class="flex flex-col items-center space-y-0.5">
+          <span class="text-sm md:text-base">🎨</span>
+          <div class="text-xs">顏色</div>
+        </div>
+      </button>
+      <button onclick="generateCrystal()" class="bg-gradient-to-r from-violet-600 to-purple-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-violet-700 hover:to-purple-700 transition-all duration-300 text-xs">
+        <div class="flex flex-col items-center space-y-0.5">
+          <span class="text-sm md:text-base">💎</span>
+          <div class="text-xs">水晶</div>
+        </div>
+      </button>
+    </div>
+    <div class="mt-2 text-xs text-gray-400">
+      💡 點擊水晶球或按鈕開始占卜
+    </div>
   </section>
 
   <!-- 運勢結果 -->
   <section id="fortuneResult" class="fortune-result" style="display:none;">
-    <h3 class="text-base md:text-lg font-bold mb-1">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-sm md:text-base font-bold">
       <span class="mystical-symbol">🌟</span>
       今日運勢
       <span class="mystical-symbol">✨</span>
     </h3>
-    <div class="text-2xl md:text-3xl font-bold mb-1" id="fortuneLevel">★★★★☆</div>
-    <div class="text-sm md:text-base mb-1" id="fortuneTitle">運勢良好</div>
-    <div class="text-xs opacity-90 mb-2" id="fortuneDescription">
+      <button onclick="shareFortune()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
+        <span class="mystical-symbol">📤</span>
+        分享
+      </button>
+    </div>
+    <div class="text-xl md:text-2xl font-bold mb-0.5" id="fortuneLevel">★★★★☆</div>
+    <div class="text-xs md:text-sm mb-0.5" id="fortuneTitle">運勢良好</div>
+    <div class="text-xs opacity-90 mb-1" id="fortuneDescription">
       今日整體運勢不錯，適合進行重要的決策和行動。
     </div>
-    <div class="grid grid-cols-2 gap-2 text-center">
-      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
-        <div class="text-lg md:text-xl font-bold mb-0.5" id="luckyNumber">7</div>
+    <div class="grid grid-cols-2 gap-1 md:gap-2 text-center">
+      <div class="bg-white bg-opacity-10 rounded-lg p-1 md:p-1.5 border border-white border-opacity-20">
+        <div class="text-base md:text-lg font-bold mb-0.5" id="luckyNumber">7</div>
         <div class="text-xs opacity-80">幸運數字</div>
       </div>
-      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
-        <div class="text-lg md:text-xl font-bold mb-0.5" id="luckyColor">紫色</div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1 md:p-1.5 border border-white border-opacity-20">
+        <div class="text-base md:text-lg font-bold mb-0.5" id="luckyColor">紫色</div>
         <div class="text-xs opacity-80">幸運色彩</div>
       </div>
     </div>
   </section>
 
+  <!-- 塔羅占卜結果 -->
+  <section id="tarotResult" class="fortune-result" style="display:none;">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-sm md:text-base font-bold">
+        <span class="mystical-symbol">🃏</span>
+        塔羅占卜
+        <span class="mystical-symbol">🎴</span>
+      </h3>
+      <div class="flex gap-1">
+        <button onclick="shareTarot()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
+          <span class="mystical-symbol">📤</span>
+          分享
+        </button>
+        <button onclick="generateTarotSpread('three')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">三牌</button>
+        <button onclick="generateTarotSpread('five')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">五牌</button>
+        <button onclick="generateTarotSpread('seven')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">七牌</button>
+      </div>
+    </div>
+    <div id="tarotCards" class="grid grid-cols-3 gap-1 md:gap-2 text-center mb-2">
+      <!-- 動態生成塔羅牌 -->
+    </div>
+    <div class="text-xs opacity-90" id="tarotReading">
+      你的過去充滿變化，現在需要平衡與公正，未來將迎來光明與成功。
+    </div>
+  </section>
+
+  <!-- 籤詩結果 -->
+  <section id="poetryResult" class="fortune-result" style="display:none;">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-sm md:text-base font-bold">
+        <span class="mystical-symbol">📜</span>
+        籤詩占卜
+        <span class="mystical-symbol">🏮</span>
+      </h3>
+      <button onclick="sharePoetry()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
+        <span class="mystical-symbol">📤</span>
+        分享
+      </button>
+    </div>
+    <div class="text-center mb-3">
+      <div class="text-2xl md:text-3xl font-bold text-yellow-400 mb-1" id="poetryNumber">第壹佰零捌籤</div>
+      <div class="text-sm md:text-base font-semibold text-white mb-2" id="poetryTitle">上上籤</div>
+    </div>
+    <div class="bg-white bg-opacity-10 rounded-lg p-2 md:p-3 border border-white border-opacity-20 mb-2">
+      <div class="text-sm md:text-base font-bold text-center mb-2" id="poetryContent">
+        春風得意馬蹄疾，一日看盡長安花
+      </div>
+      <div class="text-xs opacity-90 text-center" id="poetryInterpretation">
+        此籤寓意運勢極佳，如同春風得意，事業愛情雙豐收。
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-2 text-center">
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">吉凶</div>
+        <div class="text-sm font-bold text-green-400" id="poetryLuck">大吉</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">建議</div>
+        <div class="text-xs text-gray-300" id="poetryAdvice">積極進取</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 星座結果 -->
+  <section id="zodiacResult" class="fortune-result" style="display:none;">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-sm md:text-base font-bold">
+        <span class="mystical-symbol">⭐</span>
+        星座占卜
+        <span class="mystical-symbol">🌟</span>
+      </h3>
+      <button onclick="shareZodiac()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
+        <span class="mystical-symbol">📤</span>
+        分享
+      </button>
+    </div>
+    <div class="text-center mb-3">
+      <div class="text-xl md:text-2xl font-bold text-white mb-1" id="zodiacSign">水瓶座</div>
+      <div class="text-sm text-gray-300" id="zodiacDate">1月20日 - 2月18日</div>
+    </div>
+    <div class="grid grid-cols-2 gap-2 mb-3">
+      <div class="bg-white bg-opacity-10 rounded-lg p-2 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">今日運勢</div>
+        <div class="text-sm font-bold text-yellow-400" id="zodiacFortune">★★★★☆</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-2 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">幸運數字</div>
+        <div class="text-sm font-bold text-blue-400" id="zodiacNumber">8</div>
+      </div>
+    </div>
+    <div class="bg-white bg-opacity-10 rounded-lg p-2 border border-white border-opacity-20">
+      <div class="text-xs font-bold text-white mb-1">今日指引</div>
+      <div class="text-xs opacity-90" id="zodiacGuidance">
+        今天適合創新思考，發揮你的獨特見解，會有意想不到的收穫。
+      </div>
+    </div>
+  </section>
+
+  <!-- 數字占卜結果 -->
+  <section id="numberResult" class="fortune-result" style="display:none;">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-sm md:text-base font-bold">
+        <span class="mystical-symbol">🔢</span>
+        數字占卜
+        <span class="mystical-symbol">📊</span>
+      </h3>
+      <button onclick="shareNumber()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
+        <span class="mystical-symbol">📤</span>
+        分享
+      </button>
+    </div>
+    <div class="text-center mb-3">
+      <div class="text-2xl md:text-3xl font-bold text-cyan-400 mb-1" id="lifeNumber">7</div>
+      <div class="text-sm font-semibold text-white" id="numberTitle">生命數字</div>
+    </div>
+    <div class="bg-white bg-opacity-10 rounded-lg p-2 border border-white border-opacity-20 mb-3">
+      <div class="text-xs font-bold text-white mb-1">數字特質</div>
+      <div class="text-xs opacity-90" id="numberTraits">
+        你是一個深思熟慮、直覺敏銳的人，喜歡探索事物的本質。
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-1 text-center">
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">能量</div>
+        <div class="text-sm font-bold text-purple-400" id="numberEnergy">高</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">幸運色</div>
+        <div class="text-xs text-indigo-400" id="numberColor">靛藍</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">建議</div>
+        <div class="text-xs text-gray-300" id="numberAdvice">冥想</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 顏色占卜結果 -->
+  <section id="colorResult" class="fortune-result" style="display:none;">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-sm md:text-base font-bold">
+        <span class="mystical-symbol">🎨</span>
+        顏色占卜
+        <span class="mystical-symbol">🌈</span>
+      </h3>
+      <button onclick="shareColor()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
+        <span class="mystical-symbol">📤</span>
+        分享
+      </button>
+    </div>
+    <div class="text-center mb-3">
+      <div class="w-16 h-16 mx-auto rounded-full mb-2 border-4 border-white border-opacity-30" id="colorDisplay"></div>
+      <div class="text-lg md:text-xl font-bold text-white mb-1" id="colorName">紫色</div>
+      <div class="text-sm text-gray-300" id="colorHex">#8B5CF6</div>
+    </div>
+    <div class="bg-white bg-opacity-10 rounded-lg p-2 border border-white border-opacity-20 mb-3">
+      <div class="text-xs font-bold text-white mb-1">顏色意義</div>
+      <div class="text-xs opacity-90" id="colorMeaning">
+        紫色代表智慧、靈性和神秘，能帶來創造力和直覺力的提升。
+      </div>
+    </div>
+    <div class="grid grid-cols-2 gap-2">
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">能量</div>
+        <div class="text-sm font-bold text-purple-400" id="colorEnergy">高</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">適合</div>
+        <div class="text-xs text-gray-300" id="colorSuitable">冥想創作</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 水晶占卜結果 -->
+  <section id="crystalResult" class="fortune-result" style="display:none;">
+    <div class="flex justify-between items-center mb-2">
+      <h3 class="text-sm md:text-base font-bold">
+        <span class="mystical-symbol">💎</span>
+        水晶占卜
+        <span class="mystical-symbol">🔮</span>
+      </h3>
+      <button onclick="shareCrystal()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
+        <span class="mystical-symbol">📤</span>
+        分享
+      </button>
+    </div>
+    <div class="text-center mb-3">
+      <div class="text-2xl mb-2" id="crystalEmoji">💜</div>
+      <div class="text-lg md:text-xl font-bold text-white mb-1" id="crystalName">紫水晶</div>
+      <div class="text-sm text-gray-300" id="crystalType">智慧之石</div>
+    </div>
+    <div class="bg-white bg-opacity-10 rounded-lg p-2 border border-white border-opacity-20 mb-3">
+      <div class="text-xs font-bold text-white mb-1">水晶功效</div>
+      <div class="text-xs opacity-90" id="crystalEffect">
+        增強直覺力，提升智慧，有助於冥想和靈性成長。
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-1 text-center">
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">能量</div>
+        <div class="text-sm font-bold text-purple-400" id="crystalEnergy">高</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">脈輪</div>
+        <div class="text-xs text-indigo-400" id="crystalChakra">眉心輪</div>
+      </div>
+      <div class="bg-white bg-opacity-10 rounded-lg p-1.5 border border-white border-opacity-20">
+        <div class="text-xs font-bold text-white mb-1">建議</div>
+        <div class="text-xs text-gray-300" id="crystalAdvice">隨身攜帶</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 運勢與建議 - 2欄佈局 -->
+  <section id="fortuneDetails" class="glass-card">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-4">
   <!-- 各項運勢 -->
-  <section class="glass-card">
-    <h2 class="text-sm md:text-base font-bold mb-1">
+      <div>
+        <h2 class="text-xs md:text-base font-bold mb-0.5 md:mb-1">
       <span class="mystical-symbol">📊</span>
       各項運勢
       <span class="mystical-symbol">🔮</span>
     </h2>
-    <div class="space-y-1">
+        <div class="grid grid-cols-4 gap-0.5 sm:gap-1 md:gap-2">
       <div class="fortune-card">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-2">
-            <span class="text-base">💼</span>
-            <div>
-              <div class="font-semibold text-white text-xs md:text-sm">事業運</div>
+            <div class="flex flex-col items-center text-center space-y-0.5">
+              <span class="text-sm md:text-base">💼</span>
+              <div class="font-semibold text-white text-xs">事業運</div>
               <div class="text-xs text-gray-300">工作發展</div>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm md:text-base font-bold text-green-400" id="careerFortune">★★★★☆</div>
+              <div class="text-xs md:text-sm font-bold text-green-400" id="careerFortune">★★★★☆</div>
             <div class="text-xs text-gray-400">良好</div>
-          </div>
         </div>
       </div>
 
       <div class="fortune-card">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-2">
-            <span class="text-base">💰</span>
-            <div>
-              <div class="font-semibold text-white text-xs md:text-sm">財運</div>
+            <div class="flex flex-col items-center text-center space-y-0.5">
+              <span class="text-sm md:text-base">💰</span>
+              <div class="font-semibold text-white text-xs">財運</div>
               <div class="text-xs text-gray-300">金錢運勢</div>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm md:text-base font-bold text-yellow-400" id="moneyFortune">★★★☆☆</div>
+              <div class="text-xs md:text-sm font-bold text-yellow-400" id="moneyFortune">★★★☆☆</div>
             <div class="text-xs text-gray-400">普通</div>
-          </div>
         </div>
       </div>
 
       <div class="fortune-card">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-2">
-            <span class="text-base">❤️</span>
-            <div>
-              <div class="font-semibold text-white text-xs md:text-sm">愛情運</div>
+            <div class="flex flex-col items-center text-center space-y-0.5">
+              <span class="text-sm md:text-base">❤️</span>
+              <div class="font-semibold text-white text-xs">愛情運</div>
               <div class="text-xs text-gray-300">感情發展</div>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm md:text-base font-bold text-pink-400" id="loveFortune">★★★★★</div>
+              <div class="text-xs md:text-sm font-bold text-pink-400" id="loveFortune">★★★★★</div>
             <div class="text-xs text-gray-400">極佳</div>
-          </div>
         </div>
       </div>
 
       <div class="fortune-card">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center space-x-2">
-            <span class="text-base">🏥</span>
-            <div>
-              <div class="font-semibold text-white text-xs md:text-sm">健康運</div>
+            <div class="flex flex-col items-center text-center space-y-0.5">
+              <span class="text-sm md:text-base">🏥</span>
+              <div class="font-semibold text-white text-xs">健康運</div>
               <div class="text-xs text-gray-300">身體狀況</div>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="text-sm md:text-base font-bold text-blue-400" id="healthFortune">★★★★☆</div>
+              <div class="text-xs md:text-sm font-bold text-blue-400" id="healthFortune">★★★★☆</div>
             <div class="text-xs text-gray-400">良好</div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
   <!-- 今日建議 -->
-  <section class="glass-card">
-    <h2 class="text-sm md:text-base font-bold mb-1">
+      <div>
+        <h2 class="text-xs md:text-base font-bold mb-0.5 md:mb-1">
       <span class="mystical-symbol">💡</span>
       今日建議
       <span class="mystical-symbol">🔮</span>
     </h2>
-    <div class="space-y-1">
-      <div class="p-1.5 bg-green-500 bg-opacity-20 border-l-4 border-green-400 rounded-lg backdrop-blur-sm">
-        <div class="flex items-center space-x-1">
-          <span class="text-green-400 text-sm">✅</span>
+        <div class="grid grid-cols-3 gap-0.5 sm:gap-1 md:gap-2">
+          <div class="p-0.5 md:p-1.5 bg-green-500 bg-opacity-20 border-l-1 md:border-l-4 border-green-400 rounded-lg backdrop-blur-sm text-center">
+            <div class="flex flex-col items-center space-y-0.5">
+              <div class="flex items-center space-x-0.5">
+                <span class="text-green-400 text-xs">✅</span>
           <span class="font-semibold text-green-300 text-xs">適合做的事</span>
         </div>
-        <p class="text-xs text-green-200 mt-0.5" id="suitableActivities">與朋友聚會、學習新技能、整理房間</p>
+              <p class="text-xs text-green-200 leading-tight" id="suitableActivities">與朋友聚會、學習新技能、整理房間</p>
+            </div>
       </div>
 
-      <div class="p-1.5 bg-red-500 bg-opacity-20 border-l-4 border-red-400 rounded-lg backdrop-blur-sm">
-        <div class="flex items-center space-x-1">
-          <span class="text-red-400 text-sm">❌</span>
+          <div class="p-0.5 md:p-1.5 bg-red-500 bg-opacity-20 border-l-1 md:border-l-4 border-red-400 rounded-lg backdrop-blur-sm text-center">
+            <div class="flex flex-col items-center space-y-0.5">
+              <div class="flex items-center space-x-0.5">
+                <span class="text-red-400 text-xs">❌</span>
           <span class="font-semibold text-red-300 text-xs">避免的事</span>
         </div>
-        <p class="text-xs text-red-200 mt-0.5" id="avoidActivities">衝動消費、與人爭執、熬夜</p>
+              <p class="text-xs text-red-200 leading-tight" id="avoidActivities">衝動消費、與人爭執、熬夜</p>
+            </div>
       </div>
 
-      <div class="p-1.5 bg-blue-500 bg-opacity-20 border-l-4 border-blue-400 rounded-lg backdrop-blur-sm">
-        <div class="flex items-center space-x-1">
-          <span class="text-blue-400 text-sm">🎯</span>
+          <div class="p-0.5 md:p-1.5 bg-blue-500 bg-opacity-20 border-l-1 md:border-l-4 border-blue-400 rounded-lg backdrop-blur-sm text-center">
+            <div class="flex flex-col items-center space-y-0.5">
+              <div class="flex items-center space-x-0.5">
+                <span class="text-blue-400 text-xs">🎯</span>
           <span class="font-semibold text-blue-300 text-xs">開運方位</span>
         </div>
-        <p class="text-xs text-blue-200 mt-0.5" id="luckyDirection">東南方</p>
+              <p class="text-xs text-blue-200 leading-tight" id="luckyDirection">東南方</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -529,6 +830,25 @@ body::before {
   </section>
 </main>
 
+<!-- 塔羅牌詳情彈窗 -->
+<div id="tarotModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-gray-900 rounded-lg p-4 md:p-6 max-w-md mx-4 border border-purple-500 border-opacity-30 relative">
+    <button onclick="closeTarotModal()" class="absolute top-2 right-2 text-white hover:text-purple-300 text-xl">×</button>
+    <div class="text-center">
+      <div id="modalCardEmoji" class="text-4xl mb-2">🔮</div>
+      <h3 id="modalCardName" class="text-lg font-bold text-white mb-1">命運之輪</h3>
+      <div id="modalCardPosition" class="text-sm text-purple-300 mb-3">過去</div>
+      <div class="text-sm text-gray-300 mb-4" id="modalCardDescription">
+        這張牌代表著變化與機遇，象徵著命運的轉輪正在轉動。
+      </div>
+      <div class="text-xs text-gray-400" id="modalCardMeaning">
+        在過去的位置，這張牌表示你經歷了重要的變化，這些變化為現在的情況奠定了基礎。
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
 // 主題切換
 document.getElementById('themeToggle').addEventListener('click', () => {
@@ -568,8 +888,382 @@ const fortuneData = {
   directions: ['北方', '南方', '東方', '西方', '東北方', '東南方', '西北方', '西南方']
 };
 
+// 塔羅牌資料
+const tarotData = {
+  cards: [
+    { emoji: '🔮', name: '命運之輪', meaning: '變化與機遇' },
+    { emoji: '⚖️', name: '正義', meaning: '平衡與公正' },
+    { emoji: '☀️', name: '太陽', meaning: '成功與快樂' },
+    { emoji: '🌙', name: '月亮', meaning: '直覺與神秘' },
+    { emoji: '⭐', name: '星星', meaning: '希望與指引' },
+    { emoji: '🏰', name: '塔', meaning: '突破與改變' },
+    { emoji: '💖', name: '戀人', meaning: '愛情與選擇' },
+    { emoji: '👑', name: '皇帝', meaning: '權威與穩定' },
+    { emoji: '🧙‍♀️', name: '女祭司', meaning: '智慧與直覺' },
+    { emoji: '⚡', name: '高塔', meaning: '突然的變化' },
+    { emoji: '🦅', name: '愚者', meaning: '新的開始' },
+    { emoji: '🦁', name: '力量', meaning: '內在力量' },
+    { emoji: '⏰', name: '死神', meaning: '結束與重生' },
+    { emoji: '🔄', name: '節制', meaning: '平衡與調和' },
+    { emoji: '👻', name: '惡魔', meaning: '誘惑與束縛' },
+    { emoji: '🏛️', name: '教皇', meaning: '傳統與指導' },
+    { emoji: '💎', name: '隱者', meaning: '內省與尋找' },
+    { emoji: '🛡️', name: '戰車', meaning: '決心與勝利' },
+    { emoji: '🌱', name: '魔術師', meaning: '創造與行動' },
+    { emoji: '👸', name: '皇后', meaning: '豐盛與母性' }
+  ],
+  readings: [
+    '你的過去充滿變化，現在需要平衡與公正，未來將迎來光明與成功。',
+    '直覺告訴你要相信內心的聲音，現在的挑戰會帶來意想不到的機會。',
+    '愛與智慧的結合將指引你走向正確的道路，保持信心迎接未來。',
+    '突破現有的框架，勇敢面對改變，新的開始就在眼前。',
+    '過去累積的經驗將成為現在決策的基礎，未來充滿無限可能。',
+    '內在的力量將幫助你克服困難，保持耐心等待時機成熟。',
+    '結束一個舊的階段，迎接新的開始，這是轉變的關鍵時刻。',
+    '尋求平衡與調和，避免極端，中庸之道將帶來最好的結果。',
+    '小心誘惑與束縛，保持清醒的判斷，選擇正確的道路。',
+    '傳統的智慧與現代的創新相結合，將為你帶來突破。'
+  ],
+  cardCombinations: {
+    // 三牌組合解讀
+    three: {
+      '命運之輪_正義_太陽': '命運的轉輪帶來公正的結果，未來充滿光明與成功。這是一個轉變的時期，保持信心迎接新的開始。',
+      '月亮_星星_太陽': '從迷茫走向希望，最終迎來光明。相信你的直覺，星星會指引你走向正確的方向。',
+      '戀人_皇帝_太陽': '愛情的選擇需要智慧的判斷，權威的指導將幫助你獲得成功。',
+      '死神_節制_太陽': '結束舊的階段，通過平衡與調和，迎來重生與光明。',
+      '惡魔_力量_太陽': '掙脫束縛，運用內在力量，最終獲得自由與成功。',
+      '教皇_隱者_太陽': '傳統智慧與內省相結合，為你指引通往光明的道路。',
+      '戰車_魔術師_太陽': '決心與創造力的結合，將帶領你走向勝利。',
+      '皇后_皇帝_太陽': '豐盛與權威的結合，創造完美的成功。',
+      '愚者_力量_太陽': '新的開始需要勇氣，內在力量將引導你走向成功。',
+      '高塔_節制_太陽': '突然的變化需要平衡處理，最終會帶來好的結果。',
+      '命運之輪_月亮_星星': '變化帶來直覺的指引，希望就在前方。相信命運的安排，保持開放的心態。',
+      '正義_力量_節制': '公正、力量和平衡的完美結合，這是一個需要耐心和智慧處理的時期。',
+      '戀人_死神_星星': '愛情的結束帶來新的希望，這是一個轉變的時期，新的機會即將到來。',
+      '皇帝_教皇_隱者': '權威、傳統和內省的結合，建議尋求長者的智慧指導。',
+      '皇后_戰車_魔術師': '豐盛、決心和創造力的結合，這是行動的最佳時機。',
+      '愚者_惡魔_高塔': '新開始面臨誘惑和挑戰，需要小心處理，避免衝動決定。'
+    },
+    // 五牌組合解讀
+    five: {
+      '命運之輪_正義_月亮_星星_太陽': '變化帶來公正，通過直覺找到希望，最終獲得成功。這是一個完整的成長過程。',
+      '戀人_皇帝_死神_節制_太陽': '愛情選擇需要權威判斷，結束舊階段，平衡調和後迎來光明。',
+      '惡魔_力量_教皇_隱者_太陽': '掙脫束縛，運用力量，獲得智慧指導，通過內省找到成功之路。',
+      '戰車_魔術師_皇后_皇帝_太陽': '決心、創造、豐盛、權威的完美結合，將帶來全面的成功。',
+      '愚者_高塔_節制_星星_太陽': '新開始遇到變化，通過平衡找到希望，最終獲得成功。',
+      '月亮_星星_太陽_命運之輪_正義': '從迷茫到希望，再到成功，命運的轉輪帶來公正的結果。',
+      '教皇_隱者_死神_節制_太陽': '傳統智慧指引內省，結束舊階段，平衡後迎來光明。',
+      '皇后_皇帝_戀人_力量_太陽': '豐盛與權威的愛情，需要力量支撐，最終獲得成功。',
+      '愚者_魔術師_戰車_高塔_太陽': '新開始的創造行動遇到挑戰，突破後迎來勝利。',
+      '惡魔_死神_月亮_星星_太陽': '掙脫束縛，結束舊階段，從迷茫走向希望和光明。'
+    },
+    // 七牌組合解讀（脈輪）
+    seven: {
+      '魔術師_戀人_戰車_皇后_教皇_月亮_太陽': '從海底輪的創造力到頂輪的智慧，完整的能量流動將帶來全面的覺醒。',
+      '愚者_死神_月亮_太陽_惡魔_高塔_星星': '從新的開始到最終的希望，經歷死亡與重生的完整循環。',
+      '皇帝_正義_節制_力量_隱者_命運之輪_太陽': '從權威到平衡，通過節制和力量，最終獲得智慧與成功。',
+      '戰車_教皇_隱者_死神_節制_惡魔_太陽': '從決心到智慧，經歷死亡與重生的轉變，最終獲得自由與光明。',
+      '皇后_皇帝_戀人_力量_正義_月亮_星星': '從豐盛到權威，愛情的選擇需要力量支撐，公正帶來希望。',
+      '愚者_魔術師_戰車_皇后_教皇_隱者_太陽': '完整的成長之旅，從新開始到最終的成功，每一步都有其意義。',
+      '高塔_節制_力量_正義_隱者_命運之輪_星星': '從突然變化到最終希望，通過平衡、力量和智慧找到正確道路。',
+      '惡魔_死神_月亮_太陽_教皇_隱者_星星': '掙脫束縛，經歷轉變，從迷茫走向智慧與希望。',
+      '戀人_皇帝_皇后_戰車_魔術師_教皇_太陽': '愛情的選擇帶來權威與豐盛，決心和創造力指引成功之路。',
+      '命運之輪_正義_節制_力量_隱者_月亮_太陽': '命運的轉輪帶來公正與平衡，通過力量和智慧最終獲得成功。'
+    }
+  },
+  spreads: {
+    three: { 
+      name: '三牌解讀', 
+      positions: ['過去', '現在', '未來'],
+      meanings: ['過去的經歷', '現在的狀況', '未來的發展']
+    },
+    five: { 
+      name: '五牌展開', 
+      positions: ['工作事業', '感情關係', '健康狀況', '財富運勢', '建議指引'],
+      meanings: ['工作發展狀況', '感情關係狀態', '身體健康情況', '金錢財運趨勢', '給予的建議']
+    },
+    seven: { 
+      name: '七脈輪', 
+      positions: ['海底輪', '臍輪', '太陽輪', '心輪', '喉輪', '眉心輪', '頂輪'],
+      meanings: ['安全感與基礎', '情感與創造力', '意志力與自信', '愛情與人際', '溝通與表達', '直覺與洞察', '靈性與智慧']
+    }
+  },
+  cardDetails: {
+    '命運之輪': {
+      description: '命運之輪代表著命運的轉變、循環與機遇。這張牌象徵著生命中不可避免的變化，提醒我們順應自然循環，把握機會。',
+      meanings: {
+        '過去': '過去經歷了重要的命運轉折點，這些經歷塑造了現在的你。',
+        '現在': '你正處於命運轉變的關鍵時刻，好運即將到來。',
+        '未來': '命運之輪將為你帶來新的機遇和轉變，保持開放的心態。',
+        '工作事業': '工作方面即將迎來重要的轉機，新的機會即將到來。',
+        '感情關係': '感情關係將經歷重要的轉變，可能是新的開始。',
+        '健康狀況': '健康狀況將有所改善，身體將迎來新的活力。',
+        '財富運勢': '財運即將發生轉變，新的賺錢機會即將出現。',
+        '建議指引': '順應命運的流轉，把握即將到來的機會。',
+        '海底輪': '基礎安全感的建立迎來轉機。',
+        '臍輪': '情感和創造力將迎來新的發展階段。',
+        '太陽輪': '個人意志和自信將獲得提升。',
+        '心輪': '愛情關係將迎來新的發展機會。',
+        '喉輪': '溝通表達能力將獲得新的突破。',
+        '眉心輪': '直覺和洞察力將獲得顯著提升。',
+        '頂輪': '靈性覺醒將進入新的階段。'
+      }
+    },
+    '正義': {
+      description: '正義牌代表平衡、公正、真理與因果報應。這張牌提醒我們要為自己的行為負責，誠實面對選擇，相信宇宙的公正法則。',
+      meanings: {
+        '過去': '過去的行為和決定正在產生公正的結果，善惡終有報。',
+        '現在': '需要以公正和平衡的態度處理當前的情況。',
+        '未來': '公正的結果即將到來，因果法則將發揮作用。',
+        '工作事業': '工作方面需要以公正的態度處理，誠實努力將獲得回報。',
+        '感情關係': '感情關係需要公正和誠實的對待，真誠會帶來和諧。',
+        '健康狀況': '健康方面需要平衡的生活方式，規律作息很重要。',
+        '財富運勢': '財富需要通過正當途徑獲得，誠實理財會帶來穩定收益。',
+        '建議指引': '以誠實和公正的原則行事，真理必將獲勝。',
+        '海底輪': '基礎的安全感建立在公正原則之上。',
+        '臍輪': '情感關係需要公平和誠實的對待。',
+        '太陽輪': '個人意志需要與正義原則保持一致。',
+        '心輪': '愛情中需要公正、誠實和平衡。',
+        '喉輪': '溝通時要說真話，表達真實的想法。',
+        '眉心輪': '直覺指引你追求真理和正義。',
+        '頂輪': '靈性覺醒帶來對宇宙公正法則的深刻理解。'
+      }
+    },
+    '太陽': {
+      description: '太陽牌代表成功、快樂、活力與光明。這是最積極的牌之一，象徵著生命力的旺盛、成就的獲得和內心的光明。',
+      meanings: {
+        '過去': '過去的努力和樂觀態度為現在的成功奠定了基礎。',
+        '現在': '你正處於人生的高峰，享受著成功和快樂。',
+        '未來': '光明的未來即將到來，成功和快樂在等待著你。',
+        '工作事業': '工作方面將獲得成功和認可，事業發展順利。',
+        '感情關係': '感情關係充滿溫暖和快樂，愛情運勢極佳。',
+        '健康狀況': '身體健康狀況良好，充滿活力和生命力。',
+        '財富運勢': '財運亨通，收入穩定增長，投資運勢佳。',
+        '建議指引': '享受當下的成功，繼續保持積極樂觀的心態。',
+        '海底輪': '基礎能量充滿活力和生命力，身體健康。',
+        '臍輪': '創造力和情感表達達到高峰。',
+        '太陽輪': '個人意志和自信達到頂峰，充滿力量。',
+        '心輪': '愛情關係充滿溫暖和快樂，情感豐富。',
+        '喉輪': '溝通表達充滿活力和魅力，表達力強。',
+        '眉心輪': '直覺和洞察力達到最高點，智慧閃耀。',
+        '頂輪': '靈性覺醒帶來內心的光明和智慧。'
+      }
+    },
+    '月亮': {
+      description: '月亮牌代表直覺、潛意識、幻覺與神秘。這張牌提醒我們要相信內心的聲音，但也要注意可能的幻覺和恐懼，真相可能隱藏在表面之下。',
+      meanings: {
+        '過去': '過去的直覺和潛意識經歷影響了你的決定和行為。',
+        '現在': '需要相信直覺，但要注意可能的幻覺和誤解。',
+        '未來': '未來充滿神秘和未知，需要依靠直覺來指引方向。',
+        '工作事業': '工作方面需要相信直覺，但要注意可能的誤判。',
+        '感情關係': '感情關係可能隱藏著真相，需要用心去感受。',
+        '健康狀況': '健康方面需要關注潛在問題，不要忽視身體信號。',
+        '財富運勢': '財運方面需要謹慎判斷，避免被表面現象迷惑。',
+        '建議指引': '傾聽內心的聲音，但要保持清醒的判斷和理性思考。',
+        '海底輪': '潛意識的恐懼和不安正在浮現，需要面對。',
+        '臍輪': '情感上的直覺和敏感度增強，但要注意分辨真假。',
+        '太陽輪': '個人意志受到潛意識的影響，需要保持清醒。',
+        '心輪': '愛情中需要相信直覺，但要注意幻覺和誤解。',
+        '喉輪': '溝通時要表達真實的感受，避免隱瞞和欺騙。',
+        '眉心輪': '直覺和洞察力達到高峰，但要分辨真假信息。',
+        '頂輪': '靈性層面經歷神秘的覺醒過程，需要耐心等待。'
+      }
+    },
+    '星星': {
+      description: '星星牌代表希望、靈感、指引與治癒。這張牌象徵著在黑暗中的光明，提醒我們永遠不要失去希望，指引之光永遠存在。',
+      meanings: {
+        '過去': '過去的希望和夢想為現在帶來了重要的指引和啟示。',
+        '現在': '你正在經歷希望和靈感的重要時期，指引之光正在閃耀。',
+        '未來': '希望即將實現，夢想成真的時刻即將到來，光明在前方。',
+        '工作事業': '工作方面充滿希望，新的靈感和創意將帶來突破。',
+        '感情關係': '感情關係充滿希望和美好的憧憬，真愛即將到來。',
+        '健康狀況': '健康狀況將有所改善，身心將得到治癒和恢復。',
+        '財富運勢': '財運充滿希望，新的賺錢機會和投資靈感即將出現。',
+        '建議指引': '保持希望和夢想，它們會指引你前進，治癒你的心靈。',
+        '海底輪': '基礎的希望和安全感正在建立，身心得到治癒。',
+        '臍輪': '創造性的靈感不斷湧現，情感得到淨化。',
+        '太陽輪': '個人意志充滿希望和樂觀，自信得到提升。',
+        '心輪': '愛情充滿希望和美好的憧憬，心靈得到治癒。',
+        '喉輪': '溝通表達充滿靈感和創意，真實的聲音得到表達。',
+        '眉心輪': '直覺帶來希望和指引，洞察力得到增強。',
+        '頂輪': '靈性覺醒帶來對未來的希望，與宇宙的連結加深。'
+      }
+    },
+    '戀人': {
+      description: '戀人牌代表愛情、選擇、和諧與關係。這張牌提醒我們在愛情和人生重要選擇中要傾聽內心，做出正確的決定。',
+      meanings: {
+        '過去': '過去的愛情經歷和重要選擇影響了現在的情況。',
+        '現在': '你正面臨重要的愛情選擇或人生決定。',
+        '未來': '美好的愛情關係或正確的選擇即將到來。',
+        '工作事業': '工作上需要做出重要選擇，可能涉及合作夥伴關係。',
+        '感情關係': '感情方面正面臨重要選擇，需要傾聽內心聲音。',
+        '健康狀況': '健康方面需要選擇適合的生活方式，保持身心平衡。',
+        '財富運勢': '財富方面需要做出明智的投資選擇，避免衝動決定。',
+        '建議指引': '在愛情和人生選擇中要誠實面對自己的內心。',
+        '海底輪': '基礎的安全感建立在正確的選擇之上。',
+        '臍輪': '情感關係需要和諧與平衡的發展。',
+        '太陽輪': '個人意志需要在愛情中保持獨立。',
+        '心輪': '愛情關係充滿和諧與美好的連結。',
+        '喉輪': '在愛情中要誠實表達真實的感受。',
+        '眉心輪': '直覺指引你做出正確的愛情選擇。',
+        '頂輪': '靈性覺醒帶來對真愛的深刻理解。'
+      }
+    },
+    '死神': {
+      description: '死神牌代表結束、轉變、新生與放手。這張牌象徵著舊事物的結束和新事物的開始，提醒我們要勇敢面對改變。',
+      meanings: {
+        '過去': '過去的某個階段已經結束，為新的開始讓路。',
+        '現在': '你正處於重要的轉變期，需要勇敢面對結束。',
+        '未來': '重大的轉變即將到來，新的開始在等待。',
+        '現況': '目前的狀況需要結束舊的模式，迎接新的變化。',
+        '挑戰': '面對轉變時要勇敢放手，相信新生的力量。',
+        '建議': '接受結束，勇敢面對轉變，新的開始即將到來。',
+        '海底輪': '基礎的轉變帶來新的安全感。',
+        '臍輪': '情感關係經歷重要的轉變期。',
+        '太陽輪': '個人意志經歷重大的轉變和重生。',
+        '心輪': '愛情關係需要結束舊模式，迎接新開始。',
+        '喉輪': '溝通方式需要轉變，表達新的聲音。',
+        '眉心輪': '直覺指引你接受轉變，迎接新生。',
+        '頂輪': '靈性覺醒經歷死亡與重生的過程。'
+      }
+    },
+    '力量': {
+      description: '力量牌代表勇氣、耐心、內在力量與同情。這張牌提醒我們真正的力量來自內心的勇氣和耐心，而非外在的強迫。',
+      meanings: {
+        '過去': '過去的勇氣和耐心為現在帶來了內在的力量。',
+        '現在': '你需要運用內在的力量和勇氣面對挑戰。',
+        '未來': '內在的力量將幫助你克服困難，獲得成功。',
+        '現況': '目前的狀況需要你展現內在的力量和勇氣。',
+        '挑戰': '面對挑戰時要相信內在的力量，保持耐心。',
+        '建議': '運用內在的力量和勇氣，以溫和的方式處理問題。',
+        '海底輪': '基礎的力量來自內心的勇氣和安全感。',
+        '臍輪': '情感力量幫助你處理關係中的挑戰。',
+        '太陽輪': '個人意志充滿內在的力量和自信。',
+        '心輪': '愛情中的力量來自理解和同情。',
+        '喉輪': '溝通的力量來自內心的勇氣和真誠。',
+        '眉心輪': '直覺的力量來自內心的勇氣和智慧。',
+        '頂輪': '靈性覺醒帶來內在力量的提升。'
+      }
+    },
+    '節制': {
+      description: '節制牌代表平衡、節制、和諧與耐心。這張牌提醒我們要在不同的力量之間找到平衡，以溫和的方式達到目標。',
+      meanings: {
+        '過去': '過去的平衡和節制為現在帶來了和諧。',
+        '現在': '你需要保持平衡和節制，避免極端。',
+        '未來': '通過平衡和節制，你將達到內心的和諧。',
+        '現況': '目前的狀況需要平衡不同方面的需求。',
+        '挑戰': '面對挑戰時要保持平衡，避免過度反應。',
+        '建議': '保持節制和平衡，以溫和的方式處理問題。',
+        '海底輪': '基礎的平衡帶來身心的和諧。',
+        '臍輪': '情感需要平衡和節制的表達。',
+        '太陽輪': '個人意志需要在不同選擇間保持平衡。',
+        '心輪': '愛情關係需要平衡和和諧的發展。',
+        '喉輪': '溝通需要平衡的表達，避免過度或不足。',
+        '眉心輪': '直覺需要與理性保持平衡。',
+        '頂輪': '靈性覺醒帶來內心的平衡和和諧。'
+      }
+    }
+  }
+};
+
+// 籤詩數據
+const poetryData = {
+  poems: [
+    { number: '第壹佰零捌籤', title: '上上籤', content: '春風得意馬蹄疾，一日看盡長安花', interpretation: '此籤寓意運勢極佳，如同春風得意，事業愛情雙豐收。', luck: '大吉', advice: '積極進取' },
+    { number: '第玖拾玖籤', title: '上籤', content: '山重水複疑無路，柳暗花明又一村', interpretation: '看似困難重重，實則轉機在即，堅持下去必有收穫。', luck: '吉', advice: '堅持不懈' },
+    { number: '第捌拾捌籤', title: '中上籤', content: '海闊憑魚躍，天高任鳥飛', interpretation: '機會廣闊，只要把握時機，必能展翅高飛。', luck: '中吉', advice: '把握機會' },
+    { number: '第柒拾柒籤', title: '中籤', content: '欲窮千里目，更上一層樓', interpretation: '需要提升自己的眼界和能力，才能看到更美好的風景。', luck: '平', advice: '提升自我' },
+    { number: '第陸拾陸籤', title: '中下籤', content: '路漫漫其修遠兮，吾將上下而求索', interpretation: '前路雖長，但只要持續努力，終能達到目標。', luck: '中平', advice: '持續努力' }
+  ]
+};
+
+// 星座數據
+const zodiacData = {
+  signs: [
+    { name: '水瓶座', date: '1月20日 - 2月18日', emoji: '♒', element: '風象', traits: ['創新', '獨立', '友善'] },
+    { name: '雙魚座', date: '2月19日 - 3月20日', emoji: '♓', element: '水象', traits: ['直覺', '藝術', '敏感'] },
+    { name: '牡羊座', date: '3月21日 - 4月19日', emoji: '♈', element: '火象', traits: ['熱情', '勇敢', '領導'] },
+    { name: '金牛座', date: '4月20日 - 5月20日', emoji: '♉', element: '土象', traits: ['穩定', '實際', '享受'] },
+    { name: '雙子座', date: '5月21日 - 6月21日', emoji: '♊', element: '風象', traits: ['聰明', '好奇', '善變'] },
+    { name: '巨蟹座', date: '6月22日 - 7月22日', emoji: '♋', element: '水象', traits: ['感性', '保護', '家庭'] },
+    { name: '獅子座', date: '7月23日 - 8月22日', emoji: '♌', element: '火象', traits: ['自信', '慷慨', '戲劇性'] },
+    { name: '處女座', date: '8月23日 - 9月22日', emoji: '♍', element: '土象', traits: ['完美', '分析', '服務'] },
+    { name: '天秤座', date: '9月23日 - 10月23日', emoji: '♎', element: '風象', traits: ['平衡', '美感', '和諧'] },
+    { name: '天蠍座', date: '10月24日 - 11月22日', emoji: '♏', element: '水象', traits: ['神秘', '深刻', '轉化'] },
+    { name: '射手座', date: '11月23日 - 12月21日', emoji: '♐', element: '火象', traits: ['自由', '哲學', '冒險'] },
+    { name: '摩羯座', date: '12月22日 - 1月19日', emoji: '♑', element: '土象', traits: ['責任', '野心', '傳統'] }
+  ],
+  fortunes: ['★★★★★', '★★★★☆', '★★★☆☆', '★★☆☆☆', '★☆☆☆☆'],
+  numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33],
+  guidance: [
+    '今天適合創新思考，發揮你的獨特見解，會有意想不到的收穫。',
+    '保持平衡的心態，在理性與感性之間找到最佳平衡點。',
+    '今天是展現領導才能的好時機，勇敢承擔責任。',
+    '專注於實際行動，穩紮穩打會帶來穩定的進展。',
+    '發揮你的溝通能力，與他人分享想法會有意外的收穫。',
+    '相信直覺的指引，內心的聲音會帶你走向正確的方向。'
+  ]
+};
+
+// 數字占卜數據
+const numberData = {
+  numbers: [
+    { value: 1, title: '領導者', traits: '獨立、創新、領導能力強，喜歡開創新的道路。', energy: '高', color: '紅色', advice: '發揮領導力' },
+    { value: 2, title: '合作者', traits: '溫和、合作、善於傾聽，是很好的團隊夥伴。', energy: '中', color: '橙色', advice: '加強合作' },
+    { value: 3, title: '創作者', traits: '創意豐富、表達力強，具有藝術天賦和幽默感。', energy: '高', color: '黃色', advice: '發揮創意' },
+    { value: 4, title: '建設者', traits: '務實、穩定、組織能力強，是可靠的執行者。', energy: '中', color: '綠色', advice: '專注執行' },
+    { value: 5, title: '冒險家', traits: '自由、好奇、適應力強，喜歡探索和變化。', energy: '高', color: '藍色', advice: '勇於冒險' },
+    { value: 6, title: '照顧者', traits: '關愛、責任感強、善於照顧他人，重視家庭和諧。', energy: '中', color: '靛藍', advice: '關愛他人' },
+    { value: 7, title: '思想家', traits: '深思熟慮、直覺敏銳，喜歡探索事物的本質。', energy: '高', color: '紫色', advice: '深入思考' },
+    { value: 8, title: '實業家', traits: '雄心勃勃、執行力強，具有商業頭腦和權威感。', energy: '高', color: '粉紅色', advice: '追求成功' },
+    { value: 9, title: '智慧者', traits: '智慧、慈悲、具有全球視野，是人生的導師。', energy: '高', color: '金色', advice: '分享智慧' }
+  ]
+};
+
+// 顏色占卜數據
+const colorData = {
+  colors: [
+    { name: '紅色', hex: '#EF4444', meaning: '熱情、活力、勇氣，能激發行動力和自信心。', energy: '高', suitable: '運動決策' },
+    { name: '橙色', hex: '#F97316', meaning: '創意、樂觀、社交，能帶來快樂和創造力。', energy: '高', suitable: '社交創作' },
+    { name: '黃色', hex: '#EAB308', meaning: '智慧、快樂、啟發，能提升學習能力和記憶力。', energy: '中', suitable: '學習思考' },
+    { name: '綠色', hex: '#22C55E', meaning: '平衡、成長、和諧，能帶來平靜和自然能量。', energy: '中', suitable: '放鬆療癒' },
+    { name: '藍色', hex: '#3B82F6', meaning: '冷靜、信任、溝通，能增強表達能力和理性思考。', energy: '中', suitable: '溝通表達' },
+    { name: '靛藍', hex: '#6366F1', meaning: '直覺、洞察、靈性，能提升第六感和內在智慧。', energy: '高', suitable: '冥想靈修' },
+    { name: '紫色', hex: '#8B5CF6', meaning: '智慧、靈性、神秘，能帶來創造力和直覺力。', energy: '高', suitable: '冥想創作' },
+    { name: '粉紅色', hex: '#EC4899', meaning: '愛情、溫柔、同情，能帶來浪漫和情感治癒。', energy: '中', suitable: '愛情關係' },
+    { name: '白色', hex: '#F8FAFC', meaning: '純潔、清晰、新開始，能帶來淨化和重新開始的能量。', energy: '中', suitable: '重新開始' },
+    { name: '黑色', hex: '#1F2937', meaning: '神秘、力量、保護，能帶來安全感和內在力量。', energy: '高', suitable: '保護力量' }
+  ]
+};
+
+// 水晶占卜數據
+const crystalData = {
+  crystals: [
+    { emoji: '💜', name: '紫水晶', type: '智慧之石', effect: '增強直覺力，提升智慧，有助於冥想和靈性成長。', energy: '高', chakra: '眉心輪', advice: '隨身攜帶' },
+    { emoji: '💚', name: '綠松石', type: '溝通之石', effect: '促進溝通表達，增強自信心，有助於人際關係。', energy: '中', chakra: '喉輪', advice: '佩戴項鍊' },
+    { emoji: '❤️', name: '粉水晶', type: '愛情之石', effect: '吸引真愛，促進情感和諧，有助於心輪開啟。', energy: '中', chakra: '心輪', advice: '放置床頭' },
+    { emoji: '💙', name: '青金石', type: '真理之石', effect: '增強洞察力，促進誠實表達，有助於第三眼開啟。', energy: '高', chakra: '眉心輪', advice: '冥想使用' },
+    { emoji: '🧡', name: '橙瑪瑙', type: '活力之石', effect: '增強創造力，提升活力，有助於臍輪平衡。', energy: '中', chakra: '臍輪', advice: '工作時佩戴' },
+    { emoji: '💛', name: '黃水晶', type: '財富之石', effect: '吸引財富，增強自信，有助於太陽輪平衡。', energy: '高', chakra: '太陽輪', advice: '放置財位' },
+    { emoji: '🤍', name: '白水晶', type: '淨化之石', effect: '淨化負能量，增強靈性，有助於頂輪開啟。', energy: '高', chakra: '頂輪', advice: '淨化空間' },
+    { emoji: '🖤', name: '黑曜石', type: '保護之石', effect: '驅除負能量，提供保護，有助於海底輪穩定。', energy: '高', chakra: '海底輪', advice: '隨身攜帶' }
+  ]
+};
+
 // 生成運勢
 function generateFortune() {
+  // 添加載入動畫
+  const crystalBall = document.getElementById('crystalBall');
+  crystalBall.classList.add('fortune-loading');
+  
+  // 隱藏其他結果
+  document.getElementById('tarotResult').style.display = 'none';
+  
+  // 顯示運勢詳情
+  document.getElementById('fortuneDetails').style.display = 'block';
+  
+  // 延遲顯示結果，增加神秘感
+  setTimeout(() => {
   // 隨機選擇運勢等級
   const levelIndex = Math.floor(Math.random() * fortuneData.levels.length);
   const level = fortuneData.levels[levelIndex];
@@ -623,12 +1317,9 @@ function generateFortune() {
   
   resultSection.scrollIntoView({ behavior: 'smooth' });
   
-  // 添加水晶球動畫效果
-  const crystalBall = document.querySelector('.crystal-ball');
-  crystalBall.style.animation = 'none';
-  setTimeout(() => {
-    crystalBall.style.animation = 'float 4s ease-in-out infinite, rotate 20s linear infinite';
-  }, 100);
+    // 移除載入動畫
+    crystalBall.classList.remove('fortune-loading');
+    
   
   // 添加神秘符號動畫
   const symbols = document.querySelectorAll('.mystical-symbol');
@@ -637,11 +1328,392 @@ function generateFortune() {
       symbol.style.animation = 'sparkle 2s ease-in-out infinite';
     }, index * 100);
   });
+  }, 2000);
 }
 
-// 頁面載入時自動生成運勢
+// 塔羅占卜
+function generateTarot() {
+  generateTarotSpread('three');
+}
+
+// 塔羅牌佈局
+function generateTarotSpread(spreadType) {
+  // 添加載入動畫
+  const crystalBall = document.getElementById('crystalBall');
+  crystalBall.classList.add('fortune-loading');
+  
+  // 隱藏其他結果
+  document.getElementById('fortuneResult').style.display = 'none';
+  document.getElementById('fortuneDetails').style.display = 'none';
+  
+  // 延遲顯示結果
+  setTimeout(() => {
+    const spread = tarotData.spreads[spreadType];
+    const cardCount = spread.positions.length;
+    
+    // 隨機選擇牌
+    const selectedCards = [];
+    const availableCards = [...tarotData.cards];
+    
+    for (let i = 0; i < cardCount; i++) {
+      const randomIndex = Math.floor(Math.random() * availableCards.length);
+      selectedCards.push(availableCards[randomIndex]);
+      availableCards.splice(randomIndex, 1);
+    }
+    
+    // 生成牌型組合名稱
+    const combinationKey = selectedCards.map(card => card.name).join('_');
+    
+    // 根據牌型組合選擇解讀
+    let reading;
+    if (tarotData.cardCombinations[spreadType] && tarotData.cardCombinations[spreadType][combinationKey]) {
+      reading = tarotData.cardCombinations[spreadType][combinationKey];
+    } else {
+      // 如果沒有特定的組合解讀，使用通用解讀
+      reading = tarotData.readings[Math.floor(Math.random() * tarotData.readings.length)];
+    }
+    
+    // 生成塔羅牌HTML
+    const tarotCardsContainer = document.getElementById('tarotCards');
+    const gridCols = cardCount <= 3 ? 'grid-cols-3' : cardCount <= 5 ? 'grid-cols-5' : 'grid-cols-7';
+    
+    tarotCardsContainer.className = `grid ${gridCols} gap-1 md:gap-2 text-center mb-2`;
+    tarotCardsContainer.innerHTML = '';
+    
+    selectedCards.forEach((card, index) => {
+      const cardElement = document.createElement('div');
+      cardElement.className = 'bg-white bg-opacity-10 rounded-lg p-1 md:p-2 border border-white border-opacity-20 tarot-card cursor-pointer hover:bg-opacity-20 transition-all duration-300';
+      cardElement.innerHTML = `
+        <div class="text-lg md:text-xl font-bold mb-1">${card.emoji}</div>
+        <div class="text-xs font-semibold">${card.name}</div>
+        <div class="text-xs opacity-80">${spread.positions[index]}</div>
+        <div class="text-xs opacity-60 mt-0.5">${spread.meanings[index]}</div>
+      `;
+      cardElement.onclick = () => showTarotCardDetail(card, spread.positions[index]);
+      tarotCardsContainer.appendChild(cardElement);
+    });
+    
+    // 更新解讀
+    document.getElementById('tarotReading').textContent = reading;
+    
+    // 顯示結果
+    const resultSection = document.getElementById('tarotResult');
+    resultSection.style.display = 'block';
+    resultSection.style.opacity = '0';
+    resultSection.style.transform = 'translateY(20px)';
+    
+    // 添加顯示動畫
+    setTimeout(() => {
+      resultSection.style.transition = 'all 0.6s ease-out';
+      resultSection.style.opacity = '1';
+      resultSection.style.transform = 'translateY(0)';
+    }, 100);
+    
+    // 添加塔羅牌翻轉動畫
+    const tarotCards = resultSection.querySelectorAll('.tarot-card');
+    tarotCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.style.animation = 'card-flip 0.6s ease-in-out';
+      }, index * 200);
+    });
+    
+    resultSection.scrollIntoView({ behavior: 'smooth' });
+    
+    
+    // 移除載入動畫
+    crystalBall.classList.remove('fortune-loading');
+  }, 2000);
+}
+
+// 顯示塔羅牌詳情彈窗
+function showTarotCardDetail(card, position) {
+  const modal = document.getElementById('tarotModal');
+  const cardDetail = tarotData.cardDetails[card.name];
+  
+  if (cardDetail) {
+    document.getElementById('modalCardEmoji').textContent = card.emoji;
+    document.getElementById('modalCardName').textContent = card.name;
+    document.getElementById('modalCardPosition').textContent = position;
+    document.getElementById('modalCardDescription').textContent = cardDetail.description;
+    document.getElementById('modalCardMeaning').textContent = cardDetail.meanings[position] || '這個位置的特殊含義正在解讀中...';
+  } else {
+    // 如果沒有詳細資料，顯示基本資訊
+    document.getElementById('modalCardEmoji').textContent = card.emoji;
+    document.getElementById('modalCardName').textContent = card.name;
+    document.getElementById('modalCardPosition').textContent = position;
+    document.getElementById('modalCardDescription').textContent = `這張牌代表著${card.meaning}。`;
+    document.getElementById('modalCardMeaning').textContent = `在${position}的位置，這張牌為你帶來重要的指引。`;
+  }
+  
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+// 關閉塔羅牌詳情彈窗
+function closeTarotModal() {
+  const modal = document.getElementById('tarotModal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+// 點擊彈窗外部關閉
+document.getElementById('tarotModal').addEventListener('click', (e) => {
+  if (e.target.id === 'tarotModal') {
+    closeTarotModal();
+  }
+});
+
+// 用戶資訊管理（簡化版）
+let userInfo = {
+  name: '',
+  birthday: ''
+};
+
+// 籤詩占卜
+function generatePoetry() {
+  const crystalBall = document.getElementById('crystalBall');
+  crystalBall.classList.add('fortune-loading');
+  
+  // 隱藏其他結果
+  hideAllResults();
+  
+  setTimeout(() => {
+    const poem = poetryData.poems[Math.floor(Math.random() * poetryData.poems.length)];
+    
+    // 更新顯示
+    document.getElementById('poetryNumber').textContent = poem.number;
+    document.getElementById('poetryTitle').textContent = poem.title;
+    document.getElementById('poetryContent').textContent = poem.content;
+    document.getElementById('poetryInterpretation').textContent = poem.interpretation;
+    document.getElementById('poetryLuck').textContent = poem.luck;
+    document.getElementById('poetryAdvice').textContent = poem.advice;
+    
+    // 顯示結果
+    showResult('poetryResult');
+    crystalBall.classList.remove('fortune-loading');
+  }, 2000);
+}
+
+// 星座占卜
+function generateZodiac() {
+  const crystalBall = document.getElementById('crystalBall');
+  crystalBall.classList.add('fortune-loading');
+  
+  // 隱藏其他結果
+  hideAllResults();
+  
+  setTimeout(() => {
+    const sign = zodiacData.signs[Math.floor(Math.random() * zodiacData.signs.length)];
+    const fortune = zodiacData.fortunes[Math.floor(Math.random() * zodiacData.fortunes.length)];
+    const number = zodiacData.numbers[Math.floor(Math.random() * zodiacData.numbers.length)];
+    const guidance = zodiacData.guidance[Math.floor(Math.random() * zodiacData.guidance.length)];
+    
+    // 更新顯示
+    document.getElementById('zodiacSign').textContent = sign.name;
+    document.getElementById('zodiacDate').textContent = sign.date;
+    document.getElementById('zodiacFortune').textContent = fortune;
+    document.getElementById('zodiacNumber').textContent = number;
+    document.getElementById('zodiacGuidance').textContent = guidance;
+    
+    // 顯示結果
+    showResult('zodiacResult');
+    crystalBall.classList.remove('fortune-loading');
+  }, 2000);
+}
+
+// 數字占卜
+function generateNumber() {
+  const crystalBall = document.getElementById('crystalBall');
+  crystalBall.classList.add('fortune-loading');
+  
+  // 隱藏其他結果
+  hideAllResults();
+  
+  setTimeout(() => {
+    const numberInfo = numberData.numbers[Math.floor(Math.random() * numberData.numbers.length)];
+    
+    // 更新顯示
+    document.getElementById('lifeNumber').textContent = numberInfo.value;
+    document.getElementById('numberTitle').textContent = numberInfo.title;
+    document.getElementById('numberTraits').textContent = numberInfo.traits;
+    document.getElementById('numberEnergy').textContent = numberInfo.energy;
+    document.getElementById('numberColor').textContent = numberInfo.color;
+    document.getElementById('numberAdvice').textContent = numberInfo.advice;
+    
+    // 顯示結果
+    showResult('numberResult');
+    crystalBall.classList.remove('fortune-loading');
+  }, 2000);
+}
+
+// 顏色占卜
+function generateColor() {
+  const crystalBall = document.getElementById('crystalBall');
+  crystalBall.classList.add('fortune-loading');
+  
+  // 隱藏其他結果
+  hideAllResults();
+  
+  setTimeout(() => {
+    const color = colorData.colors[Math.floor(Math.random() * colorData.colors.length)];
+    
+    // 更新顯示
+    document.getElementById('colorDisplay').style.backgroundColor = color.hex;
+    document.getElementById('colorName').textContent = color.name;
+    document.getElementById('colorHex').textContent = color.hex;
+    document.getElementById('colorMeaning').textContent = color.meaning;
+    document.getElementById('colorEnergy').textContent = color.energy;
+    document.getElementById('colorSuitable').textContent = color.suitable;
+    
+    // 顯示結果
+    showResult('colorResult');
+    crystalBall.classList.remove('fortune-loading');
+  }, 2000);
+}
+
+// 水晶占卜
+function generateCrystal() {
+  const crystalBall = document.getElementById('crystalBall');
+  crystalBall.classList.add('fortune-loading');
+  
+  // 隱藏其他結果
+  hideAllResults();
+  
+  setTimeout(() => {
+    const crystal = crystalData.crystals[Math.floor(Math.random() * crystalData.crystals.length)];
+    
+    // 更新顯示
+    document.getElementById('crystalEmoji').textContent = crystal.emoji;
+    document.getElementById('crystalName').textContent = crystal.name;
+    document.getElementById('crystalType').textContent = crystal.type;
+    document.getElementById('crystalEffect').textContent = crystal.effect;
+    document.getElementById('crystalEnergy').textContent = crystal.energy;
+    document.getElementById('crystalChakra').textContent = crystal.chakra;
+    document.getElementById('crystalAdvice').textContent = crystal.advice;
+    
+    // 顯示結果
+    showResult('crystalResult');
+    crystalBall.classList.remove('fortune-loading');
+  }, 2000);
+}
+
+// 輔助函數
+function hideAllResults() {
+  document.getElementById('fortuneResult').style.display = 'none';
+  document.getElementById('tarotResult').style.display = 'none';
+  document.getElementById('poetryResult').style.display = 'none';
+  document.getElementById('zodiacResult').style.display = 'none';
+  document.getElementById('numberResult').style.display = 'none';
+  document.getElementById('colorResult').style.display = 'none';
+  document.getElementById('crystalResult').style.display = 'none';
+  document.getElementById('fortuneDetails').style.display = 'none';
+}
+
+function showResult(resultId) {
+  const resultSection = document.getElementById(resultId);
+  resultSection.style.display = 'block';
+  resultSection.style.opacity = '0';
+  resultSection.style.transform = 'translateY(20px)';
+  
+  setTimeout(() => {
+    resultSection.style.transition = 'all 0.6s ease-out';
+    resultSection.style.opacity = '1';
+    resultSection.style.transform = 'translateY(0)';
+  }, 100);
+  
+  resultSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// 分享功能
+function shareFortune() {
+  const result = {
+    type: 'fortune',
+    level: document.getElementById('fortuneLevel').textContent,
+    title: document.getElementById('fortuneTitle').textContent,
+    description: document.getElementById('fortuneDescription').textContent,
+    luckyNumber: document.getElementById('luckyNumber').textContent,
+    luckyColor: document.getElementById('luckyColor').textContent,
+    userInfo: userInfo
+  };
+  
+  const shareText = `🔮 今日運勢分享 🔮\n\n今日運勢：${result.title}\n\n運勢評分：${result.level}\n幸運數字：${result.luckyNumber}\n幸運色彩：${result.luckyColor}\n\n運勢描述：${result.description}\n\n#塔羅占卜 #今日運勢 #濬瑒房產生活平台`;
+  
+  shareContent(shareText);
+}
+
+function shareTarot() {
+  const cards = Array.from(document.querySelectorAll('#tarotCards .tarot-card')).map(card => {
+    const name = card.querySelector('.text-xs.font-semibold').textContent;
+    const position = card.querySelector('.text-xs.opacity-80').textContent;
+    return `${position}: ${name}`;
+  }).join('\n');
+  
+  const reading = document.getElementById('tarotReading').textContent;
+  
+  const shareText = `🃏 塔羅占卜分享 🃏\n\n塔羅占卜結果：\n\n${cards}\n\n解讀：${reading}\n\n#塔羅占卜 #濬瑒房產生活平台`;
+  
+  shareContent(shareText);
+}
+
+function sharePoetry() {
+  const shareText = `📜 籤詩占卜分享 📜\n\n籤詩：${document.getElementById('poetryNumber').textContent}\n${document.getElementById('poetryTitle').textContent}\n\n籤詩內容：${document.getElementById('poetryContent').textContent}\n\n解讀：${document.getElementById('poetryInterpretation').textContent}\n\n吉凶：${document.getElementById('poetryLuck').textContent}\n建議：${document.getElementById('poetryAdvice').textContent}\n\n#籤詩占卜 #濬瑒房產生活平台`;
+  shareContent(shareText);
+}
+
+function shareZodiac() {
+  const shareText = `⭐ 星座占卜分享 ⭐\n\n星座：${document.getElementById('zodiacSign').textContent}\n日期：${document.getElementById('zodiacDate').textContent}\n\n今日運勢：${document.getElementById('zodiacFortune').textContent}\n幸運數字：${document.getElementById('zodiacNumber').textContent}\n\n今日指引：${document.getElementById('zodiacGuidance').textContent}\n\n#星座占卜 #濬瑒房產生活平台`;
+  shareContent(shareText);
+}
+
+function shareNumber() {
+  const shareText = `🔢 數字占卜分享 🔢\n\n生命數字：${document.getElementById('lifeNumber').textContent}\n${document.getElementById('numberTitle').textContent}\n\n數字特質：${document.getElementById('numberTraits').textContent}\n\n能量：${document.getElementById('numberEnergy').textContent}\n幸運色：${document.getElementById('numberColor').textContent}\n建議：${document.getElementById('numberAdvice').textContent}\n\n#數字占卜 #濬瑒房產生活平台`;
+  shareContent(shareText);
+}
+
+function shareColor() {
+  const shareText = `🎨 顏色占卜分享 🎨\n\n顏色：${document.getElementById('colorName').textContent}\n色碼：${document.getElementById('colorHex').textContent}\n\n顏色意義：${document.getElementById('colorMeaning').textContent}\n\n能量：${document.getElementById('colorEnergy').textContent}\n適合：${document.getElementById('colorSuitable').textContent}\n\n#顏色占卜 #濬瑒房產生活平台`;
+  shareContent(shareText);
+}
+
+function shareCrystal() {
+  const shareText = `💎 水晶占卜分享 💎\n\n水晶：${document.getElementById('crystalName').textContent}\n${document.getElementById('crystalType').textContent}\n\n水晶功效：${document.getElementById('crystalEffect').textContent}\n\n能量：${document.getElementById('crystalEnergy').textContent}\n脈輪：${document.getElementById('crystalChakra').textContent}\n建議：${document.getElementById('crystalAdvice').textContent}\n\n#水晶占卜 #濬瑒房產生活平台`;
+  shareContent(shareText);
+}
+
+function shareContent(text) {
+  if (navigator.share) {
+    navigator.share({
+      title: '占卜結果分享',
+      text: text,
+      url: window.location.href
+    });
+  } else {
+    // 複製到剪貼板
+    navigator.clipboard.writeText(text).then(() => {
+      alert('占卜結果已複製到剪貼板！');
+    }).catch(() => {
+      // 降級處理
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      alert('占卜結果已複製到剪貼板！');
+    });
+  }
+}
+
+// 頁面載入時不自動生成運勢，等待用戶選擇
 window.addEventListener('load', () => {
-  setTimeout(generateFortune, 1000);
+  // 確保所有結果區塊都隱藏
+  hideAllResults();
+  
+  // 載入用戶資訊（簡化版）
+  const storedUserInfo = localStorage.getItem('userInfo');
+  if (storedUserInfo) {
+    userInfo = JSON.parse(storedUserInfo);
+  }
 });
 </script>
 </body>

@@ -60,13 +60,13 @@ body {
 
 .question-card {
   background: rgba(255, 255, 255, 0.98);
-  border-radius: 24px;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
   transition: var(--transition);
   border: 1px solid rgba(255, 255, 255, 0.4);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .question-card::before {
@@ -82,8 +82,8 @@ body {
 .option-button {
   background: rgba(255, 255, 255, 0.9);
   border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-radius: 14px;
+  padding: 1.25rem;
   width: 100%;
   text-align: left;
   transition: var(--transition);
@@ -143,7 +143,7 @@ body {
   background: var(--primary-gradient);
   color: white;
   border-radius: var(--border-radius);
-  padding: 3rem 2rem;
+  padding: 2rem 1.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -282,8 +282,8 @@ body {
 }
 
 .type-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
   animation: bounce 2s infinite;
 }
 
@@ -294,9 +294,9 @@ body {
 }
 
 .strength-item, .weakness-item, .career-item {
-  padding: 0.75rem 1rem;
-  margin: 0.5rem 0;
-  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  margin: 0.25rem 0;
+  border-radius: 10px;
   transition: var(--transition);
   position: relative;
   overflow: hidden;
@@ -328,22 +328,214 @@ body {
 }
 
 /* 響應式設計 */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .question-card {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .option-button {
     padding: 1.25rem;
   }
   
+  .option-button {
+    padding: 1rem;
+  }
+  
   .result-card {
-    padding: 2rem 1.5rem;
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .question-card {
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+    border-radius: 16px;
+  }
+  
+  .option-button {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  
+  .result-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
   }
   
   .type-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
+  }
+  
+  .glass-card {
+    border-radius: 14px;
+  }
+  
+  .progress-container {
+    height: 8px;
+  }
+  
+  .trait-bar {
+    height: 5px;
+  }
+  
+  /* 調整標題字體大小 */
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  /* 調整按鈕間距 */
+  .space-y-4 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  /* 調整網格佈局 */
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .question-card {
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .option-button {
+    padding: 0.875rem;
+  }
+  
+  .result-card {
+    padding: 1.25rem 1rem;
+  }
+  
+  .type-icon {
+    font-size: 2rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+  }
+  
+  /* 調整選項按鈕內容 */
+  .option-button .font-semibold {
+    font-size: 0.875rem;
+  }
+  
+  .option-button .text-sm {
+    font-size: 0.75rem;
+  }
+  
+  /* 調整進度條 */
+  .progress-container {
+    height: 6px;
+  }
+  
+  /* 調整特質條 */
+  .trait-bar {
+    height: 4px;
+  }
+  
+  /* 調整網格 */
+  .grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  /* 調整按鈕 */
+  .px-6 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .py-3 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* 超小螢幕優化 */
+@media (max-width: 360px) {
+  .question-card {
+    padding: 0.875rem;
+  }
+  
+  .option-button {
+    padding: 0.75rem;
+  }
+  
+  .result-card {
+    padding: 1rem 0.875rem;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-5xl {
+    font-size: 2rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+  
+  .text-xl {
+    font-size: 1rem;
+  }
+}
+
+/* 性別按鈕選中狀態 */
+.gender-btn.selected {
+  border-color: #667eea !important;
+  background: rgba(102, 126, 234, 0.1) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+/* 改善表單元素樣式 */
+select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* 改善響應式表單 */
+@media (max-width: 480px) {
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .gender-btn {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  /* 確保文字不會被截斷 */
+  .text-sm {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
+  }
+  
+  .text-xs {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
+  }
+  
+  /* 確保標籤文字正常顯示 */
+  label {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
   }
 }
 </style>
@@ -360,42 +552,114 @@ body {
 </button>
 
 <!-- 標題區 -->
-<header class="text-center py-12 relative overflow-hidden">
+<header class="text-center py-8 relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 via-blue-600/20 to-pink-600/20"></div>
   <div class="relative z-10">
-    <div class="type-icon mb-4">
+    <div class="type-icon mb-3">
       <i class="fas fa-brain"></i>
     </div>
-    <h1 class="text-5xl font-bold text-white mb-4 animate-fade-in">MBTI 性格測驗</h1>
-    <p class="text-xl text-white/90 mb-6 animate-slide-up">深度了解你的性格類型與潛能</p>
-    <div class="flex justify-center items-center space-x-4 text-white/80">
+    <h1 class="text-4xl font-bold text-white mb-3 animate-fade-in">MBTI 性格測驗</h1>
+    <p class="text-lg text-white/90 mb-4 animate-slide-up">深度了解你的性格類型與潛能</p>
+    <div class="flex justify-center items-center space-x-3 text-white/80 text-sm">
       <div class="flex items-center">
-        <i class="fas fa-clock mr-2"></i>
+        <i class="fas fa-clock mr-1"></i>
         <span>約 5-8 分鐘</span>
       </div>
       <div class="flex items-center">
-        <i class="fas fa-users mr-2"></i>
+        <i class="fas fa-users mr-1"></i>
         <span>16 種性格類型</span>
       </div>
       <div class="flex items-center">
-        <i class="fas fa-chart-line mr-2"></i>
+        <i class="fas fa-chart-line mr-1"></i>
         <span>專業分析</span>
       </div>
     </div>
   </div>
 </header>
 
-<main class="px-4 py-8 max-w-4xl mx-auto space-y-8">
+<main class="px-4 py-6 max-w-4xl mx-auto space-y-6">
+  <!-- 個人資訊輸入 -->
+  <section id="personalInfoSection" class="glass-card p-6 animate-slide-up">
+    <div class="text-center mb-5">
+      <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xl mx-auto mb-3">
+        <i class="fas fa-user-edit"></i>
+      </div>
+      <h2 class="text-xl font-bold mb-2 text-gray-800">個人資訊</h2>
+      <p class="text-gray-600 text-sm leading-relaxed px-2">提供您的出生資訊，讓我們為您提供更精確的性格分析</p>
+    </div>
+    
+    <div id="personalInfoContainer" class="max-w-lg mx-auto space-y-4">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2 whitespace-nowrap">
+          <i class="fas fa-calendar-alt mr-2"></i>出生年月日
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <select id="birthYear" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-sm">
+              <option value="">年份</option>
+            </select>
+          </div>
+          <div>
+            <select id="birthMonth" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-sm">
+              <option value="">月份</option>
+              <option value="1">1月</option>
+              <option value="2">2月</option>
+              <option value="3">3月</option>
+              <option value="4">4月</option>
+              <option value="5">5月</option>
+              <option value="6">6月</option>
+              <option value="7">7月</option>
+              <option value="8">8月</option>
+              <option value="9">9月</option>
+              <option value="10">10月</option>
+              <option value="11">11月</option>
+              <option value="12">12月</option>
+            </select>
+          </div>
+          <div>
+            <select id="birthDay" class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-sm">
+              <option value="">日期</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2 whitespace-nowrap">
+          <i class="fas fa-venus-mars mr-2"></i>性別（選填）
+        </label>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" class="gender-btn px-3 py-2.5 border border-gray-300 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all text-sm" data-gender="male">
+            <i class="fas fa-mars text-blue-500 mr-1"></i>男性
+          </button>
+          <button type="button" class="gender-btn px-3 py-2.5 border border-gray-300 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all text-sm" data-gender="female">
+            <i class="fas fa-venus text-pink-500 mr-1"></i>女性
+          </button>
+          <button type="button" class="gender-btn px-3 py-2.5 border border-gray-300 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition-all text-sm" data-gender="other">
+            <i class="fas fa-genderless text-gray-500 mr-1"></i>其他
+          </button>
+        </div>
+      </div>
+      
+      <div class="text-center pt-3">
+        <button onclick="startTest()" class="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" id="startTestBtn" disabled>
+          <i class="fas fa-play mr-2"></i>開始測驗
+        </button>
+        <p class="text-xs text-gray-500 mt-2">* 出生資訊將用於更精確的性格分析</p>
+      </div>
+    </div>
+  </section>
+
   <!-- 測驗進度 -->
-  <section class="glass-card p-8 animate-slide-up">
-    <div class="flex justify-between items-center mb-6">
+  <section id="progressSection" class="glass-card p-6 animate-slide-up" style="display:none;">
+    <div class="flex justify-between items-center mb-4">
       <div class="flex items-center">
-        <i class="fas fa-chart-pie text-2xl text-purple-600 mr-3"></i>
-        <h2 class="text-2xl font-bold">測驗進度</h2>
+        <i class="fas fa-chart-pie text-xl text-purple-600 mr-2"></i>
+        <h2 class="text-xl font-bold">測驗進度</h2>
       </div>
       <div class="text-right">
-        <span class="text-2xl font-bold text-purple-600" id="progressText">1 / 20</span>
-        <div class="text-sm text-gray-500">已完成</div>
+        <span class="text-xl font-bold text-purple-600" id="progressText">1 / 20</span>
+        <div class="text-xs text-gray-500">已完成</div>
       </div>
     </div>
     <div class="progress-container">
@@ -404,22 +668,22 @@ body {
   </section>
 
   <!-- 測驗問題 -->
-  <section id="questionSection" class="question-card animate-slide-up">
-    <div class="flex items-center mb-6">
-      <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4" id="questionNumber">1</div>
-      <h2 class="text-2xl font-bold" id="questionTitle">性格傾向測試</h2>
+  <section id="questionSection" class="question-card animate-slide-up" style="display:none;">
+    <div class="flex items-center mb-4">
+      <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-base mr-3" id="questionNumber">1</div>
+      <h2 class="text-lg font-bold" id="questionTitle">性格傾向測試</h2>
     </div>
-    <p class="text-xl mb-8 text-gray-700 leading-relaxed" id="questionText">在聚會中，你更傾向於：</p>
-    <div class="space-y-4">
+    <p class="text-lg mb-6 text-gray-700 leading-relaxed" id="questionText">在聚會中，你更傾向於：</p>
+    <div id="questionOptionsContainer" class="space-y-3">
       <button class="option-button group" onclick="selectOption('E')">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white mr-4 group-hover:scale-110 transition-transform">
-              <i class="fas fa-users"></i>
+            <div class="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:scale-110 transition-transform">
+              <i class="fas fa-users text-sm"></i>
             </div>
             <div>
-              <div class="font-semibold text-lg">與很多人交談，認識新朋友</div>
-              <div class="text-sm text-gray-600">外向型 (Extraversion)</div>
+              <div class="font-semibold text-base">與很多人交談，認識新朋友</div>
+              <div class="text-xs text-gray-600">外向型 (Extraversion)</div>
             </div>
           </div>
           <i class="fas fa-chevron-right text-gray-400 group-hover:text-purple-500 transition-colors"></i>
@@ -428,28 +692,28 @@ body {
       <button class="option-button group" onclick="selectOption('I')">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white mr-4 group-hover:scale-110 transition-transform">
-              <i class="fas fa-user-friends"></i>
+            <div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center text-white mr-3 group-hover:scale-110 transition-transform">
+              <i class="fas fa-user-friends text-sm"></i>
             </div>
             <div>
-              <div class="font-semibold text-lg">與少數幾個親密朋友深入交談</div>
-              <div class="text-sm text-gray-600">內向型 (Introversion)</div>
+              <div class="font-semibold text-base">與少數幾個親密朋友深入交談</div>
+              <div class="text-xs text-gray-600">內向型 (Introversion)</div>
             </div>
           </div>
           <i class="fas fa-chevron-right text-gray-400 group-hover:text-purple-500 transition-colors"></i>
         </div>
       </button>
     </div>
-    <div class="mt-8 flex justify-between items-center">
-      <button onclick="previousQuestion()" class="px-6 py-3 glass-card text-gray-600 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/50 transition-all" id="prevBtn" disabled>
-        <i class="fas fa-arrow-left mr-2"></i>上一題
+    <div class="mt-6 flex justify-between items-center">
+      <button onclick="previousQuestion()" class="px-4 py-2.5 glass-card text-gray-600 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/50 transition-all text-sm" id="prevBtn" disabled>
+        <i class="fas fa-arrow-left mr-1"></i>上一題
       </button>
       <div class="text-center">
-        <div class="text-sm text-gray-500 mb-1">請選擇一個選項</div>
+        <div class="text-xs text-gray-500 mb-1">請選擇一個選項</div>
         <div class="w-2 h-2 bg-purple-500 rounded-full mx-auto animate-pulse"></div>
       </div>
-      <button onclick="nextQuestion()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105" id="nextBtn" disabled>
-        下一題<i class="fas fa-arrow-right ml-2"></i>
+      <button onclick="nextQuestion()" class="px-4 py-2.5 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:from-purple-600 hover:to-blue-600 transition-all transform hover:scale-105 text-sm" id="nextBtn" disabled>
+        下一題<i class="fas fa-arrow-right ml-1"></i>
       </button>
     </div>
   </section>
@@ -514,6 +778,54 @@ body {
         </div>
       </div>
       
+      <!-- 年齡分析 -->
+      <div id="ageAnalysisSection" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6" style="display:none;">
+        <h3 class="text-xl font-bold mb-4 flex items-center">
+          <i class="fas fa-birthday-cake mr-3"></i>
+          年齡階段分析
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <div class="flex items-center mb-3">
+              <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white mr-3">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <div class="font-semibold" id="lifeStage">成年早期</div>
+                <div class="text-sm opacity-80" id="userAge">25歲</div>
+              </div>
+            </div>
+            <p class="text-sm opacity-90 leading-relaxed" id="ageDevelopment">
+              你的性格已經相對穩定，但仍有發展空間。這個時期適合深化專業技能和建立重要關係。
+            </p>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-3 flex items-center">
+              <i class="fas fa-lightbulb mr-2"></i>
+              階段建議
+            </h4>
+            <ul class="space-y-2" id="ageRecommendations">
+              <li class="flex items-start text-sm">
+                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                <span>專注於職業發展</span>
+              </li>
+              <li class="flex items-start text-sm">
+                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                <span>建立穩定的關係</span>
+              </li>
+              <li class="flex items-start text-sm">
+                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                <span>培養領導能力</span>
+              </li>
+              <li class="flex items-start text-sm">
+                <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+                <span>平衡工作與生活</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <!-- 性格類型詳細說明 -->
       <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6">
         <h3 class="text-xl font-bold mb-4 flex items-center">
@@ -975,6 +1287,94 @@ const mbtiTypes = {
 let currentQuestion = 0;
 let answers = [];
 let scores = { E: 0, I: 0, N: 0, S: 0, F: 0, T: 0, J: 0, P: 0 };
+let userInfo = {
+  birthYear: null,
+  birthMonth: null,
+  birthDay: null,
+  gender: null,
+  age: null
+};
+
+// 初始化年份選項
+function initYearOptions() {
+  const currentYear = new Date().getFullYear();
+  const yearSelect = document.getElementById('birthYear');
+  
+  for (let year = currentYear; year >= currentYear - 100; year--) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+  }
+}
+
+// 更新日期選項
+function updateDayOptions() {
+  const year = parseInt(document.getElementById('birthYear').value);
+  const month = parseInt(document.getElementById('birthMonth').value);
+  const daySelect = document.getElementById('birthDay');
+  
+  // 清除現有選項
+  daySelect.innerHTML = '<option value="">日期</option>';
+  
+  if (year && month) {
+    const daysInMonth = new Date(year, month, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+      const option = document.createElement('option');
+      option.value = day;
+      option.textContent = day;
+      daySelect.appendChild(option);
+    }
+  }
+}
+
+// 計算年齡
+function calculateAge() {
+  const year = parseInt(document.getElementById('birthYear').value);
+  const month = parseInt(document.getElementById('birthMonth').value);
+  const day = parseInt(document.getElementById('birthDay').value);
+  
+  if (year && month && day) {
+    const birthDate = new Date(year, month - 1, day);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    
+    userInfo.age = age;
+    return age;
+  }
+  return null;
+}
+
+// 檢查是否可以開始測驗
+function checkCanStart() {
+  const year = document.getElementById('birthYear').value;
+  const month = document.getElementById('birthMonth').value;
+  const day = document.getElementById('birthDay').value;
+  
+  const canStart = year && month && day;
+  document.getElementById('startTestBtn').disabled = !canStart;
+  
+  if (canStart) {
+    userInfo.birthYear = parseInt(year);
+    userInfo.birthMonth = parseInt(month);
+    userInfo.birthDay = parseInt(day);
+    calculateAge();
+  }
+}
+
+// 開始測驗
+function startTest() {
+  document.getElementById('personalInfoSection').style.display = 'none';
+  document.getElementById('progressSection').style.display = 'block';
+  document.getElementById('questionSection').style.display = 'block';
+  
+  initTest();
+}
 
 // 初始化測驗
 function initTest() {
@@ -991,7 +1391,7 @@ function showQuestion() {
   document.getElementById('questionTitle').textContent = `性格傾向測試`;
   document.getElementById('questionText').textContent = question.question;
   
-  const optionsContainer = document.querySelector('.space-y-4');
+  const optionsContainer = document.getElementById('questionOptionsContainer');
   optionsContainer.innerHTML = '';
   
   question.options.forEach((option, index) => {
@@ -1101,6 +1501,64 @@ function updateButtons() {
   document.getElementById('nextBtn').disabled = !answers[currentQuestion];
 }
 
+// 根據年齡調整分析
+function getAgeBasedInsights(age, mbtiType) {
+  const insights = {
+    lifeStage: '',
+    development: '',
+    recommendations: []
+  };
+  
+  if (age < 18) {
+    insights.lifeStage = '青少年期';
+    insights.development = '你的性格正在快速發展中，這個測驗結果反映了你目前的傾向。隨著成長，某些特質可能會更加明顯。';
+    insights.recommendations = [
+      '多嘗試不同的活動和興趣',
+      '建立良好的學習習慣',
+      '培養社交技能',
+      '探索自己的價值觀'
+    ];
+  } else if (age < 25) {
+    insights.lifeStage = '青年期';
+    insights.development = '你正處於人生的重要轉折點，性格特質逐漸穩定。這個時期是探索職業和人生方向的最佳時機。';
+    insights.recommendations = [
+      '探索不同的職業可能性',
+      '建立專業技能',
+      '培養獨立思考能力',
+      '建立長期目標'
+    ];
+  } else if (age < 35) {
+    insights.lifeStage = '成年早期';
+    insights.development = '你的性格已經相對穩定，但仍有發展空間。這個時期適合深化專業技能和建立重要關係。';
+    insights.recommendations = [
+      '專注於職業發展',
+      '建立穩定的關係',
+      '培養領導能力',
+      '平衡工作與生活'
+    ];
+  } else if (age < 50) {
+    insights.lifeStage = '成年中期';
+    insights.development = '你已經建立了穩定的性格模式，這個時期適合發揮你的優勢，同時注意平衡各方面的需求。';
+    insights.recommendations = [
+      '發揮專業優勢',
+      '指導和培養他人',
+      '追求個人成長',
+      '維護身心健康'
+    ];
+  } else {
+    insights.lifeStage = '成熟期';
+    insights.development = '你擁有豐富的人生經驗，性格特質已經非常穩定。這個時期適合分享智慧，享受人生。';
+    insights.recommendations = [
+      '分享人生經驗',
+      '追求個人興趣',
+      '維護重要關係',
+      '享受生活品質'
+    ];
+  }
+  
+  return insights;
+}
+
 // 顯示結果
 function showResults() {
   // 計算MBTI類型
@@ -1120,6 +1578,9 @@ function showResults() {
     icon: 'fas fa-user',
     matches: ['ENFP', 'ENTP', 'INFP', 'INFJ']
   };
+  
+  // 獲取年齡相關洞察
+  const ageInsights = userInfo.age ? getAgeBasedInsights(userInfo.age, mbtiType) : null;
   
   // 計算百分比和動畫
   const ePercent = Math.round((scores.E / (scores.E + scores.I)) * 100);
@@ -1198,6 +1659,23 @@ function showResults() {
     document.getElementById('matchType4').textContent = typeData.matches[3];
   }
   
+  // 顯示年齡分析
+  if (ageInsights) {
+    document.getElementById('lifeStage').textContent = ageInsights.lifeStage;
+    document.getElementById('userAge').textContent = `${userInfo.age}歲`;
+    document.getElementById('ageDevelopment').textContent = ageInsights.development;
+    
+    document.getElementById('ageRecommendations').innerHTML = 
+      ageInsights.recommendations.map(rec => `
+        <li class="flex items-start text-sm">
+          <i class="fas fa-check-circle text-green-400 mr-2 mt-0.5"></i>
+          <span>${rec}</span>
+        </li>
+      `).join('');
+    
+    document.getElementById('ageAnalysisSection').style.display = 'block';
+  }
+  
   // 顯示結果區塊
   document.getElementById('questionSection').style.display = 'none';
   document.getElementById('resultSection').style.display = 'block';
@@ -1216,13 +1694,33 @@ function restartTest() {
   document.getElementById('resultSection').style.display = 'none';
   document.getElementById('traitsSection').style.display = 'none';
   document.getElementById('retakeSection').style.display = 'none';
-  document.getElementById('questionSection').style.display = 'block';
+  document.getElementById('ageAnalysisSection').style.display = 'none';
+  document.getElementById('personalInfoSection').style.display = 'block';
+  document.getElementById('progressSection').style.display = 'none';
+  document.getElementById('questionSection').style.display = 'none';
   
   // 移除動畫類
   document.getElementById('resultSection').classList.remove('animate-fade-in');
   document.getElementById('traitsSection').classList.remove('animate-slide-up');
   
-  initTest();
+  // 重置個人資訊
+  document.getElementById('birthYear').value = '';
+  document.getElementById('birthMonth').value = '';
+  document.getElementById('birthDay').innerHTML = '<option value="">日期</option>';
+  document.querySelectorAll('.gender-btn').forEach(btn => {
+    btn.classList.remove('border-purple-500', 'bg-purple-50');
+    btn.classList.add('border-gray-300');
+  });
+  
+  userInfo = {
+    birthYear: null,
+    birthMonth: null,
+    birthDay: null,
+    gender: null,
+    age: null
+  };
+  
+  document.getElementById('startTestBtn').disabled = true;
 }
 
 // 分享結果
@@ -1265,6 +1763,37 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('dark');
     document.querySelector('#themeToggle i').className = 'fas fa-moon';
   }
+  
+  // 初始化年份選項
+  initYearOptions();
+  
+  // 添加事件監聽器
+  document.getElementById('birthYear').addEventListener('change', () => {
+    updateDayOptions();
+    checkCanStart();
+  });
+  
+  document.getElementById('birthMonth').addEventListener('change', () => {
+    updateDayOptions();
+    checkCanStart();
+  });
+  
+  document.getElementById('birthDay').addEventListener('change', checkCanStart);
+  
+  // 性別選擇
+  document.querySelectorAll('.gender-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.gender-btn').forEach(b => {
+        b.classList.remove('border-purple-500', 'bg-purple-50');
+        b.classList.add('border-gray-300');
+      });
+      
+      btn.classList.remove('border-gray-300');
+      btn.classList.add('border-purple-500', 'bg-purple-50');
+      
+      userInfo.gender = btn.dataset.gender;
+    });
+  });
 });
 
 // 添加鍵盤導航支持
@@ -1276,8 +1805,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// 初始化
-initTest();
+// 初始化 - 不自動開始測驗，等待用戶填寫個人資訊
+// initTest();
 </script>
 </body>
 </html>
