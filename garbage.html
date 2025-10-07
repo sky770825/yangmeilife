@@ -256,10 +256,90 @@ body.dark .garbage-card::before{
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 }
 
+/* 手機版多欄布局 */
 @media (max-width:768px){
   .responsive-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:var(--space-sm);
+  }
+  
+  /* 手機版更緊湊的間距 */
+  .garbage-card{
+    padding:var(--space-sm);
+    margin-bottom:var(--space-sm);
+  }
+  
+  /* 手機版標題區更緊湊 */
+  header{
+    padding:var(--space-lg) 0;
+  }
+  
+  header h1{
+    font-size:1.75rem;
+    margin-bottom:var(--space-sm);
+  }
+  
+  header p{
+    font-size:0.875rem;
+  }
+  
+  /* 手機版主內容區更緊湊 */
+  main{
+    padding:var(--space-md) var(--space-sm);
     gap:var(--space-md);
+  }
+  
+  /* 手機版玻璃卡片更緊湊 */
+  .glass-card{
+    padding:var(--space-md);
+  }
+  
+  /* 手機版週間清運表使用2欄布局 */
+  .weekly-schedule{
+    grid-template-columns:repeat(2,1fr);
+    gap:var(--space-sm);
+  }
+  
+  /* 手機版分類提醒使用2欄布局 */
+  .classification-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:var(--space-sm);
+  }
+  
+  /* 手機版聯絡資訊使用1欄布局但更緊湊 */
+  .contact-grid{
+    grid-template-columns:1fr;
+    gap:var(--space-sm);
+  }
+  
+  /* 手機版環保小貼士使用2欄布局 */
+  .tips-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:var(--space-sm);
+  }
+}
+
+/* 超小螢幕優化 */
+@media (max-width:480px){
+  .responsive-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:var(--space-xs);
+  }
+  
+  .garbage-card{
+    padding:var(--space-xs);
+  }
+  
+  .glass-card{
+    padding:var(--space-sm);
+  }
+  
+  header h1{
+    font-size:1.5rem;
+  }
+  
+  main{
+    padding:var(--space-sm);
   }
 }
 </style>
@@ -326,25 +406,25 @@ body.dark .garbage-card::before{
       </div>
     </div>
     <div class="responsive-grid">
-      <div class="garbage-card p-6 text-center group">
-        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🗑️</div>
-        <div class="font-bold text-lg mb-4 text-gray-800 dark:text-white">一般垃圾</div>
-        <div class="countdown urgent text-sm mb-3" id="generalCountdown">2小時30分</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400">預計 19:30</div>
+      <div class="garbage-card p-4 md:p-6 text-center group">
+        <div class="text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">🗑️</div>
+        <div class="font-bold text-base md:text-lg mb-3 md:mb-4 text-gray-800 dark:text-white">一般垃圾</div>
+        <div class="countdown urgent text-xs md:text-sm mb-2 md:mb-3" id="generalCountdown">2小時30分</div>
+        <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400">預計 19:30</div>
       </div>
 
-      <div class="garbage-card p-6 text-center group">
-        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">♻️</div>
-        <div class="font-bold text-lg mb-4 text-gray-800 dark:text-white">資源回收</div>
-        <div class="countdown warning text-sm mb-3" id="recycleCountdown">3小時15分</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400">預計 20:15</div>
+      <div class="garbage-card p-4 md:p-6 text-center group">
+        <div class="text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">♻️</div>
+        <div class="font-bold text-base md:text-lg mb-3 md:mb-4 text-gray-800 dark:text-white">資源回收</div>
+        <div class="countdown warning text-xs md:text-sm mb-2 md:mb-3" id="recycleCountdown">3小時15分</div>
+        <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400">預計 20:15</div>
       </div>
 
-      <div class="garbage-card p-6 text-center group">
-        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🥬</div>
-        <div class="font-bold text-lg mb-4 text-gray-800 dark:text-white">廚餘回收</div>
-        <div class="countdown text-sm mb-3" id="foodCountdown">4小時00分</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400">預計 21:00</div>
+      <div class="garbage-card p-4 md:p-6 text-center group">
+        <div class="text-3xl md:text-4xl mb-3 md:mb-4 group-hover:scale-110 transition-transform duration-300">🥬</div>
+        <div class="font-bold text-base md:text-lg mb-3 md:mb-4 text-gray-800 dark:text-white">廚餘回收</div>
+        <div class="countdown text-xs md:text-sm mb-2 md:mb-3" id="foodCountdown">4小時00分</div>
+        <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400">預計 21:00</div>
       </div>
     </div>
   </section>
@@ -362,80 +442,80 @@ body.dark .garbage-card::before{
         <span class="text-yellow-700 dark:text-yellow-300 ml-1">實際清運時間可能因路線調整而有所變動，建議使用GPS查詢系統確認即時位置</span>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="garbage-card p-4 flex justify-between items-center group">
-        <div class="flex items-center space-x-3">
-          <span class="font-semibold text-gray-800 dark:text-white">週一</span>
-          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 weekly-schedule">
+      <div class="garbage-card p-3 md:p-4 flex justify-between items-center group">
+        <div class="flex items-center space-x-2 md:space-x-3">
+          <span class="font-semibold text-sm md:text-base text-gray-800 dark:text-white">週一</span>
+          <span class="text-lg md:text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
         </div>
         <div class="text-right">
-          <div class="font-bold text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
+          <div class="font-bold text-xs md:text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
           <div class="text-xs text-gray-600 dark:text-gray-400">一般/回收/廚餘</div>
         </div>
       </div>
 
-      <div class="garbage-card p-4 flex justify-between items-center group">
-        <div class="flex items-center space-x-3">
-          <span class="font-semibold text-gray-800 dark:text-white">週二</span>
-          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
+      <div class="garbage-card p-3 md:p-4 flex justify-between items-center group">
+        <div class="flex items-center space-x-2 md:space-x-3">
+          <span class="font-semibold text-sm md:text-base text-gray-800 dark:text-white">週二</span>
+          <span class="text-lg md:text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
         </div>
         <div class="text-right">
-          <div class="font-bold text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
+          <div class="font-bold text-xs md:text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
           <div class="text-xs text-gray-600 dark:text-gray-400">一般/回收/廚餘</div>
         </div>
       </div>
 
-      <div class="garbage-card p-4 flex justify-between items-center group opacity-60">
-        <div class="flex items-center space-x-3">
-          <span class="font-semibold text-gray-800 dark:text-white">週三</span>
-          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🚫</span>
+      <div class="garbage-card p-3 md:p-4 flex justify-between items-center group opacity-60">
+        <div class="flex items-center space-x-2 md:space-x-3">
+          <span class="font-semibold text-sm md:text-base text-gray-800 dark:text-white">週三</span>
+          <span class="text-lg md:text-2xl group-hover:scale-110 transition-transform duration-300">🚫</span>
         </div>
         <div class="text-right">
-          <div class="font-bold text-sm text-gray-500">休息</div>
+          <div class="font-bold text-xs md:text-sm text-gray-500">休息</div>
           <div class="text-xs text-gray-600 dark:text-gray-400">無清運服務</div>
         </div>
       </div>
 
-      <div class="garbage-card p-4 flex justify-between items-center group">
-        <div class="flex items-center space-x-3">
-          <span class="font-semibold text-gray-800 dark:text-white">週四</span>
-          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
+      <div class="garbage-card p-3 md:p-4 flex justify-between items-center group">
+        <div class="flex items-center space-x-2 md:space-x-3">
+          <span class="font-semibold text-sm md:text-base text-gray-800 dark:text-white">週四</span>
+          <span class="text-lg md:text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
         </div>
         <div class="text-right">
-          <div class="font-bold text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
+          <div class="font-bold text-xs md:text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
           <div class="text-xs text-gray-600 dark:text-gray-400">一般/回收/廚餘</div>
         </div>
       </div>
 
-      <div class="garbage-card p-4 flex justify-between items-center group">
-        <div class="flex items-center space-x-3">
-          <span class="font-semibold text-gray-800 dark:text-white">週五</span>
-          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
+      <div class="garbage-card p-3 md:p-4 flex justify-between items-center group">
+        <div class="flex items-center space-x-2 md:space-x-3">
+          <span class="font-semibold text-sm md:text-base text-gray-800 dark:text-white">週五</span>
+          <span class="text-lg md:text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
         </div>
         <div class="text-right">
-          <div class="font-bold text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
+          <div class="font-bold text-xs md:text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
           <div class="text-xs text-gray-600 dark:text-gray-400">一般/回收/廚餘</div>
         </div>
       </div>
 
-      <div class="garbage-card p-4 flex justify-between items-center group">
-        <div class="flex items-center space-x-3">
-          <span class="font-semibold text-gray-800 dark:text-white">週六</span>
-          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
+      <div class="garbage-card p-3 md:p-4 flex justify-between items-center group">
+        <div class="flex items-center space-x-2 md:space-x-3">
+          <span class="font-semibold text-sm md:text-base text-gray-800 dark:text-white">週六</span>
+          <span class="text-lg md:text-2xl group-hover:scale-110 transition-transform duration-300">🗑️♻️🥬</span>
         </div>
         <div class="text-right">
-          <div class="font-bold text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
+          <div class="font-bold text-xs md:text-sm text-green-600 dark:text-green-400">19:30-21:00</div>
           <div class="text-xs text-gray-600 dark:text-gray-400">一般/回收/廚餘</div>
         </div>
       </div>
 
-      <div class="garbage-card p-4 flex justify-between items-center group opacity-60 md:col-span-2 lg:col-span-3">
-        <div class="flex items-center space-x-3">
-          <span class="font-semibold text-gray-800 dark:text-white">週日</span>
-          <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🚫</span>
+      <div class="garbage-card p-3 md:p-4 flex justify-between items-center group opacity-60 md:col-span-2 lg:col-span-3">
+        <div class="flex items-center space-x-2 md:space-x-3">
+          <span class="font-semibold text-sm md:text-base text-gray-800 dark:text-white">週日</span>
+          <span class="text-lg md:text-2xl group-hover:scale-110 transition-transform duration-300">🚫</span>
         </div>
         <div class="text-right">
-          <div class="font-bold text-sm text-gray-500">休息</div>
+          <div class="font-bold text-xs md:text-sm text-gray-500">休息</div>
           <div class="text-xs text-gray-600 dark:text-gray-400">無清運服務</div>
         </div>
       </div>
@@ -445,7 +525,7 @@ body.dark .garbage-card::before{
   <!-- 分類提醒 -->
   <section class="glass-card p-4 shadow-lg">
     <h2 class="text-lg font-bold mb-3">♻️ 分類提醒</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 classification-grid">
       <div class="p-3 bg-red-50 border-l-4 border-red-400 rounded-lg">
         <div class="flex items-center space-x-2 mb-1">
           <span class="text-red-600">🗑️</span>
@@ -475,7 +555,7 @@ body.dark .garbage-card::before{
   <!-- 楊梅區清潔隊聯絡資訊 -->
   <section class="glass-card p-4 shadow-lg">
     <h2 class="text-lg font-bold mb-3">📞 楊梅區清潔隊聯絡資訊</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 contact-grid">
       <div class="p-3 bg-blue-50 border-l-4 border-blue-400 rounded-lg">
         <div class="flex items-center space-x-2 mb-2">
           <span class="text-blue-600 text-lg">📞</span>
@@ -553,7 +633,7 @@ body.dark .garbage-card::before{
   <!-- 環保小貼士 -->
   <section class="glass-card p-4 shadow-lg">
     <h2 class="text-lg font-bold mb-3">💡 環保小貼士</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm tips-grid">
       <div class="flex items-start space-x-2">
         <span class="text-green-500">♻️</span>
         <span class="text-xs">確實做好垃圾分類，提高回收效率</span>

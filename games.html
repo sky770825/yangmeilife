@@ -517,19 +517,15 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(8px);
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 1rem;
 }
 
 .game-modal.active {
-  opacity: 1;
-  visibility: visible;
+  display: flex;
 }
 
 .game-modal-content {
@@ -601,84 +597,84 @@ body {
   <!-- 遊戲按鈕網格 -->
   <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-5">
     <!-- Wordle 文字猜謎 -->
-    <div class="game-icon-btn" onclick="openGame('wordle')" title="Wordle - 猜出5字母單詞">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('wordle')" ontouchstart="openGame('wordle')" title="Wordle - 猜出5字母單詞">
       <div class="game-icon-emoji float">📝</div>
       <div class="game-icon-title">Wordle</div>
       <div class="game-icon-score">最高: <span id="wordleHighScore">0</span></div>
     </div>
 
     <!-- 2048 數字合併 -->
-    <div class="game-icon-btn" onclick="openGame('game2048')" title="2048 - 合併數字達到2048">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('game2048')" ontouchstart="openGame('game2048')" title="2048 - 合併數字達到2048">
       <div class="game-icon-emoji glow">🔢</div>
       <div class="game-icon-title">2048</div>
       <div class="game-icon-score">最高: <span id="game2048HighScore">0</span></div>
     </div>
 
     <!-- 記憶配對遊戲 -->
-    <div class="game-icon-btn" onclick="openGame('memory')" title="記憶配對 - 點擊翻牌找出相同卡片">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('memory')" ontouchstart="openGame('memory')" title="記憶配對 - 點擊翻牌找出相同卡片">
       <div class="game-icon-emoji pulse">🧠</div>
       <div class="game-icon-title">記憶配對</div>
       <div class="game-icon-score">最高: <span id="memoryHighScore">0</span></div>
     </div>
 
     <!-- 反應測試遊戲 -->
-    <div class="game-icon-btn" onclick="openGame('reaction')" title="反應測試 - 測試你的反應速度">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('reaction')" ontouchstart="openGame('reaction')" title="反應測試 - 測試你的反應速度">
       <div class="game-icon-emoji bounce">⚡</div>
       <div class="game-icon-title">反應測試</div>
       <div class="game-icon-score">最高: <span id="reactionHighScore">0</span></div>
     </div>
 
     <!-- 數獨遊戲 -->
-    <div class="game-icon-btn" onclick="openGame('sudoku')" title="數獨 - 經典數字邏輯遊戲">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('sudoku')" ontouchstart="openGame('sudoku')" title="數獨 - 經典數字邏輯遊戲">
       <div class="game-icon-emoji rotate">🔲</div>
       <div class="game-icon-title">數獨</div>
       <div class="game-icon-score">最高: <span id="sudokuHighScore">0</span></div>
     </div>
 
     <!-- 俄羅斯方塊 -->
-    <div class="game-icon-btn" onclick="openGame('tetris')" title="俄羅斯方塊 - 經典益智遊戲">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('tetris')" ontouchstart="openGame('tetris')" title="俄羅斯方塊 - 經典益智遊戲">
       <div class="game-icon-emoji float">🧩</div>
       <div class="game-icon-title">俄羅斯方塊</div>
       <div class="game-icon-score">最高: <span id="tetrisHighScore">0</span></div>
     </div>
 
     <!-- 貪吃蛇 -->
-    <div class="game-icon-btn" onclick="openGame('snake')" title="貪吃蛇 - 經典街機遊戲">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('snake')" ontouchstart="openGame('snake')" title="貪吃蛇 - 經典街機遊戲">
       <div class="game-icon-emoji pulse">🐍</div>
       <div class="game-icon-title">貪吃蛇</div>
       <div class="game-icon-score">最高: <span id="snakeHighScore">0</span></div>
     </div>
 
     <!-- 打地鼠 -->
-    <div class="game-icon-btn" onclick="openGame('whack')" title="打地鼠 - 點擊出現的地鼠">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('whack')" ontouchstart="openGame('whack')" title="打地鼠 - 點擊出現的地鼠">
       <div class="game-icon-emoji bounce">🐹</div>
       <div class="game-icon-title">打地鼠</div>
       <div class="game-icon-score">最高: <span id="whackHighScore">0</span></div>
     </div>
 
     <!-- 打磚塊 -->
-    <div class="game-icon-btn" onclick="openGame('breakout')" title="打磚塊 - 經典街機遊戲">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('breakout')" ontouchstart="openGame('breakout')" title="打磚塊 - 經典街機遊戲">
       <div class="game-icon-emoji glow">🔨</div>
       <div class="game-icon-title">打磚塊</div>
       <div class="game-icon-score">最高: <span id="breakoutHighScore">0</span></div>
     </div>
 
     <!-- 翻轉卡片 -->
-    <div class="game-icon-btn" onclick="openGame('flipcard')" title="翻轉卡片 - 記憶力挑戰">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('flipcard')" ontouchstart="openGame('flipcard')" title="翻轉卡片 - 記憶力挑戰">
       <div class="game-icon-emoji float">🃏</div>
       <div class="game-icon-title">翻轉卡片</div>
       <div class="game-icon-score">最高: <span id="flipcardHighScore">0</span></div>
     </div>
 
     <!-- 剪刀石頭布 -->
-    <div class="game-icon-btn" onclick="openGame('rps')" title="剪刀石頭布 - 經典對戰遊戲">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('rps')" ontouchstart="openGame('rps')" title="剪刀石頭布 - 經典對戰遊戲">
       <div class="game-icon-emoji pulse">✂️</div>
       <div class="game-icon-title">剪刀石頭布</div>
       <div class="game-icon-score">最高: <span id="rpsHighScore">0</span></div>
     </div>
 
     <!-- 消除三消 -->
-    <div class="game-icon-btn" onclick="openGame('match3')" title="三消遊戲 - 連線消除寶石">
+    <div class="game-icon-btn touch-manipulation" onclick="openGame('match3')" ontouchstart="openGame('match3')" title="三消遊戲 - 連線消除寶石">
       <div class="game-icon-emoji bounce">💎</div>
       <div class="game-icon-title">三消遊戲</div>
       <div class="game-icon-score">最高: <span id="match3HighScore">0</span></div>
@@ -802,13 +798,23 @@ function updateScoreDisplay() {
 
 // 開啟遊戲
 function openGame(gameType) {
+  console.log('開啟遊戲:', gameType);
   const modal = document.getElementById('gameModal');
   const content = document.getElementById('gameContent');
+  
+  if (!modal || !content) {
+    console.error('找不到模態框元素');
+    return;
+  }
   
   // 清理之前的遊戲
   if (currentGameInstance) {
     closeGame();
   }
+  
+  // 先顯示模態框
+  modal.classList.add('active');
+  console.log('模態框已顯示');
   
   switch(gameType) {
     case 'wordle':
@@ -860,8 +866,6 @@ function openGame(gameType) {
       setTimeout(() => startMatch3Game(), 100);
       break;
   }
-  
-  modal.classList.add('active');
 }
 
 // 關閉遊戲
