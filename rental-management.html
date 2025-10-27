@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>包租代管廠商 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --grad:linear-gradient(135deg,#6366f1,#4f46e5);
+  --glass-bg:rgba(255,255,255,0.6);
+  --glass-dark:rgba(30,30,30,0.6);
+  --shadow-light:0 4px 12px rgba(0,0,0,.1);
+  --border-radius:1rem;
+  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body{
+  background:linear-gradient(to bottom,#e0e7ff,#fff);
+  transition:var(--transition);
+  font-family:system-ui,-apple-system,sans-serif;
+  line-height:1.6;
+}
+
+.glass-card{
+  background:var(--glass-bg);
+  backdrop-filter:blur(10px);
+  border-radius:var(--border-radius);
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.contractor-card{
+  background:rgba(255,255,255,0.9);
+  border-radius:0.75rem;
+  padding:1.5rem;
+  margin-bottom:1rem;
+  transition:var(--transition);
+  border-left:4px solid #6366f1;
+}
+
+.contractor-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-light);
+}
+
+.contact-btn{
+  background:var(--grad);
+  color:white;
+  padding:0.5rem 1rem;
+  border-radius:9999px;
+  text-decoration:none;
+  font-weight:600;
+  transition:var(--transition);
+  display:inline-block;
+}
+
+.contact-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 4px 15px rgba(99,102,241,0.3);
+}
+
+#themeToggle{
+  position:fixed;
+  top:1rem;
+  right:1rem;
+  background:var(--grad);
+  color:#fff;
+  border:none;
+  padding:.5rem .75rem;
+  border-radius:9999px;
+  z-index:50;
+  transition:var(--transition);
+  cursor:pointer;
+  font-size:1.2rem;
+}
+</style>
+</head>
+<body>
+<!-- 主題切換 -->
+<button id="themeToggle" aria-label="切換主題模式">🌞</button>
+
+<!-- 返回按鈕 -->
+<button onclick="history.back()" class="fixed top-4 left-4 bg-white shadow-lg rounded-full p-3 z-50 hover:scale-105 transition">
+  ←
+</button>
+
+<!-- 標題區 -->
+<header class="text-center py-8" style="background:var(--grad);color:white;">
+  <h1 class="text-3xl font-bold">🏠 包租代管廠商</h1>
+  <p class="text-sm opacity-90 mt-2">租賃管理，投資理財</p>
+</header>
+
+<main class="px-4 py-6 space-y-6">
+  <!-- 廠商1 -->
+  <div class="contractor-card">
+    <div class="flex justify-between items-start mb-3">
+      <div>
+        <h3 class="text-lg font-bold text-gray-800">🏠 專業包租代管</h3>
+        <p class="text-sm text-gray-600">合法經營，專業管理</p>
+      </div>
+      <div class="text-right">
+        <div class="flex items-center mb-1">
+          <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+          <span class="text-sm text-gray-600 ml-1">(4.9)</span>
+        </div>
+        <div class="text-xs text-gray-500">合法經營</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="text-sm text-gray-700 mb-2">
+        <span class="font-semibold">專長：</span>包租代管、租賃管理、投資諮詢
+      </div>
+      <div class="text-sm text-gray-700 mb-2">
+        <span class="font-semibold">服務區域：</span>桃園全區、新竹部分區域
+      </div>
+      <div class="text-sm text-gray-700">
+        <span class="font-semibold">特色：</span>政府認證、透明收費、專業服務
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <a href="tel:03-478-7070" class="contact-btn">📞 03-478-7070</a>
+      <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 LINE諮詢</a>
+    </div>
+  </div>
+
+  <!-- 廠商2 -->
+  <div class="contractor-card">
+    <div class="flex justify-between items-start mb-3">
+      <div>
+        <h3 class="text-lg font-bold text-gray-800">💰 楊梅包租專家</h3>
+        <p class="text-sm text-gray-600">在地服務，經驗豐富</p>
+      </div>
+      <div class="text-right">
+        <div class="flex items-center mb-1">
+          <span class="text-yellow-500">⭐⭐⭐⭐</span>
+          <span class="text-sm text-gray-600 ml-1">(4.7)</span>
+        </div>
+        <div class="text-xs text-gray-500">在地服務</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="text-sm text-gray-700 mb-2">
+        <span class="font-semibold">專長：</span>包租代管、租客篩選、維修管理
+      </div>
+      <div class="text-sm text-gray-700 mb-2">
+        <span class="font-semibold">服務區域：</span>楊梅、中壢、平鎮、龍潭
+      </div>
+      <div class="text-sm text-gray-700">
+        <span class="font-semibold">特色：</span>免費評估、透明合約、定期回報
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <a href="tel:03-478-8080" class="contact-btn">📞 03-478-8080</a>
+      <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 LINE諮詢</a>
+    </div>
+  </div>
+
+  <!-- 廠商3 -->
+  <div class="contractor-card">
+    <div class="flex justify-between items-start mb-3">
+      <div>
+        <h3 class="text-lg font-bold text-gray-800">🏢 全方位租賃管理</h3>
+        <p class="text-sm text-gray-600">一站式服務，省心省力</p>
+      </div>
+      <div class="text-right">
+        <div class="flex items-center mb-1">
+          <span class="text-yellow-500">⭐⭐⭐⭐</span>
+          <span class="text-sm text-gray-600 ml-1">(4.6)</span>
+        </div>
+        <div class="text-xs text-gray-500">一站式服務</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="text-sm text-gray-700 mb-2">
+        <span class="font-semibold">專長：</span>包租代管、裝潢整修、租客服務
+      </div>
+      <div class="text-sm text-gray-700 mb-2">
+        <span class="font-semibold">服務區域：</span>楊梅、新屋、觀音
+      </div>
+      <div class="text-sm text-gray-700">
+        <span class="font-semibold">特色：</span>全包服務、專業團隊、24H客服
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <a href="tel:03-478-9090" class="contact-btn">📞 03-478-9090</a>
+      <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 LINE諮詢</a>
+    </div>
+  </div>
+</main>
+
+<script>
+// 主題切換
+document.getElementById('themeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
+});
+</script>
+</body>
+</html>

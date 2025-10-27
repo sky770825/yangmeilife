@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="濬瑒房產生活平台 - 提供房產工具、生活服務、補助優惠等一站式服務">
+<meta name="description" content="楊梅人在地生活集 - 提供房產工具、生活服務、補助優惠等一站式服務">
 <meta name="keywords" content="房產,房貸,裝潢,補助,生活服務,房產計算器,房貸試算,裝潢估價">
-<meta name="author" content="濬瑒房產生活平台">
+<meta name="author" content="楊梅人在地生活集">
 <meta name="robots" content="index, follow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -22,7 +22,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "濬瑒房產生活平台",
+  "name": "楊梅人在地生活集",
   "url": "https://realtor-platform.com",
   "description": "提供房產工具、生活服務、補助優惠等一站式服務",
   "potentialAction": {
@@ -33,7 +33,7 @@
 }
 </script>
 
-<title>濬瑒房產生活平台 - 房產工具、生活服務一站式平台</title>
+<title>楊梅人在地生活集 - 房產工具、生活服務一站式平台</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
@@ -158,6 +158,8 @@ body.dark .glass-card{
 .app-card.renovation{background:linear-gradient(135deg,#43e97b 0%,#38f9d7 100%);color:#fff;box-shadow:0 4px 20px rgba(67,233,123,0.3);}
 .app-card.subsidy{background:linear-gradient(135deg,#fa709a 0%,#fee140 100%);color:#fff;box-shadow:0 4px 20px rgba(250,112,154,0.3);}
 .app-card.local{background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);color:#fff;box-shadow:0 4px 20px rgba(79,172,254,0.3);}
+.app-card.food{background:linear-gradient(135deg,#f59e0b 0%,#ef4444 100%);color:#fff;box-shadow:0 4px 20px rgba(245,158,11,0.3);}
+.app-card.assistant{background:linear-gradient(135deg,#06b6d4 0%,#3b82f6 100%);color:#fff;box-shadow:0 4px 20px rgba(6,182,212,0.3);}
 .app-card.worship{
   background:var(--grad-worship);
   color:#fff;
@@ -403,9 +405,51 @@ body.dark .mini-fun-card {
     grid-template-columns: repeat(3, 1fr);
   }
   .app-card {
-    min-height: 50px;
+    min-height: 70px;
     padding: 0.5rem;
     font-size: 0.75rem;
+  }
+  /* 手機版圖標大小調整 */
+  .app-card .text-3xl {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .app-card .text-2xl {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  /* 手機版標籤位置調整 - 避免與圖標重疊 */
+  .app-card .absolute.top-2.right-2 {
+    top: 0.25rem;
+    right: 0.25rem;
+    font-size: 0.625rem;
+    padding: 0.125rem 0.375rem;
+    line-height: 1.2;
+    z-index: 20;
+  }
+  /* 手機版底部標籤調整 */
+  .app-card .absolute.bottom-2.right-2 {
+    bottom: 0.25rem;
+    right: 0.25rem;
+    font-size: 0.625rem;
+    padding: 0.125rem 0.375rem;
+    line-height: 1.2;
+  }
+  /* 手機版卡片內容區域調整 */
+  .app-card.text-center {
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+  /* 手機版卡片文字調整 */
+  .app-card .text-sm {
+    font-size: 0.7rem;
+  }
+  .app-card .text-xs {
+    font-size: 0.6rem;
+  }
+  /* 確保圖標和標籤有足夠空間 */
+  .app-card .relative.z-10 {
+    padding-top: 0.5rem;
   }
 }
 
@@ -541,40 +585,42 @@ body.dark .mini-fun-card {
   100% { transform: translateX(100%); }
 }
 
-/* 中秋節特殊動畫 */
-@keyframes moonGlow {
+/* 通用動畫效果 */
+@keyframes homeGlow {
   0%, 100% { 
     transform: scale(1);
-    filter: drop-shadow(0 0 10px rgba(255, 255, 0, 0.5));
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
   }
   50% { 
     transform: scale(1.1);
-    filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.8));
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.8));
   }
 }
 
-@keyframes rabbitHop {
+@keyframes lightBounce {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   25% { transform: translateY(-10px) rotate(5deg); }
   50% { transform: translateY(-5px) rotate(0deg); }
   75% { transform: translateY(-8px) rotate(-5deg); }
 }
 
-@keyframes lanternSway {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
+@keyframes starTwinkle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.1); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(1.1); }
 }
 
-.moon-glow {
-  animation: moonGlow 3s ease-in-out infinite;
+.home-glow {
+  animation: homeGlow 3s ease-in-out infinite;
 }
 
-.rabbit-hop {
-  animation: rabbitHop 2s ease-in-out infinite;
+.light-bounce {
+  animation: lightBounce 2s ease-in-out infinite;
 }
 
-.lantern-sway {
-  animation: lanternSway 4s ease-in-out infinite;
+.star-twinkle {
+  animation: starTwinkle 4s ease-in-out infinite;
 }
 
 /* 媒體展示區樣式 */
@@ -676,14 +722,14 @@ body.dark .mini-fun-card {
 <header class="text-white text-center py-8 shadow-lg relative overflow-hidden" style="background:linear-gradient(135deg, #1e3a8a, #7c3aed, #ec4899);">
   <!-- 動態背景裝飾 -->
   <div class="absolute inset-0 opacity-30">
-    <div class="absolute top-4 left-4 text-4xl animate-pulse moon-glow">🌕</div>
-    <div class="absolute top-8 right-8 text-3xl animate-bounce rabbit-hop" style="animation-delay: 0.5s;">🐰</div>
-    <div class="absolute bottom-6 left-12 text-2xl animate-pulse" style="animation-delay: 1s;">🥮</div>
-    <div class="absolute bottom-4 right-4 text-3xl animate-pulse lantern-sway" style="animation-delay: 1.5s;">🏮</div>
+    <div class="absolute top-4 left-4 text-4xl animate-pulse">🏠</div>
+    <div class="absolute top-8 right-8 text-3xl animate-bounce" style="animation-delay: 0.5s;">💡</div>
+    <div class="absolute bottom-6 left-12 text-2xl animate-pulse" style="animation-delay: 1s;">🌟</div>
+    <div class="absolute bottom-4 right-4 text-3xl animate-pulse" style="animation-delay: 1.5s;">✨</div>
     <!-- 新增浮動元素 -->
-    <div class="absolute top-1/4 left-1/4 text-2xl animate-float" style="animation-delay: 2s;">✨</div>
-    <div class="absolute top-1/3 right-1/3 text-xl animate-float" style="animation-delay: 2.5s;">⭐</div>
-    <div class="absolute bottom-1/3 left-1/3 text-lg animate-float" style="animation-delay: 3s;">🌟</div>
+    <div class="absolute top-1/4 left-1/4 text-2xl animate-float" style="animation-delay: 2s;">⭐</div>
+    <div class="absolute top-1/3 right-1/3 text-xl animate-float" style="animation-delay: 2.5s;">🎯</div>
+    <div class="absolute bottom-1/3 left-1/3 text-lg animate-float" style="animation-delay: 3s;">💫</div>
   </div>
   
   <!-- 動態粒子效果 -->
@@ -696,7 +742,7 @@ body.dark .mini-fun-card {
     <!-- 動態問候語 -->
     <div class="mt-4 mb-6">
       <div id="dynamicGreeting" class="text-yellow-200 text-lg font-semibold animate-pulse">
-        <span id="greetingText">🌕 中秋佳節快樂！月圓人團圓 🥮</span>
+        <span id="greetingText">🌟 歡迎來到楊梅人在地生活集！</span>
       </div>
       <div class="text-sm opacity-75 mt-2">
         <span id="currentTime"></span>
@@ -706,7 +752,7 @@ body.dark .mini-fun-card {
     <!-- 快速統計 -->
     <div class="flex justify-center gap-6 mb-6 text-sm">
       <div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 animate-slide-in" style="animation-delay: 0.4s;">
-        <span class="font-bold" id="userCount">1,234</span> 位用戶
+        <span class="font-bold" id="userCount">12,345</span> 位用戶
       </div>
       <div class="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 animate-slide-in" style="animation-delay: 0.6s;">
         <span class="font-bold">50+</span> 實用工具
@@ -755,32 +801,32 @@ body.dark .mini-fun-card {
         <span class="text-xs bg-indigo-100 px-2 py-1 rounded-full">免費</span>
       </span>
     </button>
-    <button onclick="openTool('https://lin.ee/Ij6z94H')" class="cta-button bg-gradient-to-r from-white to-pink-100 text-indigo-600 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50 relative z-50 cursor-pointer" aria-label="前往LINE客服委託">
+    <button onclick="openTool('https://lin.ee/Ij6z94H')" class="cta-button bg-gradient-to-r from-white to-pink-100 text-indigo-600 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50 relative z-50 cursor-pointer" aria-label="廠商進駐曝光">
       <span class="flex items-center gap-2">
-        <span>立即委託</span>
-        <span class="text-xs bg-pink-100 px-2 py-1 rounded-full">專業</span>
+        <span>廠商進駐</span>
+        <span class="text-xs bg-pink-200 px-2 py-1 rounded-full">曝光</span>
       </span>
     </button>
   </div>
   
 </header>
 
-<main class="px-4 py-4 pb-20 space-y-6">
+<main class="px-3 py-2 pb-16 space-y-4">
 
 <!-- 🎮 輕鬆時光 - 增強互動版 -->
-<section class="glass-card p-6 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1">
-  <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
-      <span class="text-3xl animate-bounce">🎮</span>
+<section class="glass-card p-4 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
+      <span class="text-2xl animate-bounce">🎮</span>
       <span>輕鬆時光</span>
       <div class="flex-1 h-px bg-gradient-to-r from-orange-500 to-red-500 ml-2"></div>
     </h2>
-    <div class="text-sm text-gray-500 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
-      <span id="funStats">今日已有 <span class="font-bold text-orange-600">156</span> 人使用</span>
+    <div class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+      <span id="funStats">今日已有 <span class="font-bold text-orange-600">1,234</span> 人使用</span>
     </div>
   </div>
   
-  <div class="grid grid-cols-4 gap-4">
+  <div class="grid grid-cols-4 gap-3">
     <div class="relaxed-card games group relative overflow-hidden" onclick="openTool('games.html')" onmouseenter="showCardPreview('games')" onmouseleave="hideCardPreview()">
       <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="card-icon group-hover:animate-spin">🎮</span>
@@ -821,59 +867,186 @@ body.dark .mini-fun-card {
   </div>
 </section>
 
-<!-- 🎯 今日推薦 - 簡化版 -->
+<!-- 🛠️ 生活服務推薦 -->
 <section class="glass-card p-4 shadow-lg hover:shadow-xl transition-all duration-500">
   <div class="flex items-center justify-between mb-4">
-    <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
-      <span class="text-2xl animate-spin">🎯</span>
-      <span>今日推薦</span>
-      <div class="flex-1 h-px bg-gradient-to-r from-red-500 to-pink-500 ml-2"></div>
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
+      <span class="text-3xl animate-pulse">🛠️</span>
+      <span>生活服務推薦</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-orange-500 to-red-500 ml-2"></div>
     </h2>
-    <div class="text-xs text-gray-500">
-      <span id="recommendationTime">更新於 <span id="currentTime2"></span></span>
+    <div class="text-sm text-gray-500 bg-orange-100 dark:bg-orange-900 px-3 py-1 rounded-full">
+      <span class="font-bold text-orange-600 dark:text-orange-400">在地服務</span>
     </div>
   </div>
   
-  <div class="grid grid-cols-2 gap-3">
-    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-700 hover:shadow-md transition-all duration-300">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="text-lg">🔥</div>
-        <div class="font-semibold text-blue-800 dark:text-blue-200 text-sm">熱門功能</div>
+  <div class="grid grid-cols-4 gap-4">
+    <!-- 水電修繕 -->
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('water-electric.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">⚡</div>
+        <div class="font-bold text-sm">水電修繕</div>
+        <div class="text-xs opacity-75 mt-1">專業維修</div>
       </div>
-      <div class="space-y-1">
-        <div class="flex items-center justify-between text-xs">
-          <span>🧾 發票對獎</span>
-          <span class="bg-red-500 text-white px-1 py-0.5 rounded text-xs">+23%</span>
-        </div>
-        <div class="flex items-center justify-between text-xs">
-          <span>🌦 天氣預報</span>
-          <span class="bg-green-500 text-white px-1 py-0.5 rounded text-xs">+18%</span>
-        </div>
-        <div class="flex items-center justify-between text-xs">
-          <span>🗑 垃圾車</span>
-          <span class="bg-blue-500 text-white px-1 py-0.5 rounded text-xs">+15%</span>
-        </div>
+      <div class="absolute top-2 right-2 text-xs bg-blue-500 text-white px-2 py-1 rounded-full">
+        24H
       </div>
     </div>
     
-    <div class="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-3 border border-green-200 dark:border-green-700 hover:shadow-md transition-all duration-300">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="text-lg">⭐</div>
-        <div class="font-semibold text-green-800 dark:text-green-200 text-sm">新功能</div>
+    <!-- 驗屋公司 -->
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('inspection-company.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🔍</div>
+        <div class="font-bold text-sm">驗屋公司</div>
+        <div class="text-xs opacity-75 mt-1">專業檢查</div>
       </div>
-      <div class="space-y-1">
-        <div class="flex items-center justify-between text-xs">
-          <span>🎮 小遊戲</span>
-          <span class="bg-purple-500 text-white px-1 py-0.5 rounded text-xs">NEW</span>
-        </div>
-        <div class="flex items-center justify-between text-xs">
-          <span>🔮 每日運勢</span>
-          <span class="bg-pink-500 text-white px-1 py-0.5 rounded text-xs">HOT</span>
-        </div>
-        <div class="flex items-center justify-between text-xs">
-          <span>📊 數據分析</span>
-          <span class="bg-orange-500 text-white px-1 py-0.5 rounded text-xs">BETA</span>
-        </div>
+      <div class="absolute top-2 right-2 text-xs bg-green-500 text-white px-2 py-1 rounded-full">
+        專業
+      </div>
+    </div>
+    
+    <!-- 防霾紗網 -->
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('anti-dust-screen.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🛡️</div>
+        <div class="font-bold text-sm">防霾紗網</div>
+        <div class="text-xs opacity-75 mt-1">空氣淨化</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full">
+        健康
+      </div>
+    </div>
+    
+    <!-- 油漆粉刷 -->
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('paint-service.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🎨</div>
+        <div class="font-bold text-sm">油漆粉刷</div>
+        <div class="text-xs opacity-75 mt-1">美化空間</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-yellow-500 text-white px-2 py-1 rounded-full">
+        美化
+      </div>
+    </div>
+    
+    <!-- 白蟻除蟲 -->
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('pest-control.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-red-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🐛</div>
+        <div class="font-bold text-sm">白蟻除蟲</div>
+        <div class="text-xs opacity-75 mt-1">害蟲防治</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full">
+        防治
+      </div>
+    </div>
+    
+    <!-- 包租代管 -->
+    <div class="app-card glass-card investment group relative overflow-hidden" onclick="openTool('rental-management.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🏠</div>
+        <div class="font-bold text-sm">包租代管</div>
+        <div class="text-xs opacity-75 mt-1">租賃管理</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-indigo-500 text-white px-2 py-1 rounded-full">
+        管理
+      </div>
+    </div>
+    
+    <!-- 搬家公司 -->
+    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('moving-company.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-teal-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🚚</div>
+        <div class="font-bold text-sm">搬家公司</div>
+        <div class="text-xs opacity-75 mt-1">專業搬家</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-teal-500 text-white px-2 py-1 rounded-full">
+        搬家
+      </div>
+    </div>
+    
+    <!-- 冷氣維修 -->
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('air-conditioning.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">❄️</div>
+        <div class="font-bold text-sm">冷氣維修</div>
+        <div class="text-xs opacity-75 mt-1">空調服務</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-sky-500 text-white px-2 py-1 rounded-full">
+        維修
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 🍽️ 美食餐飲專區 -->
+<section class="glass-card p-4 shadow-lg hover:shadow-xl transition-all duration-500">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
+      <span class="text-3xl animate-pulse">🍽️</span>
+      <span>美食餐飲專區</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-red-500 to-orange-500 ml-2"></div>
+    </h2>
+    <div class="text-sm text-gray-500 bg-red-100 dark:bg-red-900 px-3 py-1 rounded-full">
+      <span class="font-bold text-red-600 dark:text-red-400">在地美食</span>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-4 gap-4">
+    <!-- 功夫茶 -->
+    <div class="app-card glass-card food group relative overflow-hidden" onclick="openTool('https://sky770825.github.io/kungfuteahtml/')">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🧋</div>
+        <div class="font-bold text-sm">功夫茶</div>
+        <div class="text-xs opacity-75 mt-1">飲品專賣</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-amber-500 text-white px-2 py-1 rounded-full">
+        熱門
+      </div>
+    </div>
+    
+    <!-- 餐車追蹤 -->
+    <div class="app-card glass-card food group relative overflow-hidden" onclick="openTool('https://siwei.pages.dev/')">
+      <div class="absolute inset-0 bg-gradient-to-br from-red-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🚚</div>
+        <div class="font-bold text-sm">餐車</div>
+        <div class="text-xs opacity-75 mt-1">位置追蹤</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full">
+        即時
+      </div>
+    </div>
+    
+    <!-- 在地小吃 -->
+    <div class="app-card glass-card food group relative overflow-hidden" onclick="openTool('local-life.html#food')">
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🥟</div>
+        <div class="font-bold text-sm">在地小吃</div>
+        <div class="text-xs opacity-75 mt-1">特色美食</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-orange-500 text-white px-2 py-1 rounded-full">
+        推薦
+      </div>
+    </div>
+    
+    <!-- 咖啡廳 -->
+    <div class="app-card glass-card food group relative overflow-hidden" onclick="openTool('local-life.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-rose-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">☕</div>
+        <div class="font-bold text-sm">咖啡廳</div>
+        <div class="text-xs opacity-75 mt-1">休閒時光</div>
       </div>
     </div>
   </div>
@@ -895,7 +1068,7 @@ body.dark .mini-fun-card {
   
   
   <div class="grid grid-cols-4 gap-3">
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('weather.html')">
+    <div class="app-card glass-card assistant group relative overflow-hidden" onclick="openTool('weather.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10">
         <div class="text-2xl mb-1 group-hover:animate-bounce">🌦</div>
@@ -905,7 +1078,7 @@ body.dark .mini-fun-card {
       <div class="absolute top-2 right-2 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
     </div>
     
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('garbage.html')">
+    <div class="app-card glass-card assistant group relative overflow-hidden" onclick="openTool('garbage.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-green-400/20 to-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10">
         <div class="text-2xl mb-1 group-hover:animate-bounce">🗑</div>
@@ -917,7 +1090,7 @@ body.dark .mini-fun-card {
       </div>
     </div>
     
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('receipt.html')">
+    <div class="app-card glass-card assistant group relative overflow-hidden" onclick="openTool('receipt.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10">
         <div class="text-2xl mb-1 group-hover:animate-bounce">🧾</div>
@@ -929,7 +1102,7 @@ body.dark .mini-fun-card {
       </div>
     </div>
     
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('bus.html')">
+    <div class="app-card glass-card assistant group relative overflow-hidden" onclick="openTool('bus.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-indigo-400/20 to-blue-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10">
         <div class="text-2xl mb-1 group-hover:animate-bounce">🚌</div>
@@ -938,25 +1111,7 @@ body.dark .mini-fun-card {
       </div>
     </div>
     
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('https://sky770825.github.io/kungfuteahtml/')">
-      <div class="absolute inset-0 bg-gradient-to-br from-amber-400/20 to-orange-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10">
-        <div class="text-2xl mb-1 group-hover:animate-bounce">🧋</div>
-        <div class="text-sm font-semibold">功夫茶</div>
-        <div class="text-xs opacity-75 mt-1">菜單查詢</div>
-      </div>
-    </div>
-    
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('https://sky770825.github.io/niceshow/')">
-      <div class="absolute inset-0 bg-gradient-to-br from-red-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10">
-        <div class="text-2xl mb-1 group-hover:animate-bounce">🚚</div>
-        <div class="text-sm font-semibold">餐車</div>
-        <div class="text-xs opacity-75 mt-1">位置追蹤</div>
-      </div>
-    </div>
-    
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('inspection.html')">
+    <div class="app-card glass-card assistant group relative overflow-hidden" onclick="openTool('inspection.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-gray-400/20 to-slate-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10">
         <div class="text-2xl mb-1 group-hover:animate-bounce">🔎</div>
@@ -965,7 +1120,7 @@ body.dark .mini-fun-card {
       </div>
     </div>
     
-    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('rate.html')">
+    <div class="app-card glass-card assistant group relative overflow-hidden" onclick="openTool('rate.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10">
         <div class="text-2xl mb-1 group-hover:animate-bounce">🏦</div>
@@ -977,8 +1132,8 @@ body.dark .mini-fun-card {
 </section>
 
 <!-- 📸 精選媒體展示區 -->
-<section class="glass-card p-6 shadow-lg hover:shadow-xl transition-all duration-500">
-  <div class="flex items-center justify-between mb-6">
+<section class="glass-card p-4 shadow-lg hover:shadow-xl transition-all duration-500">
+  <div class="flex items-center justify-between mb-4">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
       <span class="text-3xl animate-pulse">📸</span>
       <span>精選展示</span>
@@ -1021,7 +1176,7 @@ body.dark .mini-fun-card {
       <!-- 媒體資訊 -->
       <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
         <div class="text-white">
-          <div id="mediaTitle" class="font-bold text-lg mb-1">歡迎來到濬瑒房產生活平台</div>
+          <div id="mediaTitle" class="font-bold text-lg mb-1">歡迎來到楊梅人在地生活集</div>
           <div id="mediaDescription" class="text-sm opacity-90">探索更多精彩內容和實用工具</div>
         </div>
       </div>
@@ -1112,19 +1267,19 @@ body.dark .mini-fun-card {
   </div>
   
   <div class="grid grid-cols-3 gap-4">
-    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://lin.ee/Ij6z94H')">
+    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2')">
       <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
         <div class="text-3xl mb-2 group-hover:animate-bounce">💰</div>
         <div class="font-bold">房貸試算</div>
-        <div class="text-xs opacity-75 mt-1">LINE客服</div>
+        <div class="text-xs opacity-75 mt-1">智慧估算</div>
       </div>
       <div class="absolute top-2 right-2 text-xs bg-yellow-500 text-white px-2 py-1 rounded-full animate-pulse">
         熱門
       </div>
     </div>
     
-    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://sky770825.github.io/junyang666/')">
+    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://flyjung168.pages.dev/')">
       <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
         <div class="text-3xl mb-2 group-hover:animate-bounce">🌟</div>
@@ -1163,12 +1318,15 @@ body.dark .mini-fun-card {
       </div>
     </div>
     
-    <div class="app-card glass-card investment group relative overflow-hidden" onclick="openTool('investor.html')">
+    <div class="app-card glass-card investment group relative overflow-hidden" onclick="openTool('https://salersteam.pages.dev/junyang')">
       <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">💰</div>
-        <div class="font-bold">投資專區</div>
-        <div class="text-xs opacity-75 mt-1">理財規劃</div>
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🏘️</div>
+        <div class="font-bold">新案預售</div>
+        <div class="text-xs opacity-75 mt-1">限額參加</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full animate-pulse">
+        熱門
       </div>
     </div>
     
@@ -1193,8 +1351,8 @@ body.dark .mini-fun-card {
   <button onclick="scrollTo(0,0)" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
     <span>🏠</span><span>首頁</span>
   </button>
-  <button onclick="openTool('investor.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="投資專區">
-    <span>💰</span><span>投資</span>
+  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span>📝</span><span>記帳</span>
   </button>
   <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
     <span>🎮</span><span>遊戲</span>
@@ -1202,8 +1360,8 @@ body.dark .mini-fun-card {
   <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="在地生活">
     <span>🍹</span><span>生活</span>
   </button>
-  <button onclick="openTool('analytics.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="數據分析">
-    <span>📊</span><span>分析</span>
+  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span>🙏</span><span>拜拜</span>
   </button>
 </nav>
 
@@ -1232,12 +1390,14 @@ class PropertyApp {
     this.updateUserCount();
     this.updateFunStats();
     this.updateRecommendations();
+    this.updateWeatherStatus();
     
     // 定期更新
     setInterval(() => {
       this.updateTime();
       this.updateUserCount();
       this.updateFunStats();
+      this.updateWeatherStatus();
     }, 30000); // 每30秒更新一次
   }
 
@@ -1343,14 +1503,13 @@ class PropertyApp {
   // 更新問候語
   updateGreeting() {
     const greetings = [
-      '🌕 中秋佳節快樂！月圓人團圓 🥮',
-      '🌙 但願人長久，千里共嬋娟 ✨',
-      '🥮 中秋月圓，幸福美滿 🐰',
-      '🏮 月圓花好，中秋快樂 🌸',
-      '🎊 中秋佳節，闔家歡樂 🎉',
-      '🌟 歡迎來到濬瑒房產生活平台！',
+      '🌟 歡迎來到楊梅人在地生活集！',
       '💫 讓生活更美好，從這裡開始',
-      '🎯 發現更多實用工具和服務'
+      '🎯 發現更多實用工具和服務',
+      '✨ 一站式生活服務平台',
+      '🎊 享受便利的在地生活',
+      '💡 智慧生活，從楊梅開始',
+      '🌈 探索楊梅的美好生活'
     ];
     
     const greetingElement = document.getElementById('greetingText');
@@ -1381,8 +1540,8 @@ class PropertyApp {
   updateUserCount() {
     const userCountElement = document.getElementById('userCount');
     if (userCountElement) {
-      const baseCount = 1234;
-      const randomIncrement = Math.floor(Math.random() * 10);
+      const baseCount = 12345;
+      const randomIncrement = Math.floor(Math.random() * 100);
       userCountElement.textContent = (baseCount + randomIncrement).toLocaleString();
     }
   }
@@ -1391,9 +1550,9 @@ class PropertyApp {
   updateFunStats() {
     const funStatsElement = document.getElementById('funStats');
     if (funStatsElement) {
-      const baseCount = 156;
-      const randomIncrement = Math.floor(Math.random() * 20);
-      funStatsElement.innerHTML = `今日已有 <span class="font-bold text-orange-600">${baseCount + randomIncrement}</span> 人使用`;
+      const baseCount = 1234;
+      const randomIncrement = Math.floor(Math.random() * 200);
+      funStatsElement.innerHTML = `今日已有 <span class="font-bold text-orange-600">${(baseCount + randomIncrement).toLocaleString()}</span> 人使用`;
     }
   }
 
@@ -1401,6 +1560,23 @@ class PropertyApp {
   updateRecommendations() {
     // 這裡可以添加更多動態推薦邏輯
     console.log('推薦內容已更新');
+  }
+
+  // 更新天氣狀態
+  updateWeatherStatus() {
+    const weatherStatusElement = document.getElementById('weatherStatus');
+    if (weatherStatusElement) {
+      const weatherStatuses = [
+        '多雲時晴',
+        '晴朗',
+        '陰天',
+        '小雨',
+        '多雲',
+        '即時查詢'
+      ];
+      const randomStatus = weatherStatuses[Math.floor(Math.random() * weatherStatuses.length)];
+      weatherStatusElement.textContent = randomStatus;
+    }
   }
 
 
@@ -1808,106 +1984,105 @@ function handleSearchEnter(event) {
   }
 }
 
-// 中秋節相關功能
-function showMooncakeRecommendations() {
+// 在地生活相關功能
+function showLocalRecommendations() {
   const recommendations = [
-    "🥮 傳統廣式月餅 - 蓮蓉蛋黃、豆沙蛋黃",
-    "🥮 台式月餅 - 綠豆椪、蛋黃酥",
-    "🥮 冰皮月餅 - 芒果、草莓、巧克力",
-    "🥮 創意月餅 - 流心奶黃、抹茶紅豆",
-    "🥮 健康月餅 - 低糖、無麩質選擇"
+    "🏠 楊梅優質房產 - 精選物件推薦",
+    "🛠️ 在地服務商 - 水電、裝潢、維修",
+    "🍽️ 在地美食 - 楊梅特色餐廳",
+    "🚌 交通資訊 - 公車路線、時刻表",
+    "🏪 生活便利 - 超市、銀行、郵局"
   ];
   
-  const message = "🌕 中秋月餅推薦：\n\n" + recommendations.join("\n");
+  const message = "🌟 楊梅在地推薦：\n\n" + recommendations.join("\n");
   alert(message);
 }
 
-function showMoonViewingSpots() {
-  const spots = [
-    "🌙 陽明山 - 視野開闊，遠離光害",
-    "🌙 淡水漁人碼頭 - 海邊賞月，浪漫氛圍",
-    "🌙 象山 - 台北101夜景配明月",
-    "🌙 大安森林公園 - 市區便利選擇",
-    "🌙 碧潭 - 湖光月色，詩情畫意"
+function showLocalServices() {
+  const services = [
+    "🔧 水電維修 - 24小時服務",
+    "🎨 裝潢設計 - 專業團隊",
+    "🚚 搬家服務 - 安全可靠",
+    "🧹 清潔服務 - 定期維護",
+    "🌱 園藝服務 - 美化環境"
   ];
   
-  const message = "🌙 最佳賞月地點：\n\n" + spots.join("\n");
+  const message = "🛠️ 在地服務推薦：\n\n" + services.join("\n");
   alert(message);
 }
 
-function showMidAutumnActivities() {
+function showLocalActivities() {
   const activities = [
-    "🎊 中秋烤肉派對 - 親友團聚",
-    "🎊 猜燈謎活動 - 傳統文化體驗",
-    "🎊 放天燈祈福 - 許願祝福",
-    "🎊 柚子雕刻比賽 - 創意手作",
-    "🎊 中秋音樂會 - 戶外表演"
+    "🏃‍♂️ 楊梅運動公園 - 休閒運動",
+    "📚 楊梅圖書館 - 閱讀學習",
+    "🎭 文化活動 - 藝文展演",
+    "🍃 自然步道 - 親近自然",
+    "🎪 節慶活動 - 社區參與"
   ];
   
-  const message = "🎊 中秋節慶活動：\n\n" + activities.join("\n");
+  const message = "🎊 楊梅在地活動：\n\n" + activities.join("\n");
   alert(message);
 }
 
-function showMidAutumnRecipes() {
-  const recipes = [
-    "👨‍🍳 自製月餅 - 簡單易學",
-    "👨‍🍳 柚子茶 - 潤燥養生",
-    "👨‍🍳 烤肉醃料 - 秘製配方",
-    "👨‍🍳 中秋湯圓 - 團圓象徵",
-    "👨‍🍳 桂花糕 - 應景甜點"
+function showLocalFood() {
+  const food = [
+    "🍜 楊梅麵店 - 傳統好味道",
+    "🥟 在地小吃 - 特色美食",
+    "☕ 咖啡廳 - 休閒時光",
+    "🍰 甜點店 - 下午茶選擇",
+    "🍱 便當店 - 經濟實惠"
   ];
   
-  const message = "👨‍🍳 中秋節慶料理：\n\n" + recipes.join("\n");
+  const message = "🍽️ 楊梅在地美食：\n\n" + food.join("\n");
   alert(message);
 }
 
-function shareMidAutumnGreeting() {
+function shareLocalGreeting() {
   const greetings = [
-    "🌕 中秋佳節快樂！月圓人團圓 🥮",
-    "🌙 但願人長久，千里共嬋娟 ✨",
-    "🥮 中秋月圓，幸福美滿 🐰",
-    "🏮 月圓花好，中秋快樂 🌸",
-    "🎊 中秋佳節，闔家歡樂 🎉"
+    "🌟 歡迎來到楊梅人在地生活集！",
+    "💫 讓生活更美好，從這裡開始",
+    "🎯 發現更多實用工具和服務",
+    "✨ 一站式生活服務平台"
   ];
   
   const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
   
   if (navigator.share) {
     navigator.share({
-      title: '中秋祝福',
+      title: '楊梅在地生活',
       text: randomGreeting,
       url: window.location.href
     });
   } else {
     navigator.clipboard.writeText(randomGreeting).then(() => {
-      alert('中秋祝福已複製到剪貼板！\n\n' + randomGreeting);
+      alert('楊梅在地生活資訊已複製到剪貼板！\n\n' + randomGreeting);
     });
   }
 }
 
-function showMidAutumnEvents() {
+function showLocalEvents() {
   const events = [
-    "🎪 台北101中秋煙火秀 - 9/29 20:00",
-    "🎭 中正紀念堂中秋音樂會 - 9/29 19:30",
-    "🏮 迪化街中秋燈會 - 9/28-10/1",
-    "🎊 大安森林公園中秋市集 - 9/29-10/1",
-    "🌙 淡水老街中秋遊行 - 9/29 18:00"
+    "🎪 楊梅文化節 - 在地文化展示",
+    "🎭 社區音樂會 - 藝文表演",
+    "🏮 節慶市集 - 在地特產",
+    "🎊 親子活動 - 家庭同樂",
+    "🌙 夜間活動 - 夜生活體驗"
   ];
   
-  const message = "🎪 台北中秋節活動：\n\n" + events.join("\n");
+  const message = "🎪 楊梅在地活動：\n\n" + events.join("\n");
   alert(message);
 }
 
-function showMidAutumnFood() {
-  const food = [
-    "🥮 佳德鳳梨酥 - 台北市南京東路五段88號",
-    "🥮 微熱山丘 - 台北市信義區松高路9號",
-    "🥮 犁記餅店 - 台北市長安東路二段73號",
-    "🥮 郭元益 - 台北市士林區文林路546號",
-    "🥮 舊振南 - 台北市信義區松高路12號"
+function showLocalBusinesses() {
+  const businesses = [
+    "🏪 楊梅市場 - 新鮮蔬果",
+    "🏦 銀行服務 - 金融便利",
+    "📮 郵局服務 - 郵務處理",
+    "🏥 醫療服務 - 健康照護",
+    "🎓 教育機構 - 學習資源"
   ];
   
-  const message = "🥮 台北知名月餅店：\n\n" + food.join("\n");
+  const message = "🏪 楊梅在地商家：\n\n" + businesses.join("\n");
   alert(message);
 }
 

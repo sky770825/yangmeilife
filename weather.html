@@ -394,7 +394,7 @@ body.dark .glass-card{
   </div>
 </header>
 
-<main class="px-3 py-2 space-y-3 max-w-md mx-auto sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-4xl">
+<main class="px-2 py-1 pb-16 space-y-2 max-w-md mx-auto sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-4xl">
   <!-- 當前天氣 - 主要顯示區 -->
   <section class="glass-card shadow-lg">
     <div class="current-weather">
@@ -760,6 +760,36 @@ if ('ontouchstart' in window) {
       }, 150);
     });
   });
+}
+</script>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span>🏠</span><span>首頁</span>
+  </button>
+  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span>📝</span><span>記帳</span>
+  </button>
+  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span>🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="在地生活">
+    <span>🍹</span><span>生活</span>
+  </button>
+  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span>🙏</span><span>拜拜</span>
+  </button>
+</nav>
+
+<script>
+// 工具開啟功能
+function openTool(url) {
+  if (url.startsWith('http')) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  } else {
+    window.location.href = url;
+  }
 }
 </script>
 </body>

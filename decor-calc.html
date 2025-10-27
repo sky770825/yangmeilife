@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>裝潢估價 - 濬瑒房產生活平台</title>
+<title>裝潢廠商推薦 - 濬瑒房產生活平台</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 :root{
@@ -29,25 +29,34 @@ body{
   border:1px solid rgba(255,255,255,0.2);
 }
 
-.decor-item{
-  background:rgba(255,255,255,0.8);
+.contractor-card{
+  background:rgba(255,255,255,0.9);
   border-radius:0.75rem;
-  padding:1rem;
-  margin-bottom:0.75rem;
+  padding:1.5rem;
+  margin-bottom:1rem;
   transition:var(--transition);
+  border-left:4px solid #f59e0b;
 }
 
-.decor-item:hover{
+.contractor-card:hover{
   transform:translateY(-2px);
   box-shadow:var(--shadow-light);
 }
 
-.result-card{
+.contact-btn{
   background:var(--grad);
   color:white;
-  border-radius:var(--border-radius);
-  padding:1.5rem;
-  text-align:center;
+  padding:0.5rem 1rem;
+  border-radius:9999px;
+  text-decoration:none;
+  font-weight:600;
+  transition:var(--transition);
+  display:inline-block;
+}
+
+.contact-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 4px 15px rgba(245,158,11,0.3);
 }
 
 #themeToggle{
@@ -77,199 +86,210 @@ body{
 
 <!-- 標題區 -->
 <header class="text-center py-8" style="background:var(--grad);color:white;">
-  <h1 class="text-3xl font-bold">🛋️ 裝潢估價工具</h1>
-  <p class="text-sm opacity-90 mt-2">精準估算您的裝潢預算</p>
+  <h1 class="text-3xl font-bold">🛋️ 裝潢廠商推薦</h1>
+  <p class="text-sm opacity-90 mt-2">專業裝潢團隊，品質保證</p>
 </header>
 
 <main class="px-4 py-6 space-y-6">
-  <!-- 基本資訊 -->
+  <!-- 推薦廠商 -->
   <section class="glass-card p-6 shadow-lg">
-    <h2 class="text-xl font-bold mb-4">📏 房屋資訊</h2>
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-sm font-medium mb-2">坪數</label>
-        <input type="number" id="area" class="w-full p-3 border rounded-lg" placeholder="例如：30" value="30">
+    <h2 class="text-xl font-bold mb-4">🏆 推薦裝潢廠商</h2>
+    <div class="space-y-4">
+      <!-- 廠商1 -->
+      <div class="contractor-card">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="text-lg font-bold text-gray-800">🏠 楊梅在地裝潢工坊</h3>
+            <p class="text-sm text-gray-600">在地經營15年，專業團隊</p>
+          </div>
+          <div class="text-right">
+            <div class="flex items-center mb-1">
+              <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              <span class="text-sm text-gray-600 ml-1">(4.8)</span>
+            </div>
+            <div class="text-xs text-gray-500">在地服務</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">專長：</span>住宅裝潢、商業空間、老屋翻新
+          </div>
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">服務區域：</span>楊梅、中壢、平鎮、龍潭
+          </div>
+          <div class="text-sm text-gray-700">
+            <span class="font-semibold">特色：</span>免費丈量、3D設計圖、保固2年
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="tel:03-478-1234" class="contact-btn">📞 03-478-1234</a>
+          <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 LINE諮詢</a>
+        </div>
       </div>
-      <div>
-        <label class="block text-sm font-medium mb-2">房間數</label>
-        <select id="rooms" class="w-full p-3 border rounded-lg">
-          <option value="1">1房</option>
-          <option value="2">2房</option>
-          <option value="3" selected>3房</option>
-          <option value="4">4房</option>
-          <option value="5">5房以上</option>
-        </select>
+
+      <!-- 廠商2 -->
+      <div class="contractor-card">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="text-lg font-bold text-gray-800">🎨 創意空間設計</h3>
+            <p class="text-sm text-gray-600">現代風格，設計感強</p>
+          </div>
+          <div class="text-right">
+            <div class="flex items-center mb-1">
+              <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              <span class="text-sm text-gray-600 ml-1">(4.9)</span>
+            </div>
+            <div class="text-xs text-gray-500">設計導向</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">專長：</span>現代簡約、北歐風格、工業風
+          </div>
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">服務區域：</span>桃園全區、新竹部分區域
+          </div>
+          <div class="text-sm text-gray-700">
+            <span class="font-semibold">特色：</span>客製化設計、環保建材、智能家居
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="tel:03-478-5678" class="contact-btn">📞 03-478-5678</a>
+          <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 LINE諮詢</a>
+        </div>
+      </div>
+
+      <!-- 廠商3 -->
+      <div class="contractor-card">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="text-lg font-bold text-gray-800">💰 經濟裝潢專家</h3>
+            <p class="text-sm text-gray-600">價格實惠，品質保證</p>
+          </div>
+          <div class="text-right">
+            <div class="flex items-center mb-1">
+              <span class="text-yellow-500">⭐⭐⭐⭐</span>
+              <span class="text-sm text-gray-600 ml-1">(4.6)</span>
+            </div>
+            <div class="text-xs text-gray-500">經濟實惠</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">專長：</span>基礎裝修、局部改造、預算控制
+          </div>
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">服務區域：</span>楊梅、新屋、觀音
+          </div>
+          <div class="text-sm text-gray-700">
+            <span class="font-semibold">特色：</span>透明報價、分期付款、快速施工
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="tel:03-478-9012" class="contact-btn">📞 03-478-9012</a>
+          <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 LINE諮詢</a>
+        </div>
+      </div>
+
+      <!-- 廠商4 -->
+      <div class="contractor-card">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="text-lg font-bold text-gray-800">🏗️ 專業工程團隊</h3>
+            <p class="text-sm text-gray-600">大型工程，專業施工</p>
+          </div>
+          <div class="text-right">
+            <div class="flex items-center mb-1">
+              <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              <span class="text-sm text-gray-600 ml-1">(4.7)</span>
+            </div>
+            <div class="text-xs text-gray-500">大型工程</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">專長：</span>透天裝潢、商業空間、辦公室
+          </div>
+          <div class="text-sm text-gray-700 mb-2">
+            <span class="font-semibold">服務區域：</span>桃園全區、雙北
+          </div>
+          <div class="text-sm text-gray-700">
+            <span class="font-semibold">特色：</span>專業證照、保險保障、售後服務
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="tel:03-478-3456" class="contact-btn">📞 03-478-3456</a>
+          <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 LINE諮詢</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 裝潢項目 -->
+  <!-- 服務流程 -->
   <section class="glass-card p-6 shadow-lg">
-    <h2 class="text-xl font-bold mb-4">🔨 裝潢項目</h2>
-    <div class="space-y-3">
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">🏠 基礎工程</h3>
-            <p class="text-sm text-gray-600">水電、泥作、油漆</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 80,000</span>
-          </label>
+    <h2 class="text-xl font-bold mb-4">📋 裝潢服務流程</h2>
+    <div class="space-y-4">
+      <div class="flex items-center space-x-4">
+        <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
+        <div>
+          <h3 class="font-semibold">免費諮詢</h3>
+          <p class="text-sm text-gray-600">電話或LINE初步溝通需求</p>
         </div>
       </div>
-
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">🚪 門窗工程</h3>
-            <p class="text-sm text-gray-600">大門、窗戶、紗窗</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 120,000</span>
-          </label>
+      <div class="flex items-center space-x-4">
+        <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
+        <div>
+          <h3 class="font-semibold">現場丈量</h3>
+          <p class="text-sm text-gray-600">專業師傅到府免費丈量</p>
         </div>
       </div>
-
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">🧱 地面工程</h3>
-            <p class="text-sm text-gray-600">地板、磁磚、地毯</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 150,000</span>
-          </label>
+      <div class="flex items-center space-x-4">
+        <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
+        <div>
+          <h3 class="font-semibold">設計提案</h3>
+          <p class="text-sm text-gray-600">提供3D設計圖與詳細報價</p>
         </div>
       </div>
-
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">🛏️ 臥室裝潢</h3>
-            <p class="text-sm text-gray-600">床組、衣櫃、梳妝台</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 200,000</span>
-          </label>
+      <div class="flex items-center space-x-4">
+        <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
+        <div>
+          <h3 class="font-semibold">簽約施工</h3>
+          <p class="text-sm text-gray-600">確認後簽約，開始專業施工</p>
         </div>
       </div>
-
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">🍳 廚房設備</h3>
-            <p class="text-sm text-gray-600">廚具、電器、收納</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 180,000</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">🚿 衛浴設備</h3>
-            <p class="text-sm text-gray-600">馬桶、洗手台、淋浴</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 100,000</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">🛋️ 客廳家具</h3>
-            <p class="text-sm text-gray-600">沙發、茶几、電視櫃</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 120,000</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="decor-item">
-        <div class="flex justify-between items-center">
-          <div>
-            <h3 class="font-semibold">💡 燈具照明</h3>
-            <p class="text-sm text-gray-600">吊燈、壁燈、崁燈</p>
-          </div>
-          <label class="flex items-center">
-            <input type="checkbox" class="mr-2" checked>
-            <span class="text-green-600 font-semibold">NT$ 50,000</span>
-          </label>
+      <div class="flex items-center space-x-4">
+        <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">5</div>
+        <div>
+          <h3 class="font-semibold">驗收保固</h3>
+          <p class="text-sm text-gray-600">完工驗收，提供保固服務</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 估價結果 -->
-  <section id="resultSection" class="result-card">
-    <h3 class="text-xl font-bold mb-4">💰 估價結果</h3>
-    <div class="text-4xl font-bold mb-2" id="totalEstimate">NT$ 1,000,000</div>
-    <div class="text-sm opacity-80">預估總金額</div>
-    <div class="mt-4 text-sm opacity-80">
-      平均每坪：<span id="perPing">NT$ 33,333</span>
-    </div>
-  </section>
-
-  <!-- 裝潢等級參考 -->
+  <!-- 裝潢小知識 -->
   <section class="glass-card p-6 shadow-lg">
-    <h3 class="text-lg font-bold mb-4">📊 裝潢等級參考</h3>
-    <div class="space-y-3">
-      <div class="p-3 bg-green-50 rounded-lg border-l-4 border-green-400">
-        <div class="flex justify-between">
-          <span class="font-semibold text-green-800">經濟型</span>
-          <span class="text-green-600 font-bold">NT$ 20,000-30,000/坪</span>
-        </div>
-        <p class="text-sm text-green-700 mt-1">基本裝修，實用為主</p>
-      </div>
-      <div class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-        <div class="flex justify-between">
-          <span class="font-semibold text-blue-800">標準型</span>
-          <span class="text-blue-600 font-bold">NT$ 30,000-50,000/坪</span>
-        </div>
-        <p class="text-sm text-blue-700 mt-1">中等品質，美觀實用</p>
-      </div>
-      <div class="p-3 bg-purple-50 rounded-lg border-l-4 border-purple-400">
-        <div class="flex justify-between">
-          <span class="font-semibold text-purple-800">豪華型</span>
-          <span class="text-purple-600 font-bold">NT$ 50,000-80,000/坪</span>
-        </div>
-        <p class="text-sm text-purple-700 mt-1">高級材料，設計感強</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 省錢建議 -->
-  <section class="glass-card p-6 shadow-lg">
-    <h3 class="text-lg font-bold mb-4">💡 省錢建議</h3>
+    <h2 class="text-xl font-bold mb-4">💡 裝潢小知識</h2>
     <div class="space-y-3 text-sm">
       <div class="flex items-start space-x-3">
-        <span class="text-green-500">💡</span>
-        <span>優先處理基礎工程，家具可分批購買</span>
+        <span class="text-orange-500">💡</span>
+        <span>裝潢前先確認預算，避免超支</span>
       </div>
       <div class="flex items-start space-x-3">
-        <span class="text-green-500">💡</span>
-        <span>選擇國產建材可節省30-50%成本</span>
+        <span class="text-orange-500">💡</span>
+        <span>選擇有保固的廠商，保障權益</span>
       </div>
       <div class="flex items-start space-x-3">
-        <span class="text-green-500">💡</span>
-        <span>淡季裝潢（冬季）通常有較好價格</span>
-      </div>
-      <div class="flex items-start space-x-3">
-        <span class="text-green-500">💡</span>
+        <span class="text-orange-500">💡</span>
         <span>多比較3-5家廠商報價</span>
+      </div>
+      <div class="flex items-start space-x-3">
+        <span class="text-orange-500">💡</span>
+        <span>確認建材品牌與規格</span>
+      </div>
+      <div class="flex items-start space-x-3">
+        <span class="text-orange-500">💡</span>
+        <span>施工期間定期檢查進度</span>
       </div>
     </div>
   </section>

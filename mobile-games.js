@@ -160,7 +160,7 @@ class MobileMemoryGame {
     // 使用 DocumentFragment 提高性能
     const fragment = document.createDocumentFragment();
     grid.innerHTML = '';
-    grid.className = 'grid grid-cols-4 gap-2 max-w-sm mx-auto';
+    grid.className = 'grid grid-cols-4 gap-0 w-full h-full';
     
     this.cards.forEach((card, index) => {
       const cardElement = document.createElement('div');
@@ -351,7 +351,7 @@ class SwipeEliminateGame {
     // 使用 DocumentFragment 提高性能
     const fragment = document.createDocumentFragment();
     grid.innerHTML = '';
-    grid.className = 'grid grid-cols-6 gap-1 max-w-xs mx-auto';
+    grid.className = 'grid grid-cols-6 gap-0 w-full h-full';
     
     this.grid.forEach((row, rowIndex) => {
       row.forEach((tile, colIndex) => {
@@ -877,7 +877,7 @@ class SimpleMergeGame {
     // 使用 DocumentFragment 提高性能
     const fragment = document.createDocumentFragment();
     grid.innerHTML = '';
-    grid.className = 'grid grid-cols-4 gap-2 max-w-xs mx-auto';
+    grid.className = 'grid grid-cols-4 gap-0 w-full h-full';
     
     this.grid.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
@@ -1189,7 +1189,7 @@ class WordleGame {
     if (!grid) return;
 
     grid.innerHTML = '';
-    grid.className = 'grid grid-cols-5 gap-2 max-w-sm mx-auto';
+    grid.className = 'grid grid-cols-5 gap-0 w-full h-full';
 
     for (let row = 0; row < this.maxGuesses; row++) {
       for (let col = 0; col < 5; col++) {
@@ -1222,7 +1222,7 @@ class WordleGame {
     if (!keyboardContainer) return;
 
     keyboardContainer.innerHTML = '';
-    keyboardContainer.className = 'mt-4 grid grid-cols-10 gap-1 max-w-md mx-auto';
+    keyboardContainer.className = 'grid grid-cols-10 gap-0 w-full';
     
     const keys = 'QWERTYUIOPASDFGHJKLZXCVBNM'.split('');
     keys.forEach(key => {
@@ -1462,7 +1462,7 @@ class SudokuGame {
     if (!grid) return;
 
     grid.innerHTML = '';
-    grid.className = 'grid grid-cols-9 gap-1 max-w-sm mx-auto border-2 border-gray-800';
+    grid.className = 'grid grid-cols-9 gap-0 w-full h-full border-2 border-gray-800';
 
     for (let row = 0; row < this.size; row++) {
       for (let col = 0; col < this.size; col++) {
@@ -1672,14 +1672,15 @@ class TetrisGame {
     if (!grid) return;
 
     grid.innerHTML = '';
-    grid.className = 'grid gap-1 max-w-sm mx-auto border-2 border-gray-800 p-2';
+    grid.className = 'grid gap-0 w-full h-full border-2 border-gray-800 p-1';
     grid.style.gridTemplateColumns = `repeat(${this.boardWidth}, 1fr)`;
+    grid.style.gridTemplateRows = `repeat(${this.boardHeight}, 1fr)`;
 
     // 渲染遊戲板
     for (let y = 0; y < this.boardHeight; y++) {
       for (let x = 0; x < this.boardWidth; x++) {
         const cell = document.createElement('div');
-        cell.className = 'w-6 h-6 border border-gray-300 rounded-sm';
+        cell.className = 'border border-gray-300 rounded-sm min-h-0';
         
         if (this.board[y][x] !== 0) {
           cell.style.backgroundColor = this.board[y][x];
@@ -2019,7 +2020,7 @@ class BubbleGame {
     if (!grid) return;
 
     grid.innerHTML = '';
-    grid.className = 'grid gap-1 max-w-sm mx-auto border-2 border-gray-800 p-2';
+    grid.className = 'grid gap-0 max-w-sm mx-auto border-2 border-gray-800 p-2';
     grid.style.gridTemplateColumns = `repeat(${this.gridWidth}, 1fr)`;
 
     // 渲染遊戲板
@@ -2173,7 +2174,7 @@ class WhackGame {
     if (!grid) return;
 
     grid.innerHTML = '';
-    grid.className = 'grid grid-cols-3 gap-4 max-w-sm mx-auto';
+    grid.className = 'grid grid-cols-3 gap-0 w-full h-full';
 
     this.grid.forEach((hole, index) => {
       const holeElement = document.createElement('div');
@@ -2408,7 +2409,7 @@ class RPSGame {
   }
 }
 
-// 翻轉卡片遊戲實裝
+// 翻轉卡片遊戲實裝 - 簡單配對挑戰
 class FlipcardGame {
   constructor() {
     this.cards = [];
@@ -2417,6 +2418,7 @@ class FlipcardGame {
     this.score = 0;
     this.flips = 0;
     this.gameStarted = false;
+    this.maxFlips = 25; // 限制翻轉次數
     this.cardSymbols = ['🎮', '🎯', '⭐', '🎨', '🎪', '🎭', '🎲', '🎵'];
   }
 
@@ -2449,35 +2451,34 @@ class FlipcardGame {
     if (!grid) return;
 
     grid.innerHTML = '';
-    grid.className = 'grid grid-cols-4 gap-2 max-w-sm mx-auto';
+    grid.className = 'grid grid-cols-4 gap-0 w-full h-full';
     
     this.cards.forEach((card, index) => {
       const cardElement = document.createElement('div');
-      cardElement.className = 'aspect-square bg-gradient-to-br from-purple-400 to-pink-600 rounded-xl flex items-center justify-center text-3xl cursor-pointer transition-transform duration-300 touch-manipulation will-change-transform';
+      cardElement.className = 'aspect-square bg-gradient-to-br from-indigo-400 to-purple-600 rounded-xl flex items-center justify-center text-3xl cursor-pointer transition-all duration-300 touch-manipulation will-change-transform';
       
       if (card.flipped) {
         cardElement.innerHTML = card.symbol;
-        cardElement.className += ' bg-gradient-to-br from-yellow-400 to-orange-500 scale-105 shadow-lg';
+        cardElement.className += ' bg-gradient-to-br from-yellow-400 to-orange-500 scale-105 shadow-lg rotate-3';
       } else if (card.matched) {
         cardElement.innerHTML = card.symbol;
-        cardElement.className += ' bg-gradient-to-br from-green-400 to-green-600 opacity-75';
+        cardElement.className += ' bg-gradient-to-br from-green-400 to-green-600 opacity-75 scale-95';
       } else {
         cardElement.innerHTML = '🃏';
-        cardElement.className += ' hover:scale-105 active:scale-95';
+        cardElement.className += ' hover:scale-105 active:scale-95 hover:rotate-2';
       }
       
       cardElement.dataset.index = index;
-      cardElement.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.flipCard(index);
-      }, { passive: false });
       
-      cardElement.addEventListener('click', (e) => {
+      // 使用單一事件處理器避免重複綁定
+      const handleCardClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
         this.flipCard(index);
-      });
+      };
+      
+      cardElement.addEventListener('touchstart', handleCardClick, { passive: false });
+      cardElement.addEventListener('click', handleCardClick);
       
       grid.appendChild(cardElement);
     });
@@ -2491,7 +2492,7 @@ class FlipcardGame {
     }
 
     const card = this.cards[index];
-    if (card.flipped || card.matched || this.flippedCards.length >= 2) return;
+    if (card.flipped || card.matched || this.flippedCards.length >= 2 || this.flips >= this.maxFlips) return;
 
     card.flipped = true;
     this.flippedCards.push({ index, card });
@@ -2502,24 +2503,40 @@ class FlipcardGame {
     gameEngine.vibrate([50]);
 
     if (this.flippedCards.length === 2) {
-      setTimeout(() => this.checkMatch(), 1000);
+      setTimeout(() => this.checkMatch(), 800); // 縮短等待時間
     }
   }
 
+  resetGame() {
+    this.cards = [];
+    this.flippedCards = [];
+    this.matchedPairs = 0;
+    this.score = 0;
+    this.flips = 0;
+    this.gameStarted = false;
+    this.init();
+  }
+
   checkMatch() {
+    if (this.flippedCards.length !== 2) {
+      this.flippedCards = []; // 確保狀態正確
+      return;
+    }
+    
     const [first, second] = this.flippedCards;
     
     if (first.card.symbol === second.card.symbol) {
       first.card.matched = true;
       second.card.matched = true;
       this.matchedPairs++;
-      this.score += 20;
+      this.score += 25; // 提高分數
       gameEngine.playSound('success');
       gameEngine.vibrate([100, 50, 100]);
       gameEngine.showToast('配對成功！', 'success');
       
       if (this.matchedPairs === 8) {
         this.gameWin();
+        return;
       }
     } else {
       first.card.flipped = false;
@@ -2530,22 +2547,39 @@ class FlipcardGame {
     
     this.flippedCards = [];
     this.render();
+    
+    // 檢查是否達到翻轉次數限制
+    if (this.flips >= this.maxFlips && this.matchedPairs < 8) {
+      setTimeout(() => this.gameOver(), 500);
+    }
   }
 
   updateUI() {
     const scoreElement = document.getElementById('flipcardScore');
     const flipsElement = document.getElementById('flipcardFlips');
+    const pairsElement = document.getElementById('flipcardPairs');
     
     if (scoreElement) scoreElement.textContent = this.score;
     if (flipsElement) flipsElement.textContent = this.flips;
+    if (pairsElement) pairsElement.textContent = this.matchedPairs;
   }
 
   gameWin() {
-    this.score += (20 - this.flips) * 10;
+    this.score += (this.maxFlips - this.flips) * 5; // 剩餘翻轉次數獎勵
     this.updateUI();
     gameEngine.playSound('win');
     gameEngine.vibrate([100, 50, 100, 50, 200]);
-    gameEngine.showToast(`恭喜完成！分數: ${this.score}`, 'success');
+    gameEngine.showToast(`恭喜完成！用 ${this.flips} 次翻轉完成！`, 'success');
+    setTimeout(() => {
+      updateScore('flipcard', this.score);
+      closeGame();
+    }, 2000);
+  }
+
+  gameOver() {
+    gameEngine.playSound('error');
+    gameEngine.vibrate([300, 100, 300]);
+    gameEngine.showToast(`翻轉次數用完！配對了 ${this.matchedPairs}/8 對`, 'error');
     setTimeout(() => {
       updateScore('flipcard', this.score);
       closeGame();
@@ -2575,13 +2609,14 @@ class SnakeGame {
     if (!grid) return;
 
     grid.innerHTML = '';
-    grid.className = 'grid gap-0 max-w-sm mx-auto border-2 border-gray-800';
+    grid.className = 'grid gap-0 w-full h-full border-2 border-gray-800';
     grid.style.gridTemplateColumns = 'repeat(20, 1fr)';
+    grid.style.gridTemplateRows = 'repeat(20, 1fr)';
 
     for (let row = 0; row < this.gridSize; row++) {
       for (let col = 0; col < this.gridSize; col++) {
         const cell = document.createElement('div');
-        cell.className = 'w-3 h-3 border border-gray-200';
+        cell.className = 'border border-gray-200 min-h-0';
         
         if (this.snake.some(segment => segment.x === col && segment.y === row)) {
           cell.className += ' bg-green-500';
@@ -2765,11 +2800,6 @@ function startWhackGame() {
   currentGameInstance.init();
 }
 
-function startBreakoutGame() {
-  // 使用現有的反應遊戲邏輯
-  currentGameInstance = new ReactionGame();
-  currentGameInstance.init();
-}
 
 function startFlipcardGame() {
   currentGameInstance = new FlipcardGame();
