@@ -343,16 +343,21 @@ body.dark .bottom-nav {
   }
   
   .bottom-nav {
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: space-around;
     padding: 0.5rem 0.25rem;
   }
   
   .bottom-nav button {
-    flex: 0 0 calc(33.333% - 0.5rem);
-    min-width: auto;
+    flex: 1;
+    min-width: 0;
     padding: 0.25rem 0.1rem;
     font-size: 0.7rem;
+  }
+  
+  .bottom-nav button span:first-child {
+    font-size: 1rem;
+    margin-bottom: 0.125rem;
   }
 }
 
@@ -602,21 +607,21 @@ body.dark .bottom-nav {
 </main>
 
 <!-- 📍 底部導航 -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航" style="max-width: 100vw; overflow-x: hidden;">
-  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-1.5 py-1" aria-label="回到首頁" style="min-width: 0; flex: 1;">
-    <span>🏠</span><span>首頁</span>
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav z-50" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="回到首頁">
+    <span class="text-lg mb-1">🏠</span><span>首頁</span>
   </button>
-  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-1.5 py-1" aria-label="記帳" style="min-width: 0; flex: 1;">
-    <span>📝</span><span>記帳</span>
+  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="記帳">
+    <span class="text-lg mb-1">📝</span><span>記帳</span>
   </button>
-  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-1.5 py-1" aria-label="遊戲大廳" style="min-width: 0; flex: 1;">
-    <span>🎮</span><span>遊戲</span>
+  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="遊戲大廳">
+    <span class="text-lg mb-1">🎮</span><span>遊戲</span>
   </button>
-  <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-1.5 py-1" aria-label="在地生活" style="min-width: 0; flex: 1;">
-    <span>🍹</span><span>生活</span>
+  <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="在地生活">
+    <span class="text-lg mb-1">🍹</span><span>生活</span>
   </button>
-  <button class="flex flex-col items-center text-indigo-600 text-xs font-semibold" aria-label="拜拜專區" style="min-width: 0; flex: 1;">
-    <span>🙏</span><span>拜拜</span>
+  <button class="flex flex-col items-center text-indigo-600 text-xs font-semibold px-3 py-2 min-w-[60px]" aria-label="拜拜專區">
+    <span class="text-lg mb-1">🙏</span><span>拜拜</span>
   </button>
 </nav>
 
@@ -672,8 +677,16 @@ document.addEventListener('keydown', function(event) {
 // 工具開啟功能（用於底部導航）
 function openTool(url) {
   if (url.startsWith('http')) {
-    // 外部連結在新視窗打開
-    window.open(url, '_blank', 'noopener,noreferrer');
+    // 檢測是否為手機版
+    const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+      // 手機版：在當前視窗打開外部連結
+      window.location.href = url;
+    } else {
+      // 桌面版：在新視窗打開外部連結
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
   } else {
     // 內部連結在原視窗打開
     window.location.href = url;
