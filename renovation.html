@@ -130,7 +130,7 @@ body {
   padding: 1.5rem;
   margin-bottom: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  text-center;
+  text-align: center;
 }
 
 .budget-value {
@@ -263,6 +263,198 @@ body {
 .fade-in {
   animation: fadeIn 0.3s ease-out;
 }
+
+/* 圖片展示區域樣式 */
+.image-gallery-container {
+  position: relative;
+}
+
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gallery-main {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.main-image:hover {
+  transform: scale(1.05);
+}
+
+.gallery-thumbnails {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: space-between;
+}
+
+.thumbnail {
+  width: 20%;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+  border-color: #667eea;
+  transform: scale(1.1);
+}
+
+.more-images {
+  width: 20%;
+  height: 40px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.more-images:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+  transform: scale(1.1);
+}
+
+/* 燈箱樣式 */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  backdrop-filter: blur(10px);
+}
+
+/* 深色模式適配 */
+.dark .thumbnail:hover {
+  border-color: #818cf8;
+}
+
+.dark .more-images {
+  background: rgba(129, 140, 248, 0.1);
+  color: #818cf8;
+}
+
+.dark .more-images:hover {
+  background: rgba(129, 140, 248, 0.2);
+  border-color: #818cf8;
+}
 </style>
 </head>
 <body>
@@ -279,249 +471,162 @@ body {
     <p class="text-xl text-white opacity-90">專業裝潢指南，打造理想居家空間</p>
   </div>
 
-  <!-- 裝潢工具 -->
-  <div class="renovation-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">🛠️</span>
-      裝潢工具
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="tool-item" onclick="openTool('decor-calc.html')">
-        <div class="text-3xl mr-3">💰</div>
-        <div class="flex-1">
-          <div class="font-bold">裝潢估價</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">快速估算裝潢費用</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
-      <div class="tool-item" onclick="openTool('loan-calc.html')">
-        <div class="text-3xl mr-3">📊</div>
-        <div class="flex-1">
-          <div class="font-bold">裝潢貸款</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">裝潢貸款試算工具</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
-      <div class="tool-item" onclick="openTool('grant-renovation.html')">
-        <div class="text-3xl mr-3">💸</div>
-        <div class="flex-1">
-          <div class="font-bold">裝潢補助</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">政府裝潢補助申請</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
-      <div class="tool-item" onclick="openTool('inspection.html')">
-        <div class="text-3xl mr-3">🔍</div>
-        <div class="flex-1">
-          <div class="font-bold">驗屋檢測</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">裝潢前房屋檢測</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
+  <!-- 推薦服務商 -->
+  <section class="glass rounded-2xl p-6 mb-8">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+        <span class="text-3xl">⭐</span>
+        <span>推薦服務商</span>
+      </h2>
+      <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full">推薦</span>
     </div>
-  </div>
 
-  <!-- 裝潢流程 -->
-  <div class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-6 text-center">📋 裝潢流程</h2>
-    <div class="space-y-4">
-      <div class="step-card">
-        <div class="step-number">1</div>
-        <h3 class="text-xl font-bold mb-2">需求規劃</h3>
-        <p class="text-gray-600 dark:text-gray-400">確定裝潢風格、預算範圍和功能需求</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">2</div>
-        <h3 class="text-xl font-bold mb-2">設計規劃</h3>
-        <p class="text-gray-600 dark:text-gray-400">室內設計師規劃空間配置和風格設計</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">3</div>
-        <h3 class="text-xl font-bold mb-2">預算評估</h3>
-        <p class="text-gray-600 dark:text-gray-400">詳細估算各項工程費用和材料成本</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">4</div>
-        <h3 class="text-xl font-bold mb-2">施工監工</h3>
-        <p class="text-gray-600 dark:text-gray-400">專業監工確保施工品質和進度</p>
-      </div>
-      <div class="step-card">
-        <div class="step-number">5</div>
-        <h3 class="text-xl font-bold mb-2">驗收交屋</h3>
-        <p class="text-gray-600 dark:text-gray-400">完工驗收和後續保固服務</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 預算參考 -->
-  <div class="budget-card mb-8">
-    <h2 class="text-xl font-bold mb-4">💰 裝潢預算參考</h2>
-    <div class="budget-value">8-15萬/坪</div>
-    <div class="budget-label">一般住宅裝潢費用</div>
-    <div class="budget-breakdown">
-      <div class="budget-item">
-        <span>水電工程</span>
-        <span>15-20%</span>
-      </div>
-      <div class="budget-item">
-        <span>木作工程</span>
-        <span>25-30%</span>
-      </div>
-      <div class="budget-item">
-        <span>泥作工程</span>
-        <span>15-20%</span>
-      </div>
-      <div class="budget-item">
-        <span>油漆工程</span>
-        <span>10-15%</span>
-      </div>
-      <div class="budget-item">
-        <span>家具家電</span>
-        <span>20-25%</span>
-      </div>
-      <div class="budget-item">
-        <span>總計</span>
-        <span>100%</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 裝潢案例 -->
-  <div class="renovation-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">🏠</span>
-      精選案例
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="case-item">
-        <div class="case-image">
-          <div class="text-center">
-            <div class="text-4xl mb-2">🏡</div>
-            <div>現代簡約風</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- 嚴藝設計YANYI DESIGN -->
+      <div class="renovation-card h-full">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold text-gray-800">嚴藝設計 YANYI DESIGN</h3>
+          <div class="flex gap-2">
+            <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">專業</span>
+            <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">在地</span>
           </div>
         </div>
-        <div class="case-title">信義區 25坪 現代簡約</div>
-        <div class="case-meta">預算: 320萬 | 工期: 45天</div>
-        <div class="case-description">
-          採用簡約設計風格，大量使用木質元素和白色調，營造溫馨舒適的居住環境。開放式廚房設計增加空間感。
-        </div>
-      </div>
-      <div class="case-item">
-        <div class="case-image">
-          <div class="text-center">
-            <div class="text-4xl mb-2">🏰</div>
-            <div>北歐風格</div>
+
+        <div class="mb-4">
+          <h5 class="text-xs font-medium text-gray-800 mb-2">燈箱作品展示</h5>
+          <div class="image-gallery-container">
+            <div class="image-gallery" id="yanyi-gallery">
+              <div class="gallery-main">
+                <img src="https://i.postimg.cc/QMThYMxX/LINE-ALBUM-yan-yi-251028-31.jpg" 
+                     alt="燈箱作品1" class="main-image" onclick="openLightbox('yanyi-gallery', 0)">
+              </div>
+              <div class="gallery-thumbnails">
+                <img src="https://i.postimg.cc/ZRzZGhCH/LINE-ALBUM-yan-yi-251028-21.jpg" 
+                     alt="燈箱作品2" class="thumbnail" onclick="openLightbox('yanyi-gallery', 1)">
+                <img src="https://i.postimg.cc/3RQ7sHd9/LINE-ALBUM-yan-yi-251028-22.jpg" 
+                     alt="燈箱作品3" class="thumbnail" onclick="openLightbox('yanyi-gallery', 2)">
+                <img src="https://i.postimg.cc/76rDFyfK/LINE-ALBUM-yan-yi-251028-23.jpg" 
+                     alt="燈箱作品4" class="thumbnail" onclick="openLightbox('yanyi-gallery', 3)">
+                <img src="https://i.postimg.cc/NM8YYPH7/LINE-ALBUM-yan-yi-251028-24.jpg" 
+                     alt="燈箱作品5" class="thumbnail" onclick="openLightbox('yanyi-gallery', 4)">
+                <div class="more-images" onclick="openLightbox('yanyi-gallery', 5)">
+                  <span>+6</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="case-title">大安區 30坪 北歐風格</div>
-        <div class="case-meta">預算: 380萬 | 工期: 50天</div>
-        <div class="case-description">
-          以北歐風格為主題，運用自然材質和明亮色調，創造清新自然的居住空間。多功能收納設計提升實用性。
-        </div>
-      </div>
-      <div class="case-item">
-        <div class="case-image">
-          <div class="text-center">
-            <div class="text-4xl mb-2">🎨</div>
-            <div>工業風格</div>
+
+        <div class="bg-blue-50 rounded-xl p-3 mb-4">
+          <h4 class="font-semibold text-blue-800 mb-2 flex items-center gap-2 text-sm">
+            <span>📞</span>
+            <span>聯絡資訊</span>
+          </h4>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-gray-600">聯絡人</span>
+              <span class="font-medium text-gray-800">嚴藝設計</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">電話</span>
+              <a href="tel:0958590616" class="font-medium text-blue-600 hover:underline">0958-590-616</a>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">營業時間</span>
+              <span class="font-medium text-gray-800">9:00-18:00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">服務範圍</span>
+              <span class="font-medium text-gray-800 text-right">桃園市楊梅區萬大路158號</span>
+            </div>
           </div>
         </div>
-        <div class="case-title">松山區 20坪 工業風格</div>
-        <div class="case-meta">預算: 280萬 | 工期: 40天</div>
-        <div class="case-description">
-          工業風設計，裸露管線和金屬元素，搭配復古家具，營造個性化的居住氛圍。開放式設計增加空間感。
-        </div>
+
       </div>
-      <div class="case-item">
-        <div class="case-image">
-          <div class="text-center">
-            <div class="text-4xl mb-2">🌿</div>
-            <div>自然風格</div>
+
+      <!-- 歡迎廠商進駐 -->
+      <div class="renovation-card h-full">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold text-gray-800">歡迎廠商進駐</h3>
+          <div class="flex gap-2">
+            <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">專業</span>
+            <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">在地</span>
           </div>
         </div>
-        <div class="case-title">中山區 35坪 自然風格</div>
-        <div class="case-meta">預算: 450萬 | 工期: 60天</div>
-        <div class="case-description">
-          融入自然元素，大量使用植物和天然材質，創造與自然和諧共存的居住環境。大面落地窗增加採光。
+
+        <div class="mb-4">
+          <h5 class="text-xs font-medium text-gray-800 mb-2">服務展示</h5>
+          <div class="flex gap-2">
+            <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden"></div>
+            <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden"></div>
+            <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden"></div>
+          </div>
         </div>
+
+        <div class="bg-blue-50 rounded-xl p-3 mb-4">
+          <h4 class="font-semibold text-blue-800 mb-2 flex items-center gap-2 text-sm">
+            <span>📞</span>
+            <span>聯絡資訊</span>
+          </h4>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-gray-600">聯絡人</span>
+              <span class="font-medium text-gray-800">設計客服</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">電話</span>
+              <a href="tel:0925666597" class="font-medium text-blue-600 hover:underline">0925-666-597</a>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">營業時間</span>
+              <span class="font-medium text-gray-800">9:00-18:00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">服務範圍</span>
+              <span class="font-medium text-gray-800 text-right">中壢｜楊梅｜平鎮</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-2 text-xs text-gray-500">僅保留 1 家廠商，歡迎其他廠商進駐</div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- 裝潢小貼士 -->
-  <div class="tip-card mb-8">
-    <div class="tip-title">💡 裝潢小貼士</div>
-    <div class="tip-content">
-      <ul class="space-y-2">
-        <li>• 提前規劃預算，建議預留10-15%的應急資金</li>
-        <li>• 選擇信譽良好的裝潢公司，查看過往案例和客戶評價</li>
-        <li>• 簽約前詳細確認工程項目和材料規格</li>
-        <li>• 定期監工，確保施工品質符合預期</li>
-        <li>• 保留所有發票和保固書，便於後續維護</li>
-        <li>• 考慮通風和採光，避免過度裝潢影響居住品質</li>
-      </ul>
-    </div>
-  </div>
+  
+</div>
 
-  <!-- 材料選擇指南 -->
-  <div class="renovation-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">🔨</span>
-      材料選擇指南
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
-        <h3 class="font-bold text-blue-800 dark:text-blue-200 mb-2">🏠 地板材料</h3>
-        <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-          <li>• 實木地板：質感佳，價格高</li>
-          <li>• 複合地板：性價比高，易保養</li>
-          <li>• 磁磚：耐用，適合潮濕區域</li>
-          <li>• 塑膠地板：經濟實惠</li>
-        </ul>
-      </div>
-      <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
-        <h3 class="font-bold text-green-800 dark:text-green-200 mb-2">🎨 牆面材料</h3>
-        <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
-          <li>• 乳膠漆：經濟實惠，色彩豐富</li>
-          <li>• 壁紙：圖案多樣，易更換</li>
-          <li>• 木皮：自然質感，價格較高</li>
-          <li>• 石材：質感佳，維護需注意</li>
-        </ul>
-      </div>
-      <div class="bg-purple-50 dark:bg-purple-900 p-4 rounded-lg">
-        <h3 class="font-bold text-purple-800 dark:text-purple-200 mb-2">💡 燈光設計</h3>
-        <ul class="text-sm text-purple-700 dark:text-purple-300 space-y-1">
-          <li>• 主燈：提供主要照明</li>
-          <li>• 輔助燈：營造氛圍</li>
-          <li>• 工作燈：特定區域照明</li>
-          <li>• LED燈：節能環保</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 聯絡資訊 -->
-  <div class="glass rounded-2xl p-6 text-center">
-    <h3 class="text-xl font-bold text-white mb-4">📞 裝潢諮詢專線</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
-      <div>
-        <div class="text-2xl mb-2">📱</div>
-        <div class="font-bold">裝潢專線</div>
-        <div class="text-sm opacity-90">0925-666-597</div>
-      </div>
-      <div>
-        <div class="text-2xl mb-2">📧</div>
-        <div class="font-bold">設計信箱</div>
-        <div class="text-sm opacity-90">design@realtor.com</div>
-      </div>
-      <div>
-        <div class="text-2xl mb-2">🕒</div>
-        <div class="font-bold">服務時間</div>
-        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
-      </div>
+<!-- 燈箱 -->
+<div id="lightbox" class="lightbox">
+  <div class="lightbox-content">
+    <img id="lightboxImage" class="lightbox-image" alt="燈箱作品">
+    <button class="lightbox-nav lightbox-prev" onclick="previousImage()">‹</button>
+    <button class="lightbox-nav lightbox-next" onclick="nextImage()">›</button>
+    <button class="lightbox-close" onclick="closeLightbox()">×</button>
+    <div class="lightbox-counter">
+      <span id="imageCounter">1 / 11</span>
     </div>
   </div>
 </div>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="scrollTo(0,0)" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span>🏠</span><span>首頁</span>
+  </button>
+  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span>📝</span><span>記帳</span>
+  </button>
+  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span>🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="在地生活">
+    <span>🍹</span><span>生活</span>
+  </button>
+  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span>🙏</span><span>拜拜</span>
+  </button>
+  </nav>
 
 <script>
 // 主題切換
@@ -551,6 +656,95 @@ function openTool(url) {
     window.location.href = url;
   }
 }
+
+// 燈箱功能
+let currentGallery = '';
+let currentImageIndex = 0;
+let imageUrls = [];
+
+// 嚴藝設計的圖片URLs
+const yanyiImages = [
+  'https://i.postimg.cc/QMThYMxX/LINE-ALBUM-yan-yi-251028-31.jpg',
+  'https://i.postimg.cc/ZRzZGhCH/LINE-ALBUM-yan-yi-251028-21.jpg',
+  'https://i.postimg.cc/3RQ7sHd9/LINE-ALBUM-yan-yi-251028-22.jpg',
+  'https://i.postimg.cc/76rDFyfK/LINE-ALBUM-yan-yi-251028-23.jpg',
+  'https://i.postimg.cc/NM8YYPH7/LINE-ALBUM-yan-yi-251028-24.jpg',
+  'https://i.postimg.cc/4yJG3bvT/LINE-ALBUM-yan-yi-251028-25.jpg',
+  'https://i.postimg.cc/SRy4K7L4/LINE-ALBUM-yan-yi-251028-26.jpg',
+  'https://i.postimg.cc/4yJG3bvX/LINE-ALBUM-yan-yi-251028-27.jpg',
+  'https://i.postimg.cc/6q9KQLVw/LINE-ALBUM-yan-yi-251028-28.jpg',
+  'https://i.postimg.cc/zv0rHbpK/LINE-ALBUM-yan-yi-251028-29.jpg',
+  'https://i.postimg.cc/prqH5hkD/LINE-ALBUM-yan-yi-251028-30.jpg'
+];
+
+function openLightbox(galleryId, imageIndex) {
+  currentGallery = galleryId;
+  currentImageIndex = imageIndex;
+  
+  // 根據畫廊ID設定圖片陣列
+  if (galleryId === 'yanyi-gallery') {
+    imageUrls = yanyiImages;
+  }
+  
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightboxImage');
+  const imageCounter = document.getElementById('imageCounter');
+  
+  lightboxImage.src = imageUrls[currentImageIndex];
+  imageCounter.textContent = `${currentImageIndex + 1} / ${imageUrls.length}`;
+  
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden'; // 防止背景滾動
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.remove('active');
+  document.body.style.overflow = 'auto'; // 恢復滾動
+}
+
+function nextImage() {
+  currentImageIndex = (currentImageIndex + 1) % imageUrls.length;
+  updateLightboxImage();
+}
+
+function previousImage() {
+  currentImageIndex = (currentImageIndex - 1 + imageUrls.length) % imageUrls.length;
+  updateLightboxImage();
+}
+
+function updateLightboxImage() {
+  const lightboxImage = document.getElementById('lightboxImage');
+  const imageCounter = document.getElementById('imageCounter');
+  
+  lightboxImage.src = imageUrls[currentImageIndex];
+  imageCounter.textContent = `${currentImageIndex + 1} / ${imageUrls.length}`;
+}
+
+// 鍵盤事件處理
+document.addEventListener('keydown', function(e) {
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox.classList.contains('active')) {
+    switch(e.key) {
+      case 'Escape':
+        closeLightbox();
+        break;
+      case 'ArrowLeft':
+        previousImage();
+        break;
+      case 'ArrowRight':
+        nextImage();
+        break;
+    }
+  }
+});
+
+// 點擊背景關閉燈箱
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLightbox();
+  }
+});
 
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {

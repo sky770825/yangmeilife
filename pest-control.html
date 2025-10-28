@@ -91,20 +91,84 @@ body{
 </header>
 
 <main class="px-4 py-6 space-y-6">
-  <!-- 待新增廠商 -->
-  <div class="contractor-card">
-    <div class="text-center py-8">
-      <div class="text-6xl mb-4">🐛</div>
-      <h3 class="text-xl font-bold text-gray-600 mb-2">白蟻除蟲廠商</h3>
-      <p class="text-gray-500 mb-4">廠商資訊待新增中...</p>
-      <div class="bg-gray-100 rounded-lg p-4 mb-4">
-        <p class="text-sm text-gray-600 mb-2">我們正在積極尋找優質的白蟻除蟲廠商</p>
-        <p class="text-sm text-gray-600">如有推薦或想加入我們的廠商，歡迎聯繫</p>
-      </div>
-      <a href="https://lin.ee/Ij6z94H" class="contact-btn">💬 推薦廠商</a>
+  <!-- 推薦服務商（標準模板） -->
+  <section class="glass-card p-6">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+        <span class="text-3xl">🐛</span>
+        <span>白蟻除蟲服務</span>
+      </h2>
+      <span class="text-sm bg-red-500 text-white px-3 py-1 rounded-full">推薦</span>
     </div>
-  </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div class="contractor-card h-full">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold text-gray-800">優質白蟻除蟲</h3>
+          <div class="flex gap-2">
+            <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">專業</span>
+            <span class="text-xs bg-red-500 text白 px-2 py-1 rounded-full">在地</span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h5 class="text-xs font-medium text-gray-800 mb-2">服務展示</h5>
+          <div class="flex gap-2">
+            <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden"></div>
+            <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden"></div>
+            <div class="w-16 h-16 bg-gray-100 rounded overflow-hidden"></div>
+          </div>
+        </div>
+
+        <div class="bg-red-50 rounded-xl p-3 mb-4">
+          <h4 class="font-semibold text-red-800 mb-2 flex items-center gap-2 text-sm">
+            <span>📞</span>
+            <span>聯絡資訊</span>
+          </h4>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-gray-600">聯絡人</span>
+              <span class="font-medium text-gray-800">客服專員</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">電話</span>
+              <a href="tel:0925666597" class="font-medium text-red-600 hover:underline">0925-666-597</a>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">營業時間</span>
+              <span class="font-medium text-gray-800">9:00-18:00</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">服務範圍</span>
+              <span class="font-medium text-gray-800 text-right">中壢｜楊梅｜平鎮</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-2 text-xs text-gray-500">僅保留 1 家廠商，後續可直接新增</div>
+      </div>
+    </div>
+  </section>
 </main>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span>🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 rounded-lg px-2 py-1" aria-label="記帳">
+    <span>📝</span><span>記帳</span>
+  </button>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span>🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='local-life.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 rounded-lg px-2 py-1" aria-label="在地生活">
+    <span>🍹</span><span>生活</span>
+  </button>
+  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span>🙏</span><span>拜拜</span>
+  </button>
+</nav>
 
 <script>
 // 主題切換

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美式整復廠商 - 楊梅人在地生活集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --grad:linear-gradient(135deg,#3b82f6,#1d4ed8);
+  --glass-bg:rgba(255,255,255,0.6);
+  --glass-dark:rgba(30,30,30,0.6);
+  --shadow-light:0 4px 12px rgba(0,0,0,.1);
+  --border-radius:1rem;
+  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body{
+  background:linear-gradient(to bottom,#eff6ff,#fff);
+  transition:var(--transition);
+  font-family:system-ui,-apple-system,sans-serif;
+  line-height:1.6;
+}
+
+.glass-card{
+  background:var(--glass-bg);
+  backdrop-filter:blur(10px);
+  border-radius:var(--border-radius);
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.contractor-card{
+  background:rgba(255,255,255,0.9);
+  border-radius:0.75rem;
+  padding:1.5rem;
+  margin-bottom:1rem;
+  transition:var(--transition);
+  border-left:4px solid #3b82f6;
+}
+
+.contractor-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-light);
+}
+
+.contact-btn{
+  background:var(--grad);
+  color:white;
+  padding:0.5rem 1rem;
+  border-radius:9999px;
+  border:none;
+  font-weight:600;
+  transition:var(--transition);
+  cursor:pointer;
+}
+
+.contact-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 4px 12px rgba(59,130,246,0.3);
+}
+
+.service-tag{
+  background:linear-gradient(135deg,#eff6ff,#dbeafe);
+  color:#1d4ed8;
+  padding:0.25rem 0.75rem;
+  border-radius:9999px;
+  font-size:0.75rem;
+  font-weight:600;
+  margin:0.25rem;
+  display:inline-block;
+}
+
+.rating{
+  color:#f59e0b;
+  font-size:0.875rem;
+}
+
+.price-tag{
+  background:linear-gradient(135deg,#10b981,#059669);
+  color:white;
+  padding:0.25rem 0.75rem;
+  border-radius:9999px;
+  font-size:0.75rem;
+  font-weight:600;
+}
+</style>
+</head>
+<body>
+<div class="min-h-screen">
+  <!-- 頂部導航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button onclick="history.back()" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <h1 class="text-xl font-bold text-gray-800">🦴 美式整復</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-600">楊梅在地服務</span>
+        <div class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主要內容 -->
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <!-- 服務介紹 -->
+    <div class="glass-card p-6 mb-6">
+      <div class="text-center mb-6">
+        <div class="text-6xl mb-4">🦴</div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">專業美式整復服務</h2>
+        <p class="text-gray-600">楊梅在地優質美式整復中心，提供專業整脊與關節調整服務</p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="text-center">
+          <div class="text-2xl mb-2">🦴</div>
+          <div class="text-sm font-semibold">整脊調整</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl mb-2">🔧</div>
+          <div class="text-sm font-semibold">關節矯正</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl mb-2">💪</div>
+          <div class="text-sm font-semibold">肌肉放鬆</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl mb-2">⚕️</div>
+          <div class="text-sm font-semibold">專業診療</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 廠商列表 -->
+    <div class="space-y-4">
+      <!-- 廠商1 -->
+      <div class="contractor-card">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="text-lg font-bold text-gray-800">美式整復中心</h3>
+              <span class="rating">⭐⭐⭐⭐⭐ 4.9</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">專業美式整復技術，提供脊椎調整、關節矯正等專業服務</p>
+            
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="service-tag">脊椎調整</span>
+              <span class="service-tag">關節矯正</span>
+              <span class="service-tag">肌肉放鬆</span>
+              <span class="service-tag">專業診療</span>
+            </div>
+            
+            <div class="flex items-center gap-4 text-sm text-gray-600">
+              <span>📍 楊梅區中興路789號</span>
+              <span>📞 03-475-7890</span>
+              <span class="price-tag">NT$ 1,500起</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <button class="contact-btn" onclick="openLine('@chiro1')">
+              <span class="flex items-center gap-2">
+                <span>💬</span>
+                <span>LINE諮詢</span>
+              </span>
+            </button>
+            <button class="contact-btn bg-gray-600 hover:bg-gray-700" onclick="callPhone('034757890')">
+              <span class="flex items-center gap-2">
+                <span>📞</span>
+                <span>電話預約</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 廠商2 -->
+      <div class="contractor-card">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="text-lg font-bold text-gray-800">脊椎矯正診所</h3>
+              <span class="rating">⭐⭐⭐⭐⭐ 4.8</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">專業脊椎矯正服務，結合現代醫學與傳統整復技術</p>
+            
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="service-tag">脊椎矯正</span>
+              <span class="service-tag">現代醫學</span>
+              <span class="service-tag">傳統技術</span>
+              <span class="service-tag">專業診斷</span>
+            </div>
+            
+            <div class="flex items-center gap-4 text-sm text-gray-600">
+              <span>📍 楊梅區大成路012號</span>
+              <span>📞 03-475-1234</span>
+              <span class="price-tag">NT$ 1,800起</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <button class="contact-btn" onclick="openLine('@chiro2')">
+              <span class="flex items-center gap-2">
+                <span>💬</span>
+                <span>LINE諮詢</span>
+              </span>
+            </button>
+            <button class="contact-btn bg-gray-600 hover:bg-gray-700" onclick="callPhone('034751234')">
+              <span class="flex items-center gap-2">
+                <span>📞</span>
+                <span>電話預約</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 廠商3 -->
+      <div class="contractor-card">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="text-lg font-bold text-gray-800">關節調整中心</h3>
+              <span class="rating">⭐⭐⭐⭐ 4.7</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">專精關節調整技術，提供溫和有效的關節矯正服務</p>
+            
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="service-tag">關節調整</span>
+              <span class="service-tag">溫和技術</span>
+              <span class="service-tag">有效矯正</span>
+              <span class="service-tag">個人化服務</span>
+            </div>
+            
+            <div class="flex items-center gap-4 text-sm text-gray-600">
+              <span>📍 楊梅區新成路345號</span>
+              <span>📞 03-475-5678</span>
+              <span class="price-tag">NT$ 1,200起</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <button class="contact-btn" onclick="openLine('@chiro3')">
+              <span class="flex items-center gap-2">
+                <span>💬</span>
+                <span>LINE諮詢</span>
+              </span>
+            </button>
+            <button class="contact-btn bg-gray-600 hover:bg-gray-700" onclick="callPhone('034755678')">
+              <span class="flex items-center gap-2">
+                <span>📞</span>
+                <span>電話預約</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 廠商4 -->
+      <div class="contractor-card">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="text-lg font-bold text-gray-800">專業整復工坊</h3>
+              <span class="rating">⭐⭐⭐⭐⭐ 4.8</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-3">專業整復技術，提供多種整復服務，滿足不同需求</p>
+            
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span class="service-tag">專業整復</span>
+              <span class="service-tag">多種服務</span>
+              <span class="service-tag">團體預約</span>
+              <span class="service-tag">企業服務</span>
+            </div>
+            
+            <div class="flex items-center gap-4 text-sm text-gray-600">
+              <span>📍 楊梅區文化街987號</span>
+              <span>📞 03-475-9012</span>
+              <span class="price-tag">NT$ 1,600起</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-col gap-2">
+            <button class="contact-btn" onclick="openLine('@chiro4')">
+              <span class="flex items-center gap-2">
+                <span>💬</span>
+                <span>LINE諮詢</span>
+              </span>
+            </button>
+            <button class="contact-btn bg-gray-600 hover:bg-gray-700" onclick="callPhone('034759012')">
+              <span class="flex items-center gap-2">
+                <span>📞</span>
+                <span>電話預約</span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 服務說明 -->
+    <div class="glass-card p-6 mt-6">
+      <h3 class="text-lg font-bold text-gray-800 mb-4">💡 服務說明</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">服務項目</h4>
+          <ul class="space-y-1">
+            <li>• 脊椎調整整復</li>
+            <li>• 關節矯正服務</li>
+            <li>• 肌肉放鬆治療</li>
+            <li>• 姿勢矯正指導</li>
+            <li>• 運動傷害復健</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-gray-800 mb-2">注意事項</h4>
+          <ul class="space-y-1">
+            <li>• 建議提前預約</li>
+            <li>• 請攜帶相關檢查報告</li>
+            <li>• 孕婦請事先告知</li>
+            <li>• 治療後多休息</li>
+            <li>• 定期回診效果更佳</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 底部導航 -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2">
+    <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-blue-600 text-xs">
+      <span>🏠</span><span>首頁</span>
+    </button>
+    <button onclick="window.location.href='thai-massage.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-blue-600">
+      <span>🧘‍♀️</span><span>泰式</span>
+    </button>
+    <button onclick="window.location.href='vietnamese-massage.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-blue-600">
+      <span>🇻🇳</span><span>越式</span>
+    </button>
+    <button onclick="window.location.href='taiwanese-massage.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-blue-600">
+      <span>🇹🇼</span><span>台式</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+function openLine(lineId) {
+  window.open(`https://line.me/ti/p/${lineId}`, '_blank');
+}
+
+function callPhone(phoneNumber) {
+  window.location.href = `tel:${phoneNumber}`;
+}
+
+// 回到頂部功能
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 添加滾動監聽
+window.addEventListener('scroll', () => {
+  const scrollButton = document.getElementById('scrollToTop');
+  if (scrollButton) {
+    if (window.pageYOffset > 300) {
+      scrollButton.classList.remove('hidden');
+    } else {
+      scrollButton.classList.add('hidden');
+    }
+  }
+});
+</script>
+</body>
+</html>

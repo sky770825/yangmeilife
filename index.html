@@ -2,9 +2,12 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="楊梅人在地生活集 - 提供房產工具、生活服務、補助優惠等一站式服務">
+<meta name="keywords" content="房產,房貸,裝潢,補助,生活服務,房產計算器,房貸試算,裝潢估價">
+<meta name="author" content="楊梅人在地生活集">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- PWA相關 -->
 <link rel="manifest" href="/manifest.json">
@@ -64,14 +67,6 @@ body{
   font-family:system-ui,-apple-system,sans-serif;
   line-height:1.6;
   position:relative;
-  /* 防止雙擊縮放 */
-  touch-action: manipulation;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 body::before{
   content:'';
@@ -492,30 +487,6 @@ body.dark .mini-fun-card {
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* 防止按鈕雙擊縮放 */
-.bottom-nav button {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* 防止所有可點擊元素雙擊縮放 */
-.app-card, .relaxed-card, .mini-fun-card, .fun-card {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 /* 無障礙設計 */
 .sr-only {
   position: absolute;
@@ -716,25 +687,6 @@ body.dark .mini-fun-card {
   .media-thumbnail .text-xs {
     font-size: 0.625rem;
   }
-  
-  /* 手機版導航列優化 */
-  .bottom-nav {
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    padding: 0.5rem 0.25rem;
-  }
-  
-  .bottom-nav button {
-    flex: 1;
-    min-width: 0;
-    padding: 0.25rem 0.1rem;
-    font-size: 0.7rem;
-  }
-  
-  .bottom-nav button span:first-child {
-    font-size: 1rem;
-    margin-bottom: 0.125rem;
-  }
 }
 
 
@@ -791,9 +743,6 @@ body.dark .mini-fun-card {
     <div class="mt-4 mb-6">
       <div id="dynamicGreeting" class="text-yellow-200 text-lg font-semibold animate-pulse">
         <span id="greetingText">🌟 歡迎來到楊梅人在地生活集！</span>
-      </div>
-      <div class="text-sm opacity-75 mt-2">
-        <span id="currentTime"></span>
       </div>
     </div>
     
@@ -915,6 +864,109 @@ body.dark .mini-fun-card {
   </div>
 </section>
 
+<!-- 🏠 熱門服務 - 房產相關主要功能 -->
+<section class="glass-card p-6 shadow-lg hover:shadow-xl transition-all duration-500">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
+      <span class="text-3xl animate-pulse">🏠</span>
+      <span>熱門服務</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-indigo-500 to-purple-500 ml-2"></div>
+    </h2>
+    <div class="text-sm text-gray-500 bg-indigo-100 dark:bg-indigo-900 px-3 py-1 rounded-full">
+      <span class="font-bold text-indigo-600 dark:text-indigo-400">專業服務</span>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-4 gap-4">
+    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2')">
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">💰</div>
+        <div class="font-bold">房貸試算</div>
+        <div class="text-xs opacity-75 mt-1">智慧估算</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-yellow-500 text-white px-2 py-1 rounded-full animate-pulse">
+        熱門
+      </div>
+    </div>
+    
+    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://www.crowncare.tw/')">
+      <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🏥</div>
+        <div class="font-bold">冠冕居服</div>
+        <div class="text-xs opacity-75 mt-1">長照機構</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-emerald-500 text-white px-2 py-1 rounded-full">
+        專業
+      </div>
+    </div>
+    
+    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://flyjung168.pages.dev/')">
+      <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🌟</div>
+        <div class="font-bold">精選物件</div>
+        <div class="text-xs opacity-75 mt-1">優質房源</div>
+      </div>
+    </div>
+    
+    <div class="app-card glass-card worship group relative overflow-hidden" onclick="openTool('worship.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🙏</div>
+        <div class="font-bold">拜拜專區</div>
+        <div class="text-xs opacity-75 mt-1">心靈寄託</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full">
+        特殊
+      </div>
+    </div>
+    
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('renovation.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🛋️</div>
+        <div class="font-bold">裝潢設計</div>
+        <div class="text-xs opacity-75 mt-1">設計規劃</div>
+      </div>
+    </div>
+    
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('tax-calc.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">📄</div>
+        <div class="font-bold">稅費試算</div>
+        <div class="text-xs opacity-75 mt-1">精確計算</div>
+      </div>
+    </div>
+    
+    <div class="app-card glass-card investment group relative overflow-hidden" onclick="openTool('https://salersteam.pages.dev/junyang')">
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🏘️</div>
+        <div class="font-bold">新案預售</div>
+        <div class="text-xs opacity-75 mt-1">限額參加</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full animate-pulse">
+        熱門
+      </div>
+    </div>
+    
+    <div class="app-card glass-card subsidy group relative overflow-hidden col-span-4" onclick="openTool('subsidy.html')">
+      <div class="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-rose-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">💸</div>
+        <div class="font-bold text-lg">補助優惠</div>
+        <div class="text-sm opacity-75 mt-1">政府補助、優惠資訊一網打盡</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full animate-pulse">
+        限時優惠
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 🛠️ 生活服務推薦 -->
 <section class="glass-card p-4 shadow-lg hover:shadow-xl transition-all duration-500">
   <div class="flex items-center justify-between mb-4">
@@ -974,10 +1026,10 @@ body.dark .mini-fun-card {
       <div class="relative z-10 text-center">
         <div class="text-3xl mb-2 group-hover:animate-bounce">🎨</div>
         <div class="font-bold text-sm">油漆粉刷</div>
-        <div class="text-xs opacity-75 mt-1">待新增</div>
+        <div class="text-xs opacity-75 mt-1">批土噴漆</div>
       </div>
       <div class="absolute top-2 right-2 text-xs bg-gray-500 text-white px-2 py-1 rounded-full">
-        待新增
+        服務
       </div>
     </div>
     
@@ -1012,11 +1064,11 @@ body.dark .mini-fun-card {
       <div class="absolute inset-0 bg-gradient-to-br from-sky-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
         <div class="text-3xl mb-2 group-hover:animate-bounce">❄️</div>
-        <div class="font-bold text-sm">冷氣維修</div>
-        <div class="text-xs opacity-75 mt-1">待新增</div>
+        <div class="font-bold text-sm">冷氣服務</div>
+        <div class="text-xs opacity-75 mt-1">清洗維修</div>
       </div>
-      <div class="absolute top-2 right-2 text-xs bg-gray-500 text-white px-2 py-1 rounded-full">
-        待新增
+      <div class="absolute top-2 right-2 text-xs bg-green-500 text-white px-2 py-1 rounded-full">
+        多家
       </div>
     </div>
     
@@ -1052,7 +1104,7 @@ body.dark .mini-fun-card {
   
   <div class="grid grid-cols-4 gap-4">
     <!-- 功夫茶 -->
-    <div class="app-card glass-card food group relative overflow-hidden" onclick="openTool('https://kungfuteahtml.pages.dev/')">
+    <div class="app-card glass-card food group relative overflow-hidden" onclick="openTool('https://sky770825.github.io/kungfuteahtml/')">
       <div class="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
         <div class="text-3xl mb-2 group-hover:animate-bounce">🧋</div>
@@ -1097,6 +1149,142 @@ body.dark .mini-fun-card {
         <div class="text-3xl mb-2 group-hover:animate-bounce">☕</div>
         <div class="font-bold text-sm">咖啡廳</div>
         <div class="text-xs opacity-75 mt-1">休閒時光</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💄 美容美體專區 -->
+<section class="glass-card p-4 shadow-lg hover:shadow-xl transition-all duration-500">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
+      <span class="text-3xl animate-pulse">💄</span>
+      <span>美容美體專區</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-pink-500 to-purple-500 ml-2"></div>
+    </h2>
+    <div class="text-sm text-gray-500 bg-pink-100 dark:bg-pink-900 px-3 py-1 rounded-full">
+      <span class="font-bold text-pink-600 dark:text-pink-400">美麗服務</span>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-4 gap-4">
+    <!-- 美容護膚 -->
+    <div class="app-card glass-card fun group relative overflow-hidden" onclick="openTool('beauty-skin.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-rose-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">✨</div>
+        <div class="font-bold text-sm">美容護膚</div>
+        <div class="text-xs opacity-75 mt-1">專業護理</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-pink-500 text-white px-2 py-1 rounded-full">
+        熱門
+      </div>
+    </div>
+    
+    <!-- 美髮造型 -->
+    <div class="app-card glass-card fun group relative overflow-hidden" onclick="openTool('hair-salon.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">💇‍♀️</div>
+        <div class="font-bold text-sm">美髮造型</div>
+        <div class="text-xs opacity-75 mt-1">專業設計</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full">
+        專業
+      </div>
+    </div>
+    
+    <!-- 美睫服務 -->
+    <div class="app-card glass-card fun group relative overflow-hidden" onclick="openTool('eyelash-service.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-amber-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">👁️</div>
+        <div class="font-bold text-sm">美睫服務</div>
+        <div class="text-xs opacity-75 mt-1">睫毛美化</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-amber-500 text-white px-2 py-1 rounded-full">
+        精緻
+      </div>
+    </div>
+    
+    <!-- 美甲服務 -->
+    <div class="app-card glass-card fun group relative overflow-hidden" onclick="openTool('nail-service.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-red-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">💅</div>
+        <div class="font-bold text-sm">美甲服務</div>
+        <div class="text-xs opacity-75 mt-1">指甲藝術</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full">
+        藝術
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💆‍♀️ 按摩舒壓專區 -->
+<section class="glass-card p-4 shadow-lg hover:shadow-xl transition-all duration-500">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
+      <span class="text-3xl animate-pulse">💆‍♀️</span>
+      <span>按摩舒壓專區</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-green-500 to-teal-500 ml-2"></div>
+    </h2>
+    <div class="text-sm text-gray-500 bg-green-100 dark:bg-green-900 px-3 py-1 rounded-full">
+      <span class="font-bold text-green-600 dark:text-green-400">舒壓服務</span>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-4 gap-4">
+    <!-- 泰式按摩 -->
+    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('thai-massage.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-yellow-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🧘‍♀️</div>
+        <div class="font-bold text-sm">泰式按摩</div>
+        <div class="text-xs opacity-75 mt-1">傳統技法</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-orange-500 text-white px-2 py-1 rounded-full">
+        熱門
+      </div>
+    </div>
+    
+    <!-- 越式按摩 -->
+    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('vietnamese-massage.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-red-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🇻🇳</div>
+        <div class="font-bold text-sm">越式按摩</div>
+        <div class="text-xs opacity-75 mt-1">溫和舒壓</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full">
+        舒緩
+      </div>
+    </div>
+    
+    <!-- 美式整復 -->
+    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('american-chiropractic.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🦴</div>
+        <div class="font-bold text-sm">美式整復</div>
+        <div class="text-xs opacity-75 mt-1">專業整脊</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-blue-500 text-white px-2 py-1 rounded-full">
+        專業
+      </div>
+    </div>
+    
+    <!-- 台式按摩 -->
+    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('taiwanese-massage.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="text-3xl mb-2 group-hover:animate-bounce">🇹🇼</div>
+        <div class="font-bold text-sm">台式按摩</div>
+        <div class="text-xs opacity-75 mt-1">在地手法</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-green-500 text-white px-2 py-1 rounded-full">
+        在地
       </div>
     </div>
   </div>
@@ -1299,119 +1487,36 @@ body.dark .mini-fun-card {
         <span class="text-xs bg-white/20 px-2 py-1 rounded-full">50+</span>
       </span>
     </button>
-  </div>
-</section>
 
 
-<!-- 🏠 熱門服務 - 房產相關主要功能 -->
-<section class="glass-card p-6 shadow-lg hover:shadow-xl transition-all duration-500">
-  <div class="flex items-center justify-between mb-4">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
-      <span class="text-3xl animate-pulse">🏠</span>
-      <span>熱門服務</span>
-      <div class="flex-1 h-px bg-gradient-to-r from-indigo-500 to-purple-500 ml-2"></div>
-    </h2>
-    <div class="text-sm text-gray-500 bg-indigo-100 dark:bg-indigo-900 px-3 py-1 rounded-full">
-      <span class="font-bold text-indigo-600 dark:text-indigo-400">專業服務</span>
-    </div>
+<!-- 圖片放大模態框 -->
+<div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="relative max-w-4xl max-h-[90vh] w-full">
+    <button onclick="closeImageModal()" class="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors duration-200">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <img id="modalImage" src="" alt="放大圖片" class="w-full h-full object-contain rounded-lg">
   </div>
-  
-  <div class="grid grid-cols-3 gap-4">
-    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2')">
-      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">💰</div>
-        <div class="font-bold">房貸試算</div>
-        <div class="text-xs opacity-75 mt-1">智慧估算</div>
-      </div>
-      <div class="absolute top-2 right-2 text-xs bg-yellow-500 text-white px-2 py-1 rounded-full animate-pulse">
-        熱門
-      </div>
-    </div>
-    
-    <div class="app-card glass-card property group relative overflow-hidden" onclick="openTool('https://flyjung168.pages.dev/')">
-      <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">🌟</div>
-        <div class="font-bold">精選物件</div>
-        <div class="text-xs opacity-75 mt-1">優質房源</div>
-      </div>
-    </div>
-    
-    <div class="app-card glass-card worship group relative overflow-hidden" onclick="openTool('worship.html')">
-      <div class="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">🙏</div>
-        <div class="font-bold">拜拜專區</div>
-        <div class="text-xs opacity-75 mt-1">心靈寄託</div>
-      </div>
-      <div class="absolute top-2 right-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full">
-        特殊
-      </div>
-    </div>
-    
-    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('decor-calc.html')">
-      <div class="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">🛋️</div>
-        <div class="font-bold">裝潢估價</div>
-        <div class="text-xs opacity-75 mt-1">預算規劃</div>
-      </div>
-    </div>
-    
-    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('tax-calc.html')">
-      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">📄</div>
-        <div class="font-bold">稅費試算</div>
-        <div class="text-xs opacity-75 mt-1">精確計算</div>
-      </div>
-    </div>
-    
-    <div class="app-card glass-card investment group relative overflow-hidden" onclick="openTool('https://salersteam.pages.dev/junyang')">
-      <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">🏘️</div>
-        <div class="font-bold">新案預售</div>
-        <div class="text-xs opacity-75 mt-1">限額參加</div>
-      </div>
-      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full animate-pulse">
-        熱門
-      </div>
-    </div>
-    
-    <div class="app-card glass-card subsidy group relative overflow-hidden col-span-3" onclick="openTool('subsidy.html')">
-      <div class="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-rose-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">💸</div>
-        <div class="font-bold text-lg">補助優惠</div>
-        <div class="text-sm opacity-75 mt-1">政府補助、優惠資訊一網打盡</div>
-      </div>
-      <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full animate-pulse">
-        限時優惠
-      </div>
-    </div>
-  </div>
-</section>
-
-</main>
+</div>
 
 <!-- 📍 底部導航 -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav z-50" role="navigation" aria-label="主要導航">
-  <button onclick="scrollTo(0,0)" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="回到首頁">
-    <span class="text-lg mb-1">🏠</span><span>首頁</span>
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="scrollTo(0,0)" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span>🏠</span><span>首頁</span>
   </button>
-  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="記帳">
-    <span class="text-lg mb-1">📝</span><span>記帳</span>
+  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span>📝</span><span>記帳</span>
   </button>
-  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="遊戲大廳">
-    <span class="text-lg mb-1">🎮</span><span>遊戲</span>
+  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span>🎮</span><span>遊戲</span>
   </button>
-  <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="在地生活">
-    <span class="text-lg mb-1">🍹</span><span>生活</span>
+  <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="在地生活">
+    <span>🍹</span><span>生活</span>
   </button>
-  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="拜拜專區">
-    <span class="text-lg mb-1">🙏</span><span>拜拜</span>
+  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span>🙏</span><span>拜拜</span>
   </button>
 </nav>
 
@@ -1436,7 +1541,6 @@ class PropertyApp {
   // 動態內容設定
   setupDynamicContent() {
     this.updateGreeting();
-    this.updateTime();
     this.updateUserCount();
     this.updateFunStats();
     this.updateRecommendations();
@@ -1444,7 +1548,6 @@ class PropertyApp {
     
     // 定期更新
     setInterval(() => {
-      this.updateTime();
       this.updateUserCount();
       this.updateFunStats();
       this.updateWeatherStatus();
@@ -1569,22 +1672,7 @@ class PropertyApp {
     }
   }
 
-  // 更新時間
-  updateTime() {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('zh-TW', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      second: '2-digit'
-    });
-    
-    const timeElements = document.querySelectorAll('#currentTime, #currentTime2');
-    timeElements.forEach(element => {
-      if (element) {
-        element.textContent = timeString;
-      }
-    });
-  }
+  
 
   // 更新用戶數量
   updateUserCount() {
@@ -1646,16 +1734,8 @@ class PropertyApp {
   // 工具開啟功能
   openTool(url) {
     if (url.startsWith('http')) {
-      // 檢測是否為手機版
-      const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        // 手機版：在當前視窗打開外部連結
-        window.location.href = url;
-      } else {
-        // 桌面版：在新視窗打開外部連結
-        window.open(url, '_blank', 'noopener,noreferrer');
-      }
+      // 外部連結在新視窗打開，保持主頁在原視窗
+      window.open(url, '_blank', 'noopener,noreferrer');
     } else {
       // 內部連結在原視窗打開
       window.location.href = url;
@@ -2152,6 +2232,26 @@ function quickSearch(query) {
 }
 
 
+// 圖片放大模態框功能
+function showImageModal(imageSrc) {
+  const modal = document.getElementById('imageModal');
+  const modalImage = document.getElementById('modalImage');
+  if (modal && modalImage) {
+    modalImage.src = imageSrc;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // 防止背景滾動
+  }
+}
+
+function closeImageModal() {
+  const modal = document.getElementById('imageModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto'; // 恢復滾動
+  }
+}
+
+
 function showAllNotifications() {
   const notifications = [
     "🌦 今日天氣：多雲時晴，適合外出",
@@ -2235,6 +2335,8 @@ document.addEventListener('keydown', (e) => {
     if (suggestions) {
       suggestions.classList.add('hidden');
     }
+    // 關閉模態框
+    closeImageModal();
   }
 });
 
