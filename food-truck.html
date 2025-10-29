@@ -335,288 +335,25 @@ body {
     <p class="text-xl text-white opacity-90">美味餐車，隨時為您服務</p>
   </div>
 
-  <!-- 今日餐車 -->
+  <!-- 待廠商進駐 -->
   <div class="schedule-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">🍽️</span>
-      今日餐車
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="text-center p-4 bg-green-50 dark:bg-green-900 rounded-lg">
-        <div class="text-2xl mb-2">🚚</div>
-        <div class="font-bold text-green-800 dark:text-green-200">營業中</div>
-        <div class="text-sm text-green-600 dark:text-green-400">3台餐車</div>
-      </div>
-      <div class="text-center p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
-        <div class="text-2xl mb-2">⏰</div>
-        <div class="font-bold text-yellow-800 dark:text-yellow-200">即將到達</div>
-        <div class="text-sm text-yellow-600 dark:text-yellow-400">2台餐車</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 日期篩選 -->
-  <div class="schedule-card">
-    <h2 class="text-lg font-bold mb-4">📅 選擇日期</h2>
-    <div class="day-filter">
-      <button class="filter-btn active" onclick="filterByDay('today')">今天</button>
-      <button class="filter-btn" onclick="filterByDay('tomorrow')">明天</button>
-      <button class="filter-btn" onclick="filterByDay('week')">本週</button>
-      <button class="filter-btn" onclick="filterByDay('all')">全部</button>
-    </div>
-  </div>
-
-  <!-- 餐車列表 -->
-  <div id="truckList">
-    <!-- 阿婆滷肉飯餐車 -->
-    <div class="truck-item" data-day="today tomorrow">
-      <div class="truck-header">
-        <div>
-          <div class="truck-title">阿婆滷肉飯餐車</div>
-          <div class="truck-meta">
-            <span>📍 信義區</span>
-            <span>🍽️ 台菜</span>
-            <span>💰 $50-100</span>
-          </div>
-        </div>
-        <div class="truck-status open">營業中</div>
-      </div>
-      <div class="truck-description">
-        傳承三代的老字號滷肉飯，使用獨家秘方滷製，肥瘦適中，香氣四溢。配菜豐富，價格親民。
-      </div>
-      <div class="truck-menu">
-        <h4>招牌菜單：</h4>
-        <ul>
-          <li>滷肉飯 - $50</li>
-          <li>滷蛋 - $15</li>
-          <li>滷豆腐 - $20</li>
-          <li>滷白菜 - $30</li>
-          <li>貢丸湯 - $25</li>
-        </ul>
-      </div>
-      <div class="truck-schedule">
-        <h4>營業時間：</h4>
-        <div class="schedule-item">
-          <span class="schedule-day">週一至週五</span>
-          <span class="schedule-time">11:00-14:00, 17:00-20:00</span>
-        </div>
-        <div class="schedule-item">
-          <span class="schedule-day">週六至週日</span>
-          <span class="schedule-time">10:00-21:00</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 功夫茶餐車 -->
-    <div class="truck-item" data-day="today tomorrow">
-      <div class="truck-header">
-        <div>
-          <div class="truck-title">功夫茶餐車</div>
-          <div class="truck-meta">
-            <span>📍 大安區</span>
-            <span>🍹 飲品</span>
-            <span>💰 $30-80</span>
-          </div>
-        </div>
-        <div class="truck-status open">營業中</div>
-      </div>
-      <div class="truck-description">
-        專業茶飲品牌，提供各種手搖飲品和輕食。茶葉品質優良，製作精細，環境舒適。
-      </div>
-      <div class="truck-menu">
-        <h4>招牌菜單：</h4>
-        <ul>
-          <li>珍珠奶茶 - $55</li>
-          <li>功夫紅茶 - $35</li>
-          <li>檸檬綠茶 - $45</li>
-          <li>布丁奶茶 - $60</li>
-          <li>四季春茶 - $30</li>
-        </ul>
-      </div>
-      <div class="truck-schedule">
-        <h4>營業時間：</h4>
-        <div class="schedule-item">
-          <span class="schedule-day">週一至週日</span>
-          <span class="schedule-time">10:00-22:00</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 夜市小吃攤 -->
-    <div class="truck-item" data-day="today tomorrow">
-      <div class="truck-header">
-        <div>
-          <div class="truck-title">夜市小吃攤</div>
-          <div class="truck-meta">
-            <span>📍 中山區</span>
-            <span>🌙 夜市</span>
-            <span>💰 $30-80</span>
-          </div>
-        </div>
-        <div class="truck-status coming">即將到達</div>
-      </div>
-      <div class="truck-description">
-        傳統夜市美食，包括蚵仔煎、臭豆腐、大腸包小腸等經典小吃。價格實惠，口味地道。
-      </div>
-      <div class="truck-menu">
-        <h4>招牌菜單：</h4>
-        <ul>
-          <li>蚵仔煎 - $60</li>
-          <li>臭豆腐 - $40</li>
-          <li>大腸包小腸 - $50</li>
-          <li>鹽酥雞 - $45</li>
-          <li>珍珠奶茶 - $35</li>
-        </ul>
-      </div>
-      <div class="truck-schedule">
-        <h4>營業時間：</h4>
-        <div class="schedule-item">
-          <span class="schedule-day">週一至週日</span>
-          <span class="schedule-time">18:00-24:00</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 日式料理餐車 -->
-    <div class="truck-item" data-day="tomorrow">
-      <div class="truck-header">
-        <div>
-          <div class="truck-title">日式料理餐車</div>
-          <div class="truck-meta">
-            <span>📍 松山區</span>
-            <span>🍣 日式</span>
-            <span>💰 $80-150</span>
-          </div>
-        </div>
-        <div class="truck-status closed">休息中</div>
-      </div>
-      <div class="truck-description">
-        正宗日式料理，包括壽司、拉麵、丼飯等。食材新鮮，製作精細，口味地道。
-      </div>
-      <div class="truck-menu">
-        <h4>招牌菜單：</h4>
-        <ul>
-          <li>綜合壽司 - $120</li>
-          <li>豚骨拉麵 - $100</li>
-          <li>親子丼 - $80</li>
-          <li>天婦羅 - $90</li>
-          <li>味噌湯 - $30</li>
-        </ul>
-      </div>
-      <div class="truck-schedule">
-        <h4>營業時間：</h4>
-        <div class="schedule-item">
-          <span class="schedule-day">週二至週日</span>
-          <span class="schedule-time">11:30-14:00, 17:30-21:00</span>
-        </div>
-        <div class="schedule-item">
-          <span class="schedule-day">週一</span>
-          <span class="schedule-time">休息</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 義式料理餐車 -->
-    <div class="truck-item" data-day="week">
-      <div class="truck-header">
-        <div>
-          <div class="truck-title">義式料理餐車</div>
-          <div class="truck-meta">
-            <span>📍 信義區</span>
-            <span>🍝 義式</span>
-            <span>💰 $100-200</span>
-          </div>
-        </div>
-        <div class="truck-status closed">休息中</div>
-      </div>
-      <div class="truck-description">
-        正宗義式料理，包括義大利麵、披薩、燉飯等。使用進口食材，口味濃郁。
-      </div>
-      <div class="truck-menu">
-        <h4>招牌菜單：</h4>
-        <ul>
-          <li>義大利麵 - $120</li>
-          <li>瑪格麗特披薩 - $150</li>
-          <li>海鮮燉飯 - $180</li>
-          <li>凱撒沙拉 - $80</li>
-          <li>提拉米蘇 - $60</li>
-        </ul>
-      </div>
-      <div class="truck-schedule">
-        <h4>營業時間：</h4>
-        <div class="schedule-item">
-          <span class="schedule-day">週三至週日</span>
-          <span class="schedule-time">12:00-14:30, 18:00-21:30</span>
-        </div>
-        <div class="schedule-item">
-          <span class="schedule-day">週一至週二</span>
-          <span class="schedule-time">休息</span>
-        </div>
+    <div class="text-center p-8">
+      <div class="text-6xl mb-4">🏢</div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">待廠商進駐</h3>
+      <p class="text-gray-600 mb-6">我們正在尋找優質的餐車廠商加入我們的平台</p>
+      <div class="bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg p-6">
+        <h4 class="text-lg font-semibold text-gray-800 mb-3">歡迎廠商加入</h4>
+        <p class="text-gray-600 text-sm mb-4">如果您是專業的餐車服務提供商，歡迎與我們聯繫</p>
+        <a href="https://line.me/ti/p/@931aeinu" class="contact-btn bg-gradient-to-r from-pink-500 to-purple-500">
+          <span class="flex items-center gap-2">
+            <span>💬</span>
+            <span>聯繫我們</span>
+          </span>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- 熱門地點 -->
-  <div class="schedule-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">📍</span>
-      熱門地點
-    </h2>
-    <div class="space-y-4">
-      <div class="location-item">
-        <div class="location-title">信義區市民廣場</div>
-        <div class="location-meta">
-          <span>📍 台北市信義區信義路五段7號</span>
-          <span>🕒 11:00-21:00</span>
-        </div>
-        <div class="location-description">
-          信義區最熱鬧的餐車聚集地，平日有3-5台餐車營業，週末可達8台以上。交通便利，停車方便。
-        </div>
-      </div>
-      <div class="location-item">
-        <div class="location-title">大安區公園</div>
-        <div class="location-meta">
-          <span>📍 台北市大安區復興南路二段</span>
-          <span>🕒 10:00-22:00</span>
-        </div>
-        <div class="location-description">
-          大安區居民最愛的餐車地點，環境優美，適合全家大小一起用餐。平日有2-4台餐車營業。
-        </div>
-      </div>
-      <div class="location-item">
-        <div class="location-title">中山區夜市</div>
-        <div class="location-meta">
-          <span>📍 台北市中山區南京東路二段</span>
-          <span>🕒 18:00-24:00</span>
-        </div>
-        <div class="location-description">
-          傳統夜市氛圍，夜間最熱鬧的餐車聚集地。各種夜市小吃應有盡有，是體驗台灣夜市文化的好去處。
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 聯絡資訊 -->
-  <div class="glass rounded-2xl p-6 text-center">
-    <h3 class="text-xl font-bold text-white mb-4">📞 餐車服務</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
-      <div>
-        <div class="text-2xl mb-2">📱</div>
-        <div class="font-bold">服務專線</div>
-        <div class="text-sm opacity-90">0925-666-597</div>
-      </div>
-      <div>
-        <div class="text-2xl mb-2">📧</div>
-        <div class="font-bold">合作信箱</div>
-        <div class="text-sm opacity-90">foodtruck@realtor.com</div>
-      </div>
-      <div>
-        <div class="text-2xl mb-2">🕒</div>
-        <div class="font-bold">服務時間</div>
-        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
@@ -637,26 +374,6 @@ function loadTheme() {
 // 返回主頁
 function goBack() {
   window.location.href = 'index.html';
-}
-
-// 按日期篩選
-function filterByDay(day) {
-  const buttons = document.querySelectorAll('.filter-btn');
-  const items = document.querySelectorAll('.truck-item');
-  
-  // 更新按鈕狀態
-  buttons.forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
-  
-  // 篩選項目
-  items.forEach(item => {
-    if (day === 'all' || item.dataset.day.includes(day)) {
-      item.style.display = 'block';
-      item.classList.add('fade-in');
-    } else {
-      item.style.display = 'none';
-    }
-  });
 }
 
 // 初始化
