@@ -525,6 +525,24 @@ section{
   </section>
 </main>
 
+<!-- 成功訊息彈窗 -->
+<div id="successModal" class="fixed inset-0 hidden items-center justify-center z-50">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="relative glass-card w-[90%] max-w-md mx-auto p-6 text-center animate-[fadeInUp_0.4s_ease-out]">
+    <div class="mx-auto mb-3 w-12 h-12 rounded-full flex items-center justify-center bg-green-100 text-green-600 text-2xl">✓</div>
+    <p class="text-gray-800 font-semibold mb-2">表單己送出！我們會在一個工作天內與您聯繫。</p>
+    <button id="successCloseBtn" class="mt-3 btn-primary px-6 py-2">好的</button>
+  </div>
+  
+  <button id="successBackdrop" class="absolute inset-0" aria-label="關閉"></button>
+  
+  <style>
+  /* 讓 hidden + flex 切換更順暢 */
+  #successModal.show{ display:flex; }
+  </style>
+  
+</div>
+
 <script>
 // 主題切換
 document.getElementById('themeToggle').addEventListener('click', () => {
@@ -533,23 +551,26 @@ document.getElementById('themeToggle').addEventListener('click', () => {
   document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
 });
 
-// Google Apps Script Web App 端點（請替換為您已部署的 Web App URL）
-// 例如：https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXXXXXXXX/exec
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby55dKwJS3vdkMcDg2p_J3Y_3xEeRZ3ebiVBtoh3M2qWnpJm918IX0iJCLhDW80yJVl5g/exec';
+// Google Apps Script Web App 端點（已替換為實際部署網址）
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxDY5a5JuMi8PQRjj1YgfTFj8eTw0pO-eBiksICSW-X9laHf-o3j4_V6BFsN84_ay3i1Q/exec';
 
 // 表單提交處理
 document.getElementById('consultationForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   
   const formData = new FormData(e.target);
-  const data = Object.fromEntries(formData.entries());
-
   // 補齊追蹤欄位
-  data.submittedAt = new Date().toISOString();
-  data.status = data.status || 'new';
-  data.source = data.source || 'inspection-company';
-  data.userAgent = navigator.userAgent;
-  data.referrer = document.referrer || location.href;
+  formData.set('submittedAt', new Date().toISOString());
+  if(!formData.get('status')) formData.set('status','new');
+  if(!formData.get('source')) formData.set('source','inspection-company');
+  formData.set('userAgent', navigator.userAgent);
+  formData.set('referrer', document.referrer || location.href);
+
+  // 轉為 URL 編碼，讓 Apps Script 確保以 e.parameter 讀到值
+  const urlParams = new URLSearchParams();
+  for (const [key, value] of formData.entries()) {
+    urlParams.append(String(key), typeof value === 'string' ? value : String(value));
+  }
 
   const submitBtn = e.target.querySelector('button[type="submit"]');
   const originalBtnText = submitBtn.textContent;
@@ -563,15 +584,25 @@ document.getElementById('consultationForm').addEventListener('submit', async (e)
 
     const resp = await fetch(GAS_WEB_APP_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: urlParams.toString(),
     });
 
     if(!resp.ok){
       throw new Error('提交失敗，請稍後再試');
     }
 
-    alert('表單已送出！我們會在1個工作天內與您聯繫。\n\n您也可以直接透過 LINE 聯繫我們：@195fpiga');
+    const json = await resp.json().catch(() => null);
+    if(!json || json.ok !== true){
+      throw new Error('伺服器回應異常');
+    }
+
+    // 顯示成功彈窗
+    const modal = document.getElementById('successModal');
+    modal.classList.add('show');
+    modal.classList.remove('hidden');
     e.target.reset();
   }catch(err){
     console.error(err);
@@ -580,6 +611,18 @@ document.getElementById('consultationForm').addEventListener('submit', async (e)
     submitBtn.disabled = false;
     submitBtn.textContent = originalBtnText;
   }
+});
+
+// 成功彈窗事件
+document.getElementById('successCloseBtn').addEventListener('click', () => {
+  const modal = document.getElementById('successModal');
+  modal.classList.remove('show');
+  modal.classList.add('hidden');
+});
+document.getElementById('successBackdrop').addEventListener('click', () => {
+  const modal = document.getElementById('successModal');
+  modal.classList.remove('show');
+  modal.classList.add('hidden');
 });
 </script>
 </body>
