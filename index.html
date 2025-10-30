@@ -988,11 +988,36 @@ body.dark .mini-fun-card {
         熱門
       </div>
     </div>
+
+    <!-- 計程車行 -->
+    <div class="app-card glass-card life group relative overflow-hidden" onclick="openTool('taxi.html')">
+      <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-amber-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10 text-center">
+        <div class="w-12 h-12 mx-auto mb-2 group-hover:animate-bounce">
+          <img src="https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=100&h=100&fit=crop&crop=center" 
+               alt="計程車行" 
+               class="w-full h-full object-cover rounded-lg shadow-md"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <div class="w-full h-full bg-gradient-to-br from-yellow-400 to-amber-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold" style="display:none;">🚕</div>
+        </div>
+        <div class="font-bold">計程車行</div>
+        <div class="text-xs opacity-75 mt-1">叫車服務</div>
+      </div>
+      <div class="absolute top-2 right-2 text-xs bg-yellow-500 text-white px-2 py-1 rounded-full">
+        新增
+      </div>
+    </div>
     
     <div class="app-card glass-card subsidy group relative overflow-hidden col-span-4" onclick="openTool('subsidy.html')">
       <div class="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-rose-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">💸</div>
+        <div class="w-12 h-12 mx-auto mb-2 group-hover:animate-bounce">
+          <img src="https://s.yimg.com/ny/api/res/1.2/X4DeSN.iSc_r8JgoM5gF7w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTEyMDA7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2025-10/88c16540-b4c8-11f0-b2da-09c48e3693e6" 
+               alt="補助優惠" 
+               class="w-full h-full object-cover rounded-lg shadow-md"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <div class="w-full h-full bg-gradient-to-br from-pink-400 to-rose-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold" style="display:none;">💸</div>
+        </div>
         <div class="font-bold text-lg">補助優惠</div>
         <div class="text-sm opacity-75 mt-1">政府補助、優惠資訊一網打盡</div>
       </div>

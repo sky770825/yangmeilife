@@ -334,6 +334,18 @@ body {
     <p class="text-xl text-white opacity-90">政府補助資訊，減輕您的購屋負擔</p>
   </div>
 
+    <!-- 最新消息 -->
+    <div class="subsidy-card">
+      <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+        <span>📰 最新消息</span>
+        <span class="text-xs text-gray-500">即時更新</span>
+      </h2>
+      <a href="https://tw.stock.yahoo.com/news/%E6%99%AE%E7%99%BC%E4%B8%80%E8%90%AC%E6%9C%80%E5%BF%AB1112%E5%85%A5%E5%B8%B3%EF%BC%8116%E5%AE%B6%E9%8A%80%E8%A1%8Catm17%E6%97%A5%E5%8F%AF%E9%A0%98-%E4%BA%94%E5%A4%A7%E6%96%B9%E5%BC%8F%E3%80%819%E5%A4%A7%E8%A9%90%E9%A8%99%E4%B8%80%E6%AC%A1%E7%9C%8B-130316302.html" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-700 underline">
+        普發一萬最快三 11/12 入帳、16 家銀行 ATM 可領｜五大方式、9 大詐騙一次看
+      </a>
+      <div class="text-sm text-gray-500 mt-1">來源：Yahoo奇摩股市</div>
+    </div>
+
   <!-- 類別篩選 -->
   <div class="subsidy-card">
     <h2 class="text-lg font-bold mb-4">🎯 補助類別</h2>
@@ -933,5 +945,24 @@ document.addEventListener('DOMContentLoaded', function() {
   loadTheme();
 });
 </script>
+
+<!-- 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span>🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span>📝</span><span>記帳</span>
+  </button>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span>🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='local-life.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="在地生活">
+    <span>🍹</span><span>生活</span>
+  </button>
+  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span>🙏</span><span>拜拜</span>
+  </button>
+  </nav>
 </body>
 </html>
