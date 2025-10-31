@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二手交易 - 濬瑒房產生活平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad: linear-gradient(135deg, #10b981, #059669);
+}
+.glass-card { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.06); border-radius: 1rem; }
+.btn { background: var(--grad); color: #fff; padding: 0.6rem 1rem; border-radius: 0.75rem; font-weight: 700; }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.input { width: 100%; padding: .65rem .8rem; border: 1px solid #e5e7eb; border-radius: .75rem; }
+.card { background: #fff; border: 1px solid #e5e7eb; border-radius: .75rem; padding: 1rem; }
+/* 彈窗樣式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+.modal-overlay.active {
+  display: flex;
+}
+.modal-content {
+  background: white;
+  border-radius: 1rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #f3f4f6;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.modal-close:hover {
+  background: #e5e7eb;
+}
+/* 新增按鈕 */
+.add-button {
+  position: fixed;
+  bottom: 5rem;
+  right: 1rem;
+  background: var(--grad);
+  color: white;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  z-index: 100;
+  transition: transform 0.2s;
+}
+.add-button:hover {
+  transform: scale(1.1);
+}
+</style>
+</head>
+<body class="bg-gradient-to-b from-emerald-50 to-white">
+
+<header class="text-center py-6 text-white relative" style="background: var(--grad)">
+  <h1 class="text-2xl md:text-3xl font-extrabold">♻️ 二手交易</h1>
+  <p class="opacity-90 text-sm mt-1">刊登二手物品，附上照片、聯絡人與電話</p>
+</header>
+
+<main class="max-w-3xl mx-auto p-4 space-y-6 pb-20">
+  <!-- 刊登列表 -->
+  <section class="space-y-3" id="listContainer" aria-live="polite"></section>
+</main>
+
+<!-- 新增刊登按鈕 -->
+<button class="add-button" onclick="openModal()" aria-label="新增刊登" title="新增刊登">
+  ➕
+</button>
+
+<!-- 刊登表單彈窗 -->
+<div id="modalOverlay" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-content glass-card p-4 md:p-6" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()" aria-label="關閉">✕</button>
+    <h2 class="text-lg font-bold mb-4">📝 新增刊登</h2>
+    <form id="listingForm" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-1">物品名稱</label>
+          <input id="itemTitle" type="text" class="input" placeholder="例如：IKEA 桌子" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">聯絡人</label>
+          <input id="contactName" type="text" class="input" placeholder="您的稱呼" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">聯絡電話</label>
+          <input id="contactPhone" type="tel" class="input" placeholder="09xx-xxx-xxx" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">照片連結（可選）</label>
+          <input id="imageUrl" type="url" class="input" placeholder="https://...（或選擇檔案上傳）">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">或選擇檔案上傳</label>
+          <input id="imageFile" type="file" accept="image/*" class="input">
+          <p class="text-xs text-gray-500 mt-1">若同時填寫連結與選檔，優先使用上傳檔案。</p>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">物品描述</label>
+        <textarea id="itemDesc" class="input" rows="3" placeholder="狀況、尺寸、價格、取貨地點等"></textarea>
+      </div>
+      <div class="flex items-center gap-3">
+        <button type="submit" class="btn">發布</button>
+        <button type="button" onclick="closeModal()" class="px-3 py-2 rounded-lg border text-sm">取消</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 📍 底部導航（與主頁一致） -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span>🏠</span><span>首頁</span>
+  </button>
+  <button onclick="openTool('investor.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="投資專區">
+    <span>💰</span><span>投資</span>
+  </button>
+  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span>🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span>🍹</span><span>房訊</span>
+  </button>
+  <button onclick="openTool('analytics.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="數據分析">
+    <span>📊</span><span>分析</span>
+  </button>
+  
+</nav>
+
+<script>
+// Firebase SDK（雲端儲存）
+// 若尚未建立專案，可先保留此段，稍後替換 config 內容
+document.write('\n<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"><\\/script>');
+document.write('\n<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"><\\/script>');
+
+window.__FIREBASE_CONFIG__ = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+let firebaseApp = null;
+let firebaseStorage = null;
+try {
+  if (window.firebase && window.__FIREBASE_CONFIG__ && window.__FIREBASE_CONFIG__.apiKey !== 'YOUR_API_KEY') {
+    firebaseApp = firebase.initializeApp(window.__FIREBASE_CONFIG__);
+    firebaseStorage = firebase.storage();
+  }
+} catch (err) {
+  console.warn('Firebase 初始化失敗，將改用本機 DataURL。', err);
+}
+
+function openTool(url) {
+  if (url.startsWith('http')) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  } else {
+    window.location.href = url;
+  }
+}
+
+const STORAGE_KEY = 'secondHandListings_v1';
+
+function readListings() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
+}
+function writeListings(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+
+function renderListings() {
+  const container = document.getElementById('listContainer');
+  const list = readListings();
+  if (list.length === 0) {
+    container.innerHTML = '<div class="text-center text-sm text-gray-500">尚無刊登，快來成為第一位！</div>';
+    return;
+  }
+  container.innerHTML = list.map((it, idx) => `
+    <div class="card flex gap-3 items-start">
+      <div class="w-24 h-24 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+        ${it.imageUrl ? `<img src="${it.imageUrl}" class="w-full h-full object-cover" alt="${it.title}">` : `<div class="w-full h-full flex items-center justify-center text-gray-400">無圖</div>`}
+      </div>
+      <div class="flex-1">
+        <div class="font-bold">${it.title}</div>
+        <div class="text-sm text-gray-600 mt-1">${it.desc || ''}</div>
+        <div class="text-sm mt-2">👤 ${it.name}　📞 <a href="tel:${it.phone}" class="text-emerald-600">${it.phone}</a></div>
+      </div>
+      <button class="text-xs text-red-600" onclick="removeListing(${idx})">刪除</button>
+    </div>
+  `).join('');
+}
+
+function removeListing(index) {
+  const list = readListings();
+  list.splice(index, 1);
+  writeListings(list);
+  renderListings();
+}
+
+// 彈窗控制
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden'; // 防止背景滾動
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = ''; // 恢復滾動
+  // 清空表單
+  document.getElementById('listingForm').reset();
+}
+
+function closeModalOnOverlay(event) {
+  if (event.target.id === 'modalOverlay') {
+    closeModal();
+  }
+}
+
+// ESC 鍵關閉彈窗
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});
+
+document.getElementById('listingForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const title = document.getElementById('itemTitle').value.trim();
+  const name = document.getElementById('contactName').value.trim();
+  const phone = document.getElementById('contactPhone').value.trim();
+  const imageUrlInput = document.getElementById('imageUrl').value.trim();
+  const imageFile = document.getElementById('imageFile').files[0];
+  const desc = document.getElementById('itemDesc').value.trim();
+  if (!title || !name || !phone) return;
+
+  // 讀取檔案為 DataURL（若有選檔）
+  let finalImageUrl = imageUrlInput;
+  if (imageFile) {
+    // 優先嘗試上傳到 Firebase Storage
+    if (firebaseStorage) {
+      try {
+        const safeName = `${Date.now()}_${(imageFile.name || 'image').replace(/[^a-zA-Z0-9._-]/g,'_')}`;
+        const refPath = `second-hand/${safeName}`;
+        const storageRef = firebaseStorage.ref().child(refPath);
+        await storageRef.put(imageFile);
+        finalImageUrl = await storageRef.getDownloadURL();
+      } catch (uploadErr) {
+        console.warn('雲端上傳失敗，改用本機 DataURL。', uploadErr);
+        finalImageUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(imageFile);
+        });
+      }
+    } else {
+      // 未初始化或未設定 Firebase，使用 DataURL 預覽
+      finalImageUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(imageFile);
+      });
+    }
+  }
+
+  const list = readListings();
+  list.unshift({ title, name, phone, imageUrl: finalImageUrl, desc, createdAt: Date.now() });
+  writeListings(list);
+  (e.target).reset();
+  renderListings();
+  closeModal(); // 提交後關閉彈窗
+});
+
+renderListings();
+</script>
+
+</body>
+</html>
+
+

@@ -462,25 +462,6 @@ main{
     height:56px;
     font-size:1.5rem;
   }
-  
-  /* 手機版導航列優化 */
-  .bottom-nav {
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    padding: 0.5rem 0.25rem;
-  }
-  
-  .bottom-nav button {
-    flex: 1;
-    min-width: 0;
-    padding: 0.25rem 0.1rem;
-    font-size: 0.7rem;
-  }
-  
-  .bottom-nav button span:first-child {
-    font-size: 1rem;
-    margin-bottom: 0.125rem;
-  }
   .category-quick-btn{
     min-height:80px;
     padding:1rem 0.5rem;
@@ -639,21 +620,26 @@ main{
 </button>
 
 <!-- 底部導航 -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav z-50" role="navigation" aria-label="主要導航">
-  <button onclick="openTool('index.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="回到首頁">
-    <span class="text-lg mb-1">🏠</span><span>首頁</span>
+<nav class="fixed bottom-0 left-0 right-0 bg-white backdrop-blur-lg border-t-2 border-gray-300 flex justify-around items-center py-3 z-50" role="navigation" style="box-shadow: 0 -4px 20px rgba(0,0,0,0.15); height: 70px;">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center justify-center text-gray-600 text-xs hover:text-indigo-600 transition-all active:scale-95" style="min-width: 60px;">
+    <span class="text-2xl mb-1">🏠</span>
+    <span>首頁</span>
   </button>
-  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-indigo-600 text-xs font-semibold px-3 py-2 min-w-[60px]" aria-label="記帳">
-    <span class="text-lg mb-1">📝</span><span>記帳</span>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center justify-center text-indigo-600 text-xs" style="min-width: 60px;">
+    <span class="text-2xl mb-1">📝</span>
+    <span>記帳</span>
   </button>
-  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="遊戲大廳">
-    <span class="text-lg mb-1">🎮</span><span>遊戲</span>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center justify-center text-gray-600 text-xs hover:text-indigo-600 transition-all active:scale-95" style="min-width: 60px;">
+    <span class="text-2xl mb-1">🎮</span>
+    <span>遊戲</span>
   </button>
-  <button onclick="openTool('local-life.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="在地生活">
-    <span class="text-lg mb-1">🍹</span><span>生活</span>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center justify-center text-gray-600 text-xs hover:text-indigo-600 transition-all active:scale-95" style="min-width: 60px;" aria-label="房訊">
+    <span class="text-2xl mb-1">🍹</span>
+    <span>房訊</span>
   </button>
-  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-3 py-2 min-w-[60px]" aria-label="拜拜專區">
-    <span class="text-lg mb-1">🙏</span><span>拜拜</span>
+  <button onclick="window.location.href='analytics.html'" class="flex flex-col items-center justify-center text-gray-600 text-xs hover:text-indigo-600 transition-all active:scale-95" style="min-width: 60px;">
+    <span class="text-2xl mb-1">📊</span>
+    <span>分析</span>
   </button>
 </nav>
 
@@ -893,25 +879,6 @@ class LazyExpenseTracker {
 
 // 全域變數
 let tracker;
-
-// openTool 函數 - 與主頁保持一致
-function openTool(url) {
-  if (url.startsWith('http')) {
-    // 檢測是否為手機版
-    const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-      // 手機版：在當前視窗打開外部連結
-      window.location.href = url;
-    } else {
-      // 桌面版：在新視窗打開外部連結
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-  } else {
-    // 內部連結在原視窗打開
-    window.location.href = url;
-  }
-}
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
