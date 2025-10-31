@@ -10,7 +10,7 @@
   --grad: linear-gradient(135deg, #10b981, #059669);
 }
 .glass-card { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.06); border-radius: 1rem; }
-.btn { background: var(--grad); color: #fff; padding: 0.6rem 1rem; border-radius: 0.75rem; font-weight: 700; }
+.btn { background: var(--grad); color: #fff; padding: 0.6rem 1rem; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
 .btn:disabled { opacity: .6; cursor: not-allowed; }
 .input { width: 100%; padding: .65rem .8rem; border: 1px solid #e5e7eb; border-radius: .75rem; }
 .card { background: #fff; border: 1px solid #e5e7eb; border-radius: .75rem; padding: 1rem; }
@@ -91,6 +91,159 @@
 .add-button:hover {
   transform: scale(1.1);
 }
+/* 圖片預覽區域 */
+.image-preview-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.image-preview-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 2px solid #e5e7eb;
+}
+.image-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-preview-item .remove-btn {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  border: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 圖片輪播 */
+.image-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+.image-carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+.image-carousel img.active {
+  display: block;
+}
+.carousel-nav {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.25rem;
+}
+.carousel-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.carousel-dot.active {
+  background: white;
+}
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+.carousel-prev {
+  left: 0.5rem;
+}
+.carousel-next {
+  right: 0.5rem;
+}
+/* Toast 通知 */
+.toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #1f2937;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 2000;
+  transform: translateX(400px);
+  transition: transform 0.3s ease-out;
+  max-width: 300px;
+}
+.toast.show {
+  transform: translateX(0);
+}
+.toast.success {
+  background: #10b981;
+}
+.toast.error {
+  background: #ef4444;
+}
+.toast.warning {
+  background: #f59e0b;
+}
+/* 搜尋框 */
+.search-container {
+  position: sticky;
+  top: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  margin: -1rem -1rem 1rem -1rem;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 10;
+}
+/* 剩餘天數標籤 */
+.expires-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+.expires-badge.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+.expires-badge.danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.expires-badge.success {
+  background: #d1fae5;
+  color: #065f46;
+}
 </style>
 </head>
 <body class="bg-gradient-to-b from-emerald-50 to-white">
@@ -101,6 +254,17 @@
 </header>
 
 <main class="max-w-3xl mx-auto p-4 space-y-6 pb-20">
+  <!-- 搜尋框 -->
+  <div class="search-container">
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="input" 
+      placeholder="🔍 搜尋物品名稱、聯絡人..."
+      oninput="handleSearch()"
+    >
+  </div>
+  
   <!-- 刊登列表 -->
   <section class="space-y-3" id="listContainer" aria-live="polite"></section>
 </main>
@@ -118,31 +282,34 @@
     <form id="listingForm" class="space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium mb-1">物品名稱</label>
-          <input id="itemTitle" type="text" class="input" placeholder="例如：IKEA 桌子" required>
+          <label class="block text-sm font-medium mb-1">物品名稱 <span class="text-red-500">*</span></label>
+          <input id="itemTitle" type="text" class="input" placeholder="例如：IKEA 桌子" maxlength="50" required>
+          <p class="text-xs text-gray-500 mt-1">最多50字</p>
         </div>
         <div>
-          <label class="block text-sm font-medium mb-1">聯絡人</label>
-          <input id="contactName" type="text" class="input" placeholder="您的稱呼" required>
+          <label class="block text-sm font-medium mb-1">聯絡人 <span class="text-red-500">*</span></label>
+          <input id="contactName" type="text" class="input" placeholder="您的稱呼" maxlength="20" required>
         </div>
         <div>
-          <label class="block text-sm font-medium mb-1">聯絡電話</label>
-          <input id="contactPhone" type="tel" class="input" placeholder="09xx-xxx-xxx" required>
-        </div>
-        <div>
-          <label class="block text-sm font-medium mb-1">照片連結（可選）</label>
-          <input id="imageUrl" type="url" class="input" placeholder="https://...（或選擇檔案上傳）">
-        </div>
-        <div>
-          <label class="block text-sm font-medium mb-1">或選擇檔案上傳</label>
-          <input id="imageFile" type="file" accept="image/*" class="input">
-          <p class="text-xs text-gray-500 mt-1">若同時填寫連結與選檔，優先使用上傳檔案。</p>
+          <label class="block text-sm font-medium mb-1">聯絡電話 <span class="text-red-500">*</span></label>
+          <input id="contactPhone" type="tel" class="input" placeholder="09xx-xxx-xxx" pattern="09\d{8}" required>
+          <p class="text-xs text-gray-500 mt-1">格式：09xx-xxx-xxx</p>
         </div>
       </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-1">照片上傳（最多5張）</label>
+        <input id="imageFile" type="file" accept="image/jpeg,image/jpg,image/png,image/webp" multiple class="input">
+        <p class="text-xs text-gray-500 mt-1">支援 JPG、PNG、WebP，每張最大 5MB</p>
+        <div id="imagePreviewContainer" class="image-preview-container"></div>
+      </div>
+      
       <div>
         <label class="block text-sm font-medium mb-1">物品描述</label>
-        <textarea id="itemDesc" class="input" rows="3" placeholder="狀況、尺寸、價格、取貨地點等"></textarea>
+        <textarea id="itemDesc" class="input" rows="3" placeholder="狀況、尺寸、價格、取貨地點等" maxlength="500"></textarea>
+        <p class="text-xs text-gray-500 mt-1">最多500字</p>
       </div>
+      
       <div class="flex items-center gap-3">
         <button type="submit" class="btn">發布</button>
         <button type="button" onclick="closeModal()" class="px-3 py-2 rounded-lg border text-sm">取消</button>
@@ -150,6 +317,9 @@
     </form>
   </div>
 </div>
+
+<!-- Toast 通知 -->
+<div id="toast" class="toast"></div>
 
 <!-- 📍 底部導航（與主頁一致） -->
 <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
@@ -168,35 +338,42 @@
   <button onclick="openTool('analytics.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="數據分析">
     <span>📊</span><span>分析</span>
   </button>
-  
 </nav>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Firebase SDK（雲端儲存）
-// 若尚未建立專案，可先保留此段，稍後替換 config 內容
-document.write('\n<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"><\\/script>');
-document.write('\n<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"><\\/script>');
+// ===== Google Sheets API 設定（優先使用） =====
+const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbyUPdvrgShpbwBI888Mw5JRNb8vEsBsPgw7VmLlGbTv1mdlD-blH0h-NZ6sSTpq0g1oqA/exec';
+let useGoogleSheets = false;
 
-window.__FIREBASE_CONFIG__ = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
-let firebaseApp = null;
-let firebaseStorage = null;
-try {
-  if (window.firebase && window.__FIREBASE_CONFIG__ && window.__FIREBASE_CONFIG__.apiKey !== 'YOUR_API_KEY') {
-    firebaseApp = firebase.initializeApp(window.__FIREBASE_CONFIG__);
-    firebaseStorage = firebase.storage();
-  }
-} catch (err) {
-  console.warn('Firebase 初始化失敗，將改用本機 DataURL。', err);
+if (GOOGLE_SHEETS_API_URL && GOOGLE_SHEETS_API_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+  useGoogleSheets = true;
+  console.log('✅ Google Sheets API 已設定');
 }
 
+// ===== Supabase 設定（備用方案） =====
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+let supabase = null;
+let useSupabase = false;
+
+try {
+  if (SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    useSupabase = true;
+    console.log('✅ Supabase 已初始化');
+  }
+} catch (err) {
+  console.error('❌ Supabase 初始化失敗:', err);
+}
+
+// ===== 全域變數 =====
+let allListings = []; // 儲存所有刊登（用於搜尋）
+let selectedImages = []; // 儲存選中的圖片（base64）
+let currentSearchQuery = '';
+
+// ===== 工具函式 =====
 function openTool(url) {
   if (url.startsWith('http')) {
     window.open(url, '_blank', 'noopener,noreferrer');
@@ -205,53 +382,517 @@ function openTool(url) {
   }
 }
 
-const STORAGE_KEY = 'secondHandListings_v1';
+// Toast 通知
+function showToast(message, type = 'info') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `toast ${type}`;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
 
-function readListings() {
+// 驗證電話格式
+function validatePhone(phone) {
+  const cleaned = phone.replace(/[-\s]/g, '');
+  return /^09\d{8}$/.test(cleaned);
+}
+
+// 驗證圖片大小（5MB）
+function validateImageSize(file) {
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  return file.size <= maxSize;
+}
+
+// 計算剩餘天數
+function getDaysRemaining(expiresAt) {
+  if (!expiresAt) return null;
+  const expires = new Date(expiresAt);
+  const now = new Date();
+  const diff = expires - now;
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  return days;
+}
+
+// 格式化剩餘天數顯示
+function formatDaysRemaining(days) {
+  if (days === null || days === undefined) return '';
+  if (days < 0) return { text: '已過期', class: 'danger' };
+  if (days <= 3) return { text: `剩餘 ${days} 天`, class: 'danger' };
+  if (days <= 7) return { text: `剩餘 ${days} 天`, class: 'warning' };
+  return { text: `剩餘 ${days} 天`, class: 'success' };
+}
+
+// ===== 圖片預覽管理 =====
+function setupImagePreview() {
+  const fileInput = document.getElementById('imageFile');
+  const previewContainer = document.getElementById('imagePreviewContainer');
+  
+  fileInput.addEventListener('change', (e) => {
+    const files = Array.from(e.target.files);
+    
+    // 檢查數量限制
+    if (files.length + selectedImages.length > 5) {
+      showToast('最多只能上傳 5 張照片', 'error');
+      fileInput.value = '';
+      return;
+    }
+    
+    // 處理每個檔案
+    files.forEach(file => {
+      // 驗證檔案大小
+      if (!validateImageSize(file)) {
+        showToast(`${file.name} 檔案過大（上限 5MB）`, 'error');
+        return;
+      }
+      
+      // 驗證檔案格式
+      if (!file.type.startsWith('image/')) {
+        showToast(`${file.name} 格式不符（僅支援圖片）`, 'error');
+        return;
+      }
+      
+      // 讀取為 base64
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target.result;
+        const imageData = {
+          file: file,
+          base64: base64,
+          id: Date.now() + Math.random()
+        };
+        
+        selectedImages.push(imageData);
+        renderImagePreview();
+      };
+      reader.readAsDataURL(file);
+    });
+    
+    // 清空 input（允許重選同一檔案）
+    fileInput.value = '';
+  });
+}
+
+function renderImagePreview() {
+  const container = document.getElementById('imagePreviewContainer');
+  container.innerHTML = '';
+  
+  selectedImages.forEach((imgData, index) => {
+    const item = document.createElement('div');
+    item.className = 'image-preview-item';
+    item.innerHTML = `
+      <img src="${imgData.base64}" alt="預覽 ${index + 1}">
+      <button type="button" class="remove-btn" onclick="removeImagePreview(${index})">×</button>
+    `;
+    container.appendChild(item);
+  });
+  
+  // 顯示剩餘可上傳數量
+  if (selectedImages.length > 0) {
+    const remaining = 5 - selectedImages.length;
+    const hint = document.createElement('div');
+    hint.className = 'text-xs text-gray-500 mt-2';
+    hint.textContent = `已選 ${selectedImages.length} 張，還可上傳 ${remaining} 張`;
+    container.appendChild(hint);
+  }
+}
+
+function removeImagePreview(index) {
+  selectedImages.splice(index, 1);
+  renderImagePreview();
+}
+
+// ===== 資料讀取與儲存 =====
+const STORAGE_KEY = 'secondHandListings_v1';
+function readListingsLocal() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; }
 }
-function writeListings(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+function writeListingsLocal(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
 
-function renderListings() {
+async function readListings() {
+  if (useGoogleSheets) {
+    try {
+      // 檢查是否為 file:// 協議（會導致 CORS 錯誤）
+      if (window.location.protocol === 'file:') {
+        console.warn('⚠️ 偵測到 file:// 協議，可能會有 CORS 問題。建議使用 HTTP 伺服器開啟。');
+        // 降級到 localStorage
+        return readListingsLocal();
+      }
+
+      const response = await fetch(GOOGLE_SHEETS_API_URL, {
+        method: 'GET',
+        mode: 'cors'
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      if (result.ok && result.list) {
+        return result.list;
+      }
+      throw new Error(result.error || '讀取失敗');
+    } catch (err) {
+      console.error('讀取 Google Sheets 失敗:', err);
+      
+      // 如果是 CORS 錯誤，降級到 localStorage 並顯示提示
+      if (err.message && (err.message.includes('CORS') || err.message.includes('fetch'))) {
+        console.warn('⚠️ 讀取失敗，改用 localStorage。請使用 HTTP 伺服器開啟此頁面。');
+        return readListingsLocal();
+      }
+    }
+  }
+  
+  if (useSupabase && supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('second_hand_listings')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (error) throw error;
+      return (data || []).map(item => ({
+        id: item.id,
+        title: item.title,
+        name: item.contact_name,
+        phone: item.contact_phone,
+        images: item.image_url ? [item.image_url] : [],
+        imageUrl: item.image_url || '',
+        desc: item.description,
+        createdAt: new Date(item.created_at).getTime(),
+        expiresAt: null
+      }));
+    } catch (err) {
+      console.error('讀取 Supabase 失敗:', err);
+    }
+  }
+  
+  return readListingsLocal();
+}
+
+async function addListing(listing, imageBase64List = []) {
+  if (useGoogleSheets) {
+    try {
+      const payload = {
+        title: listing.title,
+        contact_name: listing.name,
+        contact_phone: listing.phone,
+        description: listing.desc || '',
+        imageUrls: listing.imageUrls || [],
+        imageBase64List: imageBase64List
+      };
+
+      // 檢查是否為 file:// 協議（會導致 CORS 錯誤）
+      if (window.location.protocol === 'file:') {
+        throw new Error('CORS_ERROR: 請使用 HTTP 伺服器開啟此頁面，不要直接開啟檔案。詳見控制台說明。');
+      }
+
+      // 使用 Google Apps Script Web App 的正確方式
+      const response = await fetch(GOOGLE_SHEETS_API_URL, {
+        method: 'POST',
+        mode: 'cors', // 明確指定 CORS 模式
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload),
+        redirect: 'follow'
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      if (result.ok) {
+        return result;
+      }
+      throw new Error(result.error || '新增失敗');
+    } catch (err) {
+      console.error('新增到 Google Sheets 失敗:', err);
+      
+      // 如果是 CORS 錯誤，顯示友善提示
+      if (err.message && err.message.includes('CORS')) {
+        console.error(`
+⚠️ CORS 錯誤解決方案：
+1. 使用 HTTP 伺服器開啟此 HTML（不要直接用檔案開啟）
+   
+   方法 A - VS Code：
+   - 安裝 "Live Server" 擴充功能
+   - 右鍵點擊 second-hand.html → "Open with Live Server"
+   
+   方法 B - Python：
+   - 在專案資料夾開啟終端機
+   - 執行：python -m http.server 8000
+   - 瀏覽器開啟：http://localhost:8000/second-hand.html
+   
+   方法 C - Node.js：
+   - 執行：npx http-server
+   - 瀏覽器開啟提示的網址
+        `);
+        throw new Error('請使用 HTTP 伺服器開啟此頁面（不要直接用檔案開啟）');
+      }
+      
+      throw err;
+    }
+  }
+  
+  if (useSupabase && supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('second_hand_listings')
+        .insert([{
+          title: listing.title,
+          contact_name: listing.name,
+          contact_phone: listing.phone,
+          image_url: listing.imageUrl || null,
+          description: listing.desc || null
+        }])
+        .select();
+      if (error) throw error;
+      return data && data[0];
+    } catch (err) {
+      console.error('新增到 Supabase 失敗:', err);
+    }
+  }
+  
+  const list = readListingsLocal();
+  list.unshift(listing);
+  writeListingsLocal(list);
+  return listing;
+}
+
+async function removeListingById(id) {
+  if (useGoogleSheets) {
+    try {
+      // 檢查是否為 file:// 協議
+      if (window.location.protocol === 'file:') {
+        console.warn('⚠️ file:// 協議無法使用雲端功能，請使用 HTTP 伺服器開啟');
+        return false;
+      }
+
+      const response = await fetch(GOOGLE_SHEETS_API_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'delete', id: id }),
+        redirect: 'follow'
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const result = await response.json();
+      if (result.ok) return true;
+    } catch (err) {
+      console.error('從 Google Sheets 刪除失敗:', err);
+    }
+  }
+  
+  if (useSupabase && supabase) {
+    try {
+      const { error } = await supabase.from('second_hand_listings').delete().eq('id', id);
+      if (error) throw error;
+      return true;
+    } catch (err) {
+      console.error('從 Supabase 刪除失敗:', err);
+    }
+  }
+  
+  return false;
+}
+
+// ===== 圖片輪播功能 =====
+function initImageCarousel(containerId, images) {
+  if (!images || images.length === 0) return;
+  
+  let currentIndex = 0;
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  
+  const imgElements = container.querySelectorAll('img');
+  const dots = container.querySelectorAll('.carousel-dot');
+  
+  function showImage(index) {
+    imgElements.forEach((img, i) => {
+      img.classList.toggle('active', i === index);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+  
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }
+  
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  }
+  
+  container.querySelector('.carousel-next')?.addEventListener('click', nextImage);
+  container.querySelector('.carousel-prev')?.addEventListener('click', prevImage);
+  
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      currentIndex = i;
+      showImage(currentIndex);
+    });
+  });
+  
+  showImage(0);
+}
+
+// ===== 渲染刊登列表 =====
+async function renderListings(filteredList = null) {
   const container = document.getElementById('listContainer');
-  const list = readListings();
-  if (list.length === 0) {
-    container.innerHTML = '<div class="text-center text-sm text-gray-500">尚無刊登，快來成為第一位！</div>';
+  container.innerHTML = '<div class="text-center text-sm text-gray-500">載入中...</div>';
+  
+  try {
+    let list = filteredList || await readListings();
+    allListings = list; // 儲存用於搜尋
+    
+    // 過濾過期項目（前端過濾）
+    const now = Date.now();
+    list = list.filter(item => {
+      if (!item.expiresAt) return true;
+      const expires = new Date(item.expiresAt).getTime();
+      return expires > now;
+    });
+    
+    if (list.length === 0) {
+      container.innerHTML = '<div class="text-center text-sm text-gray-500">尚無刊登，快來成為第一位！</div>';
+      return;
+    }
+    
+    container.innerHTML = list.map((it, idx) => {
+      const images = it.images || (it.imageUrl ? [it.imageUrl] : []);
+      const daysRemaining = getDaysRemaining(it.expiresAt);
+      const daysInfo = formatDaysRemaining(daysRemaining);
+      const carouselId = `carousel-${it.id || idx}`;
+      
+      return `
+        <div class="card">
+          <div class="flex gap-3 items-start">
+            ${images.length > 0 ? `
+              <div class="w-32 h-32 flex-shrink-0">
+                ${images.length === 1 ? `
+                  <img src="${images[0]}" class="w-full h-full object-cover rounded" alt="${it.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'%3E%3Crect width=\\'100\\' height=\\'100\\' fill=\\'%23e5e7eb\\'/%3E%3Ctext x=\\'50\\' y=\\'50\\' text-anchor=\\'middle\\' fill=\\'%239ca3af\\'%3E無圖%3C/text%3E%3C/svg%3E'">
+                ` : `
+                  <div id="${carouselId}" class="image-carousel">
+                    ${images.map((img, i) => `<img src="${img}" alt="${it.title} ${i+1}" class="${i === 0 ? 'active' : ''}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'%3E%3Crect width=\\'100\\' height=\\'100\\' fill=\\'%23e5e7eb\\'/%3E%3Ctext x=\\'50\\' y=\\'50\\' text-anchor=\\'middle\\' fill=\\'%239ca3af\\'%3E無圖%3C/text%3E%3C/svg%3E'">`).join('')}
+                    ${images.length > 1 ? `
+                      <button class="carousel-prev">‹</button>
+                      <button class="carousel-next">›</button>
+                      <div class="carousel-nav">
+                        ${images.map((_, i) => `<div class="carousel-dot ${i === 0 ? 'active' : ''}"></div>`).join('')}
+                      </div>
+                    ` : ''}
+                  </div>
+                `}
+              </div>
+            ` : `
+              <div class="w-32 h-32 bg-gray-100 rounded flex items-center justify-center text-gray-400 flex-shrink-0">
+                無圖
+              </div>
+            `}
+            <div class="flex-1 min-w-0">
+              <div class="font-bold text-lg">${escapeHtml(it.title)}</div>
+              ${daysInfo ? `<span class="expires-badge ${daysInfo.class}">${daysInfo.text}</span>` : ''}
+              <div class="text-sm text-gray-600 mt-1">${escapeHtml(it.desc || '')}</div>
+              <div class="text-sm mt-2">
+                👤 ${escapeHtml(it.name)}　📞 <a href="tel:${it.phone}" class="text-emerald-600">${escapeHtml(it.phone)}</a>
+              </div>
+            </div>
+            <button class="text-xs text-red-600 hover:text-red-700 px-2 py-1" onclick="removeListing('${it.id || it.createdAt}')">刪除</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+    
+    // 初始化所有輪播
+    list.forEach((it, idx) => {
+      const images = it.images || (it.imageUrl ? [it.imageUrl] : []);
+      if (images.length > 1) {
+        const carouselId = `carousel-${it.id || idx}`;
+        setTimeout(() => initImageCarousel(carouselId, images), 100);
+      }
+    });
+    
+  } catch (err) {
+    console.error('渲染列表失敗:', err);
+    container.innerHTML = '<div class="text-center text-sm text-red-500">載入失敗，請重新整理頁面</div>';
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+async function removeListing(idOrIndex) {
+  if (!confirm('確定要刪除此刊登嗎？')) return;
+  
+  if (useGoogleSheets || (useSupabase && supabase) && typeof idOrIndex !== 'number') {
+    const success = await removeListingById(idOrIndex);
+    if (success) {
+      showToast('已刪除刊登', 'success');
+      await renderListings();
+      return;
+    }
+  }
+  
+  const list = readListingsLocal();
+  const index = typeof idOrIndex === 'number' 
+    ? idOrIndex 
+    : list.findIndex(item => (item.id && item.id.toString() === idOrIndex) || item.createdAt.toString() === idOrIndex);
+  
+  if (index >= 0) {
+    list.splice(index, 1);
+    writeListingsLocal(list);
+    await renderListings();
+    showToast('已刪除刊登', 'success');
+  }
+}
+
+// ===== 搜尋功能 =====
+function handleSearch() {
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  currentSearchQuery = query;
+  
+  if (!query) {
+    renderListings();
     return;
   }
-  container.innerHTML = list.map((it, idx) => `
-    <div class="card flex gap-3 items-start">
-      <div class="w-24 h-24 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-        ${it.imageUrl ? `<img src="${it.imageUrl}" class="w-full h-full object-cover" alt="${it.title}">` : `<div class="w-full h-full flex items-center justify-center text-gray-400">無圖</div>`}
-      </div>
-      <div class="flex-1">
-        <div class="font-bold">${it.title}</div>
-        <div class="text-sm text-gray-600 mt-1">${it.desc || ''}</div>
-        <div class="text-sm mt-2">👤 ${it.name}　📞 <a href="tel:${it.phone}" class="text-emerald-600">${it.phone}</a></div>
-      </div>
-      <button class="text-xs text-red-600" onclick="removeListing(${idx})">刪除</button>
-    </div>
-  `).join('');
+  
+  const filtered = allListings.filter(item => {
+    return item.title.toLowerCase().includes(query) ||
+           item.name.toLowerCase().includes(query) ||
+           (item.desc && item.desc.toLowerCase().includes(query)) ||
+           item.phone.includes(query);
+  });
+  
+  renderListings(filtered);
 }
 
-function removeListing(index) {
-  const list = readListings();
-  list.splice(index, 1);
-  writeListings(list);
-  renderListings();
-}
-
-// 彈窗控制
+// ===== 彈窗控制 =====
 function openModal() {
   document.getElementById('modalOverlay').classList.add('active');
-  document.body.style.overflow = 'hidden'; // 防止背景滾動
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow = ''; // 恢復滾動
-  // 清空表單
+  document.body.style.overflow = '';
   document.getElementById('listingForm').reset();
+  selectedImages = [];
+  renderImagePreview();
 }
 
 function closeModalOnOverlay(event) {
@@ -260,66 +901,87 @@ function closeModalOnOverlay(event) {
   }
 }
 
-// ESC 鍵關閉彈窗
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeModal();
-  }
+  if (e.key === 'Escape') closeModal();
 });
 
+// ===== 表單提交 =====
 document.getElementById('listingForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const title = document.getElementById('itemTitle').value.trim();
   const name = document.getElementById('contactName').value.trim();
-  const phone = document.getElementById('contactPhone').value.trim();
-  const imageUrlInput = document.getElementById('imageUrl').value.trim();
-  const imageFile = document.getElementById('imageFile').files[0];
+  const phone = document.getElementById('contactPhone').value.trim().replace(/[-\s]/g, '');
   const desc = document.getElementById('itemDesc').value.trim();
-  if (!title || !name || !phone) return;
-
-  // 讀取檔案為 DataURL（若有選檔）
-  let finalImageUrl = imageUrlInput;
-  if (imageFile) {
-    // 優先嘗試上傳到 Firebase Storage
-    if (firebaseStorage) {
-      try {
-        const safeName = `${Date.now()}_${(imageFile.name || 'image').replace(/[^a-zA-Z0-9._-]/g,'_')}`;
-        const refPath = `second-hand/${safeName}`;
-        const storageRef = firebaseStorage.ref().child(refPath);
-        await storageRef.put(imageFile);
-        finalImageUrl = await storageRef.getDownloadURL();
-      } catch (uploadErr) {
-        console.warn('雲端上傳失敗，改用本機 DataURL。', uploadErr);
-        finalImageUrl = await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = reject;
-          reader.readAsDataURL(imageFile);
-        });
-      }
-    } else {
-      // 未初始化或未設定 Firebase，使用 DataURL 預覽
-      finalImageUrl = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(imageFile);
-      });
-    }
+  
+  // 驗證
+  if (!title || !name || !phone) {
+    showToast('請填寫必填欄位', 'error');
+    return;
+  }
+  
+  if (title.length > 50) {
+    showToast('物品名稱過長（最多50字）', 'error');
+    return;
+  }
+  
+  if (!validatePhone(phone)) {
+    showToast('電話格式錯誤（應為 09xx-xxx-xxx）', 'error');
+    return;
+  }
+  
+  if (desc.length > 500) {
+    showToast('描述過長（最多500字）', 'error');
+    return;
+  }
+  
+  if (selectedImages.length === 0) {
+    showToast('請至少上傳一張照片', 'warning');
+    return;
   }
 
-  const list = readListings();
-  list.unshift({ title, name, phone, imageUrl: finalImageUrl, desc, createdAt: Date.now() });
-  writeListings(list);
-  (e.target).reset();
-  renderListings();
-  closeModal(); // 提交後關閉彈窗
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.textContent = '上傳中...';
+
+  try {
+    const imageBase64List = selectedImages.map(img => img.base64);
+    
+    const listing = {
+      title,
+      name,
+      phone,
+      desc: desc || null,
+      createdAt: Date.now(),
+      imageUrls: []
+    };
+    
+    const result = await addListing(listing, imageBase64List);
+    
+    showToast('發布成功！', 'success');
+    e.target.reset();
+    selectedImages = [];
+    renderImagePreview();
+    await renderListings();
+    closeModal();
+    
+    submitBtn.textContent = '✓ 已發布';
+    setTimeout(() => {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }, 1000);
+  } catch (err) {
+    console.error('提交失敗:', err);
+    showToast('發布失敗：' + (err.message || '請稍後再試'), 'error');
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
 });
 
+// ===== 初始化 =====
+setupImagePreview();
 renderListings();
 </script>
 
 </body>
 </html>
-
-
