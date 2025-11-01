@@ -794,11 +794,11 @@ body.dark .mini-fun-card {
   <div class="flex justify-center gap-4 mt-6 animate-slide-in relative z-40" style="animation-delay: 1.2s;">
     <button onclick="openTool('https://lin.ee/Ij6z94H')" class="cta-button bg-gradient-to-r from-white to-yellow-100 text-indigo-600 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50 relative z-50 cursor-pointer" aria-label="前往LINE客服估價">
       <span class="flex items-center gap-2">
-        <span>立即估價</span>
+        <span>房屋估價</span>
         <span class="text-xs bg-indigo-100 px-2 py-1 rounded-full">免費</span>
       </span>
     </button>
-    <button onclick="openTool('https://lin.ee/Ij6z94H')" class="cta-button bg-gradient-to-r from-white to-pink-100 text-indigo-600 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50 relative z-50 cursor-pointer" aria-label="廠商進駐曝光">
+    <button onclick="showVendorPopup()" class="cta-button bg-gradient-to-r from-white to-pink-100 text-indigo-600 font-bold px-8 py-3 rounded-full shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/50 relative z-50 cursor-pointer" aria-label="廠商進駐曝光">
       <span class="flex items-center gap-2">
         <span>廠商進駐</span>
         <span class="text-xs bg-pink-200 px-2 py-1 rounded-full">曝光</span>
@@ -1031,8 +1031,8 @@ body.dark .mini-fun-card {
       <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
         <div class="text-3xl mb-2 group-hover:animate-bounce">♻️</div>
-        <div class="font-bold">二手交易</div>
-        <div class="text-xs opacity-75 mt-1">刊登物品、照片與聯絡方式</div>
+        <div class="font-bold text-lg">二手交易</div>
+        <div class="text-sm opacity-75 mt-1">刊登物品、照片與聯絡方式</div>
       </div>
       <div class="absolute top-2 right-2 text-xs bg-emerald-500 text-white px-2 py-1 rounded-full">
         新區塊
@@ -1652,6 +1652,83 @@ body.dark .mini-fun-card {
       </svg>
     </button>
     <img id="modalImage" src="" alt="放大圖片" class="w-full h-full object-contain rounded-lg">
+  </div>
+</div>
+
+<!-- 廠商進駐彈窗 -->
+<div id="vendorModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full transform transition-all duration-300 scale-95" style="animation: slideInUp 0.3s ease-out;">
+    <!-- 關閉按鈕 -->
+    <button onclick="closeVendorModal()" class="absolute top-4 right-4 z-10 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 rounded-full p-2 transition-colors duration-200">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    
+    <!-- 內容區域 -->
+    <div class="p-8">
+      <!-- 標題圖標 -->
+      <div class="text-center mb-6">
+        <div class="inline-block bg-gradient-to-br from-pink-500 to-rose-600 rounded-full p-4 shadow-lg mb-4">
+          <span class="text-4xl">🤝</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">歡迎廠商進駐！</h2>
+        <p class="text-gray-600 dark:text-gray-300">讓我們一起打造更好的服務</p>
+      </div>
+      
+      <!-- 說明內容 -->
+      <div class="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-xl p-4 mb-6">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl">💡</span>
+          <div>
+            <h3 class="font-semibold text-gray-800 dark:text-white mb-1">優質曝光機會</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+              加入我們的平台，獲得更多曝光機會，提升品牌知名度，擴大客戶群體。
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 特色列表 -->
+      <div class="space-y-3 mb-6">
+        <div class="flex items-center gap-3">
+          <div class="bg-blue-100 dark:bg-blue-900 rounded-full p-2">
+            <span class="text-lg">⭐</span>
+          </div>
+          <span class="text-gray-700 dark:text-gray-300">專業品牌形象展示</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-green-100 dark:bg-green-900 rounded-full p-2">
+            <span class="text-lg">📢</span>
+          </div>
+          <span class="text-gray-700 dark:text-gray-300">免費曝光機會</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-purple-100 dark:bg-purple-900 rounded-full p-2">
+            <span class="text-lg">👥</span>
+          </div>
+          <span class="text-gray-700 dark:text-gray-300">接觸更多潛在客戶</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="bg-orange-100 dark:bg-orange-900 rounded-full p-2">
+            <span class="text-lg">🎯</span>
+          </div>
+          <span class="text-gray-700 dark:text-gray-300">精準目標客群</span>
+        </div>
+      </div>
+      
+      <!-- 聯絡按鈕 -->
+      <div class="space-y-3">
+        <button onclick="contactOfficialAccount()" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-3">
+          <span class="text-2xl">💬</span>
+          <span>洽詢網站店長</span>
+          <span class="text-lg">→</span>
+        </button>
+        <button onclick="closeVendorModal()" class="w-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+          稍後再說
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2491,6 +2568,7 @@ document.addEventListener('keydown', (e) => {
     }
     // 關閉模態框
     closeImageModal();
+    closeVendorModal();
   }
 });
 
@@ -2501,6 +2579,50 @@ scrollButton.className = 'fixed bottom-20 right-4 bg-indigo-600 text-white p-3 r
 scrollButton.innerHTML = '⬆️';
 scrollButton.onclick = smoothScrollToTop;
 document.body.appendChild(scrollButton);
+
+// 廠商進駐彈窗功能
+function showVendorPopup() {
+  const modal = document.getElementById('vendorModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // 防止背景滾動
+    
+    // 添加動畫效果
+    setTimeout(() => {
+      const modalContent = modal.querySelector('.transform');
+      if (modalContent) {
+        modalContent.style.transform = 'scale(1)';
+      }
+    }, 10);
+  }
+}
+
+function closeVendorModal() {
+  const modal = document.getElementById('vendorModal');
+  if (modal) {
+    // 添加關閉動畫
+    const modalContent = modal.querySelector('.transform');
+    if (modalContent) {
+      modalContent.style.transform = 'scale(0.95)';
+    }
+    
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto'; // 恢復滾動
+    }, 200);
+  }
+}
+
+function contactOfficialAccount() {
+  // 關閉彈窗
+  closeVendorModal();
+  
+  // 延遲一下再跳轉，讓動畫完成
+  setTimeout(() => {
+    // 連結到官方LINE帳號
+    window.open('https://lin.ee/Ij6z94H', '_blank', 'noopener,noreferrer');
+  }, 300);
+}
 </script>
 </body>
 </html>
