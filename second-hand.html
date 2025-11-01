@@ -185,6 +185,108 @@
 .carousel-next {
   right: 0.5rem;
 }
+/* 圖片燈箱 */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 2rem;
+}
+.lightbox-overlay.active {
+  display: flex;
+}
+.lightbox-container {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s;
+}
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.lightbox-prev, .lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  z-index: 10;
+  transition: background 0.2s;
+}
+.lightbox-prev:hover, .lightbox-next:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.lightbox-prev {
+  left: 1rem;
+}
+.lightbox-next {
+  right: 1rem;
+}
+.lightbox-counter {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  font-size: 0.875rem;
+  z-index: 10;
+  display: none;
+}
+/* 圖片可點擊樣式 */
+.clickable-image {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.clickable-image:hover {
+  opacity: 0.9;
+}
 /* Toast 通知 */
 .toast {
   position: fixed;
@@ -269,6 +371,17 @@
   <section class="space-y-3" id="listContainer" aria-live="polite"></section>
 </main>
 
+<!-- 圖片燈箱 -->
+<div id="lightboxOverlay" class="lightbox-overlay" onclick="closeLightboxOnOverlay(event)">
+  <div class="lightbox-container" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="關閉">×</button>
+    <button class="lightbox-prev" onclick="lightboxPrev()" aria-label="上一張">‹</button>
+    <button class="lightbox-next" onclick="lightboxNext()" aria-label="下一張">›</button>
+    <img id="lightboxImage" class="lightbox-image" src="" alt="">
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+</div>
+
 <!-- 新增刊登按鈕 -->
 <button class="add-button" onclick="openModal()" aria-label="新增刊登" title="新增刊登">
   ➕
@@ -291,9 +404,14 @@
           <input id="contactName" type="text" class="input" placeholder="您的稱呼" maxlength="20" required>
         </div>
         <div>
-          <label class="block text-sm font-medium mb-1">聯絡電話 <span class="text-red-500">*</span></label>
-          <input id="contactPhone" type="tel" class="input" placeholder="09xx-xxx-xxx" pattern="09\d{8}" required>
-          <p class="text-xs text-gray-500 mt-1">格式：09xx-xxx-xxx</p>
+          <label class="block text-sm font-medium mb-1">聯絡電話</label>
+          <input id="contactPhone" type="tel" class="input" placeholder="09xx-xxx-xxx（選填）" pattern="09\d{8}">
+          <p class="text-xs text-gray-500 mt-1">格式：09xx-xxx-xxx（與 LINE ID 擇一填寫）</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">LINE ID</label>
+          <input id="contactLineId" type="text" class="input" placeholder="您的 LINE ID（選填）" maxlength="30">
+          <p class="text-xs text-gray-500 mt-1">與電話擇一填寫即可</p>
         </div>
       </div>
       
@@ -343,7 +461,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ===== Google Sheets API 設定（優先使用） =====
-const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbyUPdvrgShpbwBI888Mw5JRNb8vEsBsPgw7VmLlGbTv1mdlD-blH0h-NZ6sSTpq0g1oqA/exec';
+const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbxCKJOCxnzn0rtvQe0GAfKJMaAzGcb09SgBy5dMcacJNASLF0FWjlBNpQEBphz4Yw_dHg/exec';
 let useGoogleSheets = false;
 
 if (GOOGLE_SHEETS_API_URL && GOOGLE_SHEETS_API_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
@@ -513,35 +631,109 @@ function writeListingsLocal(list) { localStorage.setItem(STORAGE_KEY, JSON.strin
 async function readListings() {
   if (useGoogleSheets) {
     try {
-      // 檢查是否為 file:// 協議（會導致 CORS 錯誤）
-      if (window.location.protocol === 'file:') {
-        console.warn('⚠️ 偵測到 file:// 協議，可能會有 CORS 問題。建議使用 HTTP 伺服器開啟。');
-        // 降級到 localStorage
-        return readListingsLocal();
-      }
-
+      // GET 請求不需要 mode: 'cors'，因為 GET 請求通常不會觸發預檢
       const response = await fetch(GOOGLE_SHEETS_API_URL, {
         method: 'GET',
-        mode: 'cors'
+        cache: 'no-cache'
       });
       
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
       
-      const result = await response.json();
+      const text = await response.text();
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (e) {
+        console.error('解析 JSON 失敗:', text);
+        throw new Error('伺服器回應格式錯誤');
+      }
+      
       if (result.ok && result.list) {
-        return result.list;
+        // 調試：檢查返回的數據格式
+        console.log('📋 從 Google Sheets 讀取的數據:', result.list);
+        
+        // 確保每個項目都有正確的圖片格式
+        const processedList = result.list.map(item => {
+          // 確保 images 是陣列格式
+          let images = item.images || [];
+          // 如果沒有 images 但有 imageUrl，轉換成陣列
+          if (images.length === 0 && item.imageUrl) {
+            images = [item.imageUrl];
+          }
+          
+          // 轉換 Google Drive 連結格式，確保可以正常顯示
+          images = images.map(imgUrl => {
+            if (!imgUrl || typeof imgUrl !== 'string' || imgUrl.trim() === '') return '';
+            
+            let url = imgUrl.trim();
+            
+            // 如果已經是 Google Drive 連結，提取檔案 ID 並轉換格式
+            let fileId = null;
+            
+            // 格式 1: https://drive.google.com/uc?export=view&id=FILE_ID
+            if (url.includes('drive.google.com/uc?export=view&id=')) {
+              fileId = url.match(/id=([^&]+)/)?.[1];
+            }
+            // 格式 2: https://drive.google.com/file/d/FILE_ID/view
+            else if (url.includes('drive.google.com/file/d/')) {
+              fileId = url.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1];
+            }
+            // 格式 3: https://drive.google.com/open?id=FILE_ID
+            else if (url.includes('drive.google.com/open?id=')) {
+              fileId = url.match(/id=([^&]+)/)?.[1];
+            }
+            // 格式 4: 直接包含檔案 ID (lh3格式)
+            else if (url.includes('lh3.googleusercontent.com/d/')) {
+              fileId = url.match(/\/d\/([a-zA-Z0-9_-]+)/)?.[1];
+            }
+            
+            // 如果有檔案 ID，使用多種格式嘗試（最可靠的是 thumbnail 格式）
+            if (fileId && fileId.length >= 25) {
+              // 優先使用 thumbnail 格式（最穩定）
+              return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+            }
+            
+            // 其他格式的連結直接返回
+            return url;
+          }).filter(Boolean); // 過濾空值
+          
+          // 更新 item 的圖片欄位
+          item.images = images;
+          // 確保 imageUrl 存在（用於向下相容）
+          if (!item.imageUrl && images.length > 0) {
+            item.imageUrl = images[0];
+          }
+          
+          console.log(`📸 ${item.title} 的圖片 (${images.length} 張):`, images);
+          return item;
+        });
+        
+        return processedList;
       }
       throw new Error(result.error || '讀取失敗');
     } catch (err) {
       console.error('讀取 Google Sheets 失敗:', err);
       
-      // 如果是 CORS 錯誤，降級到 localStorage 並顯示提示
-      if (err.message && (err.message.includes('CORS') || err.message.includes('fetch'))) {
-        console.warn('⚠️ 讀取失敗，改用 localStorage。請使用 HTTP 伺服器開啟此頁面。');
+      // 如果是 CORS 錯誤或其他網路錯誤，降級到 localStorage 並顯示提示
+      const isCorsError = err.message && (
+        err.message.includes('CORS') || 
+        err.message.includes('fetch') ||
+        err.message.includes('Failed to fetch') ||
+        err.message.includes('network')
+      );
+      
+      if (isCorsError) {
+        console.warn('⚠️ CORS 錯誤：Google Apps Script 需要正確設定 CORS。改用 localStorage。');
+        showToast('無法連接到伺服器，使用離線模式', 'warning');
         return readListingsLocal();
       }
+      
+      // 其他錯誤也降級
+      console.warn('⚠️ 讀取失敗，改用 localStorage');
+      showToast('讀取失敗，使用離線模式', 'warning');
+      return readListingsLocal();
     }
   }
   
@@ -556,7 +748,8 @@ async function readListings() {
         id: item.id,
         title: item.title,
         name: item.contact_name,
-        phone: item.contact_phone,
+        phone: item.contact_phone || '',
+        lineId: item.line_id || '',
         images: item.image_url ? [item.image_url] : [],
         imageUrl: item.image_url || '',
         desc: item.description,
@@ -583,19 +776,19 @@ async function addListing(listing, imageBase64List = []) {
         imageBase64List: imageBase64List
       };
 
-      // 檢查是否為 file:// 協議（會導致 CORS 錯誤）
-      if (window.location.protocol === 'file:') {
-        throw new Error('CORS_ERROR: 請使用 HTTP 伺服器開啟此頁面，不要直接開啟檔案。詳見控制台說明。');
-      }
+      // 使用 FormData（避免 CORS 預檢請求）
+      const fd = new FormData();
+      fd.append('title', listing.title);
+      fd.append('contact_name', listing.name);
+      fd.append('contact_phone', listing.phone || '');
+      fd.append('line_id', listing.lineId || '');
+      fd.append('description', listing.desc || '');
+      fd.append('imageBase64List', JSON.stringify(imageBase64List));
+      fd.append('imageUrls', JSON.stringify(listing.imageUrls || []));
 
-      // 使用 Google Apps Script Web App 的正確方式
       const response = await fetch(GOOGLE_SHEETS_API_URL, {
         method: 'POST',
-        mode: 'cors', // 明確指定 CORS 模式
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload),
+        body: fd,
         redirect: 'follow'
       });
 
@@ -603,7 +796,23 @@ async function addListing(listing, imageBase64List = []) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const result = await response.json();
+      // 嘗試解析回應
+      const text = await response.text();
+      let result;
+      try {
+        result = JSON.parse(text);
+      } catch (e) {
+        // 如果回應不是 JSON，可能表示成功或需要重新導向
+        console.warn('回應不是 JSON 格式:', text.substring(0, 100));
+        // 檢查是否為重新導向後的頁面
+        if (text.includes('Google') || response.redirected) {
+          // 可能是重新導向到確認頁面，嘗試再次讀取
+          console.log('檢測到重新導向，假設提交成功');
+          return { ok: true };
+        }
+        throw new Error('伺服器回應格式錯誤');
+      }
+      
       if (result.ok) {
         return result;
       }
@@ -611,26 +820,17 @@ async function addListing(listing, imageBase64List = []) {
     } catch (err) {
       console.error('新增到 Google Sheets 失敗:', err);
       
-      // 如果是 CORS 錯誤，顯示友善提示
-      if (err.message && err.message.includes('CORS')) {
-        console.error(`
-⚠️ CORS 錯誤解決方案：
-1. 使用 HTTP 伺服器開啟此 HTML（不要直接用檔案開啟）
-   
-   方法 A - VS Code：
-   - 安裝 "Live Server" 擴充功能
-   - 右鍵點擊 second-hand.html → "Open with Live Server"
-   
-   方法 B - Python：
-   - 在專案資料夾開啟終端機
-   - 執行：python -m http.server 8000
-   - 瀏覽器開啟：http://localhost:8000/second-hand.html
-   
-   方法 C - Node.js：
-   - 執行：npx http-server
-   - 瀏覽器開啟提示的網址
-        `);
-        throw new Error('請使用 HTTP 伺服器開啟此頁面（不要直接用檔案開啟）');
+      // 如果是 CORS 錯誤，提供更詳細的錯誤訊息
+      const isCorsError = err.message && (
+        err.message.includes('CORS') || 
+        err.message.includes('Failed to fetch') ||
+        err.message.includes('network')
+      );
+      
+      if (isCorsError) {
+        const corsError = new Error('CORS 錯誤：請檢查 Google Apps Script 的部署設定（必須設定為「所有人可存取」並包含 doOptions 函數）');
+        corsError.isCorsError = true;
+        throw corsError;
       }
       
       throw err;
@@ -665,19 +865,12 @@ async function addListing(listing, imageBase64List = []) {
 async function removeListingById(id) {
   if (useGoogleSheets) {
     try {
-      // 檢查是否為 file:// 協議
-      if (window.location.protocol === 'file:') {
-        console.warn('⚠️ file:// 協議無法使用雲端功能，請使用 HTTP 伺服器開啟');
-        return false;
-      }
-
+      const fd = new FormData();
+      fd.append('action', 'delete');
+      fd.append('id', id);
       const response = await fetch(GOOGLE_SHEETS_API_URL, {
         method: 'POST',
-        mode: 'cors',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ action: 'delete', id: id }),
+        body: fd,
         redirect: 'follow'
       });
       
@@ -735,11 +928,18 @@ function initImageCarousel(containerId, images) {
     showImage(currentIndex);
   }
   
-  container.querySelector('.carousel-next')?.addEventListener('click', nextImage);
-  container.querySelector('.carousel-prev')?.addEventListener('click', prevImage);
+  container.querySelector('.carousel-next')?.addEventListener('click', (e) => {
+    e.stopPropagation(); // 阻止事件冒泡，避免觸發圖片點擊
+    nextImage();
+  });
+  container.querySelector('.carousel-prev')?.addEventListener('click', (e) => {
+    e.stopPropagation(); // 阻止事件冒泡，避免觸發圖片點擊
+    prevImage();
+  });
   
   dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
+    dot.addEventListener('click', (e) => {
+      e.stopPropagation(); // 阻止事件冒泡，避免觸發圖片點擊
       currentIndex = i;
       showImage(currentIndex);
     });
@@ -782,10 +982,10 @@ async function renderListings(filteredList = null) {
             ${images.length > 0 ? `
               <div class="w-32 h-32 flex-shrink-0">
                 ${images.length === 1 ? `
-                  <img src="${images[0]}" class="w-full h-full object-cover rounded" alt="${it.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'%3E%3Crect width=\\'100\\' height=\\'100\\' fill=\\'%23e5e7eb\\'/%3E%3Ctext x=\\'50\\' y=\\'50\\' text-anchor=\\'middle\\' fill=\\'%239ca3af\\'%3E無圖%3C/text%3E%3C/svg%3E'">
+                  <img src="${images[0]}" class="w-full h-full object-cover rounded clickable-image" alt="${it.title}" data-images='${JSON.stringify(images)}' data-index="0" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'%3E%3Crect width=\\'100\\' height=\\'100\\' fill=\\'%23e5e7eb\\'/%3E%3Ctext x=\\'50\\' y=\\'50\\' text-anchor=\\'middle\\' fill=\\'%239ca3af\\'%3E無圖%3C/text%3E%3C/svg%3E'">
                 ` : `
                   <div id="${carouselId}" class="image-carousel">
-                    ${images.map((img, i) => `<img src="${img}" alt="${it.title} ${i+1}" class="${i === 0 ? 'active' : ''}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'%3E%3Crect width=\\'100\\' height=\\'100\\' fill=\\'%23e5e7eb\\'/%3E%3Ctext x=\\'50\\' y=\\'50\\' text-anchor=\\'middle\\' fill=\\'%239ca3af\\'%3E無圖%3C/text%3E%3C/svg%3E'">`).join('')}
+                    ${images.map((img, i) => `<img src="${img}" alt="${it.title} ${i+1}" class="clickable-image ${i === 0 ? 'active' : ''}" data-images='${JSON.stringify(images)}' data-index="${i}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'%3E%3Crect width=\\'100\\' height=\\'100\\' fill=\\'%23e5e7eb\\'/%3E%3Ctext x=\\'50\\' y=\\'50\\' text-anchor=\\'middle\\' fill=\\'%239ca3af\\'%3E無圖%3C/text%3E%3C/svg%3E'">`).join('')}
                     ${images.length > 1 ? `
                       <button class="carousel-prev">‹</button>
                       <button class="carousel-next">›</button>
@@ -806,7 +1006,9 @@ async function renderListings(filteredList = null) {
               ${daysInfo ? `<span class="expires-badge ${daysInfo.class}">${daysInfo.text}</span>` : ''}
               <div class="text-sm text-gray-600 mt-1">${escapeHtml(it.desc || '')}</div>
               <div class="text-sm mt-2">
-                👤 ${escapeHtml(it.name)}　📞 <a href="tel:${it.phone}" class="text-emerald-600">${escapeHtml(it.phone)}</a>
+                👤 ${escapeHtml(it.name)}
+                ${it.phone ? `　📞 <a href="tel:${escapeHtml(it.phone)}" class="text-emerald-600">${escapeHtml(it.phone)}</a>` : ''}
+                ${it.lineId ? `　💬 LINE: <span class="text-emerald-600">${escapeHtml(it.lineId)}</span>` : ''}
               </div>
             </div>
             <button class="text-xs text-red-600 hover:text-red-700 px-2 py-1" onclick="removeListing('${it.id || it.createdAt}')">刪除</button>
@@ -822,6 +1024,22 @@ async function renderListings(filteredList = null) {
         const carouselId = `carousel-${it.id || idx}`;
         setTimeout(() => initImageCarousel(carouselId, images), 100);
       }
+    });
+    
+    // 為所有可點擊的圖片添加事件監聽器
+    document.querySelectorAll('.clickable-image').forEach(img => {
+      img.addEventListener('click', function() {
+        const imagesStr = this.getAttribute('data-images');
+        const index = parseInt(this.getAttribute('data-index') || '0');
+        if (imagesStr) {
+          try {
+            const images = JSON.parse(imagesStr);
+            openLightbox(images, index);
+          } catch (e) {
+            console.error('解析圖片數據失敗:', e);
+          }
+        }
+      });
     });
     
   } catch (err) {
@@ -875,7 +1093,8 @@ function handleSearch() {
     return item.title.toLowerCase().includes(query) ||
            item.name.toLowerCase().includes(query) ||
            (item.desc && item.desc.toLowerCase().includes(query)) ||
-           item.phone.includes(query);
+           (item.phone && item.phone.includes(query)) ||
+           (item.lineId && item.lineId.toLowerCase().includes(query));
   });
   
   renderListings(filtered);
@@ -911,11 +1130,18 @@ document.getElementById('listingForm').addEventListener('submit', async (e) => {
   const title = document.getElementById('itemTitle').value.trim();
   const name = document.getElementById('contactName').value.trim();
   const phone = document.getElementById('contactPhone').value.trim().replace(/[-\s]/g, '');
+  const lineId = document.getElementById('contactLineId').value.trim();
   const desc = document.getElementById('itemDesc').value.trim();
   
   // 驗證
-  if (!title || !name || !phone) {
+  if (!title || !name) {
     showToast('請填寫必填欄位', 'error');
+    return;
+  }
+  
+  // 電話或 LINE ID 至少填寫一個
+  if (!phone && !lineId) {
+    showToast('請填寫電話或 LINE ID（至少填寫一個）', 'error');
     return;
   }
   
@@ -924,8 +1150,14 @@ document.getElementById('listingForm').addEventListener('submit', async (e) => {
     return;
   }
   
-  if (!validatePhone(phone)) {
+  // 如果有填寫電話，則驗證格式
+  if (phone && !validatePhone(phone)) {
     showToast('電話格式錯誤（應為 09xx-xxx-xxx）', 'error');
+    return;
+  }
+  
+  if (lineId && lineId.length > 30) {
+    showToast('LINE ID 過長（最多30字）', 'error');
     return;
   }
   
@@ -950,7 +1182,8 @@ document.getElementById('listingForm').addEventListener('submit', async (e) => {
     const listing = {
       title,
       name,
-      phone,
+      phone: phone || '',
+      lineId: lineId || '',
       desc: desc || null,
       createdAt: Date.now(),
       imageUrls: []
@@ -972,11 +1205,117 @@ document.getElementById('listingForm').addEventListener('submit', async (e) => {
     }, 1000);
   } catch (err) {
     console.error('提交失敗:', err);
-    showToast('發布失敗：' + (err.message || '請稍後再試'), 'error');
+    
+    // 提供更詳細的錯誤訊息
+    let errorMsg = '發布失敗：';
+    if (err.isCorsError) {
+      errorMsg += 'CORS 設定錯誤。請檢查 Google Apps Script 部署設定。';
+      console.error('💡 解決方案：\n1. 確保 Apps Script 部署為「所有人可存取」\n2. 在 Apps Script 中添加 doOptions() 函數\n3. 重新部署並更新 URL');
+    } else if (err.message) {
+      errorMsg += err.message;
+    } else {
+      errorMsg += '請稍後再試';
+    }
+    
+    showToast(errorMsg, 'error');
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
   }
 });
+
+// ===== 圖片燈箱功能 =====
+let lightboxImages = [];
+let lightboxCurrentIndex = 0;
+
+function openLightbox(images, index = 0) {
+  if (!images || images.length === 0) return;
+  
+  lightboxImages = images;
+  lightboxCurrentIndex = Math.max(0, Math.min(index, images.length - 1));
+  
+  const overlay = document.getElementById('lightboxOverlay');
+  const img = document.getElementById('lightboxImage');
+  const counter = document.getElementById('lightboxCounter');
+  const prevBtn = overlay.querySelector('.lightbox-prev');
+  const nextBtn = overlay.querySelector('.lightbox-next');
+  
+  // 顯示當前圖片
+  img.src = lightboxImages[lightboxCurrentIndex];
+  img.alt = `圖片 ${lightboxCurrentIndex + 1}`;
+  
+  // 更新計數器
+  if (lightboxImages.length > 1) {
+    counter.textContent = `${lightboxCurrentIndex + 1} / ${lightboxImages.length}`;
+    counter.style.display = 'block';
+    prevBtn.style.display = 'flex';
+    nextBtn.style.display = 'flex';
+  } else {
+    counter.style.display = 'none';
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  }
+  
+  // 顯示燈箱
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden'; // 防止背景滾動
+  
+  // 鍵盤事件監聽
+  document.addEventListener('keydown', handleLightboxKeyboard);
+}
+
+function closeLightbox() {
+  const overlay = document.getElementById('lightboxOverlay');
+  overlay.classList.remove('active');
+  document.body.style.overflow = ''; // 恢復滾動
+  document.removeEventListener('keydown', handleLightboxKeyboard);
+}
+
+function closeLightboxOnOverlay(event) {
+  // 如果點擊的是背景（而不是圖片本身），則關閉
+  if (event.target.id === 'lightboxOverlay') {
+    closeLightbox();
+  }
+}
+
+function lightboxPrev() {
+  if (lightboxImages.length <= 1) return;
+  lightboxCurrentIndex = (lightboxCurrentIndex - 1 + lightboxImages.length) % lightboxImages.length;
+  updateLightboxImage();
+}
+
+function lightboxNext() {
+  if (lightboxImages.length <= 1) return;
+  lightboxCurrentIndex = (lightboxCurrentIndex + 1) % lightboxImages.length;
+  updateLightboxImage();
+}
+
+function updateLightboxImage() {
+  const img = document.getElementById('lightboxImage');
+  const counter = document.getElementById('lightboxCounter');
+  
+  img.src = lightboxImages[lightboxCurrentIndex];
+  img.alt = `圖片 ${lightboxCurrentIndex + 1}`;
+  
+  if (lightboxImages.length > 1) {
+    counter.textContent = `${lightboxCurrentIndex + 1} / ${lightboxImages.length}`;
+  }
+}
+
+function handleLightboxKeyboard(event) {
+  if (!document.getElementById('lightboxOverlay').classList.contains('active')) return;
+  
+  switch(event.key) {
+    case 'Escape':
+      closeLightbox();
+      break;
+    case 'ArrowLeft':
+      lightboxPrev();
+      break;
+    case 'ArrowRight':
+      lightboxNext();
+      break;
+  }
+}
 
 // ===== 初始化 =====
 setupImagePreview();
