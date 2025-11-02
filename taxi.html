@@ -7,8 +7,8 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 ::root{
-  --grad:linear-gradient(135deg,#14b8a6,#0d9488);
-  --glass-bg:rgba(255,255,255,0.6);
+  --grad:linear-gradient(135deg,#059669,#0d9488);
+  --glass-bg:rgba(255,255,255,0.95);
   --glass-dark:rgba(30,30,30,0.6);
   --shadow-light:0 4px 12px rgba(0,0,0,.1);
   --border-radius:1rem;
@@ -16,7 +16,7 @@
 }
 
 body{
-  background:linear-gradient(to bottom,#ccfbf1,#fff);
+  background:linear-gradient(to bottom,#a7f3d0,#e0f2fe);
   transition:var(--transition);
   font-family:system-ui,-apple-system,sans-serif;
   line-height:1.6;
@@ -26,21 +26,23 @@ body{
   background:var(--glass-bg);
   backdrop-filter:blur(10px);
   border-radius:var(--border-radius);
-  border:1px solid rgba(255,255,255,0.2);
+  border:1px solid rgba(13,148,136,0.2);
+  box-shadow:0 2px 8px rgba(13,148,136,0.1);
 }
 
 .contractor-card{
-  background:rgba(255,255,255,0.9);
+  background:rgba(255,255,255,1);
   border-radius:0.75rem;
   padding:1.5rem;
   margin-bottom:1rem;
   transition:var(--transition);
-  border-left:4px solid #14b8a6;
+  border-left:4px solid #0d9488;
+  box-shadow:0 2px 6px rgba(13,148,136,0.15);
 }
 
 .contractor-card:hover{
   transform:translateY(-2px);
-  box-shadow:var(--shadow-light);
+  box-shadow:0 6px 20px rgba(13,148,136,0.25);
 }
 
 .contact-btn{
@@ -52,11 +54,12 @@ body{
   font-weight:600;
   transition:var(--transition);
   display:inline-block;
+  box-shadow:0 2px 8px rgba(13,148,136,0.3);
 }
 
 .contact-btn:hover{
   transform:scale(1.05);
-  box-shadow:0 4px 15px rgba(20,184,166,0.3);
+  box-shadow:0 4px 15px rgba(13,148,136,0.5);
 }
 
 #themeToggle{
@@ -85,9 +88,9 @@ body{
 </button>
 
 <!-- 標題區 -->
-<header class="text-center py-8" style="background:var(--grad);color:white;">
-  <h1 class="text-3xl font-bold">🚕 計程車行</h1>
-  <p class="text-sm opacity-90 mt-2">在地叫車，一鍵聯繫</p>
+<header class="text-center py-8" style="background:var(--grad);">
+  <h1 class="text-3xl font-bold text-white drop-shadow-lg">🚕 計程車行</h1>
+  <p class="text-sm text-white/95 mt-2">在地叫車，一鍵聯繫</p>
 </header>
 
 <main class="px-4 py-6 space-y-6">
@@ -98,7 +101,7 @@ body{
         <span class="text-3xl">🚕</span>
         <span>在地計程車行</span>
       </h2>
-      <span class="text-sm bg-teal-500 text-white px-3 py-1 rounded-full">推薦</span>
+      <span class="text-sm bg-cyan-600 text-white px-3 py-1 rounded-full">推薦</span>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -107,8 +110,8 @@ body{
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-xl font-bold text-gray-800">TAXI SERVICE</h3>
           <div class="flex gap-2">
-            <span class="text-xs bg-teal-500 text-white px-2 py-1 rounded-full">專營</span>
-            <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">預約</span>
+            <span class="text-xs bg-cyan-600 text-white px-2 py-1 rounded-full">專營</span>
+            <span class="text-xs bg-emerald-600 text-white px-2 py-1 rounded-full">預約</span>
           </div>
         </div>
 
@@ -125,8 +128,8 @@ body{
           </div>
         </div>
 
-        <div class="bg-teal-50 rounded-xl p-3 mb-4">
-          <h4 class="font-semibold text-teal-800 mb-2 flex items-center gap-2 text-sm">
+        <div class="bg-cyan-50 rounded-xl p-3 mb-4 border border-cyan-100">
+          <h4 class="font-semibold text-cyan-900 mb-2 flex items-center gap-2 text-sm">
             <span>📞</span>
             <span>聯絡資訊</span>
           </h4>
@@ -137,17 +140,13 @@ body{
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">電話</span>
-              <a href="tel:0970713059" class="font-medium text-teal-600 hover:underline">0970-713-059</a>
+              <a href="tel:0970713059" class="font-medium text-cyan-700 hover:text-cyan-900 hover:underline">0970-713-059</a>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">服務項目</span>
               <span class="font-medium text-gray-800 text-right">機場高鐵、商務通勤、旅遊包車、景點接送</span>
             </div>
           </div>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <a class="contact-btn" href="tel:0970713059">立即撥打</a>
         </div>
       </div>
     </div>
