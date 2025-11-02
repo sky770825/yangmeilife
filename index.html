@@ -425,6 +425,7 @@ body.dark .mini-fun-card {
   main {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
+    padding-bottom: 5rem !important;
   }
   .app-card {
     min-height: 85px;
@@ -471,6 +472,27 @@ body.dark .mini-fun-card {
   .app-card .relative.z-10 {
     padding-top: 0.5rem;
   }
+  
+  /* 手機版底部導航欄優化 */
+  .bottom-nav {
+    z-index: 1000 !important;
+    position: fixed !important;
+    overflow: hidden !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  .bottom-nav button {
+    min-width: auto;
+    padding: 0.25rem 0.5rem;
+    position: relative;
+    z-index: 1001;
+  }
+  
+  /* 防止任何內容溢出到底部導航欄區域 */
+  .bottom-nav::before,
+  .bottom-nav::after {
+    display: none !important;
+  }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -482,6 +504,9 @@ body.dark .mini-fun-card {
   }
   .app-card {
     min-height: 90px;
+  }
+  main {
+    padding-bottom: 5rem !important;
   }
 }
 
@@ -498,6 +523,28 @@ body.dark .mini-fun-card {
   main {
     max-width: 1200px;
     margin: 0 auto;
+    padding-bottom: 5rem !important;
+  }
+  
+  /* 桌面版底部導航欄優化 */
+  .bottom-nav {
+    z-index: 1000 !important;
+    position: fixed !important;
+    overflow: hidden !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+  
+  .bottom-nav button {
+    min-width: auto;
+    padding: 0.5rem 1.5rem;
+    position: relative;
+    z-index: 1001;
+  }
+  
+  /* 防止任何內容溢出到底部導航欄區域 */
+  .bottom-nav::before,
+  .bottom-nav::after {
+    display: none !important;
   }
 }
 
@@ -505,7 +552,47 @@ body.dark .mini-fun-card {
 .bottom-nav {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  z-index: 1000 !important;
+  position: fixed !important;
 }
+
+/* 平板設備底部導航欄優化 */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .bottom-nav {
+      z-index: 1000 !important;
+      position: fixed !important;
+      overflow: hidden !important;
+      background: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    .bottom-nav button {
+      min-width: auto;
+      padding: 0.5rem 1rem;
+      position: relative;
+      z-index: 1001;
+    }
+    
+    /* 確保主內容不會覆蓋導航欄 */
+    main {
+      padding-bottom: 5rem !important;
+    }
+    
+    /* 防止任何內容溢出到底部導航欄區域 */
+    body > *:not(.bottom-nav):not(nav) {
+      margin-bottom: 0 !important;
+    }
+    
+    /* 確保導航欄區域沒有任何其他內容 */
+    .bottom-nav * {
+      overflow: visible !important;
+    }
+    
+    /* 隱藏任何可能誤顯示的內容 */
+    .bottom-nav::before,
+    .bottom-nav::after {
+      display: none !important;
+    }
+  }
 
 /* 無障礙設計 */
 .sr-only {
@@ -1739,7 +1826,7 @@ body.dark .mini-fun-card {
 </div>
 
 <!-- 📍 底部導航 -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航" style="z-index: 1000; overflow: hidden;">
   <button onclick="scrollTo(0,0)" class="flex flex-col items-center text-indigo-600 text-sm hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
     <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
   </button>
