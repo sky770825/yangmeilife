@@ -844,7 +844,7 @@ body.dark .mini-fun-card {
   </div>
   
   <div class="grid grid-cols-4 gap-3">
-    <div class="relaxed-card games group relative overflow-hidden" onclick="openTool('games.html')" onmouseenter="showCardPreview('games')" onmouseleave="hideCardPreview()">
+    <div class="relaxed-card games group relative overflow-hidden" onclick="openTool('games.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="card-icon group-hover:animate-spin">🎮</span>
       <span class="card-title">遊戲</span>
@@ -852,7 +852,7 @@ body.dark .mini-fun-card {
         熱門
       </div>
     </div>
-    <div class="relaxed-card fortune group relative overflow-hidden" onclick="openTool('fortune.html')" onmouseenter="showCardPreview('fortune')" onmouseleave="hideCardPreview()">
+    <div class="relaxed-card fortune group relative overflow-hidden" onclick="openTool('fortune.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-pink-500/10 to-rose-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="card-icon group-hover:animate-pulse">🔮</span>
       <span class="card-title">運勢</span>
@@ -860,7 +860,7 @@ body.dark .mini-fun-card {
         每日更新
       </div>
     </div>
-    <div class="relaxed-card mbti group relative overflow-hidden" onclick="openTool('mbti.html')" onmouseenter="showCardPreview('mbti')" onmouseleave="hideCardPreview()">
+    <div class="relaxed-card mbti group relative overflow-hidden" onclick="openTool('mbti.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="card-icon group-hover:animate-bounce">🧩</span>
       <span class="card-title">MBTI</span>
@@ -868,7 +868,7 @@ body.dark .mini-fun-card {
         心理測驗
       </div>
     </div>
-    <div class="relaxed-card quote group relative overflow-hidden" onclick="openTool('daily-quote.html')" onmouseenter="showCardPreview('quote')" onmouseleave="hideCardPreview()">
+    <div class="relaxed-card quote group relative overflow-hidden" onclick="openTool('daily-quote.html')">
       <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <span class="card-icon group-hover:animate-pulse">📝</span>
       <span class="card-title">金句</span>
@@ -876,11 +876,6 @@ body.dark .mini-fun-card {
         每日一句
       </div>
     </div>
-  </div>
-  
-  <!-- 卡片預覽浮層 -->
-  <div id="cardPreview" class="absolute bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-xl shadow-xl p-4 z-30 hidden transform transition-all duration-300">
-    <div id="previewContent"></div>
   </div>
 </section>
 

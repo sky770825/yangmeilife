@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>二手交易 - 楊梅人在地生活</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
@@ -402,6 +402,14 @@
   margin: -1rem -1rem 1rem -1rem;
   border-bottom: 1px solid #e5e7eb;
   z-index: 10;
+}
+/* 底部導航欄 - 確保貼底並處理安全區域 */
+.bottom-nav {
+  z-index: 999;
+  /* iOS 安全區域支持 */
+  padding-bottom: env(safe-area-inset-bottom);
+  /* 確保貼底 */
+  bottom: 0 !important;
 }
 /* 剩餘天數標籤 */
 .expires-badge {
