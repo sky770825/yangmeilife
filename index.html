@@ -113,19 +113,33 @@ body.dark .glass-card{
 /* 應用卡片 */
 .app-card{
   text-align:center;
-  padding:1rem;
+  padding:0.75rem 0.5rem;
   border-radius:var(--border-radius);
   box-shadow:var(--shadow-light);
   cursor:pointer;
   transition:var(--bounce);
-  min-height:70px;
+  min-height:95px;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   font-weight:600;
-  font-size:0.9rem;
+  font-size:1rem;
   position:relative;
   overflow:hidden;
+  line-height:1.2;
+}
+.app-card .mb-2{
+  margin-bottom:0.25rem !important;
+}
+.app-card .mt-1{
+  margin-top:0.125rem !important;
+}
+.app-card .text-xs{
+  font-size:0.75rem !important;
+}
+.app-card .text-sm{
+  font-size:0.95rem !important;
 }
 .app-card::before{
   content:'';
@@ -279,7 +293,7 @@ body.dark .fun-card {
 
 .relaxed-card .card-icon {
   font-size: 2.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   display: block;
   transition: transform 0.3s ease;
 }
@@ -289,7 +303,7 @@ body.dark .fun-card {
 }
 
 .relaxed-card .card-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #374151;
   transition: color 0.3s ease;
@@ -405,18 +419,16 @@ body.dark .mini-fun-card {
     grid-template-columns: repeat(3, 1fr);
   }
   .app-card {
-    min-height: 70px;
-    padding: 0.5rem;
-    font-size: 0.75rem;
+    min-height: 85px;
+    padding: 0.5rem 0.375rem;
+    font-size: 0.95rem;
   }
   /* 手機版圖標大小調整 */
   .app-card .text-3xl {
-    font-size: 1.5rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.75rem;
   }
   .app-card .text-2xl {
-    font-size: 1.25rem;
-    margin-bottom: 0.25rem;
+    font-size: 1.5rem;
   }
   /* 手機版標籤位置調整 - 避免與圖標重疊 */
   .app-card .absolute.top-2.right-2 {
@@ -437,15 +449,15 @@ body.dark .mini-fun-card {
   }
   /* 手機版卡片內容區域調整 */
   .app-card.text-center {
-    padding-top: 0.75rem;
+    padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
   /* 手機版卡片文字調整 */
   .app-card .text-sm {
-    font-size: 0.7rem;
+    font-size: 0.95rem;
   }
   .app-card .text-xs {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
   }
   /* 確保圖標和標籤有足夠空間 */
   .app-card .relative.z-10 {
@@ -461,7 +473,7 @@ body.dark .mini-fun-card {
     grid-template-columns: repeat(4, 1fr);
   }
   .app-card {
-    min-height: 60px;
+    min-height: 90px;
   }
 }
 
@@ -473,7 +485,7 @@ body.dark .mini-fun-card {
     grid-template-columns: repeat(4, 1fr);
   }
   .app-card {
-    min-height: 60px;
+    min-height: 95px;
   }
   main {
     max-width: 1200px;
@@ -962,15 +974,6 @@ body.dark .mini-fun-card {
       </div>
     </div>
     
-    <div class="app-card glass-card tool group relative overflow-hidden" onclick="openTool('tax-calc.html')">
-      <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      <div class="relative z-10 text-center">
-        <div class="text-3xl mb-2 group-hover:animate-bounce">📄</div>
-        <div class="font-bold">稅費試算</div>
-        <div class="text-xs opacity-75 mt-1">精確計算</div>
-      </div>
-    </div>
-    
     <div class="app-card glass-card investment group relative overflow-hidden" onclick="openTool('https://salersteam.pages.dev/junyang')">
       <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div class="relative z-10 text-center">
@@ -1019,7 +1022,7 @@ body.dark .mini-fun-card {
           <div class="w-full h-full bg-gradient-to-br from-pink-400 to-rose-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold" style="display:none;">💸</div>
         </div>
         <div class="font-bold text-lg">補助優惠</div>
-        <div class="text-sm opacity-75 mt-1">政府補助、優惠資訊一網打盡</div>
+        <div class="text-sm opacity-75 mt-1">政府補助、優惠資訊</div>
       </div>
       <div class="absolute top-2 right-2 text-xs bg-red-500 text-white px-2 py-1 rounded-full animate-pulse">
         限時優惠
@@ -1734,20 +1737,20 @@ body.dark .mini-fun-card {
 
 <!-- 📍 底部導航 -->
 <nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
-  <button onclick="scrollTo(0,0)" class="flex flex-col items-center text-indigo-600 text-xs hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
-    <span>🏠</span><span>首頁</span>
+  <button onclick="scrollTo(0,0)" class="flex flex-col items-center text-indigo-600 text-sm hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
   </button>
-  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
-    <span>📝</span><span>記帳</span>
+  <button onclick="openTool('expense-tracker.html')" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
   </button>
-  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
-    <span>🎮</span><span>遊戲</span>
+  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
   </button>
-  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
-    <span>🍹</span><span>房訊</span>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span class="text-2xl mb-0.5">🍹</span><span>房訊</span>
   </button>
-  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-xs hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
-    <span>🙏</span><span>拜拜</span>
+  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
   </button>
 </nav>
 
