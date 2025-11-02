@@ -238,6 +238,26 @@ body {
 .dark .feature-item:hover {
   background: rgba(102, 126, 234, 0.2);
 }
+
+/* 底部導航優化 */
+.bottom-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav button {
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.bottom-nav button:hover {
+  transform: translateY(-2px);
+}
+
+.bottom-nav button:active {
+  transform: translateY(0);
+}
 </style>
 </head>
 <body>
@@ -509,6 +529,34 @@ function callNow() {
 document.addEventListener('DOMContentLoaded', function() {
   loadTheme();
 });
+
+// 工具開啟功能
+function openTool(url) {
+  if (url.startsWith('http')) {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  } else {
+    window.location.href = url;
+  }
+}
 </script>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
+  </button>
+  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
+  </button>
+  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
+  </button>
+</nav>
 </body>
 </html>
