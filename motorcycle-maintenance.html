@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>機車保養記錄 - 楊梅人在地生活集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="utils.js"></script>
+<style>
+:root {
+  --grad: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --border-radius: 1.25rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #fff 100%);
+  font-family: system-ui, -apple-system, sans-serif;
+  padding-bottom: 80px;
+  padding-top: env(safe-area-inset-top);
+  min-height: 100vh;
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: clamp(0.75rem, 2vw, 1rem);
+  margin-bottom: clamp(0.75rem, 2vw, 1rem);
+}
+
+.record-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: clamp(0.75rem, 2vw, 1rem);
+  margin-bottom: clamp(0.5rem, 1.5vw, 0.75rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  position: relative;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.record-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.mileage-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.next-service-warning {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.input {
+  width: 100%;
+  padding: clamp(0.5rem, 1.5vw, 0.625rem) clamp(0.75rem, 2vw, 0.875rem);
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: clamp(0.875rem, 2.5vw, 0.9375rem);
+  margin-bottom: 0;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  transform: scale(1.01);
+}
+
+@media (min-width: 640px) {
+  .input {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9375rem;
+  }
+  
+  .input:focus {
+    transform: scale(1);
+  }
+}
+
+.btn {
+  padding: clamp(0.625rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: clamp(0.875rem, 2.5vw, 0.9375rem);
+  min-height: clamp(40px, 8vw, 44px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+@media (min-width: 640px) {
+  .btn {
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+}
+
+.btn-primary {
+  background: var(--grad);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  min-height: 36px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2000;
+  padding: 0;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1.25rem 1.25rem 0 0;
+  max-width: 100%;
+  width: 100%;
+  max-height: calc(100vh - 80px - env(safe-area-inset-bottom));
+  overflow: visible;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+  margin-top: auto;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (min-width: 640px) {
+  .modal-overlay {
+    align-items: center;
+    padding: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .modal-content {
+    border-radius: 1.25rem;
+    max-width: 600px;
+    max-height: none;
+    margin-top: 0;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal-content {
+    max-width: 650px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* 底部導航優化 */
+.bottom-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  position: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav button {
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.bottom-nav button:hover {
+  transform: translateY(-2px);
+}
+
+.bottom-nav button:active {
+  transform: translateY(0);
+}
+
+/* 動畫效果 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* 響應式優化 */
+@media (max-width: 375px) {
+  .glass-card {
+    padding: 0.625rem;
+  }
+  
+  .record-card {
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  main {
+    padding-left: clamp(1rem, 5vw, 2rem);
+    padding-right: clamp(1rem, 5vw, 2rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal-content {
+    max-width: 700px;
+  }
+}
+
+/* 觸摸優化 */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 48px;
+  }
+  
+  .record-card {
+    padding: 1rem;
+  }
+  
+  .input {
+    font-size: 16px; /* 防止iOS自動縮放 */
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部標題 -->
+<header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2 sm:py-3 px-3 sm:px-4 shadow-lg sticky top-0 z-10">
+  <div class="flex items-center justify-between">
+    <h1 class="text-base sm:text-xl font-bold flex items-center gap-1 sm:gap-2">
+      <span class="text-lg sm:text-xl">🏍️</span>
+      <span class="hidden sm:inline">機車保養記錄</span>
+      <span class="sm:hidden">保養記錄</span>
+    </h1>
+    <div class="flex gap-1.5 sm:gap-2">
+      <button onclick="exportData()" class="bg-white/20 hover:bg-white/30 active:bg-white/40 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all touch-manipulation" title="匯出數據">
+        <span class="hidden sm:inline">💾 匯出</span>
+        <span class="sm:hidden">💾</span>
+      </button>
+      <button onclick="openAddModal()" class="bg-white/20 hover:bg-white/30 active:bg-white/40 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all touch-manipulation" title="新增記錄">
+        <span class="hidden sm:inline">➕ 新增記錄</span>
+        <span class="sm:hidden">➕</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="px-3 sm:px-4 py-3 sm:py-4 max-w-4xl mx-auto">
+  <!-- 統計卡片 -->
+  <div class="glass-card grid grid-cols-2 gap-3 sm:gap-4">
+    <div class="cursor-pointer active:scale-95 transition-transform" onclick="openAddModal()" title="點擊新增記錄">
+      <div class="text-xs sm:text-sm text-gray-600 mb-1">目前里程數</div>
+      <div class="text-xl sm:text-2xl font-bold text-indigo-600" id="currentMileage">0</div>
+      <div class="text-xs text-gray-500">公里</div>
+    </div>
+    <div class="cursor-pointer active:scale-95 transition-transform">
+      <div class="text-xs sm:text-sm text-gray-600 mb-1">下次保養</div>
+      <div class="text-xl sm:text-2xl font-bold text-orange-600" id="nextServiceMileage">-</div>
+      <div class="text-xs text-gray-500">約 <span id="nextServiceKm">-</span> 公里後</div>
+    </div>
+  </div>
+
+  <!-- 搜尋 -->
+  <div class="glass-card">
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="input" 
+      placeholder="🔍 搜尋保養項目或廠商..."
+      oninput="filterRecords()"
+    >
+  </div>
+
+  <!-- 記錄列表 -->
+  <div id="recordsList"></div>
+</main>
+
+<!-- 新增/編輯記錄模態框 -->
+<div id="recordModal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <!-- 拖拽指示器 -->
+    <div class="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-gray-300 rounded-full sm:hidden"></div>
+    
+    <div class="p-3 sm:p-4 pt-5 sm:pt-5 flex-1 flex flex-col">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-base sm:text-lg font-bold" id="modalTitle">新增記錄</h2>
+        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 active:text-gray-900 text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors touch-manipulation" aria-label="關閉">
+          &times;
+        </button>
+      </div>
+      
+      <form id="recordForm" onsubmit="saveRecord(event)" class="flex-1 flex flex-col">
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">保養日期 *</label>
+          <input 
+            type="date" 
+            id="recordDate" 
+            class="input" 
+            required
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">里程數 (公里) *</label>
+          <input 
+            type="number" 
+            id="recordMileage" 
+            class="input" 
+            placeholder="例如：15000"
+            min="0"
+            required
+            autocomplete="off"
+            inputmode="numeric"
+          >
+        </div>
+
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">保養項目 *</label>
+          <input 
+            type="text" 
+            id="recordItem" 
+            class="input" 
+            placeholder="例如：機油更換、輪胎更換"
+            required
+            autocomplete="off"
+            list="itemSuggestions"
+          >
+          <datalist id="itemSuggestions">
+            <option value="機油更換">
+            <option value="輪胎更換">
+            <option value="煞車檢查">
+            <option value="電瓶檢查">
+            <option value="空濾更換">
+            <option value="傳動保養">
+            <option value="大保養">
+          </datalist>
+        </div>
+
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">廠商名稱</label>
+          <input 
+            type="text" 
+            id="recordVendor" 
+            class="input" 
+            placeholder="例如：XX機車行"
+            autocomplete="off"
+            list="vendorSuggestions"
+          >
+          <datalist id="vendorSuggestions"></datalist>
+        </div>
+
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">聯絡電話</label>
+          <input 
+            type="tel" 
+            id="recordPhone" 
+            class="input" 
+            placeholder="例如：03-478-XXXX"
+            autocomplete="tel"
+            inputmode="tel"
+          >
+        </div>
+
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">費用 (元)</label>
+          <input 
+            type="number" 
+            id="recordCost" 
+            class="input" 
+            placeholder="例如：800"
+            step="0.01"
+            min="0"
+            autocomplete="off"
+            inputmode="decimal"
+          >
+        </div>
+
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">下次保養里程 (公里)</label>
+          <input 
+            type="number" 
+            id="recordNextService" 
+            class="input" 
+            placeholder="例如：15500（下次保養時的里程數）"
+            min="0"
+            autocomplete="off"
+            inputmode="numeric"
+          >
+        </div>
+
+        <div class="mb-2.5">
+          <label class="block text-xs sm:text-sm font-semibold mb-1">備註</label>
+          <textarea 
+            id="recordNote" 
+            class="input" 
+            rows="2"
+            placeholder="其他說明..."
+            autocomplete="off"
+          ></textarea>
+        </div>
+
+        <div class="flex gap-2 mt-4">
+          <button type="button" onclick="closeModal()" class="btn btn-secondary flex-1">
+            取消
+          </button>
+          <button type="submit" class="btn btn-primary flex-1">
+            💾 儲存
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
+  </button>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
+  </button>
+  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
+  </button>
+</nav>
+
+<script>
+// 數據管理
+let records = safeLocalStorageGet('motorcycleMaintenance', []);
+let editingIndex = -1;
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadRecords();
+  updateStats();
+  loadSuggestions();
+  
+  // 設置預設日期為今天
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('recordDate').value = today;
+  
+  // 快捷鍵支持
+  document.addEventListener('keydown', function(e) {
+    // ESC 鍵關閉模態框
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('recordModal');
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      }
+    }
+    // Ctrl/Cmd + N 新增記錄
+    if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+      e.preventDefault();
+      if (!document.getElementById('recordModal').classList.contains('active')) {
+        openAddModal();
+      }
+    }
+    // Ctrl/Cmd + S 儲存（在模態框內）
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      const modal = document.getElementById('recordModal');
+      if (modal && modal.classList.contains('active')) {
+        e.preventDefault();
+        document.getElementById('recordForm').requestSubmit();
+      }
+    }
+  });
+  
+  // 表單自動聚焦
+  const form = document.getElementById('recordForm');
+  if (form) {
+    form.addEventListener('submit', function() {
+      // 儲存後自動聚焦第一個輸入框（如果重新打開）
+    });
+  }
+});
+
+// 更新統計
+function updateStats() {
+  if (records.length === 0) {
+    document.getElementById('currentMileage').textContent = '0';
+    document.getElementById('nextServiceMileage').textContent = '-';
+    document.getElementById('nextServiceKm').textContent = '-';
+    return;
+  }
+  
+  // 找到最新的里程數
+  const sortedRecords = [...records].sort((a, b) => b.mileage - a.mileage);
+  const latestRecord = sortedRecords[0];
+  const currentMileage = latestRecord.mileage;
+  
+  document.getElementById('currentMileage').textContent = currentMileage.toLocaleString();
+  
+  // 找到最近的下次保養里程
+  const nextServiceRecords = records.filter(r => r.nextServiceMileage && r.nextServiceMileage > currentMileage);
+  if (nextServiceRecords.length > 0) {
+    const nextService = Math.min(...nextServiceRecords.map(r => r.nextServiceMileage));
+    const remainingKm = nextService - currentMileage;
+    document.getElementById('nextServiceMileage').textContent = nextService.toLocaleString();
+    document.getElementById('nextServiceKm').textContent = remainingKm.toLocaleString();
+  } else {
+    document.getElementById('nextServiceMileage').textContent = '-';
+    document.getElementById('nextServiceKm').textContent = '-';
+  }
+}
+
+// 載入記錄列表
+function loadRecords() {
+  const recordsList = document.getElementById('recordsList');
+  const searchText = document.getElementById('searchInput').value.toLowerCase();
+  
+  // 過濾記錄
+  const filteredRecords = records.filter(record => {
+    if (!searchText) return true;
+    return record.item.toLowerCase().includes(searchText) ||
+           (record.vendor && record.vendor.toLowerCase().includes(searchText));
+  });
+  
+  // 按日期排序（最新的在前）
+  filteredRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  if (filteredRecords.length === 0) {
+    recordsList.innerHTML = `
+      <div class="glass-card text-center py-8">
+        <div class="text-4xl mb-4">🏍️</div>
+        <p class="text-lg font-semibold mb-2">還沒有保養記錄</p>
+        <p class="text-sm text-gray-600 mb-4">點擊「新增記錄」開始記錄機車保養資訊</p>
+        <button onclick="openAddModal()" class="btn btn-primary">
+          ➕ 新增記錄
+        </button>
+      </div>
+    `;
+    return;
+  }
+  
+  recordsList.innerHTML = filteredRecords.map((record, index) => {
+    const actualIndex = records.indexOf(record);
+    const date = new Date(record.date);
+    const dateStr = date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
+    
+    // 計算下次保養提醒
+    let nextServiceWarning = '';
+    const currentMileage = Math.max(...records.map(r => r.mileage));
+    if (record.nextServiceMileage && record.nextServiceMileage > currentMileage) {
+      const remainingKm = record.nextServiceMileage - currentMileage;
+      if (remainingKm <= 500) {
+        nextServiceWarning = `<div class="next-service-warning">⚠️ 下次保養：${record.nextServiceMileage.toLocaleString()} 公里（剩餘 ${remainingKm} 公里）</div>`;
+      }
+    }
+    
+    return `
+      <div class="record-card">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2 flex-wrap">
+              <h3 class="font-bold text-lg">${record.item}</h3>
+              <span class="mileage-badge">${record.mileage.toLocaleString()} 公里</span>
+            </div>
+            <div class="text-sm text-gray-600 mb-2">
+              <span class="font-semibold">保養日期：</span>${dateStr}
+            </div>
+            ${record.vendor ? `
+              <div class="text-sm text-gray-600 mb-2">
+                <span class="font-semibold">廠商：</span>${record.vendor}
+                ${record.phone ? `<span class="text-gray-500 ml-2">${record.phone}</span>` : ''}
+              </div>
+            ` : ''}
+            ${record.cost ? `
+              <div class="text-sm text-gray-600 mb-2">
+                <span class="font-semibold">費用：</span><span class="text-red-600 font-semibold">$${record.cost.toLocaleString()}</span>
+              </div>
+            ` : ''}
+            ${record.nextServiceMileage ? `
+              <div class="text-sm text-gray-600 mb-2">
+                <span class="font-semibold">下次保養：</span>${record.nextServiceMileage.toLocaleString()} 公里
+              </div>
+            ` : ''}
+            ${nextServiceWarning}
+            ${record.note ? `<div class="text-sm text-gray-500 mt-2">${record.note}</div>` : ''}
+          </div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button 
+            onclick="editRecord(${actualIndex})" 
+            class="btn btn-secondary btn-sm flex-1"
+          >
+            ✏️ 編輯
+          </button>
+          <button 
+            onclick="deleteRecord(${actualIndex})" 
+            class="btn btn-danger btn-sm flex-1"
+          >
+            🗑️ 刪除
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 篩選記錄
+function filterRecords() {
+  loadRecords();
+}
+
+// 載入建議選項
+function loadSuggestions() {
+  const vendorList = document.getElementById('vendorSuggestions');
+  if (!vendorList) return;
+  
+  // 從記錄中提取所有廠商名稱
+  const vendors = [...new Set(records.filter(r => r.vendor).map(r => r.vendor))];
+  vendorList.innerHTML = vendors.map(v => `<option value="${v}">`).join('');
+}
+
+// 快速填充上次記錄
+function quickFillLast() {
+  if (records.length === 0) return;
+  
+  const lastRecord = records.sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+  if (lastRecord) {
+    document.getElementById('recordVendor').value = lastRecord.vendor || '';
+    document.getElementById('recordPhone').value = lastRecord.phone || '';
+  }
+}
+
+// 打開新增模態框
+function openAddModal() {
+  editingIndex = -1;
+  document.getElementById('modalTitle').textContent = '新增記錄';
+  document.getElementById('recordForm').reset();
+  
+  // 設置預設日期為今天
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('recordDate').value = today;
+  
+  // 如果已有記錄，建議下次里程數和快速填充
+  if (records.length > 0) {
+    const currentMileage = Math.max(...records.map(r => r.mileage));
+    const suggestedNext = currentMileage + 1000;
+    document.getElementById('recordNextService').placeholder = `例如：${suggestedNext.toLocaleString()}（建議：目前里程 + 1000公里）`;
+    // 快速填充上次的廠商和電話
+    quickFillLast();
+  }
+  
+  document.getElementById('recordModal').classList.add('active');
+  // 防止背景滾動
+  document.body.style.overflow = 'hidden';
+  
+  // 自動聚焦第一個輸入框
+  setTimeout(() => {
+    document.getElementById('recordDate').focus();
+  }, 100);
+}
+
+// 編輯記錄
+function editRecord(index) {
+  editingIndex = index;
+  const record = records[index];
+  
+  document.getElementById('modalTitle').textContent = '編輯記錄';
+  document.getElementById('recordDate').value = record.date;
+  document.getElementById('recordMileage').value = record.mileage;
+  document.getElementById('recordItem').value = record.item;
+  document.getElementById('recordVendor').value = record.vendor || '';
+  document.getElementById('recordPhone').value = record.phone || '';
+  document.getElementById('recordCost').value = record.cost || '';
+  document.getElementById('recordNextService').value = record.nextServiceMileage || '';
+  document.getElementById('recordNote').value = record.note || '';
+  
+  document.getElementById('recordModal').classList.add('active');
+  // 防止背景滾動
+  document.body.style.overflow = 'hidden';
+  
+  // 自動聚焦第一個輸入框
+  setTimeout(() => {
+    document.getElementById('recordDate').focus();
+  }, 100);
+}
+
+// 儲存記錄
+function saveRecord(event) {
+  event.preventDefault();
+  
+  const date = document.getElementById('recordDate').value;
+  const mileage = parseInt(document.getElementById('recordMileage').value);
+  const item = document.getElementById('recordItem').value.trim();
+  const vendor = document.getElementById('recordVendor').value.trim();
+  const phone = document.getElementById('recordPhone').value.trim();
+  const cost = document.getElementById('recordCost').value ? parseFloat(document.getElementById('recordCost').value) : null;
+  const nextServiceMileage = document.getElementById('recordNextService').value ? parseInt(document.getElementById('recordNextService').value) : null;
+  const note = document.getElementById('recordNote').value.trim();
+  
+  const record = {
+    id: editingIndex >= 0 ? records[editingIndex].id : Date.now(),
+    date,
+    mileage,
+    item,
+    vendor: vendor || null,
+    phone: phone || null,
+    cost: cost || null,
+    nextServiceMileage: nextServiceMileage || null,
+    note: note || null,
+    createdAt: editingIndex >= 0 ? records[editingIndex].createdAt : new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  
+  if (editingIndex >= 0) {
+    records[editingIndex] = record;
+  } else {
+    records.push(record);
+  }
+  
+  // 使用安全的 localStorage 儲存
+  if (safeLocalStorageSet('motorcycleMaintenance', records)) {
+    loadSuggestions(); // 更新建議選項
+    closeModal();
+    loadRecords();
+    updateStats();
+    
+    // 顯示成功提示
+    showToast(editingIndex >= 0 ? '記錄已更新！' : '記錄已新增！');
+  }
+}
+
+// 顯示提示訊息
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translate(-50%, -10px)';
+    setTimeout(() => toast.remove(), 300);
+  }, 2000);
+}
+
+// 刪除記錄
+function deleteRecord(index) {
+  if (confirm('確定要刪除這筆保養記錄嗎？')) {
+    records.splice(index, 1);
+    // 使用安全的 localStorage 儲存
+    if (safeLocalStorageSet('motorcycleMaintenance', records)) {
+      loadRecords();
+      updateStats();
+      loadSuggestions();
+      showToast('記錄已刪除！');
+    }
+  }
+}
+
+// 關閉模態框
+function closeModal(event) {
+  if (event && event.target !== event.currentTarget) {
+    return;
+  }
+  document.getElementById('recordModal').classList.remove('active');
+  document.getElementById('recordForm').reset();
+  editingIndex = -1;
+  // 恢復背景滾動
+  document.body.style.overflow = '';
+}
+
+// 匯出數據
+function exportData() {
+  if (records.length === 0) {
+    alert('目前沒有數據可以匯出！');
+    return;
+  }
+  
+  // 創建CSV內容
+  const csvRows = [
+    ['保養日期', '里程數', '保養項目', '廠商名稱', '聯絡電話', '費用', '下次保養里程', '備註', '建立時間', '更新時間'].join(',')
+  ];
+  
+  records.forEach(record => {
+    const row = [
+      `"${record.date}"`,
+      record.mileage,
+      `"${record.item}"`,
+      `"${record.vendor || ''}"`,
+      `"${record.phone || ''}"`,
+      record.cost || '',
+      record.nextServiceMileage || '',
+      `"${record.note || ''}"`,
+      `"${record.createdAt}"`,
+      `"${record.updatedAt || ''}"`
+    ];
+    csvRows.push(row.join(','));
+  });
+  
+  // 添加BOM以支持中文Excel正確顯示
+  const BOM = '\uFEFF';
+  const csvContent = BOM + csvRows.join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  
+  // 創建下載連結
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  
+  // 生成檔名
+  const today = new Date().toISOString().split('T')[0];
+  link.setAttribute('download', `機車保養記錄_${today}.csv`);
+  
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  // 顯示成功提示
+  showToast('數據匯出成功！');
+}
+</script>
+</body>
+</html>
+

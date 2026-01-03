@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鄰里公告板 - 楊梅人在地生活集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="utils.js"></script>
+<style>
+:root {
+  --grad: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --border-radius: 1.25rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #fff 100%);
+  font-family: system-ui, -apple-system, sans-serif;
+  padding-bottom: 80px;
+  padding-top: env(safe-area-inset-top);
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.announcement-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  position: relative;
+  border-left: 4px solid transparent;
+}
+
+.announcement-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.announcement-card.urgent {
+  border-left-color: #ef4444;
+  background: linear-gradient(to right, #fee2e2 0%, #fff 5%);
+}
+
+.announcement-card.activity {
+  border-left-color: #10b981;
+  background: linear-gradient(to right, #d1fae5 0%, #fff 5%);
+}
+
+.announcement-card.notice {
+  border-left-color: #3b82f6;
+  background: linear-gradient(to right, #dbeafe 0%, #fff 5%);
+}
+
+.announcement-card.pinned {
+  border-left-color: #f59e0b;
+  background: linear-gradient(to right, #fef3c7 0%, #fff 5%);
+}
+
+.category-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.badge-urgent {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.badge-activity {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.badge-notice {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.priority-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #f59e0b;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+}
+
+.btn-primary {
+  background: var(--grad);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2000;
+  padding: 0;
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1rem 1rem 0 0;
+  max-width: 500px;
+  width: 100%;
+  max-height: calc(100vh - 80px - env(safe-area-inset-bottom));
+  overflow: hidden;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+  margin-top: auto;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .modal-overlay {
+    align-items: center;
+    padding: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  .modal-content {
+    border-radius: 1rem;
+    max-height: calc(100vh - 120px - env(safe-area-inset-bottom));
+    margin-top: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 640px) {
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* 底部導航優化 */
+.bottom-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  position: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav button {
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.bottom-nav button:hover {
+  transform: translateY(-2px);
+}
+
+.bottom-nav button:active {
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部標題 -->
+<header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 shadow-lg sticky top-0 z-10">
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl font-bold flex items-center gap-2">
+      <span>📢</span>
+      <span>鄰里公告板</span>
+    </h1>
+    <button onclick="openAddModal()" class="bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full text-sm font-semibold transition-all">
+      ➕ 發布
+    </button>
+  </div>
+</header>
+
+<main class="px-4 py-4 max-w-4xl mx-auto">
+  <!-- 分類篩選 -->
+  <div class="glass-card">
+    <div class="flex gap-2 flex-wrap">
+      <button 
+        onclick="filterByCategory('全部')" 
+        class="btn btn-secondary btn-sm active"
+        data-category="全部"
+      >
+        全部
+      </button>
+      <button 
+        onclick="filterByCategory('緊急')" 
+        class="btn btn-secondary btn-sm"
+        data-category="緊急"
+      >
+        🚨 緊急
+      </button>
+      <button 
+        onclick="filterByCategory('活動')" 
+        class="btn btn-secondary btn-sm"
+        data-category="活動"
+      >
+        🎉 活動
+      </button>
+      <button 
+        onclick="filterByCategory('公告')" 
+        class="btn btn-secondary btn-sm"
+        data-category="公告"
+      >
+        📋 公告
+      </button>
+    </div>
+  </div>
+
+  <!-- 搜尋 -->
+  <div class="glass-card">
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="input" 
+      placeholder="🔍 搜尋公告標題或內容..."
+      oninput="filterAnnouncements()"
+    >
+  </div>
+
+  <!-- 公告列表 -->
+  <div id="announcementsList"></div>
+</main>
+
+<!-- 發布公告模態框 -->
+<div id="announcementModal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <!-- 拖拽指示器 -->
+    <div class="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-gray-300 rounded-full sm:hidden"></div>
+    
+    <div class="p-3 sm:p-4 pt-5 sm:pt-4 flex-1 flex flex-col min-h-0 overflow-y-auto">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-base sm:text-xl font-bold" id="modalTitle">發布公告</h2>
+        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 active:text-gray-900 text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors touch-manipulation" aria-label="關閉">
+          &times;
+        </button>
+      </div>
+      
+      <form id="announcementForm" onsubmit="saveAnnouncement(event)" class="flex-1 flex flex-col overflow-y-auto min-h-0">
+        <div class="mb-3">
+          <label class="block text-sm font-semibold mb-1.5">標題 *</label>
+          <input 
+            type="text" 
+            id="announcementTitle" 
+            class="input" 
+            placeholder="請輸入公告標題"
+            required
+          >
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-sm font-semibold mb-1.5">分類 *</label>
+          <select id="announcementCategory" class="input" required>
+            <option value="">請選擇分類</option>
+            <option value="緊急">🚨 緊急</option>
+            <option value="活動">🎉 活動</option>
+            <option value="公告">📋 公告</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-sm font-semibold mb-1.5">內容 *</label>
+          <textarea 
+            id="announcementContent" 
+            class="input" 
+            rows="4"
+            placeholder="請輸入公告內容..."
+            required
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="block text-sm font-semibold mb-1.5">日期</label>
+          <input 
+            type="date" 
+            id="announcementDate" 
+            class="input"
+          >
+        </div>
+
+        <div class="mb-3">
+          <label class="flex items-center gap-2">
+            <input 
+              type="checkbox" 
+              id="announcementPinned"
+              class="w-4 h-4"
+            >
+            <span class="text-sm font-semibold">置頂顯示</span>
+          </label>
+        </div>
+
+        <div class="flex gap-2 mt-4">
+          <button type="button" onclick="closeModal()" class="btn btn-secondary flex-1">
+            取消
+          </button>
+          <button type="submit" class="btn btn-primary flex-1">
+            發布
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
+  </button>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
+  </button>
+  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
+  </button>
+</nav>
+
+<script>
+// 數據管理
+let announcements = safeLocalStorageGet('announcements', []);
+let currentFilterCategory = '全部';
+let editingIndex = -1;
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadAnnouncements();
+  
+  // 設置預設日期為今天
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('announcementDate').value = today;
+  
+  // ESC 鍵關閉模態框
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('announcementModal');
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      }
+    }
+  });
+});
+
+// 載入公告列表
+function loadAnnouncements() {
+  const announcementsList = document.getElementById('announcementsList');
+  const filteredAnnouncements = getFilteredAnnouncements();
+  
+  // 應用搜尋過濾
+  const searchFiltered = applySearchFilter(filteredAnnouncements);
+  
+  if (searchFiltered.length === 0) {
+    announcementsList.innerHTML = `
+      <div class="glass-card text-center py-8">
+        <div class="text-4xl mb-4">📢</div>
+        <p class="text-lg font-semibold mb-2">還沒有公告</p>
+        <p class="text-sm text-gray-600 mb-4">點擊「發布」按鈕發布第一則公告</p>
+        <button onclick="openAddModal()" class="btn btn-primary">
+          ➕ 發布公告
+        </button>
+      </div>
+    `;
+    const searchText = document.getElementById('searchInput')?.value.trim() || '';
+    if (searchText) {
+      announcementsList.innerHTML = `
+        <div class="glass-card text-center py-8">
+          <div class="text-4xl mb-4">🔍</div>
+          <p class="text-lg font-semibold mb-2">沒有找到符合搜尋條件的公告</p>
+          <p class="text-sm text-gray-600 mb-4">試試調整搜尋關鍵字</p>
+        </div>
+      `;
+    }
+    return;
+  }
+  
+  announcementsList.innerHTML = searchFiltered.map((announcement, index) => {
+    const actualIndex = announcements.indexOf(announcement);
+    const date = new Date(announcement.date || announcement.createdAt);
+    const dateStr = date.toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
+    
+    const categoryClass = announcement.category === '緊急' ? 'urgent' :
+                          announcement.category === '活動' ? 'activity' :
+                          'notice';
+    const badgeClass = announcement.category === '緊急' ? 'badge-urgent' :
+                       announcement.category === '活動' ? 'badge-activity' :
+                       'badge-notice';
+    
+    return `
+      <div class="announcement-card ${categoryClass} ${announcement.pinned ? 'pinned' : ''}">
+        ${announcement.pinned ? '<div class="priority-badge">📌 置頂</div>' : ''}
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2 flex-wrap">
+              <h3 class="font-bold text-lg">${announcement.title}</h3>
+              <span class="category-badge ${badgeClass}">${announcement.category}</span>
+            </div>
+            <div class="text-sm text-gray-600 mb-2">
+              ${announcement.content}
+            </div>
+            <div class="text-xs text-gray-500">
+              📅 ${dateStr}
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button 
+            onclick="editAnnouncement(${actualIndex})" 
+            class="btn btn-secondary btn-sm flex-1"
+          >
+            ✏️ 編輯
+          </button>
+          <button 
+            onclick="deleteAnnouncement(${actualIndex})" 
+            class="btn btn-danger btn-sm flex-1"
+            style="background: #ef4444; color: white;"
+          >
+            🗑️ 刪除
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 獲取篩選後的公告
+function getFilteredAnnouncements() {
+  // 先按置頂和日期排序
+  const sorted = [...announcements].sort((a, b) => {
+    // 置頂優先
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    // 日期降序
+    const dateA = new Date(a.date || a.createdAt);
+    const dateB = new Date(b.date || b.createdAt);
+    return dateB - dateA;
+  });
+  
+  if (currentFilterCategory === '全部') {
+    return sorted;
+  }
+  
+  return sorted.filter(a => a.category === currentFilterCategory);
+}
+
+// 應用搜尋過濾
+function applySearchFilter(announcements) {
+  const searchText = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+  
+  if (!searchText) {
+    return announcements;
+  }
+  
+  return announcements.filter(announcement => {
+    return announcement.title.toLowerCase().includes(searchText) ||
+           announcement.content.toLowerCase().includes(searchText);
+  });
+}
+
+// 篩選公告
+function filterAnnouncements() {
+  loadAnnouncements();
+}
+
+// 按分類篩選
+function filterByCategory(category) {
+  currentFilterCategory = category;
+  
+  // 更新按鈕狀態
+  document.querySelectorAll('[data-category]').forEach(btn => {
+    if (btn.dataset.category === category) {
+      btn.classList.add('active');
+      btn.style.background = 'var(--grad)';
+      btn.style.color = 'white';
+    } else {
+      btn.classList.remove('active');
+      btn.style.background = '#f3f4f6';
+      btn.style.color = '#374151';
+    }
+  });
+  
+  loadAnnouncements();
+}
+
+// 打開新增模態框
+function openAddModal() {
+  editingIndex = -1;
+  document.getElementById('modalTitle').textContent = '發布公告';
+  document.getElementById('announcementForm').reset();
+  
+  // 設置預設日期為今天
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('announcementDate').value = today;
+  
+  document.getElementById('announcementModal').classList.add('active');
+  // 防止背景滾動
+  document.body.style.overflow = 'hidden';
+}
+
+// 編輯公告
+function editAnnouncement(index) {
+  editingIndex = index;
+  const announcement = announcements[index];
+  
+  document.getElementById('modalTitle').textContent = '編輯公告';
+  document.getElementById('announcementTitle').value = announcement.title;
+  document.getElementById('announcementCategory').value = announcement.category;
+  document.getElementById('announcementContent').value = announcement.content;
+  document.getElementById('announcementDate').value = announcement.date || '';
+  document.getElementById('announcementPinned').checked = announcement.pinned || false;
+  
+  document.getElementById('announcementModal').classList.add('active');
+  // 防止背景滾動
+  document.body.style.overflow = 'hidden';
+}
+
+// 儲存公告
+function saveAnnouncement(event) {
+  event.preventDefault();
+  
+  const title = document.getElementById('announcementTitle').value.trim();
+  const category = document.getElementById('announcementCategory').value;
+  const content = document.getElementById('announcementContent').value.trim();
+  const date = document.getElementById('announcementDate').value;
+  const pinned = document.getElementById('announcementPinned').checked;
+  
+  const announcement = {
+    id: editingIndex >= 0 ? announcements[editingIndex].id : Date.now(),
+    title,
+    category,
+    content,
+    date: date || new Date().toISOString().split('T')[0],
+    pinned,
+    createdAt: editingIndex >= 0 ? announcements[editingIndex].createdAt : new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  
+  if (editingIndex >= 0) {
+    announcements[editingIndex] = announcement;
+  } else {
+    announcements.push(announcement);
+  }
+  
+  // 使用安全的 localStorage 儲存
+  if (safeLocalStorageSet('announcements', announcements)) {
+    closeModal();
+    loadAnnouncements();
+  }
+}
+
+// 刪除公告
+function deleteAnnouncement(index) {
+  if (confirm('確定要刪除這則公告嗎？')) {
+    announcements.splice(index, 1);
+    // 使用安全的 localStorage 儲存
+    if (safeLocalStorageSet('announcements', announcements)) {
+      loadAnnouncements();
+    }
+  }
+}
+
+// 關閉模態框
+function closeModal(event) {
+  if (event && event.target !== event.currentTarget) {
+    return;
+  }
+  document.getElementById('announcementModal').classList.remove('active');
+  document.getElementById('announcementForm').reset();
+  editingIndex = -1;
+  // 恢復背景滾動
+  document.body.style.overflow = '';
+}
+
+// 匯出數據
+function exportData() {
+  if (announcements.length === 0) {
+    alert('目前沒有數據可以匯出！');
+    return;
+  }
+  
+  // 創建CSV內容
+  const csvRows = [
+    ['標題', '分類', '內容', '日期', '置頂', '建立時間', '更新時間'].join(',')
+  ];
+  
+  // 按日期排序（置頂優先）
+  const sortedAnnouncements = [...announcements].sort((a, b) => {
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    const dateA = new Date(a.date || a.createdAt);
+    const dateB = new Date(b.date || b.createdAt);
+    return dateB - dateA;
+  });
+  
+  sortedAnnouncements.forEach(announcement => {
+    const date = new Date(announcement.date || announcement.createdAt);
+    const dateStr = date.toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    
+    const row = [
+      `"${announcement.title}"`,
+      `"${announcement.category}"`,
+      `"${(announcement.content || '').replace(/"/g, '""')}"`,
+      `"${dateStr}"`,
+      announcement.pinned ? '是' : '否',
+      `"${announcement.createdAt}"`,
+      `"${announcement.updatedAt || ''}"`
+    ];
+    csvRows.push(row.join(','));
+  });
+  
+  // 添加BOM以支持中文Excel正確顯示
+  const BOM = '\uFEFF';
+  const csvContent = BOM + csvRows.join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  
+  // 創建下載連結
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  
+  // 生成檔名
+  const today = new Date().toISOString().split('T')[0];
+  link.setAttribute('download', `社區公告_${today}.csv`);
+  
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  // 顯示成功提示
+  alert('數據匯出成功！');
+}
+</script>
+</body>
+</html>
+

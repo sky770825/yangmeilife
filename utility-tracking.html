@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>水電瓦斯用量追蹤 - 楊梅人在地生活集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="utils.js"></script>
+<style>
+:root {
+  --grad: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --grad-water: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  --grad-electric: linear-gradient(135deg, #f59e0b, #d97706);
+  --grad-gas: linear-gradient(135deg, #ef4444, #dc2626);
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --border-radius: 1.25rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #fff 100%);
+  font-family: system-ui, -apple-system, sans-serif;
+  padding-bottom: 80px;
+  padding-top: env(safe-area-inset-top);
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.utility-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  position: relative;
+}
+
+.utility-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.stats-card {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.stats-card.water {
+  background: var(--grad-water);
+}
+
+.stats-card.electric {
+  background: var(--grad-electric);
+}
+
+.stats-card.gas {
+  background: var(--grad-gas);
+}
+
+.stats-number {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.stats-label {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+.trend-up {
+  color: #ef4444;
+}
+
+.trend-down {
+  color: #10b981;
+}
+
+.trend-same {
+  color: #6b7280;
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.625rem;
+  font-size: 1rem;
+  margin-bottom: 0;
+  transition: var(--transition);
+  background: #ffffff;
+}
+
+.input:hover {
+  border-color: #cbd5e1;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  background: #ffffff;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.btn {
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: var(--grad);
+  color: white;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.btn-danger:active {
+  transform: translateY(0);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  padding-bottom: calc(80px + 1rem + env(safe-area-inset-bottom));
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: calc(100vh - 120px - env(safe-area-inset-bottom));
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .modal-overlay {
+    padding: 0.75rem;
+    padding-bottom: calc(80px + 0.75rem + env(safe-area-inset-bottom));
+  }
+  
+  .modal-content {
+    max-height: calc(100vh - 100px - env(safe-area-inset-bottom));
+    border-radius: 1rem 1rem 0 0;
+    margin-top: auto;
+  }
+  
+  .modal-content > div {
+    padding: 1.25rem;
+  }
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+select.input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23374151' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+select.input:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236366f1' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+.input:invalid:not(:placeholder-shown) {
+  border-color: #ef4444;
+}
+
+.input:valid:not(:placeholder-shown) {
+  border-color: #10b981;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tab-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  background: #f3f4f6;
+  color: #374151;
+  margin-right: 0.5rem;
+}
+
+.tab-btn.active {
+  background: var(--grad);
+  color: white;
+}
+
+.tab-btn:hover {
+  transform: translateY(-2px);
+}
+
+.chart-container {
+  position: relative;
+  height: 250px;
+  margin-top: 1rem;
+}
+
+/* 底部導航優化 */
+.bottom-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  position: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active ~ .bottom-nav,
+body:has(.modal-overlay.active) .bottom-nav {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.bottom-nav button {
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.bottom-nav button:hover {
+  transform: translateY(-2px);
+}
+
+.bottom-nav button:active {
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部標題 -->
+<header class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 px-4 shadow-lg sticky top-0 z-10">
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl font-bold flex items-center gap-2">
+      <span>⚡</span>
+      <span>水電瓦斯用量追蹤</span>
+    </h1>
+    <div class="flex gap-2">
+      <button onclick="exportData()" class="bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all" title="匯出數據">
+        💾 匯出
+      </button>
+      <button onclick="openAddModal()" class="bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full text-sm font-semibold transition-all">
+        ➕ 新增記錄
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="px-4 py-4 max-w-4xl mx-auto">
+  <!-- 標籤切換 -->
+  <div class="glass-card">
+    <div class="flex flex-wrap gap-2">
+      <button onclick="switchTab('water')" class="tab-btn active" id="tab-water">
+        💧 水費
+      </button>
+      <button onclick="switchTab('electric')" class="tab-btn" id="tab-electric">
+        ⚡ 電費
+      </button>
+      <button onclick="switchTab('gas')" class="tab-btn" id="tab-gas">
+        🔥 瓦斯
+      </button>
+    </div>
+  </div>
+
+  <!-- 統計卡片 -->
+  <div id="statsContainer"></div>
+
+  <!-- 圖表 -->
+  <div class="glass-card">
+    <h2 class="text-lg font-bold mb-4">用量趨勢圖</h2>
+    <div class="chart-container">
+      <canvas id="usageChart"></canvas>
+    </div>
+  </div>
+
+  <!-- 記錄列表 -->
+  <div class="glass-card">
+    <h2 class="text-lg font-bold mb-4">歷史記錄</h2>
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="input" 
+      placeholder="🔍 搜尋月份、用量或備註..."
+      oninput="filterRecords()"
+      style="margin-bottom: 1rem;"
+    >
+    <div id="recordsList"></div>
+  </div>
+</main>
+
+<!-- 新增記錄模態框 -->
+<div id="recordModal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
+        <h2 class="text-xl font-bold text-gray-800" id="modalTitle">新增記錄</h2>
+        <button 
+          onclick="closeModal()" 
+          class="text-gray-400 hover:text-gray-600 text-3xl leading-none w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-all"
+          aria-label="關閉"
+        >&times;</button>
+      </div>
+      
+      <form id="recordForm" onsubmit="saveRecord(event)">
+        <div class="mb-5">
+          <label class="block text-sm font-semibold mb-2.5 text-gray-700">類型 *</label>
+          <select id="recordType" class="input" required onchange="updateFormLabels()">
+            <option value="water">💧 水費</option>
+            <option value="electric">⚡ 電費</option>
+            <option value="gas">🔥 瓦斯</option>
+          </select>
+        </div>
+
+        <div class="mb-5">
+          <label class="block text-sm font-semibold mb-2.5 text-gray-700" id="periodLabel">計費期間 *</label>
+          <input 
+            type="month" 
+            id="recordPeriod" 
+            class="input" 
+            required
+          >
+        </div>
+
+        <div class="mb-5">
+          <label class="block text-sm font-semibold mb-2.5 text-gray-700" id="usageLabel">用量 (度/度數) *</label>
+          <input 
+            type="number" 
+            id="recordUsage" 
+            class="input" 
+            step="0.01"
+            placeholder="請輸入用量"
+            required
+          >
+        </div>
+
+        <div class="mb-5">
+          <label class="block text-sm font-semibold mb-2.5 text-gray-700">費用 (元) *</label>
+          <input 
+            type="number" 
+            id="recordCost" 
+            class="input" 
+            step="0.01"
+            placeholder="請輸入費用"
+            required
+          >
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-semibold mb-2.5 text-gray-700">備註</label>
+          <textarea 
+            id="recordNote" 
+            class="input" 
+            rows="3"
+            placeholder="其他說明（選填）..."
+            style="resize: vertical; min-height: 80px;"
+          ></textarea>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeModal()" class="btn btn-secondary flex-1">
+            取消
+          </button>
+          <button type="submit" class="btn btn-primary flex-1">
+            ✓ 儲存
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
+  </button>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
+  </button>
+  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
+  </button>
+</nav>
+
+<script>
+// 數據管理
+let records = safeLocalStorageGet('utilityRecords', []);
+let currentTab = 'water';
+let usageChart = null;
+let editingIndex = -1;
+
+// 單位對應
+const units = {
+  water: '度',
+  electric: '度',
+  gas: '度'
+};
+
+// 類型名稱對應
+const typeNames = {
+  water: '水費',
+  electric: '電費',
+  gas: '瓦斯'
+};
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadData();
+  
+  // ESC 鍵關閉模態框
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('recordModal');
+      if (modal && modal.classList.contains('active')) {
+        closeModal();
+      }
+    }
+  });
+});
+
+// 切換標籤
+function switchTab(tab) {
+  currentTab = tab;
+  
+  // 更新按鈕狀態
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  
+  // 清除搜尋框
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.value = '';
+  }
+  
+  loadData();
+}
+
+// 載入數據
+function loadData() {
+  updateStats();
+  updateChart();
+  loadRecords();
+}
+
+// 更新統計
+function updateStats() {
+  const statsContainer = document.getElementById('statsContainer');
+  const typeRecords = records.filter(r => r.type === currentTab).sort((a, b) => 
+    new Date(b.period) - new Date(a.period)
+  );
+  
+  if (typeRecords.length === 0) {
+    statsContainer.innerHTML = `
+      <div class="stats-card ${currentTab}">
+        <div class="stats-number">-</div>
+        <div class="stats-label">本月${typeNames[currentTab]}</div>
+        <div class="text-sm mt-2 opacity-75">尚未有記錄</div>
+      </div>
+    `;
+    return;
+  }
+  
+  const latest = typeRecords[0];
+  const previous = typeRecords[1];
+  
+  let trend = '';
+  let trendClass = 'trend-same';
+  if (previous) {
+    const diff = latest.usage - previous.usage;
+    const percent = ((diff / previous.usage) * 100).toFixed(1);
+    if (diff > 0) {
+      trend = `↑ +${percent}%`;
+      trendClass = 'trend-up';
+    } else if (diff < 0) {
+      trend = `↓ ${percent}%`;
+      trendClass = 'trend-down';
+    } else {
+      trend = '→ 持平';
+    }
+  }
+  
+  const avgUsage = typeRecords.reduce((sum, r) => sum + r.usage, 0) / typeRecords.length;
+  const avgCost = typeRecords.reduce((sum, r) => sum + r.cost, 0) / typeRecords.length;
+  
+  statsContainer.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="stats-card ${currentTab}">
+        <div class="stats-number">${latest.usage.toFixed(1)}</div>
+        <div class="stats-label">本月用量 (${units[currentTab]})</div>
+        ${trend ? `<div class="text-sm mt-2 font-semibold ${trendClass}">${trend}</div>` : ''}
+      </div>
+      <div class="stats-card ${currentTab}" style="opacity: 0.9;">
+        <div class="stats-number">$${latest.cost.toFixed(0)}</div>
+        <div class="stats-label">本月費用</div>
+      </div>
+      <div class="stats-card ${currentTab}" style="opacity: 0.85;">
+        <div class="stats-number">${avgUsage.toFixed(1)}</div>
+        <div class="stats-label">平均用量 (${units[currentTab]})</div>
+      </div>
+    </div>
+  `;
+}
+
+// 更新圖表
+function updateChart() {
+  const ctx = document.getElementById('usageChart');
+  const typeRecords = records.filter(r => r.type === currentTab)
+    .sort((a, b) => new Date(a.period) - new Date(b.period))
+    .slice(-12); // 最近12筆
+  
+  if (typeRecords.length === 0) {
+    if (usageChart) {
+      usageChart.destroy();
+    }
+    ctx.parentElement.innerHTML = '<p class="text-center text-gray-500 py-8">尚無數據，請新增記錄</p>';
+    return;
+  }
+  
+  const labels = typeRecords.map(r => {
+    const date = new Date(r.period + '-01');
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+  });
+  const usageData = typeRecords.map(r => r.usage);
+  const costData = typeRecords.map(r => r.cost);
+  
+  const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 250);
+  gradient.addColorStop(0, currentTab === 'water' ? 'rgba(59, 130, 246, 0.5)' :
+                        currentTab === 'electric' ? 'rgba(245, 158, 11, 0.5)' :
+                        'rgba(239, 68, 68, 0.5)');
+  gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+  
+  if (usageChart) {
+    usageChart.destroy();
+  }
+  
+  usageChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: `用量 (${units[currentTab]})`,
+        data: usageData,
+        borderColor: currentTab === 'water' ? '#3b82f6' :
+                     currentTab === 'electric' ? '#f59e0b' :
+                     '#ef4444',
+        backgroundColor: gradient,
+        tension: 0.4,
+        fill: true,
+        yAxisID: 'y'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          position: 'left'
+        }
+      }
+    }
+  });
+}
+
+// 載入記錄列表
+function loadRecords() {
+  const recordsList = document.getElementById('recordsList');
+  const typeRecords = getFilteredRecords();
+  
+  if (typeRecords.length === 0) {
+    const searchText = document.getElementById('searchInput')?.value.trim() || '';
+    if (searchText) {
+      recordsList.innerHTML = `
+        <div class="text-center py-8 text-gray-500">
+          <div class="text-4xl mb-4">🔍</div>
+          <p>沒有找到符合搜尋條件的記錄</p>
+          <p class="text-sm mt-2">試試調整搜尋關鍵字</p>
+        </div>
+      `;
+    } else {
+      recordsList.innerHTML = `
+        <div class="text-center py-8 text-gray-500">
+          <div class="text-4xl mb-4">📊</div>
+          <p>還沒有記錄</p>
+          <p class="text-sm mt-2">點擊「新增記錄」開始追蹤用量</p>
+        </div>
+      `;
+    }
+    return;
+  }
+  
+  recordsList.innerHTML = typeRecords.map((record, index) => {
+    const actualIndex = records.indexOf(record);
+    const date = new Date(record.period + '-01');
+    const periodStr = `${date.getFullYear()}年${date.getMonth() + 1}月`;
+    
+    return `
+      <div class="utility-card">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex-1">
+            <h3 class="font-bold text-lg mb-1">${periodStr}</h3>
+            <div class="text-sm text-gray-600 mb-2">
+              <span class="font-semibold">用量：</span>${record.usage.toFixed(1)} ${units[record.type]}
+            </div>
+            <div class="text-sm text-gray-600 mb-2">
+              <span class="font-semibold">費用：</span>$${record.cost.toFixed(0)}
+            </div>
+            ${record.note ? `<div class="text-sm text-gray-500 mt-2">${record.note}</div>` : ''}
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button 
+            onclick="editRecord(${actualIndex})" 
+            class="btn btn-secondary btn-sm flex-1"
+          >
+            ✏️ 編輯
+          </button>
+          <button 
+            onclick="deleteRecord(${actualIndex})" 
+            class="btn btn-danger btn-sm flex-1"
+          >
+            🗑️ 刪除
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// 獲取篩選後的記錄
+function getFilteredRecords() {
+  const searchText = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+  const typeRecords = records.filter(r => r.type === currentTab);
+  
+  if (!searchText) {
+    return typeRecords.sort((a, b) => new Date(b.period) - new Date(a.period));
+  }
+  
+  const filtered = typeRecords.filter(record => {
+    const date = new Date(record.period + '-01');
+    const periodStr = `${date.getFullYear()}年${date.getMonth() + 1}月`;
+    const periodStr2 = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    
+    return periodStr.includes(searchText) ||
+           periodStr2.includes(searchText) ||
+           record.usage.toString().includes(searchText) ||
+           record.cost.toString().includes(searchText) ||
+           (record.note && record.note.toLowerCase().includes(searchText));
+  });
+  
+  return filtered.sort((a, b) => new Date(b.period) - new Date(a.period));
+}
+
+// 篩選記錄
+function filterRecords() {
+  loadRecords();
+}
+
+// 更新表單標籤
+function updateFormLabels() {
+  const type = document.getElementById('recordType').value;
+  document.getElementById('usageLabel').textContent = `用量 (${units[type]}) *`;
+}
+
+// 打開新增模態框
+function openAddModal() {
+  editingIndex = -1;
+  document.getElementById('modalTitle').textContent = '新增記錄';
+  document.getElementById('recordForm').reset();
+  document.getElementById('recordType').value = currentTab;
+  updateFormLabels();
+  
+  // 設置預設月份為當前月份
+  const now = new Date();
+  const monthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  document.getElementById('recordPeriod').value = monthStr;
+  
+  document.getElementById('recordModal').classList.add('active');
+  // 防止背景滾動
+  document.body.style.overflow = 'hidden';
+  
+  // 聚焦到第一個輸入框
+  setTimeout(() => {
+    const firstInput = document.getElementById('recordPeriod');
+    if (firstInput) firstInput.focus();
+  }, 100);
+}
+
+// 編輯記錄
+function editRecord(index) {
+  editingIndex = index;
+  const record = records[index];
+  
+  document.getElementById('modalTitle').textContent = '編輯記錄';
+  document.getElementById('recordType').value = record.type;
+  document.getElementById('recordPeriod').value = record.period;
+  document.getElementById('recordUsage').value = record.usage;
+  document.getElementById('recordCost').value = record.cost;
+  document.getElementById('recordNote').value = record.note || '';
+  
+  updateFormLabels();
+  document.getElementById('recordModal').classList.add('active');
+  // 防止背景滾動
+  document.body.style.overflow = 'hidden';
+  
+  // 聚焦到第一個輸入框
+  setTimeout(() => {
+    const firstInput = document.getElementById('recordPeriod');
+    if (firstInput) firstInput.focus();
+  }, 100);
+}
+
+// 儲存記錄
+function saveRecord(event) {
+  event.preventDefault();
+  
+  const type = document.getElementById('recordType').value;
+  const period = document.getElementById('recordPeriod').value;
+  const usage = parseFloat(document.getElementById('recordUsage').value);
+  const cost = parseFloat(document.getElementById('recordCost').value);
+  const note = document.getElementById('recordNote').value.trim();
+  
+  // 如果是編輯模式，直接更新
+  if (editingIndex >= 0) {
+    const record = {
+      id: records[editingIndex].id,
+      type,
+      period,
+      usage,
+      cost,
+      note,
+      createdAt: records[editingIndex].createdAt,
+      updatedAt: new Date().toISOString()
+    };
+    records[editingIndex] = record;
+  } else {
+    // 新增模式：檢查是否已存在該月份的記錄
+    const existingIndex = records.findIndex(r => r.type === type && r.period === period);
+    
+    const record = {
+      id: existingIndex >= 0 ? records[existingIndex].id : Date.now(),
+      type,
+      period,
+      usage,
+      cost,
+      note,
+      createdAt: existingIndex >= 0 ? records[existingIndex].createdAt : new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    
+    if (existingIndex >= 0) {
+      records[existingIndex] = record;
+    } else {
+      records.push(record);
+    }
+  }
+  
+  // 使用安全的 localStorage 儲存
+  if (safeLocalStorageSet('utilityRecords', records)) {
+    closeModal();
+    loadData();
+  }
+}
+
+// 刪除記錄
+function deleteRecord(index) {
+  if (confirm('確定要刪除這筆記錄嗎？')) {
+    records.splice(index, 1);
+    // 使用安全的 localStorage 儲存
+    if (safeLocalStorageSet('utilityRecords', records)) {
+      loadData();
+    }
+  }
+}
+
+// 關閉模態框
+function closeModal(event) {
+  if (event && event.target !== event.currentTarget) {
+    return;
+  }
+  document.getElementById('recordModal').classList.remove('active');
+  document.getElementById('recordForm').reset();
+  editingIndex = -1;
+  // 恢復背景滾動
+  document.body.style.overflow = '';
+}
+
+// 匯出數據
+function exportData() {
+  if (records.length === 0) {
+    alert('目前沒有數據可以匯出！');
+    return;
+  }
+  
+  // 創建CSV內容
+  const csvRows = [
+    ['類型', '計費期間', '用量', '費用', '備註', '建立時間', '更新時間'].join(',')
+  ];
+  
+  records.forEach(record => {
+    const date = new Date(record.period + '-01');
+    const periodStr = `${date.getFullYear()}年${date.getMonth() + 1}月`;
+    const row = [
+      `"${typeNames[record.type]}"`,
+      `"${periodStr}"`,
+      record.usage,
+      record.cost,
+      `"${record.note || ''}"`,
+      `"${record.createdAt}"`,
+      `"${record.updatedAt || ''}"`
+    ];
+    csvRows.push(row.join(','));
+  });
+  
+  // 添加BOM以支持中文Excel正確顯示
+  const BOM = '\uFEFF';
+  const csvContent = BOM + csvRows.join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  
+  // 創建下載連結
+  const link = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  link.setAttribute('href', url);
+  
+  // 生成檔名
+  const today = new Date().toISOString().split('T')[0];
+  link.setAttribute('download', `水電瓦斯記錄_${today}.csv`);
+  
+  link.style.visibility = 'hidden';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  // 顯示成功提示
+  alert('數據匯出成功！');
+}
+</script>
+</body>
+</html>
+

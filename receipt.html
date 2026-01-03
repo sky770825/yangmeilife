@@ -181,27 +181,6 @@ body{
   background:rgba(239,68,68,0.1);
 }
 
-#themeToggle{
-  position:fixed;
-  top:5rem;
-  right:1rem;
-  background:var(--grad);
-  color:#fff;
-  border:none;
-  padding:.5rem .75rem;
-  border-radius:9999px;
-  z-index:50;
-  transition:var(--bounce);
-  cursor:pointer;
-  font-size:1.2rem;
-  box-shadow:0 4px 15px rgba(139,92,246,0.3);
-}
-
-#themeToggle:hover{
-  transform:scale(1.1);
-  box-shadow:0 6px 20px rgba(139,92,246,0.4);
-}
-
 /* 掃描器樣式 */
 #cameraContainer {
   position: relative;
@@ -418,9 +397,6 @@ body{
 </style>
 </head>
 <body>
-<!-- 主題切換 -->
-<button id="themeToggle" aria-label="切換主題模式">🌞</button>
-
 <!-- 頂部標題列 -->
 <div class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-b border-gray-200 z-40">
   <div class="max-w-6xl mx-auto px-4 py-3">
@@ -435,6 +411,16 @@ body{
       
       <!-- 功能按鈕 -->
       <div class="flex items-center space-x-2">
+        <button onclick="openReminderModal()" class="p-2 text-gray-600 hover:text-purple-600 transition rounded-lg" title="提醒設置">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+          </svg>
+        </button>
+        <button onclick="refreshWinningNumbers()" class="p-2 text-gray-600 hover:text-purple-600 transition rounded-lg" title="刷新開獎號碼">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+        </button>
         <button onclick="goBack()" class="p-2 text-gray-600 hover:text-purple-600 transition rounded-lg" title="返回">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -450,7 +436,7 @@ body{
   <h1 class="text-3xl font-bold">🧾 發票對獎</h1>
   <p class="text-sm opacity-90 mt-2">統一發票開獎號碼查詢</p>
     <div class="mt-4 flex items-center justify-center space-x-4">
-      <div class="text-xs opacity-75" id="currentPeriod">114年7-8月期</div>
+      <div class="text-xs opacity-75" id="currentPeriod">115年1-2月期</div>
       <div class="text-xs opacity-75" id="lastUpdateTime">自動更新</div>
     </div>
     
@@ -458,15 +444,15 @@ body{
     <div class="mt-4 grid grid-cols-3 gap-2 max-w-md mx-auto">
       <div class="bg-white bg-opacity-20 rounded-lg p-2">
         <div class="text-xs opacity-75">本期開獎</div>
-        <div class="text-sm font-semibold">9/25</div>
+        <div class="text-sm font-semibold">3/25</div>
       </div>
       <div class="bg-white bg-opacity-20 rounded-lg p-2">
         <div class="text-xs opacity-75">領獎期間</div>
-        <div class="text-sm font-semibold">至1/5</div>
+        <div class="text-sm font-semibold">至7/5</div>
       </div>
       <div class="bg-white bg-opacity-20 rounded-lg p-2">
         <div class="text-xs opacity-75">下期開獎</div>
-        <div class="text-sm font-semibold">11/25</div>
+        <div class="text-sm font-semibold">5/25</div>
       </div>
     </div>
 </header>
@@ -499,13 +485,25 @@ body{
         <span>📷</span>
         <span>掃描</span>
       </button>
+      <button onclick="openBatchCheck()" class="bg-purple-500 text-white py-3 rounded-lg font-semibold hover:bg-purple-600 transition flex items-center justify-center space-x-2">
+        <span>📋</span>
+        <span>批量</span>
+      </button>
       <button onclick="clearInput()" class="bg-gray-500 text-white py-3 rounded-lg font-semibold hover:bg-gray-600 transition flex items-center justify-center space-x-2">
         <span>🗑️</span>
         <span>清除</span>
       </button>
-      <button onclick="showQuickTips()" class="bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition flex items-center justify-center space-x-2">
+    </div>
+    
+    <!-- 快捷操作 -->
+    <div class="grid grid-cols-2 gap-2 mb-4">
+      <button onclick="showQuickTips()" class="bg-green-500 text-white py-2 rounded-lg font-semibold hover:bg-green-600 transition flex items-center justify-center space-x-2">
         <span>💡</span>
         <span>小貼士</span>
+      </button>
+      <button onclick="showRecentNumbers()" class="bg-orange-500 text-white py-2 rounded-lg font-semibold hover:bg-orange-600 transition flex items-center justify-center space-x-2">
+        <span>🕐</span>
+        <span>最近使用</span>
       </button>
     </div>
     
@@ -516,11 +514,9 @@ body{
         <span class="text-xs text-green-600">快速篩選</span>
       </div>
       <div class="flex space-x-2">
-        <input type="text" id="lastThreeDigits" class="flex-1 px-3 py-2 border border-green-300 rounded text-center font-mono text-lg" placeholder="000" maxlength="3">
-        <button onclick="quickCheckLastThree()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
-          🔍
-        </button>
+        <input type="text" id="lastThreeDigits" class="flex-1 px-3 py-2 border border-green-300 rounded text-center font-mono text-lg" placeholder="輸入3碼自動檢查" maxlength="3" autocomplete="off">
       </div>
+      <div class="mt-1 text-xs text-gray-500 text-center">💡 輸入3位數字後自動檢查</div>
       <div id="quickCheckResult" class="mt-2 text-sm"></div>
     </div>
   </section>
@@ -532,6 +528,13 @@ body{
       <div class="text-4xl mb-4">📷</div>
       <h3 class="text-xl font-bold mb-4">掃描發票條碼</h3>
       <p class="text-gray-600 mb-4">請將發票條碼對準掃描框</p>
+      <div id="scanInstructions" class="text-sm text-gray-500 mb-4 space-y-1">
+        <div>💡 掃描提示：</div>
+        <div>• 保持條碼清晰可見，避免反光</div>
+        <div>• 距離條碼約 10-20 公分</div>
+        <div>• 確保光線充足</div>
+        <div>• 需要連續掃描 2 次相同號碼才會確認</div>
+      </div>
       
       <!-- 相機預覽區域 -->
       <div id="cameraContainer" class="mb-4" style="display:none;">
@@ -603,10 +606,32 @@ body{
         對獎歷史
         <span class="ml-3 text-sm font-normal opacity-70" id="historyCount">0 筆記錄</span>
       </h2>
-      <button onclick="toggleHistory()" class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600 transition flex items-center space-x-1">
-        <span id="historyToggleIcon">📂</span>
-        <span id="historyToggleText">展開</span>
-      </button>
+      <div class="flex items-center space-x-2">
+        <button onclick="exportHistory()" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition flex items-center space-x-1" title="匯出歷史">
+          <span>📥</span>
+          <span>匯出</span>
+        </button>
+        <button onclick="importHistory()" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition flex items-center space-x-1" title="匯入歷史">
+          <span>📤</span>
+          <span>匯入</span>
+        </button>
+        <button onclick="toggleHistory()" class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600 transition flex items-center space-x-1">
+          <span id="historyToggleIcon">📂</span>
+          <span id="historyToggleText">展開</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 搜索和篩選 -->
+    <div id="historyFilters" class="mb-4 space-y-2" style="display:none;">
+      <div class="flex space-x-2">
+        <input type="text" id="historySearch" placeholder="🔍 搜索發票號碼..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm">
+        <select id="historyFilter" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+          <option value="all">全部</option>
+          <option value="winner">中獎</option>
+          <option value="loser">未中獎</option>
+        </select>
+      </div>
     </div>
     
     <!-- 歷史記錄內容 -->
@@ -618,15 +643,18 @@ body{
           <div class="text-sm opacity-70 mt-1">開始對獎後會顯示在這裡</div>
         </div>
       </div>
-      <div class="mt-4 text-center">
-        <button onclick="clearHistory()" class="text-sm text-gray-500 hover:text-red-500 transition">
-          🗑️ 清除歷史記錄
+      <div class="mt-4 flex space-x-2">
+        <button onclick="recheckAllHistory()" class="flex-1 bg-purple-500 text-white py-2 rounded-lg text-sm hover:bg-purple-600 transition">
+          🔄 重新對獎所有記錄
+        </button>
+        <button onclick="clearHistory()" class="text-sm text-gray-500 hover:text-red-500 transition px-3 py-2">
+          🗑️ 清除
         </button>
       </div>
     </div>
     
     <!-- 快速統計 -->
-    <div id="historySummary" class="grid grid-cols-3 gap-2 text-center">
+    <div id="historySummary" class="grid grid-cols-3 gap-2 text-center mb-4">
       <div class="bg-green-100 p-2 rounded">
         <div class="text-lg font-bold text-green-600" id="winCount">0</div>
         <div class="text-xs text-green-700">中獎</div>
@@ -640,26 +668,78 @@ body{
         <div class="text-xs text-blue-700">總計</div>
       </div>
     </div>
+    
+    <!-- 詳細統計 -->
+    <div id="detailedStats" class="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg" style="display:none;">
+      <h3 class="text-sm font-bold mb-3 flex items-center">
+        <span class="mr-2">📈</span>
+        詳細統計分析
+      </h3>
+      <div class="grid grid-cols-2 gap-3 text-sm">
+        <div>
+          <div class="text-gray-600">中獎率</div>
+          <div class="text-xl font-bold text-purple-600" id="winRate">0%</div>
+        </div>
+        <div>
+          <div class="text-gray-600">總獎金</div>
+          <div class="text-xl font-bold text-green-600" id="totalPrize">$0</div>
+        </div>
+        <div>
+          <div class="text-gray-600">平均獎金</div>
+          <div class="text-lg font-semibold text-blue-600" id="avgPrize">$0</div>
+        </div>
+        <div>
+          <div class="text-gray-600">最高獎項</div>
+          <div class="text-lg font-semibold text-orange-600" id="maxPrize">無</div>
+        </div>
+      </div>
+      <button onclick="toggleDetailedStats()" class="mt-3 text-xs text-gray-500 hover:text-gray-700">
+        <span id="statsToggleText">收起統計</span>
+      </button>
+    </div>
+    
+    <!-- 統計按鈕 -->
+    <div class="text-center mt-2">
+      <button onclick="toggleDetailedStats()" class="text-sm text-purple-600 hover:text-purple-800 font-semibold">
+        <span id="statsToggleBtn">📊 查看詳細統計</span>
+      </button>
+    </div>
   </section>
 
   <!-- 開獎號碼 -->
   <section class="glass-card p-6 shadow-lg">
-    <h2 class="text-xl font-bold mb-4 flex items-center justify-between">
-      <span>🏆 本期開獎號碼</span>
-      <span class="text-sm font-normal opacity-70">114年7-8月期</span>
-    </h2>
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-bold flex items-center">
+        <span class="mr-2">🏆</span>
+        開獎號碼
+      </h2>
+      <div class="flex items-center space-x-2">
+        <select id="periodSelector" onchange="changePeriod()" class="px-3 py-1 border border-gray-300 rounded-lg text-sm bg-white">
+          <option value="current">當前期</option>
+          <option value="previous">上期</option>
+          <option value="all">查看所有期別</option>
+        </select>
+        <button onclick="openPeriodHistory()" class="px-3 py-1 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600 transition" title="期別歷史">
+          📅
+        </button>
+      </div>
+    </div>
+    <div class="text-sm text-gray-600 mb-4">
+      <span id="headerPeriod" class="font-semibold">115年1-2月期</span>
+      <span id="lotteryDate" class="ml-2">開獎日期：3/25</span>
+    </div>
     
     <!-- 主要獎項 -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-4 rounded-xl text-center">
         <div class="text-lg font-bold mb-2">🎊 特別獎</div>
-        <div class="text-2xl font-mono font-bold">53960536</div>
+        <div id="specialPrize" class="text-2xl font-mono font-bold">53960536</div>
         <div class="text-sm opacity-90 mt-1">獎金 1,000萬元</div>
       </div>
       
       <div class="bg-gradient-to-r from-purple-400 to-pink-500 text-white p-4 rounded-xl text-center">
         <div class="text-lg font-bold mb-2">🎊 特獎</div>
-        <div class="text-2xl font-mono font-bold">51509866</div>
+        <div id="grandPrize" class="text-2xl font-mono font-bold">51509866</div>
         <div class="text-sm opacity-90 mt-1">獎金 200萬元</div>
       </div>
     </div>
@@ -668,9 +748,9 @@ body{
     <div class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-4 rounded-xl mb-4">
       <div class="text-lg font-bold mb-3 text-center">🥇 頭獎 (20萬元)</div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-        <div class="bg-white bg-opacity-20 p-2 rounded text-center font-mono text-lg">43074088</div>
-        <div class="bg-white bg-opacity-20 p-2 rounded text-center font-mono text-lg">22870220</div>
-        <div class="bg-white bg-opacity-20 p-2 rounded text-center font-mono text-lg">38253117</div>
+        <div id="firstPrize1" class="bg-white bg-opacity-20 p-2 rounded text-center font-mono text-lg">43074088</div>
+        <div id="firstPrize2" class="bg-white bg-opacity-20 p-2 rounded text-center font-mono text-lg">22870220</div>
+        <div id="firstPrize3" class="bg-white bg-opacity-20 p-2 rounded text-center font-mono text-lg">38253117</div>
       </div>
     </div>
     
@@ -707,7 +787,7 @@ body{
       </div>
       <div class="bg-gray-100 p-3 rounded-lg text-center">
         <div class="text-sm font-bold text-gray-700">🎲 增開六獎</div>
-        <div class="text-xs text-gray-600">本期無增開</div>
+        <div id="additionalPrize" class="text-xs text-gray-600">本期無增開</div>
         <div class="text-xs text-gray-500">2百元</div>
       </div>
     </div>
@@ -724,8 +804,8 @@ body{
       <div class="bg-yellow-50 p-4 rounded-lg">
         <h3 class="text-lg font-semibold text-yellow-800 mb-2">📅 領獎期間</h3>
         <div class="text-yellow-700">
-          <div class="font-semibold">114年7-8月期發票領獎期間</div>
-          <div class="text-sm mt-1">自 114年10月6日 至 115年1月5日</div>
+          <div class="font-semibold">115年1-2月期發票領獎期間</div>
+          <div class="text-sm mt-1">自 115年4月6日 至 115年7月5日</div>
         </div>
       </div>
       
@@ -817,6 +897,114 @@ body{
       </div>
     </div>
   </section>
+
+  <!-- 批量對獎模態框 -->
+  <div id="batchCheckModal" class="scanner-overlay" style="display:none;">
+    <div class="scanner-box" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+      <h3 class="text-xl font-bold mb-4 flex items-center">
+        <span class="mr-2">📋</span>
+        批量對獎
+      </h3>
+      <p class="text-sm text-gray-600 mb-4">每行輸入一個發票號碼（8位數字），或使用逗號、空格分隔</p>
+      
+      <textarea id="batchNumbers" class="w-full h-48 p-3 border-2 border-purple-300 rounded-lg font-mono text-sm" placeholder="12345678&#10;87654321&#10;11223344"></textarea>
+      
+      <div class="mt-4 flex space-x-2">
+        <button onclick="startBatchCheck()" class="flex-1 bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition">
+          🎯 開始批量對獎
+        </button>
+        <button onclick="closeBatchCheck()" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+          取消
+        </button>
+      </div>
+      
+      <div id="batchResults" class="mt-4 space-y-2" style="display:none;">
+        <div class="text-sm font-semibold mb-2">對獎結果：</div>
+        <div id="batchResultsList" class="space-y-1 max-h-60 overflow-y-auto"></div>
+        <div class="mt-2 pt-2 border-t border-gray-200">
+          <div class="flex justify-between text-sm">
+            <span>總數：<span id="batchTotal">0</span></span>
+            <span class="text-green-600">中獎：<span id="batchWinners">0</span></span>
+            <span class="text-red-600">未中獎：<span id="batchLosers">0</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最近使用號碼模態框 -->
+  <div id="recentNumbersModal" class="scanner-overlay" style="display:none;">
+    <div class="scanner-box" style="max-width: 500px;">
+      <h3 class="text-xl font-bold mb-4 flex items-center">
+        <span class="mr-2">🕐</span>
+        最近使用的發票號碼
+      </h3>
+      <div id="recentNumbersList" class="space-y-2 max-h-60 overflow-y-auto">
+        <div class="text-center text-gray-500 py-4">還沒有最近使用的號碼</div>
+      </div>
+      <button onclick="closeRecentNumbers()" class="mt-4 w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition">
+        關閉
+      </button>
+    </div>
+  </div>
+
+  <!-- 期別歷史模態框 -->
+  <div id="periodHistoryModal" class="scanner-overlay" style="display:none;">
+    <div class="scanner-box" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+      <h3 class="text-xl font-bold mb-4 flex items-center">
+        <span class="mr-2">📅</span>
+        期別歷史查詢
+      </h3>
+      <div class="mb-4">
+        <label class="block text-sm font-semibold mb-2">選擇期別</label>
+        <select id="periodHistorySelector" class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+          <option value="">請選擇期別</option>
+        </select>
+      </div>
+      <div id="periodHistoryContent" class="space-y-4"></div>
+      <button onclick="closePeriodHistory()" class="mt-4 w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition">
+        關閉
+      </button>
+    </div>
+  </div>
+
+  <!-- 提醒設置模態框 -->
+  <div id="reminderModal" class="scanner-overlay" style="display:none;">
+    <div class="scanner-box" style="max-width: 500px;">
+      <h3 class="text-xl font-bold mb-4 flex items-center">
+        <span class="mr-2">⏰</span>
+        提醒設置
+      </h3>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <div>
+            <div class="font-semibold">開獎提醒</div>
+            <div class="text-xs text-gray-600">每期開獎日前一天提醒</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="lotteryReminder" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+          </label>
+        </div>
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <div>
+            <div class="font-semibold">領獎提醒</div>
+            <div class="text-xs text-gray-600">中獎發票領獎截止前提醒</div>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="claimReminder" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+          </label>
+        </div>
+      </div>
+      <button onclick="saveReminders()" class="mt-4 w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition">
+        保存設置
+      </button>
+      <button onclick="closeReminderModal()" class="mt-2 w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition">
+        關閉
+      </button>
+    </div>
+  </div>
 </main>
 
 <!-- 📍 底部導航 -->
@@ -839,12 +1027,6 @@ body{
 </nav>
 
 <script>
-// 主題切換
-document.getElementById('themeToggle').addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
-});
 
 // 返回上一頁功能
 function goBack() {
@@ -889,8 +1071,8 @@ const API_CONFIG = {
   grand: '51509866',
   first: ['43074088', '22870220', '38253117'],
     additional: [],
-    period: '114年7-8月期',
-    updateTime: '2025-01-25T00:00:00.000Z'
+    period: '115年1-2月期',
+    updateTime: '2026-01-25T00:00:00.000Z'
   }
 };
 
@@ -1171,45 +1353,56 @@ function updateWinningNumbersDisplay() {
   // 更新期別顯示
   const periodElement = document.getElementById('currentPeriod');
   if (periodElement) {
-    periodElement.textContent = winningNumbers.period || '114年7-8月期';
+    periodElement.textContent = winningNumbers.period || getCurrentPeriod();
+  }
+  
+  // 更新標題區的期別
+  const headerPeriodElement = document.getElementById('headerPeriod');
+  if (headerPeriodElement) {
+    headerPeriodElement.textContent = winningNumbers.period || getCurrentPeriod();
   }
   
   // 更新特別獎
-  const specialElement = document.querySelector('.prize-card.winner .text-2xl.font-mono.font-bold');
-  if (specialElement) {
-    specialElement.textContent = winningNumbers.special || '53960536';
+  const specialElement = document.getElementById('specialPrize');
+  if (specialElement && winningNumbers.special) {
+    specialElement.textContent = winningNumbers.special;
   }
   
   // 更新特獎
-  const grandElements = document.querySelectorAll('.prize-card.winner .text-2xl.font-mono.font-bold');
-  if (grandElements[1]) {
-    grandElements[1].textContent = winningNumbers.grand || '51509866';
+  const grandElement = document.getElementById('grandPrize');
+  if (grandElement && winningNumbers.grand) {
+    grandElement.textContent = winningNumbers.grand;
   }
   
-  // 更新頭獎 - 使用更精確的選擇器
-  const firstPrizeSection = document.querySelector('.prize-card:not(.winner):nth-of-type(3)');
-  if (firstPrizeSection) {
-    const firstPrizeElements = firstPrizeSection.querySelectorAll('.text-xl.font-mono.font-bold');
-    winningNumbers.first.forEach((number, index) => {
-      if (firstPrizeElements[index]) {
-        firstPrizeElements[index].textContent = number;
-      }
-    });
+  // 更新頭獎
+  if (winningNumbers.first && winningNumbers.first.length > 0) {
+    const firstPrize1 = document.getElementById('firstPrize1');
+    const firstPrize2 = document.getElementById('firstPrize2');
+    const firstPrize3 = document.getElementById('firstPrize3');
+    
+    if (firstPrize1 && winningNumbers.first[0]) firstPrize1.textContent = winningNumbers.first[0];
+    if (firstPrize2 && winningNumbers.first[1]) firstPrize2.textContent = winningNumbers.first[1];
+    if (firstPrize3 && winningNumbers.first[2]) firstPrize3.textContent = winningNumbers.first[2];
   }
   
   // 更新增開六獎
-  const additionalSection = document.querySelector('.grid.grid-cols-2');
-  if (additionalSection) {
-    const additionalElements = additionalSection.querySelectorAll('.text-2xl.font-mono.font-bold');
-    winningNumbers.additional.forEach((number, index) => {
-      if (additionalElements[index]) {
-        additionalElements[index].textContent = number;
-      }
-    });
+  const additionalElement = document.getElementById('additionalPrize');
+  if (additionalElement) {
+    if (winningNumbers.additional && winningNumbers.additional.length > 0) {
+      additionalElement.textContent = `本期增開：${winningNumbers.additional.join('、')}`;
+      additionalElement.classList.remove('text-gray-600');
+      additionalElement.classList.add('text-green-600', 'font-semibold');
+    } else {
+      additionalElement.textContent = '本期無增開';
+      additionalElement.classList.remove('text-green-600', 'font-semibold');
+      additionalElement.classList.add('text-gray-600');
+    }
   }
   
   // 更新最後更新時間
   updateLastUpdateTime();
+  
+  console.log('✅ 開獎號碼顯示已更新:', winningNumbers);
 }
 
 // 更新最後更新時間顯示
@@ -1265,10 +1458,17 @@ function showErrorMessage(message) {
 // 掃描器功能
 let scannerActive = false;
 let mediaStream = null;
+let scanResults = []; // 用於多次掃描驗證
+let scanConfidenceThreshold = 0.7; // 最低置信度要求（70%）
+let consecutiveMatches = 0; // 連續匹配次數
+let requiredMatches = 2; // 需要連續匹配的次數（提高精準度）
 
 function openScanner() {
   document.getElementById('scannerOverlay').style.display = 'flex';
   hideScanMessages();
+  // 重置掃描狀態
+  scanResults = [];
+  consecutiveMatches = 0;
 }
 
 function closeScanner() {
@@ -1456,15 +1656,15 @@ async function startBarcodeScanner() {
         }
       },
       numOfWorkers: isMobile ? 2 : 4,
-      frequency: isMobile ? 15 : 25,  // 提高掃描頻率
+      frequency: isMobile ? 20 : 30,  // 提高掃描頻率（更頻繁的檢測）
       // 添加更多優化配置
       halfSample: true,
       patchSize: isMobile ? "large" : "medium",
-      // 條碼檢測配置
+      // 條碼檢測配置（提高精準度要求）
       detection: {
-        minSize: 0.1,
-        maxSize: 0.9,
-        minScore: 0.5
+        minSize: 0.15,  // 提高最小尺寸要求
+        maxSize: 0.85,  // 降低最大尺寸要求
+        minScore: 0.65  // 提高最低分數要求（從0.5提高到0.65）
       }
     };
     
@@ -1488,32 +1688,68 @@ async function startBarcodeScanner() {
       // 開始掃描
       Quagga.start();
       
-      // 監聽掃描結果
+      // 監聽掃描結果（改進版：多次驗證提高精準度）
       Quagga.onDetected(function(result) {
         if (!scannerActive) return;
         
         const code = result.codeResult.code;
-        console.log('掃描到條碼:', code);
+        const confidence = result.codeResult.decodedCodes ? 
+          result.codeResult.decodedCodes.length / result.codeResult.code.length : 0.5;
         
-        // 檢查是否為發票號碼格式
+        console.log('掃描到條碼:', code, '置信度:', confidence);
+        
+        // 檢查置信度是否達到要求
+        if (confidence < scanConfidenceThreshold) {
+          console.log('置信度不足，忽略此次掃描');
+          return;
+        }
+        
+        // 提取發票號碼
+        let receiptNumber = null;
         if (isValidReceiptNumber(code)) {
-          handleScanSuccess(code);
+          receiptNumber = code;
         } else {
-          // 嘗試從條碼中提取發票號碼
-          const extractedNumber = extractReceiptNumber(code);
-          if (extractedNumber) {
-            handleScanSuccess(extractedNumber);
-          } else {
-            showScanError('掃描到的條碼不是有效的發票號碼格式');
+          receiptNumber = extractReceiptNumber(code);
+        }
+        
+        if (!receiptNumber) {
+          console.log('無法提取有效的發票號碼');
+          return;
+        }
+        
+        // 多次驗證機制：需要連續掃描到相同號碼才確認
+        if (scanResults.length === 0 || scanResults[scanResults.length - 1] === receiptNumber) {
+          consecutiveMatches++;
+          scanResults.push(receiptNumber);
+          
+          // 顯示掃描進度
+          updateScanConfidence(confidence, consecutiveMatches, requiredMatches);
+          
+          // 如果連續匹配達到要求次數，確認掃描成功
+          if (consecutiveMatches >= requiredMatches) {
+            handleScanSuccess(receiptNumber);
           }
+        } else {
+          // 如果掃描到不同的號碼，重置計數
+          consecutiveMatches = 1;
+          scanResults = [receiptNumber];
+          updateScanConfidence(confidence, consecutiveMatches, requiredMatches);
         }
       });
       
-      // 監聽掃描進度
+      // 監聽掃描進度（圖像處理）
       Quagga.onProcessed(function(result) {
         if (result && result.codeResult) {
           // 可以添加掃描進度指示
           updateScanProgress(result.codeResult);
+          
+          // 圖像質量檢測和提示
+          if (result.codeResult.decodedCodes) {
+            const quality = calculateImageQuality(result);
+            if (quality < 0.5) {
+              showScanHint('💡 請調整光線或距離，確保條碼清晰可見');
+            }
+          }
         }
       });
       
@@ -1550,9 +1786,74 @@ function extractReceiptNumber(code) {
 function updateScanProgress(codeResult) {
   const progress = document.getElementById('scanProgress');
   if (progress) {
-    const confidence = Math.round(codeResult.decodedCodes * 100 / codeResult.codeResult.decodedCodes);
+    const confidence = codeResult.decodedCodes ? 
+      Math.round((codeResult.decodedCodes.length / codeResult.code.length) * 100) : 0;
     progress.innerHTML = `🔍 正在掃描... (信心度: ${confidence}%)`;
   }
+}
+
+// 更新掃描置信度顯示
+function updateScanConfidence(confidence, currentMatches, requiredMatches) {
+  const progress = document.getElementById('scanProgress');
+  if (progress) {
+    const confidencePercent = Math.round(confidence * 100);
+    const matchProgress = `${currentMatches}/${requiredMatches}`;
+    progress.innerHTML = `🔍 掃描中... 信心度: ${confidencePercent}% | 驗證: ${matchProgress}`;
+    
+    // 如果接近成功，改變顏色
+    if (currentMatches >= requiredMatches - 1) {
+      progress.className = 'fixed top-32 right-4 bg-green-500 text-white px-3 py-1 rounded-lg text-sm z-50';
+    } else {
+      progress.className = 'fixed top-32 right-4 bg-blue-500 text-white px-3 py-1 rounded-lg text-sm z-50';
+    }
+  }
+}
+
+// 計算圖像質量
+function calculateImageQuality(result) {
+  if (!result.codeResult || !result.codeResult.decodedCodes) {
+    return 0;
+  }
+  
+  const decodedCodes = result.codeResult.decodedCodes;
+  const totalCodes = result.codeResult.code ? result.codeResult.code.length : 0;
+  
+  if (totalCodes === 0) return 0;
+  
+  // 計算解碼成功率
+  const decodeRate = decodedCodes.length / totalCodes;
+  
+  // 計算平均置信度
+  let totalConfidence = 0;
+  decodedCodes.forEach(code => {
+    if (code.error) {
+      totalConfidence += 1 - (code.error / 10); // 錯誤越小，置信度越高
+    } else {
+      totalConfidence += 1;
+    }
+  });
+  const avgConfidence = decodedCodes.length > 0 ? totalConfidence / decodedCodes.length : 0;
+  
+  // 綜合質量評分
+  return (decodeRate * 0.6 + avgConfidence * 0.4);
+}
+
+// 顯示掃描提示
+function showScanHint(message) {
+  let hintDiv = document.getElementById('scanHint');
+  if (!hintDiv) {
+    hintDiv = document.createElement('div');
+    hintDiv.id = 'scanHint';
+    hintDiv.className = 'fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-white px-4 py-2 rounded-lg text-sm z-50';
+    document.body.appendChild(hintDiv);
+  }
+  hintDiv.textContent = message;
+  hintDiv.style.display = 'block';
+  
+  // 3秒後自動隱藏
+  setTimeout(() => {
+    if (hintDiv) hintDiv.style.display = 'none';
+  }, 3000);
 }
 
 // 顯示掃描進度
@@ -1820,6 +2121,9 @@ function showFocusFeedback(message) {
 function stopCameraScan() {
   scannerActive = false;
   
+  // 重置掃描狀態
+  resetScanState();
+  
   // 停止Quagga掃描器
   if (typeof Quagga !== 'undefined' && Quagga) {
     Quagga.stop();
@@ -1853,6 +2157,10 @@ function stopCameraScan() {
   const progress = document.getElementById('scanProgress');
   if (progress) progress.remove();
   
+  // 移除掃描提示
+  const hint = document.getElementById('scanHint');
+  if (hint) hint.remove();
+  
   // 移除觸控對焦事件監聽器
   const cameraContainer = document.getElementById('cameraContainer');
   if (cameraContainer) {
@@ -1870,17 +2178,78 @@ function isValidReceiptNumber(code) {
   return /^\d{8}$/.test(code);
 }
 
-// 處理掃描成功
+// 處理掃描成功（改進版：添加驗證和反饋）
 function handleScanSuccess(number) {
+  // 最終驗證：檢查發票號碼格式
+  if (!isValidReceiptNumber(number)) {
+    console.error('掃描結果驗證失敗:', number);
+    showScanError('掃描到的號碼格式不正確，請重試');
+    resetScanState();
+    return;
+  }
+  
+  // 播放成功音效（如果支援）
+  playSuccessSound();
+  
+  // 觸發震動反饋（如果支援）
+  triggerVibration();
+  
+  // 顯示掃描結果
   showScanResult(number);
+  
+  // 停止掃描
   stopCameraScan();
   
   // 自動填入發票號碼並對獎
   setTimeout(() => {
     document.getElementById('receiptNumber').value = number;
-  closeScanner();
-  checkReceipt();
-  }, 2000);
+    closeScanner();
+    checkReceipt();
+  }, 1500);
+}
+
+// 重置掃描狀態
+function resetScanState() {
+  scanResults = [];
+  consecutiveMatches = 0;
+  const progress = document.getElementById('scanProgress');
+  if (progress) {
+    progress.innerHTML = '🔍 正在掃描...';
+    progress.className = 'fixed top-32 right-4 bg-blue-500 text-white px-3 py-1 rounded-lg text-sm z-50';
+  }
+}
+
+// 播放成功音效
+function playSuccessSound() {
+  try {
+    // 創建簡短的提示音
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800; // 頻率
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.2);
+  } catch (error) {
+    // 音效播放失敗時靜默處理
+    console.log('音效播放失敗（可能不支援）');
+  }
+}
+
+// 觸發震動反饋
+function triggerVibration() {
+  if (navigator.vibrate) {
+    // 短震動：成功掃描
+    navigator.vibrate(100);
+  }
 }
 
 
@@ -1992,7 +2361,7 @@ function checkReceipt() {
         ${isWinner ? `
           <div class="mt-4 p-3 bg-yellow-100 rounded-lg">
             <div class="text-sm text-yellow-800 font-semibold">🎁 領獎提醒</div>
-            <div class="text-xs text-yellow-700 mt-1">請於 115年1月5日前 至超商或郵局領獎</div>
+            <div class="text-xs text-yellow-700 mt-1">請於 115年7月5日前 至超商或郵局領獎</div>
           </div>
         ` : `
           <div class="mt-4 p-3 bg-blue-100 rounded-lg">
@@ -2016,7 +2385,7 @@ function checkReceipt() {
   }, 100);
 }
 
-// 添加到歷史記錄
+// 添加到歷史記錄（原始函數，保留供其他函數調用）
 function addToHistory(number, isWinner, level, prize) {
   const historyItem = {
     number: number,
@@ -2026,47 +2395,25 @@ function addToHistory(number, isWinner, level, prize) {
     date: new Date().toLocaleString('zh-TW')
   };
   
-  history.unshift(historyItem);
-  if (history.length > 20) {
-    history = history.slice(0, 20); // 只保留最近20筆
+  // 檢查是否已存在（避免重複）
+  const existingIndex = history.findIndex(h => h.number === number);
+  if (existingIndex !== -1) {
+    history[existingIndex] = historyItem;  // 更新現有記錄
+  } else {
+    history.unshift(historyItem);  // 添加新記錄
+  }
+  
+  if (history.length > 100) {
+    history = history.slice(0, 100); // 只保留最近100筆
   }
   
   localStorage.setItem('receiptHistory', JSON.stringify(history));
   updateHistoryDisplay();
+  
+  // 添加到最近使用
+  addToRecentNumbers(number);
 }
 
-// 更新歷史記錄顯示
-function updateHistoryDisplay() {
-  const historyList = document.getElementById('historyList');
-  const historyCount = document.getElementById('historyCount');
-  
-  historyCount.textContent = `${history.length} 筆記錄`;
-  
-  if (history.length === 0) {
-    historyList.innerHTML = `
-      <div class="text-center text-gray-500 py-8">
-        <div class="text-4xl mb-2">📝</div>
-        <div>還沒有對獎記錄</div>
-        <div class="text-sm opacity-70 mt-1">開始對獎後會顯示在這裡</div>
-      </div>
-    `;
-  } else {
-    historyList.innerHTML = history.map(item => `
-      <div class="history-item ${item.isWinner ? 'winner' : 'loser'}">
-        <div class="flex justify-between items-center">
-          <div>
-            <div class="font-mono font-semibold">${item.number}</div>
-            <div class="text-sm text-gray-600">${item.level} - ${item.prize}</div>
-          </div>
-          <div class="text-right">
-            <div class="text-xs text-gray-500">${item.date}</div>
-            <div class="text-lg">${item.isWinner ? '🎉' : '😔'}</div>
-          </div>
-        </div>
-      </div>
-    `).join('');
-  }
-}
 
 // 清除歷史記錄
 function clearHistory() {
@@ -2132,6 +2479,9 @@ function quickCheckLastThree() {
   } else {
     resultDiv.innerHTML = '<span class="text-gray-600">😔 未找到匹配的末三碼</span>';
   }
+  
+  // 檢查完成後自動清空輸入框
+  document.getElementById('lastThreeDigits').value = '';
 }
 
 // 分享結果功能
@@ -2187,9 +2537,22 @@ function showMessage(message) {
   }, 3000);
 }
 
-// 末三碼輸入限制
+// 末三碼輸入限制和自動檢查
 document.getElementById('lastThreeDigits').addEventListener('input', function(e) {
+  // 只允許數字
   this.value = this.value.replace(/[^0-9]/g, '');
+  
+  // 當輸入達到3位數字時，自動執行檢查
+  if (this.value.length === 3) {
+    quickCheckLastThree();
+  }
+});
+
+// 支援按Enter鍵快速檢查
+document.getElementById('lastThreeDigits').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter' && this.value.length === 3) {
+    quickCheckLastThree();
+  }
 });
 
 // 雲端發票APP下載
@@ -2451,6 +2814,782 @@ document.addEventListener('visibilitychange', () => {
     fetchLatestWinningNumbers();
   }
 });
+
+// ==================== 新增功能實現 ====================
+
+// 批量對獎功能
+function openBatchCheck() {
+  document.getElementById('batchCheckModal').style.display = 'flex';
+  document.getElementById('batchNumbers').value = '';
+  document.getElementById('batchResults').style.display = 'none';
+}
+
+function closeBatchCheck() {
+  document.getElementById('batchCheckModal').style.display = 'none';
+}
+
+function startBatchCheck() {
+  const input = document.getElementById('batchNumbers').value.trim();
+  if (!input) {
+    showMessage('請輸入發票號碼');
+    return;
+  }
+  
+  // 解析輸入的號碼（支援多種格式）
+  const numbers = input
+    .split(/[\n,，\s]+/)  // 支援換行、逗號、空格分隔
+    .map(n => n.trim().replace(/\D/g, ''))  // 移除非數字字符
+    .filter(n => n.length === 8);  // 只保留8位數字
+  
+  if (numbers.length === 0) {
+    showMessage('未找到有效的發票號碼（需為8位數字）');
+    return;
+  }
+  
+  // 去重
+  const uniqueNumbers = [...new Set(numbers)];
+  
+  // 顯示載入狀態
+  const resultsList = document.getElementById('batchResultsList');
+  resultsList.innerHTML = '<div class="text-center py-4">🔄 正在對獎中...</div>';
+  document.getElementById('batchResults').style.display = 'block';
+  
+  // 批量對獎
+  let winners = 0;
+  let losers = 0;
+  const results = [];
+  
+  uniqueNumbers.forEach((number, index) => {
+    const result = checkReceiptNumber(number);
+    results.push({
+      number: number,
+      ...result
+    });
+    
+    if (result.isWinner) {
+      winners++;
+    } else {
+      losers++;
+    }
+  });
+  
+  // 顯示結果
+  displayBatchResults(results, uniqueNumbers.length, winners, losers);
+  
+  // 將結果添加到歷史記錄
+  results.forEach(result => {
+    if (!history.find(h => h.number === result.number)) {
+      addToHistory(result.number, result.isWinner, result.level, result.prize);
+    }
+  });
+  
+  updateHistoryDisplay();
+}
+
+function checkReceiptNumber(number) {
+  if (!winningNumbers.special || !winningNumbers.grand || winningNumbers.first.length === 0) {
+    return {
+      isWinner: false,
+      level: '未開獎',
+      prize: '開獎號碼未載入'
+    };
+  }
+  
+  let isWinner = false;
+  let prize = '';
+  let prizeLevel = '';
+  
+  // 檢查特別獎
+  if (number === winningNumbers.special) {
+    prize = '獎金 1,000萬元';
+    isWinner = true;
+    prizeLevel = '特別獎';
+  }
+  // 檢查特獎
+  else if (number === winningNumbers.grand) {
+    prize = '獎金 200萬元';
+    isWinner = true;
+    prizeLevel = '特獎';
+  }
+  // 檢查頭獎
+  else if (winningNumbers.first.some(num => number === num)) {
+    prize = '獎金 20萬元';
+    isWinner = true;
+    prizeLevel = '頭獎';
+  }
+  // 檢查二獎
+  else if (winningNumbers.first.some(num => number.slice(1) === num.slice(1))) {
+    prize = '獎金 4萬元';
+    isWinner = true;
+    prizeLevel = '二獎';
+  }
+  // 檢查三獎
+  else if (winningNumbers.first.some(num => number.slice(2) === num.slice(2))) {
+    prize = '獎金 1萬元';
+    isWinner = true;
+    prizeLevel = '三獎';
+  }
+  // 檢查四獎
+  else if (winningNumbers.first.some(num => number.slice(3) === num.slice(3))) {
+    prize = '獎金 4千元';
+    isWinner = true;
+    prizeLevel = '四獎';
+  }
+  // 檢查五獎
+  else if (winningNumbers.first.some(num => number.slice(4) === num.slice(4))) {
+    prize = '獎金 1千元';
+    isWinner = true;
+    prizeLevel = '五獎';
+  }
+  // 檢查六獎
+  else if (winningNumbers.first.some(num => number.slice(5) === num.slice(5)) ||
+           (winningNumbers.additional && winningNumbers.additional.includes(number.slice(5)))) {
+    prize = '獎金 2百元';
+    isWinner = true;
+    prizeLevel = '六獎';
+  }
+  // 未中獎
+  else {
+    prize = '再接再厲！';
+    prizeLevel = '未中獎';
+  }
+  
+  return {
+    isWinner: isWinner,
+    level: prizeLevel,
+    prize: prize
+  };
+}
+
+function displayBatchResults(results, total, winners, losers) {
+  const resultsList = document.getElementById('batchResultsList');
+  resultsList.innerHTML = results.map(result => {
+    const bgColor = result.isWinner ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200';
+    const textColor = result.isWinner ? 'text-green-700' : 'text-gray-700';
+    const icon = result.isWinner ? '🎉' : '😔';
+    
+    return `
+      <div class="p-2 border rounded ${bgColor}">
+        <div class="flex justify-between items-center">
+          <div>
+            <span class="font-mono font-semibold">${result.number}</span>
+            <span class="text-xs ${textColor} ml-2">${result.level}</span>
+          </div>
+          <div class="text-sm ${textColor}">
+            ${icon} ${result.prize}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  document.getElementById('batchTotal').textContent = total;
+  document.getElementById('batchWinners').textContent = winners;
+  document.getElementById('batchLosers').textContent = losers;
+}
+
+// 最近使用的號碼
+function showRecentNumbers() {
+  const recentNumbers = JSON.parse(localStorage.getItem('recentReceiptNumbers')) || [];
+  const list = document.getElementById('recentNumbersList');
+  
+  if (recentNumbers.length === 0) {
+    list.innerHTML = '<div class="text-center text-gray-500 py-4">還沒有最近使用的號碼</div>';
+  } else {
+    list.innerHTML = recentNumbers.slice(0, 10).map((number, index) => `
+      <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer" onclick="useRecentNumber('${number}')">
+        <span class="font-mono font-semibold">${number}</span>
+        <button onclick="event.stopPropagation(); removeRecentNumber('${number}')" class="text-red-500 hover:text-red-700 text-sm">
+          ✕
+        </button>
+      </div>
+    `).join('');
+  }
+  
+  document.getElementById('recentNumbersModal').style.display = 'flex';
+}
+
+function closeRecentNumbers() {
+  document.getElementById('recentNumbersModal').style.display = 'none';
+}
+
+function useRecentNumber(number) {
+  document.getElementById('receiptNumber').value = number;
+  closeRecentNumbers();
+  checkReceipt();
+}
+
+function removeRecentNumber(number) {
+  let recentNumbers = JSON.parse(localStorage.getItem('recentReceiptNumbers')) || [];
+  recentNumbers = recentNumbers.filter(n => n !== number);
+  localStorage.setItem('recentReceiptNumbers', JSON.stringify(recentNumbers));
+  showRecentNumbers();
+}
+
+function addToRecentNumbers(number) {
+  let recentNumbers = JSON.parse(localStorage.getItem('recentReceiptNumbers')) || [];
+  recentNumbers = recentNumbers.filter(n => n !== number);  // 移除重複
+  recentNumbers.unshift(number);  // 添加到開頭
+  recentNumbers = recentNumbers.slice(0, 20);  // 只保留最近20個
+  localStorage.setItem('recentReceiptNumbers', JSON.stringify(recentNumbers));
+}
+
+// 匯出/匯入歷史記錄
+function exportHistory() {
+  const data = {
+    history: history,
+    exportDate: new Date().toISOString(),
+    version: '1.0'
+  };
+  
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `發票對獎歷史_${new Date().toISOString().split('T')[0]}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  
+  showMessage('✅ 歷史記錄已匯出');
+}
+
+function importHistory() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const data = JSON.parse(event.target.result);
+        if (data.history && Array.isArray(data.history)) {
+          // 合併歷史記錄（去重）
+          const existingNumbers = new Set(history.map(h => h.number));
+          const newHistory = data.history.filter(h => !existingNumbers.has(h.number));
+          history = [...newHistory, ...history].slice(0, 100);  // 最多保留100筆
+          
+          localStorage.setItem('receiptHistory', JSON.stringify(history));
+          updateHistoryDisplay();
+          showMessage(`✅ 已匯入 ${newHistory.length} 筆記錄`);
+        } else {
+          showMessage('❌ 檔案格式不正確');
+        }
+      } catch (error) {
+        showMessage('❌ 匯入失敗：' + error.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+// 搜索和篩選歷史記錄
+function setupHistorySearch() {
+  const searchInput = document.getElementById('historySearch');
+  const filterSelect = document.getElementById('historyFilter');
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', filterHistory);
+  }
+  
+  if (filterSelect) {
+    filterSelect.addEventListener('change', filterHistory);
+  }
+}
+
+function filterHistory() {
+  const searchTerm = document.getElementById('historySearch')?.value.toLowerCase() || '';
+  const filterType = document.getElementById('historyFilter')?.value || 'all';
+  
+  let filtered = history;
+  
+  // 搜索過濾
+  if (searchTerm) {
+    filtered = filtered.filter(item => 
+      item.number.includes(searchTerm) || 
+      item.level.toLowerCase().includes(searchTerm)
+    );
+  }
+  
+  // 類型過濾
+  if (filterType === 'winner') {
+    filtered = filtered.filter(item => item.isWinner);
+  } else if (filterType === 'loser') {
+    filtered = filtered.filter(item => !item.isWinner);
+  }
+  
+  displayFilteredHistory(filtered);
+}
+
+function displayFilteredHistory(filtered) {
+  const historyList = document.getElementById('historyList');
+  
+  if (filtered.length === 0) {
+    historyList.innerHTML = `
+      <div class="text-center text-gray-500 py-8">
+        <div class="text-4xl mb-2">🔍</div>
+        <div>沒有找到匹配的記錄</div>
+      </div>
+    `;
+    return;
+  }
+  
+  historyList.innerHTML = filtered.map(item => `
+    <div class="history-item ${item.isWinner ? 'winner' : 'loser'}">
+      <div class="flex justify-between items-center">
+        <div>
+          <div class="font-mono font-semibold">${item.number}</div>
+          <div class="text-sm text-gray-600">${item.level} - ${item.prize}</div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-gray-500">${item.date}</div>
+          <div class="text-lg">${item.isWinner ? '🎉' : '😔'}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// 詳細統計功能
+function toggleDetailedStats() {
+  const statsDiv = document.getElementById('detailedStats');
+  const toggleBtn = document.getElementById('statsToggleBtn');
+  const toggleText = document.getElementById('statsToggleText');
+  
+  if (statsDiv.style.display === 'none') {
+    statsDiv.style.display = 'block';
+    calculateDetailedStats();
+    toggleText.textContent = '收起統計';
+    toggleBtn.innerHTML = '📊 收起詳細統計';
+  } else {
+    statsDiv.style.display = 'none';
+    toggleText.textContent = '展開統計';
+    toggleBtn.innerHTML = '📊 查看詳細統計';
+  }
+}
+
+function calculateDetailedStats() {
+  if (history.length === 0) {
+    document.getElementById('winRate').textContent = '0%';
+    document.getElementById('totalPrize').textContent = '$0';
+    document.getElementById('avgPrize').textContent = '$0';
+    document.getElementById('maxPrize').textContent = '無';
+    return;
+  }
+  
+  const winners = history.filter(h => h.isWinner);
+  const winRate = ((winners.length / history.length) * 100).toFixed(1);
+  
+  // 計算獎金總額
+  const prizeMap = {
+    '特別獎': 10000000,
+    '特獎': 2000000,
+    '頭獎': 200000,
+    '二獎': 40000,
+    '三獎': 10000,
+    '四獎': 4000,
+    '五獎': 1000,
+    '六獎': 200
+  };
+  
+  let totalPrize = 0;
+  let maxPrize = 0;
+  let maxPrizeLevel = '無';
+  
+  winners.forEach(item => {
+    const prize = prizeMap[item.level] || 0;
+    totalPrize += prize;
+    if (prize > maxPrize) {
+      maxPrize = prize;
+      maxPrizeLevel = item.level;
+    }
+  });
+  
+  const avgPrize = winners.length > 0 ? Math.floor(totalPrize / winners.length) : 0;
+  
+  // 格式化顯示
+  document.getElementById('winRate').textContent = `${winRate}%`;
+  document.getElementById('totalPrize').textContent = formatCurrency(totalPrize);
+  document.getElementById('avgPrize').textContent = formatCurrency(avgPrize);
+  document.getElementById('maxPrize').textContent = maxPrizeLevel !== '無' ? 
+    `${maxPrizeLevel} (${formatCurrency(maxPrize)})` : '無';
+}
+
+function formatCurrency(amount) {
+  if (amount >= 10000) {
+    return `$${(amount / 10000).toFixed(1)}萬`;
+  }
+  return `$${amount.toLocaleString()}`;
+}
+
+// 更新歷史記錄顯示時同時更新統計
+function updateHistoryDisplay() {
+  const historyList = document.getElementById('historyList');
+  const historyCount = document.getElementById('historyCount');
+  
+  historyCount.textContent = `${history.length} 筆記錄`;
+  
+  if (history.length === 0) {
+    historyList.innerHTML = `
+      <div class="text-center text-gray-500 py-8">
+        <div class="text-4xl mb-2">📝</div>
+        <div>還沒有對獎記錄</div>
+        <div class="text-sm opacity-70 mt-1">開始對獎後會顯示在這裡</div>
+      </div>
+    `;
+  } else {
+    // 顯示所有記錄（如果沒有搜索）
+    if (!document.getElementById('historySearch')?.value) {
+      historyList.innerHTML = history.map(item => `
+        <div class="history-item ${item.isWinner ? 'winner' : 'loser'}">
+          <div class="flex justify-between items-center">
+            <div>
+              <div class="font-mono font-semibold">${item.number}</div>
+              <div class="text-sm text-gray-600">${item.level} - ${item.prize}</div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs text-gray-500">${item.date}</div>
+              <div class="text-lg">${item.isWinner ? '🎉' : '😔'}</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+  
+  // 更新統計
+  updateHistorySummary();
+  
+  // 如果詳細統計已展開，更新它
+  const statsDiv = document.getElementById('detailedStats');
+  if (statsDiv && statsDiv.style.display !== 'none') {
+    calculateDetailedStats();
+  }
+}
+
+function updateHistorySummary() {
+  const winners = history.filter(h => h.isWinner).length;
+  const losers = history.length - winners;
+  
+  document.getElementById('winCount').textContent = winners;
+  document.getElementById('loseCount').textContent = losers;
+  document.getElementById('totalCount').textContent = history.length;
+}
+
+// 包裝 addToHistory 函數，添加最近使用號碼功能
+const originalAddToHistoryFunction = addToHistory;
+addToHistory = function(number, isWinner, level, prize) {
+  originalAddToHistoryFunction(number, isWinner, level, prize);
+  addToRecentNumbers(number);
+};
+
+// 包裝 toggleHistory 函數，顯示搜索框
+const originalToggleHistoryFunction = toggleHistory;
+toggleHistory = function(forceOpen = false) {
+  originalToggleHistoryFunction(forceOpen);
+  
+  const historyContent = document.getElementById('historyContent');
+  const isOpen = historyContent && historyContent.style.display !== 'none';
+  
+  if (isOpen) {
+    const filters = document.getElementById('historyFilters');
+    if (filters) {
+      filters.style.display = 'block';
+      setupHistorySearch();
+    }
+  } else {
+    const filters = document.getElementById('historyFilters');
+    if (filters) {
+      filters.style.display = 'none';
+    }
+  }
+};
+
+// ==================== 新增補強功能實現 ====================
+
+// 期別切換功能
+function changePeriod() {
+  const selector = document.getElementById('periodSelector');
+  const value = selector.value;
+  
+  if (value === 'current') {
+    // 顯示當前期別
+    fetchLatestWinningNumbers();
+  } else if (value === 'previous') {
+    // 顯示上期（需要從API獲取或使用緩存）
+    showPreviousPeriod();
+  } else if (value === 'all') {
+    openPeriodHistory();
+  }
+}
+
+function showPreviousPeriod() {
+  // 獲取上一個期別
+  const now = new Date();
+  const year = now.getFullYear() - 1911;
+  const month = now.getMonth() + 1;
+  
+  let prevPeriod = '';
+  if (month >= 3 && month <= 4) {
+    prevPeriod = `${year}年1-2月期`;
+  } else if (month >= 5 && month <= 6) {
+    prevPeriod = `${year}年3-4月期`;
+  } else if (month >= 7 && month <= 8) {
+    prevPeriod = `${year}年5-6月期`;
+  } else if (month >= 9 && month <= 10) {
+    prevPeriod = `${year}年7-8月期`;
+  } else if (month >= 11) {
+    prevPeriod = `${year}年9-10月期`;
+  } else {
+    prevPeriod = `${year - 1}年11-12月期`;
+  }
+  
+  showMessage(`正在載入 ${prevPeriod} 的開獎號碼...`);
+  // 這裡可以從API獲取歷史期別的開獎號碼
+  // 目前先顯示提示
+}
+
+// 期別歷史查詢
+function openPeriodHistory() {
+  document.getElementById('periodHistoryModal').style.display = 'flex';
+  populatePeriodSelector();
+}
+
+function closePeriodHistory() {
+  document.getElementById('periodHistoryModal').style.display = 'none';
+}
+
+function populatePeriodSelector() {
+  const selector = document.getElementById('periodHistorySelector');
+  const now = new Date();
+  const year = now.getFullYear() - 1911;
+  const month = now.getMonth() + 1;
+  
+  selector.innerHTML = '<option value="">請選擇期別</option>';
+  
+  // 生成最近12期的選項
+  for (let i = 0; i < 12; i++) {
+    const periodYear = year - Math.floor((month - 1 - i * 2) / 12);
+    const periodMonth = ((month - 1 - i * 2) % 12) + 1;
+    
+    let period = '';
+    if (periodMonth >= 1 && periodMonth <= 2) period = `${periodYear}年1-2月期`;
+    else if (periodMonth >= 3 && periodMonth <= 4) period = `${periodYear}年3-4月期`;
+    else if (periodMonth >= 5 && periodMonth <= 6) period = `${periodYear}年5-6月期`;
+    else if (periodMonth >= 7 && periodMonth <= 8) period = `${periodYear}年7-8月期`;
+    else if (periodMonth >= 9 && periodMonth <= 10) period = `${periodYear}年9-10月期`;
+    else period = `${periodYear}年11-12月期`;
+    
+    const option = document.createElement('option');
+    option.value = period;
+    option.textContent = period;
+    selector.appendChild(option);
+  }
+  
+  selector.onchange = function() {
+    if (this.value) {
+      loadPeriodHistory(this.value);
+    }
+  };
+}
+
+function loadPeriodHistory(period) {
+  const content = document.getElementById('periodHistoryContent');
+  content.innerHTML = '<div class="text-center py-4">🔄 正在載入...</div>';
+  
+  // 這裡可以從API獲取指定期別的開獎號碼
+  // 目前先顯示提示
+  setTimeout(() => {
+    content.innerHTML = `
+      <div class="bg-yellow-50 p-4 rounded-lg">
+        <div class="text-sm text-yellow-800">
+          ⚠️ 歷史期別開獎號碼需要從API獲取，目前顯示當前期別數據。
+        </div>
+        <div class="mt-2 text-xs text-yellow-600">
+          期別：${period}
+        </div>
+      </div>
+    `;
+  }, 500);
+}
+
+
+// 重新對獎所有歷史記錄
+function recheckAllHistory() {
+  if (history.length === 0) {
+    showMessage('沒有歷史記錄需要重新對獎');
+    return;
+  }
+  
+  if (!confirm(`確定要重新對獎所有 ${history.length} 筆記錄嗎？`)) {
+    return;
+  }
+  
+  showMessage('🔄 正在重新對獎所有記錄...');
+  
+  let updated = 0;
+  history.forEach((item, index) => {
+    const result = checkReceiptNumber(item.number);
+    if (result.level !== item.level || result.isWinner !== item.isWinner) {
+      history[index] = {
+        ...item,
+        isWinner: result.isWinner,
+        level: result.level,
+        prize: result.prize,
+        date: new Date().toLocaleString('zh-TW')
+      };
+      updated++;
+    }
+  });
+  
+  localStorage.setItem('receiptHistory', JSON.stringify(history));
+  updateHistoryDisplay();
+  
+  showMessage(`✅ 重新對獎完成！更新了 ${updated} 筆記錄`);
+}
+
+// 提醒功能
+function openReminderModal() {
+  document.getElementById('reminderModal').style.display = 'flex';
+  
+  // 載入保存的提醒設置
+  const settings = JSON.parse(localStorage.getItem('reminderSettings')) || {};
+  document.getElementById('lotteryReminder').checked = settings.lotteryReminder || false;
+  document.getElementById('claimReminder').checked = settings.claimReminder || false;
+}
+
+function closeReminderModal() {
+  document.getElementById('reminderModal').style.display = 'none';
+}
+
+function saveReminders() {
+  const settings = {
+    lotteryReminder: document.getElementById('lotteryReminder').checked,
+    claimReminder: document.getElementById('claimReminder').checked
+  };
+  
+  localStorage.setItem('reminderSettings', JSON.stringify(settings));
+  
+  // 只有在用戶開啟提醒時才請求通知權限
+  if (settings.lotteryReminder || settings.claimReminder) {
+    requestNotificationPermission().then(permission => {
+      if (permission === 'granted') {
+        // 設置提醒
+        if (settings.lotteryReminder) {
+          setupLotteryReminder();
+        }
+        if (settings.claimReminder) {
+          setupClaimReminder();
+        }
+        showMessage('✅ 提醒設置已保存');
+      } else if (permission === 'denied') {
+        showMessage('⚠️ 通知權限被拒絕，無法設置提醒');
+      } else {
+        showMessage('✅ 提醒設置已保存（需要允許通知權限才能接收提醒）');
+      }
+    });
+  } else {
+    showMessage('✅ 提醒設置已保存');
+  }
+  
+  closeReminderModal();
+}
+
+function setupLotteryReminder() {
+  // 計算下次開獎日期（每月25日）
+  const now = new Date();
+  const nextLottery = new Date(now.getFullYear(), now.getMonth(), 25);
+  if (nextLottery < now) {
+    nextLottery.setMonth(nextLottery.getMonth() + 1);
+  }
+  
+  // 提前一天提醒
+  const reminderDate = new Date(nextLottery);
+  reminderDate.setDate(reminderDate.getDate() - 1);
+  
+  // 使用瀏覽器通知（需要用戶授權）
+  if ('Notification' in window && Notification.permission === 'granted') {
+    scheduleNotification(reminderDate, '📅 發票開獎提醒', '明天是發票開獎日，記得對獎！');
+  } else if ('Notification' in window && Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        scheduleNotification(reminderDate, '📅 發票開獎提醒', '明天是發票開獎日，記得對獎！');
+      }
+    });
+  }
+}
+
+function setupClaimReminder() {
+  // 檢查中獎發票的領獎截止日期
+  const winners = history.filter(h => h.isWinner);
+  if (winners.length > 0) {
+    // 領獎截止日期通常是開獎後3個月
+    const claimDeadline = new Date();
+    claimDeadline.setMonth(claimDeadline.getMonth() + 3);
+    
+    // 提前7天提醒
+    const reminderDate = new Date(claimDeadline);
+    reminderDate.setDate(reminderDate.getDate() - 7);
+    
+    if ('Notification' in window && Notification.permission === 'granted') {
+      scheduleNotification(reminderDate, '💰 領獎提醒', '您有中獎發票即將到期，請記得領獎！');
+    }
+  }
+}
+
+function scheduleNotification(date, title, body) {
+  // 這裡可以使用Service Worker來實現定時通知
+  // 簡化版：只在頁面打開時檢查
+  const now = new Date();
+  if (date > now) {
+    const timeout = date.getTime() - now.getTime();
+    setTimeout(() => {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification(title, {
+          body: body,
+          icon: '/favicon.ico',
+          badge: '/favicon.ico'
+        });
+      }
+    }, timeout);
+  }
+}
+
+// 請求通知權限（只在用戶主動開啟提醒時才請求）
+function requestNotificationPermission() {
+  if ('Notification' in window) {
+    if (Notification.permission === 'default') {
+      return Notification.requestPermission();
+    }
+    return Promise.resolve(Notification.permission);
+  }
+  return Promise.resolve('denied');
+}
+
+// 工具開啟功能（與 index.html 同步）
+function openTool(url) {
+  if (!url) {
+    console.error('openTool: url 參數缺失');
+    return;
+  }
+  
+  try {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      // 外部連結在新視窗打開
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+      // 內部連結在原視窗打開
+      window.location.href = url;
+    }
+  } catch (error) {
+    console.error('openTool 錯誤:', error);
+  }
+}
 </script>
 </body>
 </html>

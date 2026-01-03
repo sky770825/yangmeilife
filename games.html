@@ -710,13 +710,6 @@ body {
     </div>
 
 
-    <!-- 翻轉卡片 -->
-    <div class="game-icon-btn touch-manipulation" onclick="openGame('flipcard')" ontouchstart="openGame('flipcard')" title="翻轉卡片 - 記憶力挑戰">
-      <div class="game-icon-emoji float">🃏</div>
-      <div class="game-icon-title">翻轉卡片</div>
-      <div class="game-icon-score">最高: <span id="flipcardHighScore">0</span></div>
-    </div>
-
     <!-- 剪刀石頭布 -->
     <div class="game-icon-btn touch-manipulation" onclick="openGame('rps')" ontouchstart="openGame('rps')" title="剪刀石頭布 - 經典對戰遊戲">
       <div class="game-icon-emoji pulse">✂️</div>
@@ -801,7 +794,6 @@ let gameData = {
     tetris: 0,
     snake: 0,
     whack: 0,
-    flipcard: 0,
     rps: 0,
     match3: 0
   },
@@ -839,9 +831,8 @@ function updateScoreDisplay() {
   document.getElementById('sudokuHighScore').textContent = gameData.highScores.sudoku;
   document.getElementById('tetrisHighScore').textContent = gameData.highScores.tetris;
   document.getElementById('snakeHighScore').textContent = gameData.highScores.snake;
-  document.getElementById('whackHighScore').textContent = gameData.highScores.whack;
-  document.getElementById('flipcardHighScore').textContent = gameData.highScores.flipcard;
-  document.getElementById('rpsHighScore').textContent = gameData.highScores.rps;
+    document.getElementById('whackHighScore').textContent = gameData.highScores.whack;
+    document.getElementById('rpsHighScore').textContent = gameData.highScores.rps;
   document.getElementById('match3HighScore').textContent = gameData.highScores.match3;
 }
 
@@ -897,10 +888,6 @@ function openGame(gameType) {
     case 'whack':
       content.innerHTML = createWhackGame();
       setTimeout(() => startWhackGame(), 100);
-      break;
-    case 'flipcard':
-      content.innerHTML = createFlipcardGame();
-      setTimeout(() => startFlipcardGame(), 100);
       break;
     case 'rps':
       content.innerHTML = createRPSGame();
@@ -1028,26 +1015,6 @@ function createMemoryGame() {
       <div class="flex justify-center gap-2">
         <button onclick="startMemoryGame()" class="btn-game text-xs px-3 py-1">開始遊戲</button>
         <button onclick="closeGame()" class="btn-game text-xs px-3 py-1">關閉</button>
-      </div>
-    </div>
-  `;
-}
-
-// 滑動消除遊戲
-function createEliminateGame() {
-  return `
-    <div class="text-center">
-      <h2 class="text-2xl font-bold mb-4">🎯 滑動消除</h2>
-      <div class="mb-4 flex justify-center gap-4 text-sm">
-        <span>分數: <span id="eliminateScore" class="font-bold">0</span></span>
-        <span>目標: <span id="eliminateTarget" class="font-bold">1000</span></span>
-        <span>步數: <span id="eliminateMoves" class="font-bold">30</span></span>
-      </div>
-      <div id="eliminateGrid" class="game-area mb-4"></div>
-      <div class="text-xs text-gray-600 mb-4">滑動相鄰方塊創造三個連線</div>
-      <div class="flex justify-center gap-2">
-        <button onclick="startEliminateGame()" class="btn-game text-sm">開始遊戲</button>
-        <button onclick="closeGame()" class="btn-game text-sm">關閉</button>
       </div>
     </div>
   `;
@@ -1322,27 +1289,6 @@ function createWhackGame() {
 }
 
 
-// 翻轉卡片 - 簡單配對遊戲
-function createFlipcardGame() {
-  return `
-    <div class="text-center h-full flex flex-col">
-      <h2 class="text-xl font-bold mb-2">🃏 翻轉卡片</h2>
-      <div class="mb-2 flex justify-center gap-3 text-xs">
-        <span>分數: <span id="flipcardScore" class="font-bold">0</span></span>
-        <span>翻轉: <span id="flipcardFlips" class="font-bold">0</span></span>
-        <span>配對: <span id="flipcardPairs" class="font-bold">0</span>/8</span>
-      </div>
-      <div id="flipcardGrid" class="game-area flex-1 mb-2"></div>
-      <div class="text-xs text-gray-600 mb-2">點擊卡片翻轉，找出相同的圖案配對</div>
-      <div class="flex justify-center gap-2">
-        <button onclick="startFlipcardGame()" class="btn-game text-xs px-3 py-1">開始遊戲</button>
-        <button onclick="resetFlipcardGame()" class="btn-game text-xs px-3 py-1">重新開始</button>
-        <button onclick="closeGame()" class="btn-game text-xs px-3 py-1">關閉</button>
-      </div>
-    </div>
-  `;
-}
-
 // 剪刀石頭布
 function createRPSGame() {
   return `
@@ -1399,25 +1345,6 @@ function createMatch3Game() {
       </div>
     </div>
   `;
-}
-
-// 翻轉卡片遊戲函數
-let flipcardGameInstance = null;
-
-function startFlipcardGame() {
-  if (flipcardGameInstance) {
-    flipcardGameInstance = null;
-  }
-  flipcardGameInstance = new FlipcardGame();
-  flipcardGameInstance.init();
-}
-
-function resetFlipcardGame() {
-  if (flipcardGameInstance) {
-    flipcardGameInstance.resetGame();
-  } else {
-    startFlipcardGame();
-  }
 }
 
 // 初始化

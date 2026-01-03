@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社區聊天牆 - 楊梅人在地生活集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --border-radius: 1.25rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 50%, #fff 100%);
+  font-family: system-ui, -apple-system, sans-serif;
+  padding-bottom: 180px;
+  padding-top: env(safe-area-inset-top);
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.message-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.message-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.message-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.message-author {
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.message-time {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.message-content {
+  color: #4b5563;
+  line-height: 1.6;
+  word-wrap: break-word;
+  margin-bottom: 0.75rem;
+}
+
+.message-actions {
+  display: flex;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.message-action {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.message-action:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+}
+
+.message-action.liked {
+  color: #ef4444;
+}
+
+.message-action.liked:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+}
+
+.btn-primary {
+  background: var(--grad);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.chat-input-container {
+  position: fixed;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid #e5e7eb;
+  z-index: 100;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+}
+
+.chat-input-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  resize: none;
+  min-height: 48px;
+  max-height: 120px;
+  font-family: inherit;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.send-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.send-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid #e5e7eb;
+  background: white;
+  color: #6b7280;
+}
+
+.filter-btn.active {
+  background: var(--grad);
+  color: white;
+  border-color: transparent;
+}
+
+.stats-card {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background: white;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #6366f1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* 底部導航優化 */
+.bottom-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  position: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav button {
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.bottom-nav button:hover {
+  transform: translateY(-2px);
+}
+
+.bottom-nav button:active {
+  transform: translateY(0);
+}
+
+/* 響應式設計 */
+@media (min-width: 640px) {
+  .chat-input-container {
+    padding: 1rem 2rem;
+  }
+  
+  .message-card {
+    padding: 1.25rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部標題 -->
+<header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 shadow-lg sticky top-0 z-10">
+  <div class="flex items-center justify-between">
+    <h1 class="text-xl font-bold flex items-center gap-2">
+      <span>💬</span>
+      <span>社區聊天牆</span>
+    </h1>
+    <button onclick="refreshMessages()" class="bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full text-sm font-semibold transition-all">
+      🔄 刷新
+    </button>
+  </div>
+</header>
+
+<main class="px-4 py-4 max-w-4xl mx-auto">
+  <!-- 統計卡片 -->
+  <div class="stats-card">
+    <div class="stat-item">
+      <div class="stat-value" id="totalMessages">0</div>
+      <div class="stat-label">總留言數</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="todayMessages">0</div>
+      <div class="stat-label">今日留言</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="activeUsers">0</div>
+      <div class="stat-label">活躍用戶</div>
+    </div>
+  </div>
+
+  <!-- 篩選按鈕 -->
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all" onclick="filterMessages('all')">
+      全部
+    </button>
+    <button class="filter-btn" data-filter="today" onclick="filterMessages('today')">
+      今天
+    </button>
+    <button class="filter-btn" data-filter="week" onclick="filterMessages('week')">
+      本週
+    </button>
+    <button class="filter-btn" data-filter="month" onclick="filterMessages('month')">
+      本月
+    </button>
+  </div>
+
+  <!-- 消息列表 -->
+  <div id="messagesList"></div>
+</main>
+
+<!-- 聊天輸入框 -->
+<div class="chat-input-container">
+  <div class="chat-input-wrapper">
+    <textarea 
+      id="messageInput" 
+      class="chat-input" 
+      placeholder="輸入你的留言..."
+      rows="1"
+      onkeydown="handleKeyDown(event)"
+      oninput="autoResize(this)"
+    ></textarea>
+    <button 
+      id="sendBtn" 
+      class="send-btn" 
+      onclick="sendMessage()"
+      title="發送留言"
+    >
+      ➤
+    </button>
+  </div>
+</div>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
+  </button>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
+  </button>
+  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
+  </button>
+</nav>
+
+<script>
+// 數據管理
+let messages = JSON.parse(localStorage.getItem('communityMessages') || '[]');
+let currentFilter = 'all';
+let likedMessages = JSON.parse(localStorage.getItem('likedMessages') || '[]');
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  loadMessages();
+  updateStats();
+  
+  // 自動滾動到底部
+  scrollToBottom();
+  
+  // 定期刷新（每30秒）
+  setInterval(() => {
+    loadMessages();
+  }, 30000);
+});
+
+// 載入消息列表
+function loadMessages() {
+  const messagesList = document.getElementById('messagesList');
+  const filteredMessages = getFilteredMessages();
+  
+  if (filteredMessages.length === 0) {
+    messagesList.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">💬</div>
+        <p class="text-lg font-semibold mb-2">還沒有留言</p>
+        <p class="text-sm text-gray-600">成為第一個留言的人吧！</p>
+      </div>
+    `;
+    return;
+  }
+  
+  messagesList.innerHTML = filteredMessages.map((message, index) => {
+    const timeAgo = getTimeAgo(message.timestamp);
+    const isLiked = likedMessages.includes(message.id);
+    const avatarText = message.author.charAt(0).toUpperCase();
+    
+    return `
+      <div class="message-card" data-id="${message.id}">
+        <div class="message-header">
+          <div class="message-avatar">${avatarText}</div>
+          <div class="message-info">
+            <div class="message-author">
+              <span>${escapeHtml(message.author)}</span>
+            </div>
+            <div class="message-time">${timeAgo}</div>
+          </div>
+        </div>
+        <div class="message-content">${escapeHtml(message.content)}</div>
+        <div class="message-actions">
+          <button 
+            class="message-action ${isLiked ? 'liked' : ''}" 
+            onclick="toggleLike(${message.id})"
+          >
+            ${isLiked ? '❤️' : '🤍'} <span>${message.likes || 0}</span>
+          </button>
+          <button 
+            class="message-action" 
+            onclick="deleteMessage(${message.id})"
+            style="color: #ef4444;"
+          >
+            🗑️ 刪除
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  
+  updateStats();
+}
+
+// 獲取篩選後的消息
+function getFilteredMessages() {
+  let filtered = [...messages];
+  
+  // 按時間排序（最新的在前）
+  filtered.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  
+  // 應用時間篩選
+  if (currentFilter === 'today') {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    filtered = filtered.filter(msg => new Date(msg.timestamp) >= today);
+  } else if (currentFilter === 'week') {
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    filtered = filtered.filter(msg => new Date(msg.timestamp) >= weekAgo);
+  } else if (currentFilter === 'month') {
+    const monthAgo = new Date();
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    filtered = filtered.filter(msg => new Date(msg.timestamp) >= monthAgo);
+  }
+  
+  return filtered;
+}
+
+// 篩選消息
+function filterMessages(filter) {
+  currentFilter = filter;
+  
+  // 更新按鈕狀態
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    if (btn.dataset.filter === filter) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+  
+  loadMessages();
+}
+
+// 發送消息
+function sendMessage() {
+  const input = document.getElementById('messageInput');
+  const content = input.value.trim();
+  
+  if (!content) {
+    showMessage('請輸入留言內容', 'error');
+    return;
+  }
+  
+  if (content.length > 500) {
+    showMessage('留言內容不能超過500字', 'error');
+    return;
+  }
+  
+  // 獲取用戶名稱（如果沒有則使用匿名）
+  const author = localStorage.getItem('userName') || '匿名用戶';
+  
+  const message = {
+    id: Date.now(),
+    author: author,
+    content: content,
+    timestamp: new Date().toISOString(),
+    likes: 0
+  };
+  
+  messages.unshift(message);
+  localStorage.setItem('communityMessages', JSON.stringify(messages));
+  
+  input.value = '';
+  autoResize(input);
+  loadMessages();
+  scrollToBottom();
+  showMessage('留言發送成功！', 'success');
+}
+
+// 切換點讚
+function toggleLike(messageId) {
+  const message = messages.find(m => m.id === messageId);
+  if (!message) return;
+  
+  const index = likedMessages.indexOf(messageId);
+  
+  if (index > -1) {
+    // 取消點讚
+    likedMessages.splice(index, 1);
+    message.likes = Math.max(0, (message.likes || 0) - 1);
+  } else {
+    // 點讚
+    likedMessages.push(messageId);
+    message.likes = (message.likes || 0) + 1;
+  }
+  
+  localStorage.setItem('likedMessages', JSON.stringify(likedMessages));
+  localStorage.setItem('communityMessages', JSON.stringify(messages));
+  loadMessages();
+}
+
+// 刪除消息
+function deleteMessage(messageId) {
+  if (!confirm('確定要刪除這則留言嗎？')) {
+    return;
+  }
+  
+  const index = messages.findIndex(m => m.id === messageId);
+  if (index > -1) {
+    messages.splice(index, 1);
+    localStorage.setItem('communityMessages', JSON.stringify(messages));
+    loadMessages();
+    showMessage('留言已刪除', 'success');
+  }
+}
+
+// 更新統計
+function updateStats() {
+  const totalMessages = messages.length;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayMessages = messages.filter(msg => new Date(msg.timestamp) >= today).length;
+  
+  // 獲取活躍用戶數（過去7天）
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  const recentMessages = messages.filter(msg => new Date(msg.timestamp) >= weekAgo);
+  const activeUsers = new Set(recentMessages.map(msg => msg.author)).size;
+  
+  document.getElementById('totalMessages').textContent = totalMessages;
+  document.getElementById('todayMessages').textContent = todayMessages;
+  document.getElementById('activeUsers').textContent = activeUsers;
+}
+
+// 獲取時間差
+function getTimeAgo(timestamp) {
+  const now = new Date();
+  const time = new Date(timestamp);
+  const diff = now - time;
+  
+  if (diff < 60000) return '剛剛';
+  if (diff < 3600000) return `${Math.floor(diff / 60000)}分鐘前`;
+  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小時前`;
+  if (diff < 604800000) return `${Math.floor(diff / 86400000)}天前`;
+  
+  return time.toLocaleDateString('zh-TW', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+// HTML 轉義
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// 自動調整輸入框高度
+function autoResize(textarea) {
+  textarea.style.height = 'auto';
+  textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+}
+
+// 處理鍵盤事件
+function handleKeyDown(event) {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
+}
+
+// 滾動到底部
+function scrollToBottom() {
+  setTimeout(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, 100);
+}
+
+// 刷新消息
+function refreshMessages() {
+  loadMessages();
+  showMessage('已刷新', 'success');
+}
+
+// 顯示消息提示
+function showMessage(message, type = 'info') {
+  const messageEl = document.createElement('div');
+  messageEl.className = `message message-${type}`;
+  messageEl.textContent = message;
+  
+  messageEl.style.cssText = `
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10001;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    animation: slideDown 0.3s ease;
+    pointer-events: none;
+  `;
+  
+  const colors = {
+    success: '#10b981',
+    error: '#ef4444',
+    warning: '#f59e0b',
+    info: '#3b82f6'
+  };
+  
+  messageEl.style.background = colors[type] || colors.info;
+  
+  document.body.appendChild(messageEl);
+  
+  setTimeout(() => {
+    messageEl.style.animation = 'slideUp 0.3s ease';
+    setTimeout(() => messageEl.remove(), 300);
+  }, 3000);
+}
+
+// 添加動畫樣式
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes slideDown {
+    from {
+      transform: translateX(-50%) translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-50%) translateY(-100%);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
+

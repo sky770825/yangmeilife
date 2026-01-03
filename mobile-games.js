@@ -882,7 +882,7 @@ class SimpleMergeGame {
     this.grid.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         const cellElement = document.createElement('div');
-        cellElement.className = 'aspect-square bg-gray-300 rounded-lg flex items-center justify-center text-lg font-bold transition-transform duration-150 will-change-transform';
+        cellElement.className = 'aspect-square bg-gray-300 flex items-center justify-center text-base md:text-lg font-bold transition-transform duration-150 will-change-transform min-h-0 border border-gray-400';
         
         if (cell !== 0) {
           cellElement.textContent = cell;
@@ -2814,11 +2814,5 @@ function startMatch3Game() {
 
 function startRPSGame() {
   currentGameInstance = new RPSGame();
-  currentGameInstance.init();
-}
-
-function startMatch3Game() {
-  // 使用現有的消除遊戲邏輯
-  currentGameInstance = new SwipeEliminateGame();
   currentGameInstance.init();
 }

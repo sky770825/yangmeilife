@@ -157,11 +157,26 @@
   font-size: 1.5rem;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-  z-index: 100;
+  z-index: 1000;
   transition: transform 0.2s;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
 }
 .add-button:hover {
   transform: scale(1.1);
+}
+.add-button:active {
+  transform: scale(0.95);
+}
+@media (max-width: 768px) {
+  .add-button {
+    bottom: 5.5rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    font-size: 1.4rem;
+  }
 }
 /* 圖片預覽區域 */
 .image-preview-container {
@@ -503,7 +518,7 @@
         <option value="food">食品</option>
         <option value="other">其他</option>
       </select>
-      <button onclick="openHelpModal()" class="btn py-2 px-2 text-xs whitespace-nowrap">
+      <button id="helpButton" class="btn py-2 px-2 text-xs whitespace-nowrap">
         📖 說明
       </button>
     </div>
@@ -535,7 +550,7 @@
 </div>
 
 <!-- 新增刊登按鈕 -->
-<button class="add-button" onclick="openModal()" aria-label="新增刊登" title="新增刊登">
+<button id="addButton" class="add-button" aria-label="新增刊登" title="新增刊登">
   ➕
 </button>
 
@@ -815,14 +830,16 @@ if (GOOGLE_SHEETS_API_URL && GOOGLE_SHEETS_API_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_
 const SUPABASE_URL = 'YOUR_SUPABASE_URL';
 const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
-let supabase = null;
+let supabaseClient = null;
 let useSupabase = false;
 
 try {
   if (SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    useSupabase = true;
-    console.log('✅ Supabase 已初始化');
+    if (typeof window.supabase !== 'undefined') {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      useSupabase = true;
+      console.log('✅ Supabase 已初始化');
+    }
   }
 } catch (err) {
   console.error('❌ Supabase 初始化失敗:', err);
@@ -1241,9 +1258,9 @@ async function readListings() {
     }
   }
   
-  if (useSupabase && supabase) {
+  if (useSupabase && supabaseClient) {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('second_hand_listings')
         .select('*')
         .order('created_at', { ascending: false });
@@ -1349,9 +1366,9 @@ async function addListing(listing, imageBase64List = []) {
     }
   }
   
-  if (useSupabase && supabase) {
+  if (useSupabase && supabaseClient) {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from('second_hand_listings')
         .insert([{
           title: listing.title,
@@ -1503,9 +1520,9 @@ async function removeListingById(id, password = '') {
     }
   }
   
-  if (useSupabase && supabase) {
+  if (useSupabase && supabaseClient) {
     try {
-      const { error } = await supabase.from('second_hand_listings').delete().eq('id', id);
+      const { error } = await supabaseClient.from('second_hand_listings').delete().eq('id', id);
       if (error) throw error;
       return true;
     } catch (err) {
@@ -1874,7 +1891,14 @@ function handleSearch() {
 
 // ===== 彈窗控制 =====
 function openModal() {
-  document.getElementById('modalOverlay').classList.add('active');
+  console.log('openModal 函數被調用');
+  const modalOverlay = document.getElementById('modalOverlay');
+  if (!modalOverlay) {
+    console.error('找不到 modalOverlay 元素');
+    return;
+  }
+  console.log('顯示模態框');
+  modalOverlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
@@ -2216,6 +2240,48 @@ function handleLightboxKeyboard(event) {
 // ===== 初始化 =====
 setupImagePreview();
 renderListings(null, 1);
+
+// 綁定按鈕事件
+function bindButtons() {
+  // 綁定新增按鈕
+  const addButton = document.getElementById('addButton');
+  if (addButton) {
+    addButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('新增按鈕被點擊');
+      openModal();
+    });
+    console.log('新增按鈕事件已綁定');
+  } else {
+    console.error('找不到新增按鈕元素');
+  }
+  
+  // 綁定說明按鈕
+  const helpButton = document.getElementById('helpButton');
+  if (helpButton) {
+    helpButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('說明按鈕被點擊');
+      openHelpModal();
+    });
+    console.log('說明按鈕事件已綁定');
+  }
+}
+
+// 確保函數在全局作用域中可用
+window.openModal = openModal;
+window.openHelpModal = openHelpModal;
+window.closeModal = closeModal;
+window.closeHelpModal = closeHelpModal;
+
+// 綁定事件
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bindButtons);
+} else {
+  bindButtons();
+}
 </script>
 
 </body>

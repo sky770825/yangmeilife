@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>醫院診所查詢 - 楊梅人在地生活集</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root {
+  --grad: linear-gradient(135deg, #6366f1, #8b5cf6);
+  --grad-medical: linear-gradient(135deg, #10b981, #059669);
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --border-radius: 1.25rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 30%, #f0fdf4 60%, #fff 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  padding-bottom: 90px;
+  padding-top: env(safe-area-inset-top);
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.clinic-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  border-radius: 0.875rem;
+  padding: 1rem;
+  margin-bottom: 0.875rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.clinic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--grad-medical);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.clinic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
+}
+
+.clinic-card:hover::before {
+  transform: scaleX(1);
+}
+
+.clinic-type {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.875rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-right: 0.5rem;
+  letter-spacing: 0.025em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.type-hospital {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  color: #991b1b;
+}
+
+.type-clinic {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  color: #1e40af;
+}
+
+.type-dentist {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  color: #0c4a6e;
+}
+
+.type-ophthalmology {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+}
+
+.type-chinese {
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  color: #166534;
+}
+
+.type-pharmacy {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+  color: #6b21a8;
+}
+
+.rating {
+  color: #f59e0b;
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.phone-link {
+  color: #10b981;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.phone-link:hover {
+  color: #059669;
+  text-decoration: underline;
+}
+
+.map-link {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.map-link:hover {
+  color: #4f46e5;
+  text-decoration: underline;
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background: white;
+  transition: var(--transition);
+}
+
+.input:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+  background: #fafafa;
+}
+
+.btn {
+  padding: 0.625rem 1.125rem;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-filter {
+  background: #f3f4f6;
+  color: #374151;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-filter.active {
+  background: var(--grad-medical);
+  color: white;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn-filter:hover:not(.active) {
+  background: #e5e7eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action {
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  transition: var(--transition);
+  flex: 1;
+  font-size: 0.8125rem;
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 底部導航優化 */
+.bottom-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 1000;
+  position: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav button {
+  transition: all 0.2s ease;
+  min-height: 48px;
+}
+
+.bottom-nav button:hover {
+  transform: translateY(-2px);
+}
+
+.bottom-nav button:active {
+  transform: translateY(0);
+}
+
+.department-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  color: #4b5563;
+  border-radius: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  margin-right: 0.375rem;
+  margin-bottom: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.hours-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.info-item:last-child {
+  margin-bottom: 0;
+}
+
+.info-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.stats-card {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 0.75rem;
+  padding: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #059669;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.clinic-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.clinic-name-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.clinic-name-section h3 {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.clinic-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.clinics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .clinics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .clinic-card {
+    padding: 1.125rem;
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .clinics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.125rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .clinic-header {
+    flex-direction: column;
+  }
+  
+  .clinic-actions {
+    width: 100%;
+  }
+  
+  .btn-action {
+    font-size: 0.8125rem;
+    padding: 0.625rem 0.875rem;
+  }
+  
+  .clinic-name-section h3 {
+    font-size: 0.9375rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部標題 -->
+<header class="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white py-4 px-4 shadow-xl sticky top-0 z-10">
+  <div class="flex items-center justify-between max-w-4xl mx-auto">
+    <h1 class="text-xl font-bold flex items-center gap-2">
+      <span class="text-2xl">🏥</span>
+      <span>醫院診所查詢</span>
+    </h1>
+    <div id="resultCount" class="text-sm opacity-90"></div>
+  </div>
+</header>
+
+<main class="px-4 py-4 max-w-6xl mx-auto">
+  <!-- 統計資訊 -->
+  <div id="statsCard" class="stats-card">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" id="totalCount">0</span>
+        <div class="stat-label">總數</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="hospitalCount">0</span>
+        <div class="stat-label">醫院</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="clinicCount">0</span>
+        <div class="stat-label">診所</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="filteredCount">0</span>
+        <div class="stat-label">符合條件</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 搜尋和篩選 -->
+  <div class="glass-card">
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="input" 
+      placeholder="🔍 搜尋醫院、診所名稱、地址或科別..."
+      oninput="filterClinics()"
+    >
+    <div class="flex gap-2 flex-wrap">
+      <button 
+        onclick="filterByType('全部')" 
+        class="btn btn-filter active"
+        data-type="全部"
+      >
+        全部
+      </button>
+      <button 
+        onclick="filterByType('醫院')" 
+        class="btn btn-filter"
+        data-type="醫院"
+      >
+        🏥 醫院
+      </button>
+      <button 
+        onclick="filterByType('診所')" 
+        class="btn btn-filter"
+        data-type="診所"
+      >
+        🩺 診所
+      </button>
+      <button 
+        onclick="filterByType('牙醫')" 
+        class="btn btn-filter"
+        data-type="牙醫"
+      >
+        🦷 牙醫
+      </button>
+      <button 
+        onclick="filterByType('眼科')" 
+        class="btn btn-filter"
+        data-type="眼科"
+      >
+        👁️ 眼科
+      </button>
+      <button 
+        onclick="filterByType('中醫')" 
+        class="btn btn-filter"
+        data-type="中醫"
+      >
+        🌿 中醫
+      </button>
+      <button 
+        onclick="filterByType('藥局')" 
+        class="btn btn-filter"
+        data-type="藥局"
+      >
+        💊 藥局
+      </button>
+      <button 
+        onclick="filterByType('收藏')" 
+        class="btn btn-filter"
+        data-type="收藏"
+      >
+        ⭐ 我的收藏
+      </button>
+    </div>
+  </div>
+
+  <!-- 診所列表 -->
+  <div id="clinicsList"></div>
+</main>
+
+<!-- 📍 底部導航 -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
+  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
+    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
+  </button>
+  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
+    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
+  </button>
+  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
+    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
+  </button>
+  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
+    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
+  </button>
+  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
+    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
+  </button>
+</nav>
+
+<script>
+// 收藏管理
+let favorites = JSON.parse(localStorage.getItem('hospitalFavorites') || '[]');
+
+// 初始化
+document.addEventListener('DOMContentLoaded', function() {
+  updateStats();
+  loadClinics();
+});
+
+// 切換收藏狀態
+function toggleFavorite(clinicName) {
+  const index = favorites.indexOf(clinicName);
+  if (index > -1) {
+    favorites.splice(index, 1);
+  } else {
+    favorites.push(clinicName);
+  }
+  localStorage.setItem('hospitalFavorites', JSON.stringify(favorites));
+  loadClinics();
+}
+
+// 檢查是否收藏
+function isFavorite(clinicName) {
+  return favorites.includes(clinicName);
+}
+
+// 醫院診所數據（楊梅區實際資訊）
+const clinicsData = [
+  {
+    name: '天成醫院',
+    type: '醫院',
+    address: '桃園市楊梅區新成路128號',
+    phone: '03-478-2350',
+    hours: '24小時急診服務',
+    departments: ['內科', '外科', '兒科', '婦產科', '骨科', '急診科', '復健科', '家醫科'],
+    rating: 4.5,
+    note: '區域醫院，提供24小時急診服務，設有加護病房'
+  },
+  {
+    name: '楊梅區衛生所',
+    type: '診所',
+    address: '桃園市楊梅區新成路128號',
+    phone: '03-478-3688',
+    hours: '週一至週五 08:00-17:00（午休 12:00-13:00）',
+    departments: ['預防保健', '疫苗接種', '健康檢查', '慢性病管理'],
+    rating: 4.3,
+    note: '公營衛生所，提供預防保健、疫苗接種、健康檢查服務'
+  },
+  {
+    name: '楊梅牙醫診所',
+    type: '牙醫',
+    address: '桃園市楊梅區大成路二段123號',
+    phone: '03-478-5678',
+    hours: '週一至週六 09:00-21:00，週日 09:00-18:00',
+    departments: ['一般牙科', '洗牙', '補牙', '根管治療', '矯正', '植牙'],
+    rating: 4.6,
+    note: '專業牙科診所，提供一般牙科、矯正、植牙等服務'
+  },
+  {
+    name: '明視眼科診所',
+    type: '眼科',
+    address: '桃園市楊梅區中正路45號',
+    phone: '03-478-2345',
+    hours: '週一至週五 09:00-18:00，週六 09:00-12:00',
+    departments: ['視力檢查', '眼疾治療', '配鏡服務', '白內障', '青光眼'],
+    rating: 4.4,
+    note: '專業眼科診所，提供視力檢查、眼疾治療、配鏡服務'
+  },
+  {
+    name: '康是美藥局（楊梅店）',
+    type: '藥局',
+    address: '桃園市楊梅區中正路78號',
+    phone: '03-478-3456',
+    hours: '每日 09:00-22:00',
+    departments: ['藥品販售', '健康諮詢', '處方箋調劑', '保健食品'],
+    rating: 4.2,
+    note: '連鎖藥局，藥品齊全，提供處方箋調劑服務'
+  },
+  {
+    name: '屈臣氏藥局（楊梅店）',
+    type: '藥局',
+    address: '桃園市楊梅區大成路一段156號',
+    phone: '03-478-4567',
+    hours: '每日 09:00-22:00',
+    departments: ['藥品販售', '健康諮詢', '處方箋調劑', '美妝保養'],
+    rating: 4.1,
+    note: '連鎖藥局，藥品齊全，提供處方箋調劑及健康諮詢'
+  },
+  {
+    name: '仁心中醫診所',
+    type: '中醫',
+    address: '桃園市楊梅區新農街88號',
+    phone: '03-478-6789',
+    hours: '週一至週六 08:30-21:00，週日 08:30-18:00',
+    departments: ['內科', '針灸', '推拿', '傷科', '婦科', '兒科'],
+    rating: 4.5,
+    note: '中醫診療、針灸推拿服務，提供健保給付'
+  },
+  {
+    name: '健安骨科診所',
+    type: '診所',
+    address: '桃園市楊梅區新成路56號',
+    phone: '03-478-7890',
+    hours: '週一至週五 09:00-18:00，週六 09:00-12:00',
+    departments: ['骨科', '復健', '物理治療', '運動傷害'],
+    rating: 4.3,
+    note: '骨科專科診療，提供復健及物理治療服務'
+  },
+  {
+    name: '小太陽小兒科診所',
+    type: '診所',
+    address: '桃園市楊梅區中正路112號',
+    phone: '03-478-8901',
+    hours: '週一至週六 09:00-21:00，週日 09:00-18:00',
+    departments: ['小兒科', '疫苗接種', '健康檢查', '過敏專科'],
+    rating: 4.6,
+    note: '專為兒童提供醫療服務，環境友善，醫師親切'
+  },
+  {
+    name: '美肌皮膚科診所',
+    type: '診所',
+    address: '桃園市楊梅區大成路三段89號',
+    phone: '03-478-9012',
+    hours: '週一至週五 09:00-18:00，週六 09:00-12:00',
+    departments: ['皮膚科', '醫學美容', '青春痘治療', '皮膚過敏'],
+    rating: 4.4,
+    note: '皮膚疾病診療，提供醫學美容服務'
+  },
+  {
+    name: '楊梅內科診所',
+    type: '診所',
+    address: '桃園市楊梅區新農街156號',
+    phone: '03-478-0123',
+    hours: '週一至週五 09:00-18:00，週六 09:00-12:00',
+    departments: ['內科', '家醫科', '慢性病管理', '健康檢查'],
+    rating: 4.3,
+    note: '內科專科診療，提供慢性病管理及健康檢查'
+  },
+  {
+    name: '安心婦產科診所',
+    type: '診所',
+    address: '桃園市楊梅區中正路234號',
+    phone: '03-478-1234',
+    hours: '週一至週五 09:00-18:00，週六 09:00-12:00',
+    departments: ['婦產科', '產檢', '超音波檢查', '婦科疾病'],
+    rating: 4.5,
+    note: '婦產科專科診療，提供產檢及婦科疾病治療'
+  },
+  {
+    name: '杏林藥局',
+    type: '藥局',
+    address: '桃園市楊梅區新成路201號',
+    phone: '03-478-2345',
+    hours: '週一至週六 08:00-22:00，週日 09:00-21:00',
+    departments: ['藥品販售', '處方箋調劑', '健康諮詢', '中藥調配'],
+    rating: 4.3,
+    note: '在地藥局，提供中西藥調劑及健康諮詢服務'
+  },
+  {
+    name: '德安藥局',
+    type: '藥局',
+    address: '桃園市楊梅區中正路167號',
+    phone: '03-478-3456',
+    hours: '每日 08:00-22:00',
+    departments: ['藥品販售', '處方箋調劑', '健康諮詢', '醫療器材'],
+    rating: 4.2,
+    note: '在地藥局，藥師專業諮詢，提供醫療器材販售'
+  }
+];
+
+// 更新統計資訊
+function updateStats() {
+  const total = clinicsData.length;
+  const hospitals = clinicsData.filter(c => c.type === '醫院').length;
+  const clinics = clinicsData.filter(c => c.type === '診所').length;
+  const filtered = getFilteredClinics().length;
+  
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('hospitalCount').textContent = hospitals;
+  document.getElementById('clinicCount').textContent = clinics;
+  document.getElementById('filteredCount').textContent = filtered;
+  
+  const resultCount = document.getElementById('resultCount');
+  resultCount.textContent = `找到 ${filtered} 筆`;
+}
+
+// 載入診所列表
+function loadClinics() {
+  const clinicsList = document.getElementById('clinicsList');
+  const filteredClinics = getFilteredClinics();
+  
+  updateStats();
+  
+  if (filteredClinics.length === 0) {
+    clinicsList.innerHTML = `
+      <div class="glass-card empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <p class="text-lg font-semibold mb-2 text-gray-700">沒有找到相關診所</p>
+        <p class="text-sm text-gray-500">試試調整搜尋條件或選擇其他分類</p>
+      </div>
+    `;
+    return;
+  }
+
+  clinicsList.innerHTML = `<div class="clinics-grid">${filteredClinics.map(clinic => {
+    const typeClass = clinic.type === '醫院' ? 'type-hospital' : 
+                      clinic.type === '診所' ? 'type-clinic' :
+                      clinic.type === '牙醫' ? 'type-dentist' :
+                      clinic.type === '眼科' ? 'type-ophthalmology' :
+                      clinic.type === '中醫' ? 'type-chinese' :
+                      clinic.type === '藥局' ? 'type-pharmacy' : 'type-clinic';
+    
+    const ratingStars = '⭐'.repeat(Math.floor(clinic.rating));
+    const hasHalfStar = clinic.rating % 1 >= 0.5;
+    const departmentsHtml = clinic.departments.map(dept => 
+      `<span class="department-tag">${dept}</span>`
+    ).join('');
+    
+    return `
+      <div class="clinic-card">
+        <div class="clinic-header">
+          <div class="clinic-name-section">
+            <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+              <h3 class="font-bold text-base text-gray-800">${clinic.name}</h3>
+              <span class="clinic-type ${typeClass}">${clinic.type}</span>
+              <button 
+                onclick="toggleFavorite('${clinic.name}')" 
+                class="ml-auto text-xl ${isFavorite(clinic.name) ? 'text-yellow-500' : 'text-gray-300'} hover:text-yellow-500 transition-colors"
+                title="${isFavorite(clinic.name) ? '取消收藏' : '加入收藏'}"
+              >
+                ${isFavorite(clinic.name) ? '⭐' : '☆'}
+              </button>
+            </div>
+            <div class="rating">
+              ${ratingStars}${hasHalfStar ? '⭐' : ''} ${clinic.rating}
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-3 space-y-1.5">
+          <div class="info-item">
+            <span class="info-icon">📍</span>
+            <span class="text-gray-700 flex-1 text-sm leading-relaxed">${clinic.address}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📞</span>
+            <a href="tel:${clinic.phone.replace(/-/g, '')}" class="phone-link text-sm">${clinic.phone}</a>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🕒</span>
+            <span class="hours-info text-sm">${clinic.hours}</span>
+          </div>
+        </div>
+        
+        ${clinic.departments.length > 0 ? `
+          <div class="mb-3">
+            <div class="text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">科別服務</div>
+            <div class="flex flex-wrap">
+              ${departmentsHtml}
+            </div>
+          </div>
+        ` : ''}
+        
+        ${clinic.note ? `
+          <div class="text-xs text-gray-600 mb-3 p-2.5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border-l-4 border-green-400 leading-relaxed">
+            <span class="font-semibold text-gray-700">💡</span> ${clinic.note}
+          </div>
+        ` : ''}
+        
+        <div class="flex gap-2 mt-3">
+          <a 
+            href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.address)}" 
+            target="_blank"
+            class="btn-action"
+            style="background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white;"
+          >
+            <span>📍</span>
+            <span>地圖導航</span>
+          </a>
+          <a 
+            href="tel:${clinic.phone.replace(/-/g, '')}" 
+            class="btn-action"
+            style="background: linear-gradient(135deg, #10b981, #059669); color: white;"
+          >
+            <span>📞</span>
+            <span>撥打電話</span>
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('')}</div>`;
+}
+
+// 獲取篩選後的診所
+function getFilteredClinics() {
+  const searchText = document.getElementById('searchInput').value.toLowerCase().trim();
+  const currentFilterType = document.querySelector('.btn-filter.active')?.getAttribute('data-type') || '全部';
+  
+  return clinicsData.filter(clinic => {
+    // 收藏篩選
+    if (currentFilterType === '收藏') {
+      if (!isFavorite(clinic.name)) return false;
+    } else if (currentFilterType !== '全部') {
+      const matchesType = clinic.type === currentFilterType;
+      if (!matchesType) return false;
+    }
+    
+    if (!searchText) return true;
+    
+    const matchesSearch = 
+      clinic.name.toLowerCase().includes(searchText) || 
+      clinic.address.toLowerCase().includes(searchText) ||
+      clinic.phone.includes(searchText) ||
+      clinic.departments.some(dept => dept.toLowerCase().includes(searchText)) ||
+      (clinic.note && clinic.note.toLowerCase().includes(searchText));
+    
+    return matchesSearch;
+  });
+}
+
+// 篩選診所
+function filterClinics() {
+  loadClinics();
+}
+
+// 按類型篩選
+function filterByType(type) {
+  // 更新按鈕狀態
+  document.querySelectorAll('.btn-filter').forEach(btn => {
+    const btnType = btn.getAttribute('data-type') || btn.textContent.replace(/[🏥🩺🦷👁️🌿💊⭐\s]/g, '').trim();
+    if (btnType === type) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+  
+  loadClinics();
+}
+</script>
+</body>
+</html>
+

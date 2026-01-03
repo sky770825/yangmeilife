@@ -2,23 +2,42 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="theme-color" content="#4c1d95">
+<meta name="description" content="探索今日運勢，包含水晶占卜、塔羅牌、籤詩、星座、數字、顏色、水晶等多種占卜方式，為你指引每日的幸運密碼。">
+<meta name="keywords" content="今日運勢,占卜,塔羅牌,星座,水晶占卜,籤詩,運勢,幸運,占星">
+<meta name="author" content="濬瑒房產生活平台">
+<meta property="og:title" content="今日運勢 - 濬瑒房產生活平台">
+<meta property="og:description" content="探索今日運勢，多種占卜方式為你指引每日的幸運密碼">
+<meta property="og:type" content="website">
 <title>今日運勢 - 濬瑒房產生活平台</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --grad:linear-gradient(135deg,#4c1d95,#7c3aed,#a855f7,#c084fc);
   --grad-dark:linear-gradient(135deg,#1e1b4b,#312e81,#4c1d95,#6366f1);
   --glass-bg:rgba(255,255,255,0.1);
-  --glass-dark:rgba(15,15,35,0.8);
+  --glass-dark:rgba(15,15,35,0.85);
+  --glass-border:rgba(139,92,246,0.3);
   --shadow-light:0 2px 8px rgba(139,92,246,0.3);
   --shadow-mystical:0 0 15px rgba(139,92,246,0.4), 0 0 30px rgba(168,85,247,0.2);
+  --shadow-hover:0 8px 32px rgba(139,92,246,0.5), 0 0 40px rgba(168,85,247,0.3);
   --border-radius:0.75rem;
+  --border-radius-lg:1rem;
   --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast:all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --mystical-glow:0 0 10px rgba(139,92,246,0.6);
   --container-padding: clamp(0.5rem, 1.5vw, 1rem);
   --section-gap: clamp(0.5rem, 2vw, 1rem);
-  --card-padding: clamp(0.5rem, 2vw, 0.75rem);
+  --card-padding: clamp(0.75rem, 2.5vw, 1rem);
+  --tap-highlight: transparent;
+}
+
+* {
+  -webkit-tap-highlight-color: var(--tap-highlight);
+  touch-action: manipulation;
 }
 
 body{
@@ -27,14 +46,24 @@ body{
     radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
     linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d1b69 50%, #1a1a3e 75%, #0f0f23 100%);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 200% 200%;
   background-attachment: fixed;
+  animation: gradientShift 20s ease infinite;
   min-height: 100vh;
+  min-height: 100dvh;
   transition:var(--transition);
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   line-height:1.6;
   color: #e0e7ff;
   position: relative;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%, 0% 50%, 0% 50%, 0% 50%; }
+  50% { background-position: 100% 50%, 100% 50%, 100% 50%, 100% 50%; }
 }
 
 body::before {
@@ -52,26 +81,40 @@ body::before {
     radial-gradient(2px 2px at 160px 30px, #fff, transparent);
   background-repeat: repeat;
   background-size: 200px 100px;
-  animation: sparkle 20s linear infinite;
+  animation: sparkleBg 20s linear infinite;
   pointer-events: none;
   z-index: 1;
 }
 
+@keyframes sparkleBg {
+  0% { transform: translateY(0px); opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100px); opacity: 0.8; }
+}
+
 @keyframes sparkle {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-100px); }
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
 }
 
 .glass-card{
   background:var(--glass-dark);
   backdrop-filter:blur(20px);
-  border-radius:var(--border-radius);
-  border:1px solid rgba(139,92,246,0.3);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:var(--border-radius-lg);
+  border:1px solid var(--glass-border);
   box-shadow:var(--shadow-mystical);
   position: relative;
   z-index: 2;
   padding: var(--card-padding);
   margin-bottom: var(--section-gap);
+  transition: var(--transition);
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(139,92,246,0.5);
 }
 
 .glass-card::before {
@@ -122,8 +165,8 @@ body::before {
 }
 
 .crystal-ball{
-  width:clamp(60px, 12vw, 90px);
-  height:clamp(60px, 12vw, 90px);
+  width:clamp(80px, 15vw, 120px);
+  height:clamp(80px, 15vw, 120px);
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), transparent 50%),
     radial-gradient(circle at 70% 70%, rgba(139,92,246,0.8), transparent 50%),
@@ -138,6 +181,14 @@ body::before {
     0 0 40px rgba(168,85,247,0.3),
     inset 0 0 20px rgba(255,255,255,0.1);
   border: 1px solid rgba(139,92,246,0.3);
+  cursor: pointer;
+  transition: var(--transition);
+  touch-action: manipulation;
+}
+
+.crystal-ball:active {
+  transform: scale(0.95);
+  animation-play-state: paused;
 }
 
 .crystal-ball::before{
@@ -173,11 +224,6 @@ body::before {
 @keyframes rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.3); }
 }
 
 @keyframes mystical-pulse {
@@ -354,6 +400,145 @@ body::before {
   box-shadow: 0 8px 25px rgba(139,92,246,0.4);
   border-color: rgba(139,92,246,0.5);
 }
+
+/* 現代化按鈕樣式 */
+.modern-btn {
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: var(--transition);
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+}
+
+.modern-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  z-index: 0;
+}
+
+.modern-btn:hover::before,
+.modern-btn:active::before {
+  left: 100%;
+}
+
+.modern-btn:active {
+  transform: scale(0.98);
+}
+
+.modern-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 大型按鈕樣式 */
+.btn-primary {
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 1.5rem);
+  border-radius: var(--border-radius-lg);
+  font-size: clamp(0.75rem, 2vw, 0.875rem);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 小型按鈕樣式 */
+.btn-secondary {
+  padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+  border-radius: var(--border-radius);
+  font-size: clamp(0.625rem, 1.5vw, 0.75rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 載入狀態 */
+.loading {
+  pointer-events: none;
+  opacity: 0.7;
+  position: relative;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 改進的返回按鈕 */
+.back-btn {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.back-btn:active {
+  transform: scale(0.95);
+}
+
+/* 改進的主題切換按鈕 */
+#themeToggle {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#themeToggle:active {
+  transform: scale(0.95);
+}
+
+/* 觸摸優化 */
+@media (hover: none) and (pointer: coarse) {
+  .modern-btn:hover {
+    transform: none;
+  }
+  
+  .modern-btn:active {
+    transform: scale(0.97);
+  }
+  
+  .glass-card:hover {
+    transform: none;
+  }
+  
+  .fortune-card:hover {
+    transform: none;
+  }
+  
+  .zodiac-item:hover {
+    transform: none;
+  }
+}
 </style>
 </head>
 <body>
@@ -361,7 +546,7 @@ body::before {
 <button id="themeToggle" aria-label="切換主題模式">🌞</button>
 
 <!-- 返回按鈕 -->
-<button onclick="history.back()" class="fixed top-4 left-4 bg-white shadow-lg rounded-full p-3 z-50 hover:scale-105 transition">
+<button onclick="history.back()" class="back-btn fixed top-4 left-4 shadow-lg rounded-full p-3 z-50 transition" aria-label="返回上一頁">
   ←
 </button>
 
@@ -381,21 +566,21 @@ body::before {
       <span class="mystical-symbol">✨</span>
     </h1>
     <p class="text-xs opacity-90 mt-0.5">探索今日的幸運密碼</p>
-    <div class="mt-1 text-xs opacity-75">2024年3月15日 星期五</div>
+    <div class="mt-1 text-xs opacity-75" id="currentDate"></div>
   </div>
 </header>
 
 <main class="px-1 md:px-2 py-1 md:py-2 pb-16 space-y-1 md:space-y-2">
   <!-- 水晶球 -->
   <section class="glass-card text-center">
-    <div class="crystal-ball mb-2" id="crystalBall" onclick="generateFortune()" style="cursor: pointer;"></div>
+    <div class="crystal-ball mb-2" id="crystalBall" onclick="generateFortune()" role="button" tabindex="0" aria-label="點擊水晶球查看今日運勢" onkeypress="if(event.key==='Enter'||event.key===' '){generateFortune();event.preventDefault();}"></div>
     <h2 class="text-sm md:text-base font-bold mb-1">
       <span class="mystical-symbol">🔮</span>
       點擊水晶球查看今日運勢
       <span class="mystical-symbol">🌟</span>
     </h2>
     <div class="grid grid-cols-2 gap-2 md:gap-3 mb-3">
-      <button onclick="generateFortune()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-2 md:px-4 py-2 md:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-sm">
+      <button onclick="generateFortune()" class="modern-btn btn-primary bg-gradient-to-r from-purple-600 to-pink-600 text-white" aria-label="水晶占卜">
         <div class="flex flex-col items-center space-y-1">
           <span class="text-lg md:text-xl">🔮</span>
           <div>
@@ -403,8 +588,8 @@ body::before {
             <div class="text-xs opacity-80">今日運勢</div>
           </div>
         </div>
-    </button>
-      <button onclick="generateTarot()" class="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-2 md:px-4 py-2 md:py-3 rounded-lg font-semibold hover:from-indigo-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-sm">
+      </button>
+      <button onclick="generateTarot()" class="modern-btn btn-primary bg-gradient-to-r from-indigo-600 to-blue-600 text-white" aria-label="塔羅占卜">
         <div class="flex flex-col items-center space-y-1">
           <span class="text-lg md:text-xl">🃏</span>
           <div>
@@ -417,19 +602,19 @@ body::before {
     
     <!-- 新增占卜選項 -->
     <div class="grid grid-cols-3 gap-1 md:gap-2">
-      <button onclick="generatePoetry()" class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-300 text-xs">
+      <button onclick="generatePoetry()" class="modern-btn btn-secondary bg-gradient-to-r from-emerald-600 to-teal-600 text-white" aria-label="籤詩占卜">
         <div class="flex flex-col items-center space-y-0.5">
           <span class="text-sm md:text-base">📜</span>
           <div class="text-xs">籤詩</div>
         </div>
       </button>
-      <button onclick="generateZodiac()" class="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-amber-700 hover:to-orange-700 transition-all duration-300 text-xs">
+      <button onclick="generateZodiac()" class="modern-btn btn-secondary bg-gradient-to-r from-amber-600 to-orange-600 text-white" aria-label="星座占卜">
         <div class="flex flex-col items-center space-y-0.5">
           <span class="text-sm md:text-base">⭐</span>
           <div class="text-xs">星座</div>
         </div>
       </button>
-      <button onclick="generateNumber()" class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-cyan-700 hover:to-blue-700 transition-all duration-300 text-xs">
+      <button onclick="generateNumber()" class="modern-btn btn-secondary bg-gradient-to-r from-cyan-600 to-blue-600 text-white" aria-label="數字占卜">
         <div class="flex flex-col items-center space-y-0.5">
           <span class="text-sm md:text-base">🔢</span>
           <div class="text-xs">數字</div>
@@ -438,13 +623,13 @@ body::before {
     </div>
     
     <div class="grid grid-cols-2 gap-1 md:gap-2 mt-1">
-      <button onclick="generateColor()" class="bg-gradient-to-r from-rose-600 to-pink-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-rose-700 hover:to-pink-700 transition-all duration-300 text-xs">
+      <button onclick="generateColor()" class="modern-btn btn-secondary bg-gradient-to-r from-rose-600 to-pink-600 text-white" aria-label="顏色占卜">
         <div class="flex flex-col items-center space-y-0.5">
           <span class="text-sm md:text-base">🎨</span>
           <div class="text-xs">顏色</div>
         </div>
       </button>
-      <button onclick="generateCrystal()" class="bg-gradient-to-r from-violet-600 to-purple-600 text-white px-1 md:px-2 py-1.5 md:py-2 rounded-lg font-semibold hover:from-violet-700 hover:to-purple-700 transition-all duration-300 text-xs">
+      <button onclick="generateCrystal()" class="modern-btn btn-secondary bg-gradient-to-r from-violet-600 to-purple-600 text-white" aria-label="水晶占卜">
         <div class="flex flex-col items-center space-y-0.5">
           <span class="text-sm md:text-base">💎</span>
           <div class="text-xs">水晶</div>
@@ -464,10 +649,17 @@ body::before {
       今日運勢
       <span class="mystical-symbol">✨</span>
     </h3>
-      <button onclick="shareFortune()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
-        <span class="mystical-symbol">📤</span>
-        分享
-      </button>
+      <div class="flex gap-1">
+        <button onclick="saveFortuneToHistory()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="保存到歷史">
+          <span class="mystical-symbol">💾</span>
+        </button>
+        <button onclick="toggleFavorite('fortune')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="favoriteBtn-fortune" title="收藏">
+          <span class="mystical-symbol">⭐</span>
+        </button>
+        <button onclick="shareFortune()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="分享">
+          <span class="mystical-symbol">📤</span>
+        </button>
+      </div>
     </div>
     <div class="text-xl md:text-2xl font-bold mb-0.5" id="fortuneLevel">★★★★☆</div>
     <div class="text-xs md:text-sm mb-0.5" id="fortuneTitle">運勢良好</div>
@@ -520,10 +712,17 @@ body::before {
         籤詩占卜
         <span class="mystical-symbol">🏮</span>
       </h3>
-      <button onclick="sharePoetry()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
-        <span class="mystical-symbol">📤</span>
-        分享
-      </button>
+      <div class="flex gap-1">
+        <button onclick="saveFortuneToHistory()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="保存到歷史">
+          <span class="mystical-symbol">💾</span>
+        </button>
+        <button onclick="toggleFavorite('poetry')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="favoriteBtn-poetry" title="收藏">
+          <span class="mystical-symbol">⭐</span>
+        </button>
+        <button onclick="sharePoetry()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="分享">
+          <span class="mystical-symbol">📤</span>
+        </button>
+      </div>
     </div>
     <div class="text-center mb-3">
       <div class="text-2xl md:text-3xl font-bold text-yellow-400 mb-1" id="poetryNumber">第壹佰零捌籤</div>
@@ -557,10 +756,17 @@ body::before {
         星座占卜
         <span class="mystical-symbol">🌟</span>
       </h3>
-      <button onclick="shareZodiac()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
-        <span class="mystical-symbol">📤</span>
-        分享
-      </button>
+      <div class="flex gap-1">
+        <button onclick="saveFortuneToHistory()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="保存到歷史">
+          <span class="mystical-symbol">💾</span>
+        </button>
+        <button onclick="toggleFavorite('zodiac')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="favoriteBtn-zodiac" title="收藏">
+          <span class="mystical-symbol">⭐</span>
+        </button>
+        <button onclick="shareZodiac()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="分享">
+          <span class="mystical-symbol">📤</span>
+        </button>
+      </div>
     </div>
     <div class="text-center mb-3">
       <div class="text-xl md:text-2xl font-bold text-white mb-1" id="zodiacSign">水瓶座</div>
@@ -592,10 +798,17 @@ body::before {
         數字占卜
         <span class="mystical-symbol">📊</span>
       </h3>
-      <button onclick="shareNumber()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
-        <span class="mystical-symbol">📤</span>
-        分享
-      </button>
+      <div class="flex gap-1">
+        <button onclick="saveFortuneToHistory()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="保存到歷史">
+          <span class="mystical-symbol">💾</span>
+        </button>
+        <button onclick="toggleFavorite('number')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="favoriteBtn-number" title="收藏">
+          <span class="mystical-symbol">⭐</span>
+        </button>
+        <button onclick="shareNumber()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="分享">
+          <span class="mystical-symbol">📤</span>
+        </button>
+      </div>
     </div>
     <div class="text-center mb-3">
       <div class="text-2xl md:text-3xl font-bold text-cyan-400 mb-1" id="lifeNumber">7</div>
@@ -631,10 +844,17 @@ body::before {
         顏色占卜
         <span class="mystical-symbol">🌈</span>
       </h3>
-      <button onclick="shareColor()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
-        <span class="mystical-symbol">📤</span>
-        分享
-      </button>
+      <div class="flex gap-1">
+        <button onclick="saveFortuneToHistory()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="保存到歷史">
+          <span class="mystical-symbol">💾</span>
+        </button>
+        <button onclick="toggleFavorite('color')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="favoriteBtn-color" title="收藏">
+          <span class="mystical-symbol">⭐</span>
+        </button>
+        <button onclick="shareColor()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="分享">
+          <span class="mystical-symbol">📤</span>
+        </button>
+      </div>
     </div>
     <div class="text-center mb-3">
       <div class="w-16 h-16 mx-auto rounded-full mb-2 border-4 border-white border-opacity-30" id="colorDisplay"></div>
@@ -667,10 +887,17 @@ body::before {
         水晶占卜
         <span class="mystical-symbol">🔮</span>
       </h3>
-      <button onclick="shareCrystal()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition">
-        <span class="mystical-symbol">📤</span>
-        分享
-      </button>
+      <div class="flex gap-1">
+        <button onclick="saveFortuneToHistory()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="保存到歷史">
+          <span class="mystical-symbol">💾</span>
+        </button>
+        <button onclick="toggleFavorite('crystal')" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="favoriteBtn-crystal" title="收藏">
+          <span class="mystical-symbol">⭐</span>
+        </button>
+        <button onclick="shareCrystal()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" title="分享">
+          <span class="mystical-symbol">📤</span>
+        </button>
+      </div>
     </div>
     <div class="text-center mb-3">
       <div class="text-2xl mb-2" id="crystalEmoji">💜</div>
@@ -791,6 +1018,34 @@ body::before {
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 歷史記錄和收藏 -->
+  <section class="glass-card" id="historySection" style="display:none;">
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="text-sm md:text-base font-bold">
+        <span class="mystical-symbol">📜</span>
+        占卜歷史
+        <span class="mystical-symbol">⭐</span>
+      </h2>
+      <div class="flex gap-1">
+        <button onclick="showHistory()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="historyBtn">
+          <span>📜</span> 歷史
+        </button>
+        <button onclick="showFavorites()" class="px-2 py-1 bg-white bg-opacity-10 rounded text-xs hover:bg-opacity-20 transition" id="favoritesBtn">
+          <span>⭐</span> 收藏
+        </button>
+        <button onclick="clearHistory()" class="px-2 py-1 bg-red-500 bg-opacity-20 rounded text-xs hover:bg-opacity-30 transition">
+          <span>🗑️</span> 清除
+        </button>
+      </div>
+    </div>
+    <div id="historyList" class="space-y-2 max-h-96 overflow-y-auto">
+      <!-- 歷史記錄將動態插入這裡 -->
+    </div>
+    <div id="historyEmpty" class="text-center text-gray-400 text-sm py-4" style="display:none;">
+      還沒有占卜記錄
     </div>
   </section>
 
@@ -1252,18 +1507,22 @@ const crystalData = {
 
 // 生成運勢
 function generateFortune() {
-  // 添加載入動畫
-  const crystalBall = document.getElementById('crystalBall');
-  crystalBall.classList.add('fortune-loading');
-  
-  // 隱藏其他結果
-  document.getElementById('tarotResult').style.display = 'none';
-  
-  // 顯示運勢詳情
-  document.getElementById('fortuneDetails').style.display = 'block';
-  
-  // 延遲顯示結果，增加神秘感
-  setTimeout(() => {
+  try {
+    // 觸發輕微震動反饋
+    if (navigator.vibrate) {
+      navigator.vibrate(30);
+    }
+    
+    setLoadingState(true);
+    
+    // 隱藏其他結果
+    hideAllResults();
+    
+    // 顯示運勢詳情
+    document.getElementById('fortuneDetails').style.display = 'block';
+    
+    // 延遲顯示結果，增加神秘感
+    setTimeout(() => {
   // 隨機選擇運勢等級
   const levelIndex = Math.floor(Math.random() * fortuneData.levels.length);
   const level = fortuneData.levels[levelIndex];
@@ -1315,11 +1574,10 @@ function generateFortune() {
     resultSection.style.transform = 'translateY(0)';
   }, 100);
   
-  resultSection.scrollIntoView({ behavior: 'smooth' });
+  resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
   
-    // 移除載入動畫
-    crystalBall.classList.remove('fortune-loading');
-    
+  // 移除載入狀態
+  setLoadingState(false);
   
   // 添加神秘符號動畫
   const symbols = document.querySelectorAll('.mystical-symbol');
@@ -1328,7 +1586,37 @@ function generateFortune() {
       symbol.style.animation = 'sparkle 2s ease-in-out infinite';
     }, index * 100);
   });
+  
+  // 觸動反饋
+  if (navigator.vibrate) {
+    navigator.vibrate([50, 30, 50]);
+  }
   }, 2000);
+  } catch (error) {
+    console.error('生成運勢時發生錯誤:', error);
+    setLoadingState(false);
+    showNotification('❌ 發生錯誤，請稍後再試', 'error');
+  }
+}
+
+// 通用載入狀態管理
+function setLoadingState(isLoading) {
+  const buttons = document.querySelectorAll('.modern-btn, .crystal-ball');
+  const crystalBall = document.getElementById('crystalBall');
+  
+  if (isLoading) {
+    crystalBall.classList.add('fortune-loading');
+    buttons.forEach(btn => {
+      btn.classList.add('loading');
+      btn.disabled = true;
+    });
+  } else {
+    crystalBall.classList.remove('fortune-loading');
+    buttons.forEach(btn => {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    });
+  }
 }
 
 // 塔羅占卜
@@ -1338,13 +1626,16 @@ function generateTarot() {
 
 // 塔羅牌佈局
 function generateTarotSpread(spreadType) {
-  // 添加載入動畫
-  const crystalBall = document.getElementById('crystalBall');
-  crystalBall.classList.add('fortune-loading');
-  
-  // 隱藏其他結果
-  document.getElementById('fortuneResult').style.display = 'none';
-  document.getElementById('fortuneDetails').style.display = 'none';
+  try {
+    // 觸發輕微震動反饋
+    if (navigator.vibrate) {
+      navigator.vibrate(30);
+    }
+    
+    setLoadingState(true);
+    
+    // 隱藏其他結果
+    hideAllResults();
   
   // 延遲顯示結果
   setTimeout(() => {
@@ -1417,12 +1708,21 @@ function generateTarotSpread(spreadType) {
       }, index * 200);
     });
     
-    resultSection.scrollIntoView({ behavior: 'smooth' });
+    resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     
+    // 移除載入狀態
+    setLoadingState(false);
     
-    // 移除載入動畫
-    crystalBall.classList.remove('fortune-loading');
+    // 觸動反饋
+    if (navigator.vibrate) {
+      navigator.vibrate([50, 30, 50]);
+    }
   }, 2000);
+  } catch (error) {
+    console.error('生成塔羅牌時發生錯誤:', error);
+    setLoadingState(false);
+    showNotification('❌ 發生錯誤，請稍後再試', 'error');
+  }
 }
 
 // 顯示塔羅牌詳情彈窗
@@ -1471,11 +1771,10 @@ let userInfo = {
 
 // 籤詩占卜
 function generatePoetry() {
-  const crystalBall = document.getElementById('crystalBall');
-  crystalBall.classList.add('fortune-loading');
-  
-  // 隱藏其他結果
-  hideAllResults();
+  try {
+    if (navigator.vibrate) navigator.vibrate(30);
+    setLoadingState(true);
+    hideAllResults();
   
   setTimeout(() => {
     const poem = poetryData.poems[Math.floor(Math.random() * poetryData.poems.length)];
@@ -1490,17 +1789,22 @@ function generatePoetry() {
     
     // 顯示結果
     showResult('poetryResult');
-    crystalBall.classList.remove('fortune-loading');
+    setLoadingState(false);
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
   }, 2000);
+  } catch (error) {
+    console.error('生成籤詩時發生錯誤:', error);
+    setLoadingState(false);
+    showNotification('❌ 發生錯誤，請稍後再試', 'error');
+  }
 }
 
 // 星座占卜
 function generateZodiac() {
-  const crystalBall = document.getElementById('crystalBall');
-  crystalBall.classList.add('fortune-loading');
-  
-  // 隱藏其他結果
-  hideAllResults();
+  try {
+    if (navigator.vibrate) navigator.vibrate(30);
+    setLoadingState(true);
+    hideAllResults();
   
   setTimeout(() => {
     const sign = zodiacData.signs[Math.floor(Math.random() * zodiacData.signs.length)];
@@ -1517,17 +1821,22 @@ function generateZodiac() {
     
     // 顯示結果
     showResult('zodiacResult');
-    crystalBall.classList.remove('fortune-loading');
+    setLoadingState(false);
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
   }, 2000);
+  } catch (error) {
+    console.error('生成星座運勢時發生錯誤:', error);
+    setLoadingState(false);
+    showNotification('❌ 發生錯誤，請稍後再試', 'error');
+  }
 }
 
 // 數字占卜
 function generateNumber() {
-  const crystalBall = document.getElementById('crystalBall');
-  crystalBall.classList.add('fortune-loading');
-  
-  // 隱藏其他結果
-  hideAllResults();
+  try {
+    if (navigator.vibrate) navigator.vibrate(30);
+    setLoadingState(true);
+    hideAllResults();
   
   setTimeout(() => {
     const numberInfo = numberData.numbers[Math.floor(Math.random() * numberData.numbers.length)];
@@ -1542,17 +1851,22 @@ function generateNumber() {
     
     // 顯示結果
     showResult('numberResult');
-    crystalBall.classList.remove('fortune-loading');
+    setLoadingState(false);
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
   }, 2000);
+  } catch (error) {
+    console.error('生成數字占卜時發生錯誤:', error);
+    setLoadingState(false);
+    showNotification('❌ 發生錯誤，請稍後再試', 'error');
+  }
 }
 
 // 顏色占卜
 function generateColor() {
-  const crystalBall = document.getElementById('crystalBall');
-  crystalBall.classList.add('fortune-loading');
-  
-  // 隱藏其他結果
-  hideAllResults();
+  try {
+    if (navigator.vibrate) navigator.vibrate(30);
+    setLoadingState(true);
+    hideAllResults();
   
   setTimeout(() => {
     const color = colorData.colors[Math.floor(Math.random() * colorData.colors.length)];
@@ -1567,17 +1881,22 @@ function generateColor() {
     
     // 顯示結果
     showResult('colorResult');
-    crystalBall.classList.remove('fortune-loading');
+    setLoadingState(false);
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
   }, 2000);
+  } catch (error) {
+    console.error('生成顏色占卜時發生錯誤:', error);
+    setLoadingState(false);
+    showNotification('❌ 發生錯誤，請稍後再試', 'error');
+  }
 }
 
 // 水晶占卜
 function generateCrystal() {
-  const crystalBall = document.getElementById('crystalBall');
-  crystalBall.classList.add('fortune-loading');
-  
-  // 隱藏其他結果
-  hideAllResults();
+  try {
+    if (navigator.vibrate) navigator.vibrate(30);
+    setLoadingState(true);
+    hideAllResults();
   
   setTimeout(() => {
     const crystal = crystalData.crystals[Math.floor(Math.random() * crystalData.crystals.length)];
@@ -1593,8 +1912,14 @@ function generateCrystal() {
     
     // 顯示結果
     showResult('crystalResult');
-    crystalBall.classList.remove('fortune-loading');
+    setLoadingState(false);
+    if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
   }, 2000);
+  } catch (error) {
+    console.error('生成水晶占卜時發生錯誤:', error);
+    setLoadingState(false);
+    showNotification('❌ 發生錯誤，請稍後再試', 'error');
+  }
 }
 
 // 輔助函數
@@ -1616,12 +1941,12 @@ function showResult(resultId) {
   resultSection.style.transform = 'translateY(20px)';
   
   setTimeout(() => {
-    resultSection.style.transition = 'all 0.6s ease-out';
+    resultSection.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
     resultSection.style.opacity = '1';
     resultSection.style.transform = 'translateY(0)';
   }, 100);
   
-  resultSection.scrollIntoView({ behavior: 'smooth' });
+  resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 // 分享功能
@@ -1680,32 +2005,107 @@ function shareCrystal() {
   shareContent(shareText);
 }
 
+// 顯示通知提示
+function showNotification(message, type = 'success') {
+  // 移除現有通知
+  const existing = document.getElementById('notification');
+  if (existing) existing.remove();
+  
+  const notification = document.createElement('div');
+  notification.id = 'notification';
+  notification.className = `fixed top-20 left-1/2 transform -translate-x-1/2 z-50 px-4 py-3 rounded-lg shadow-lg backdrop-filter blur-md transition-all duration-300 ${
+    type === 'success' ? 'bg-green-500/90 text-white' : 'bg-red-500/90 text-white'
+  }`;
+  notification.textContent = message;
+  notification.style.opacity = '0';
+  notification.style.transform = 'translate(-50%, -20px)';
+  
+  document.body.appendChild(notification);
+  
+  // 顯示動畫
+  requestAnimationFrame(() => {
+    notification.style.transition = 'all 0.3s ease-out';
+    notification.style.opacity = '1';
+    notification.style.transform = 'translate(-50%, 0)';
+  });
+  
+  // 自動隱藏
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    notification.style.transform = 'translate(-50%, -20px)';
+    setTimeout(() => notification.remove(), 300);
+  }, 2000);
+}
+
 function shareContent(text) {
+  // 觸發輕微震動（移動設備）
+  if (navigator.vibrate) {
+    navigator.vibrate(50);
+  }
+  
   if (navigator.share) {
     navigator.share({
       title: '占卜結果分享',
       text: text,
       url: window.location.href
+    }).catch(err => {
+      if (err.name !== 'AbortError') {
+        copyToClipboard(text);
+      }
     });
   } else {
-    // 複製到剪貼板
+    copyToClipboard(text);
+  }
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
-      alert('占卜結果已複製到剪貼板！');
+      showNotification('✅ 占卜結果已複製到剪貼板！');
     }).catch(() => {
-      // 降級處理
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      alert('占卜結果已複製到剪貼板！');
+      fallbackCopy(text);
     });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  try {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    showNotification('✅ 占卜結果已複製到剪貼板！');
+  } catch (err) {
+    showNotification('❌ 複製失敗，請手動選擇文字複製', 'error');
+  }
+}
+
+// 設置當前日期
+function setCurrentDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  const weekday = weekdays[now.getDay()];
+  
+  const dateElement = document.getElementById('currentDate');
+  if (dateElement) {
+    dateElement.textContent = `${year}年${month}月${day}日 ${weekday}`;
   }
 }
 
 // 頁面載入時不自動生成運勢，等待用戶選擇
 window.addEventListener('load', () => {
+  // 設置當前日期
+  setCurrentDate();
+  
   // 確保所有結果區塊都隱藏
   hideAllResults();
   
@@ -1713,6 +2113,15 @@ window.addEventListener('load', () => {
   const storedUserInfo = localStorage.getItem('userInfo');
   if (storedUserInfo) {
     userInfo = JSON.parse(storedUserInfo);
+  }
+  
+  // 載入歷史記錄和收藏
+  loadHistory();
+  loadFavorites();
+  
+  // 如果有歷史記錄，顯示歷史區域
+  if (fortuneHistory.length > 0 || favorites.length > 0) {
+    document.getElementById('historySection').style.display = 'block';
   }
 });
 </script>
