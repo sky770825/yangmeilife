@@ -27,6 +27,17 @@ const KUNGFU_TEA = {
 
 const isPresent = (value) => typeof value === 'string' && value.trim().length > 0;
 
+const taipeiCalendarDate = (date) => {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Taipei',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(date);
+  const valueByType = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+  return `${valueByType.year}-${valueByType.month}-${valueByType.day}`;
+};
+
 const formatContext = ({ file, slug, vendor }) => {
   const parts = [`file=${file}`, `category=${slug}`];
   if (vendor) parts.push(`vendor=${vendor.id || vendor.name || 'unknown'}`);
@@ -38,6 +49,8 @@ const isMainModule = () => process.argv[1] && path.resolve(process.argv[1]) === 
 export const validateVendorData = async ({ root = process.cwd(), now = new Date() } = {}) => {
   const errors = [];
   const sourceRoot = path.join(root, VENDOR_SOURCE_ROOT);
+  const currentTaipeiDate = taipeiCalendarDate(now);
+  const currentTaipeiDateMs = Date.parse(currentTaipeiDate);
   let categoryEntries = [];
 
   try {
@@ -145,9 +158,9 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
           && new Date(lastVerifiedAt).toISOString().slice(0, 10) === vendor.lastVerifiedAt;
         if (!isIsoDate) {
           errors.push(`${context} Verified vendor lastVerifiedAt must be a valid ISO date (YYYY-MM-DD).`);
-        } else if (lastVerifiedAt > now.getTime()) {
+        } else if (vendor.lastVerifiedAt > currentTaipeiDate) {
           errors.push(`${context} Verified vendor lastVerifiedAt must not be in the future.`);
-        } else if (now.getTime() - lastVerifiedAt > MAX_VERIFICATION_AGE_MS) {
+        } else if (currentTaipeiDateMs - lastVerifiedAt > MAX_VERIFICATION_AGE_MS) {
           errors.push(`${context} Verified vendor lastVerifiedAt is older than 90 days.`);
         }
       }
