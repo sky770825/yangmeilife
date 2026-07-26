@@ -2,7 +2,20 @@ import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const CATEGORY_COUNT = 11;
+const REQUIRED_CATEGORY_SLUGS = [
+  'american-chiropractic',
+  'beauty-skin',
+  'eyelash-service',
+  'food-truck',
+  'hair-salon',
+  'kungfu-tea',
+  'nail-service',
+  'rental-management',
+  'taiwanese-massage',
+  'thai-massage',
+  'vietnamese-massage'
+];
+const CATEGORY_COUNT = REQUIRED_CATEGORY_SLUGS.length;
 const PUBLIC_VENDOR_COUNT = 11;
 const MAX_VERIFICATION_AGE_MS = 90 * 24 * 60 * 60 * 1000;
 const VENDOR_SOURCE_ROOT = 'data/vendors/categories';
@@ -45,6 +58,15 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
 
   if (categoryFolders.length !== CATEGORY_COUNT) {
     errors.push(`[file=${VENDOR_SOURCE_ROOT}] Expected exactly ${CATEGORY_COUNT} vendor category source folders; found ${categoryFolders.length}.`);
+  }
+
+  const missingCategoryFolders = REQUIRED_CATEGORY_SLUGS.filter((slug) => !categoryFolders.includes(slug));
+  const unexpectedCategoryFolders = categoryFolders.filter((slug) => !REQUIRED_CATEGORY_SLUGS.includes(slug));
+  if (missingCategoryFolders.length > 0) {
+    errors.push(`[file=${VENDOR_SOURCE_ROOT}] Missing required vendor category source folders: ${missingCategoryFolders.join(', ')}.`);
+  }
+  if (unexpectedCategoryFolders.length > 0) {
+    errors.push(`[file=${VENDOR_SOURCE_ROOT}] Unexpected vendor category source folders: ${unexpectedCategoryFolders.join(', ')}.`);
   }
 
   const publicVendors = [];
@@ -118,8 +140,13 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
 
       if (isPresent(vendor.lastVerifiedAt)) {
         const lastVerifiedAt = Date.parse(vendor.lastVerifiedAt);
-        if (Number.isNaN(lastVerifiedAt)) {
-          errors.push(`${context} Verified vendor lastVerifiedAt must be a valid date.`);
+        const isIsoDate = /^\d{4}-\d{2}-\d{2}$/.test(vendor.lastVerifiedAt)
+          && !Number.isNaN(lastVerifiedAt)
+          && new Date(lastVerifiedAt).toISOString().slice(0, 10) === vendor.lastVerifiedAt;
+        if (!isIsoDate) {
+          errors.push(`${context} Verified vendor lastVerifiedAt must be a valid ISO date (YYYY-MM-DD).`);
+        } else if (lastVerifiedAt > now.getTime()) {
+          errors.push(`${context} Verified vendor lastVerifiedAt must not be in the future.`);
         } else if (now.getTime() - lastVerifiedAt > MAX_VERIFICATION_AGE_MS) {
           errors.push(`${context} Verified vendor lastVerifiedAt is older than 90 days.`);
         }

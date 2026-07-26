@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { cp, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdtemp, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { spawn } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -34,6 +35,19 @@ const expectFailure = async (root, expectedError) => {
   assert.equal(result.valid, false);
   assert.match(result.errors.join('\n'), expectedError);
 };
+
+const runBuild = (root) => new Promise((resolve) => {
+  const child = spawn(process.execPath, ['scripts/build-main-structure.mjs'], {
+    cwd: root,
+    env: { ...process.env, BUILD_TIMESTAMP: '2026-07-27T00:00:00.000Z' },
+    stdio: ['ignore', 'pipe', 'pipe']
+  });
+  let stderr = '';
+  child.stderr.on('data', (chunk) => {
+    stderr += chunk;
+  });
+  child.on('close', (code) => resolve({ code, stderr }));
+});
 
 test('accepts the checked-in vendor sources', async () => {
   const result = await validateVendorData({ root: repositoryRoot, now: referenceNow });
@@ -86,4 +100,53 @@ test('rejects a verified vendor with a stale verification date', async () => {
     }),
     (root) => expectFailure(root, /kungfu-tea.*lastVerifiedAt.*older than 90 days/i)
   );
+});
+
+test('rejects a verified vendor with a future verification date', async () => {
+  await withTemporaryVendorData(
+    (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
+      source.vendors[0].lastVerifiedAt = '2026-07-28';
+    }),
+    (root) => expectFailure(root, /kungfu-tea.*lastVerifiedAt.*must not be in the future/i)
+  );
+});
+
+test('rejects a missing expected category even when an extra category keeps the count at 11', async () => {
+  await withTemporaryVendorData(
+    (categories) => rename(
+      path.join(categories, 'beauty-skin'),
+      path.join(categories, 'unexpected-category')
+    ),
+    (root) => expectFailure(root, /missing required vendor category.*beauty-skin/i)
+  );
+});
+
+test('a failed build does not overwrite generated output', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'yangmeilife-build-'));
+  const shouldCopy = (source) => {
+    const relative = path.relative(repositoryRoot, source);
+    return !relative.startsWith('.git')
+      && !relative.startsWith('archive')
+      && !relative.startsWith('output')
+      && !relative.startsWith('.playwright-cli')
+      && !relative.startsWith('.superpowers');
+  };
+
+  try {
+    await cp(repositoryRoot, root, { recursive: true, filter: shouldCopy });
+    const generatedOutput = path.join(root, 'data/vendors/vendor-categories.json');
+    const before = await readFile(generatedOutput, 'utf8');
+    await rename(
+      path.join(root, 'data/vendors/categories/beauty-skin'),
+      path.join(root, 'data/vendors/categories/unexpected-category')
+    );
+
+    const result = await runBuild(root);
+
+    assert.notEqual(result.code, 0);
+    assert.match(result.stderr, /Vendor data validation failed/);
+    assert.equal(await readFile(generatedOutput, 'utf8'), before);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
 });

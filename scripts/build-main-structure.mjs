@@ -168,24 +168,14 @@ const normalizeVendorRecord = (vendor, category) => {
   };
 };
 
-const readCategoryVendorSource = async (slug, category, fallbackVendors = []) => {
+const readCategoryVendorSource = async (slug, category) => {
   const vendorFilePath = `data/vendors/categories/${slug}/vendors.json`;
-  if (!(await exists(vendorFilePath))) {
-    return {
-      sourceFile: vendorFilePath,
-      vendorFile: null,
-      vendors: fallbackVendors.map((vendor) => normalizeVendorRecord(vendor, category)),
-      candidateVendors: []
-    };
-  }
-
   const vendorFile = await readJson(vendorFilePath);
-  const rawVendors = Array.isArray(vendorFile.vendors) ? vendorFile.vendors : fallbackVendors;
 
   return {
     sourceFile: vendorFilePath,
     vendorFile,
-    vendors: rawVendors.map((vendor) => normalizeVendorRecord(vendor, category)),
+    vendors: vendorFile.vendors.map((vendor) => normalizeVendorRecord(vendor, category)),
     candidateVendors: Array.isArray(vendorFile.candidateVendors) ? vendorFile.candidateVendors : []
   };
 };
@@ -1505,11 +1495,7 @@ const run = async () => {
     vendorCategory.dataFolder = `data/vendors/categories/${slug}`;
     vendorCategory.dataStatus = vendorCategoryDataStatus(vendorCategory);
 
-    const { vendors, vendorFile, candidateVendors } = await readCategoryVendorSource(
-      slug,
-      vendorCategory,
-      vendorCategory.vendors || []
-    );
+    const { vendors, vendorFile, candidateVendors } = await readCategoryVendorSource(slug, vendorCategory);
     vendorCategory.vendors = vendors;
     vendorCategory.candidateVendors = candidateVendors;
     vendorCategory.vendorCount = vendors.length;
