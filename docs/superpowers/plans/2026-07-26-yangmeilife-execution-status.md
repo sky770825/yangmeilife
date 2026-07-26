@@ -7,15 +7,15 @@
 
 | 角色 | 負責人/代理 | 狀態 | 最近回報 | 目前工作 |
 | --- | --- | --- | --- | --- |
-| Coordinator | Codex / M5 Hermes | completed | 2026-07-27 03:44 | Batch 0 已核准，準備 A1 |
+| Coordinator | Codex / M5 Hermes | completed | 2026-07-27 | A1 已核准，準備 A2 |
 | Researcher | Curie / M5 角色 | completed | 2026-07-26 22:52 | 廠商、圖片與來源風險已回報 |
-| Data Engineer | M5 Hermes | pending | - | A1 尚未核准開始 |
+| Data Engineer | Ohm / Codex | completed | 2026-07-27 | A1 資料驗證與防回生完成 |
 | UI Designer | Newton | completed | 2026-07-26 22:52 | UI、分頁與娛樂架構已回報 |
 | Frontend Engineer | 待 M5 指派 | pending | - | 等待 A3 |
 | Game Engineer | 待 M5 指派 | pending | - | 等待 Batch D |
-| Reviewer | Galileo / Archimedes | completed | 2026-07-27 03:44 | Batch 0 第二次複查 APPROVE |
+| Reviewer | Galileo / Archimedes / Heisenberg | completed | 2026-07-27 | A1 規格與品質複查 Pass |
 | Security Reviewer | Sagan | completed | 2026-07-26 22:52 | XSS、CSP、權限與發布阻擋已回報 |
-| QA/Bug | Sagan / Galileo / Archimedes | completed | 2026-07-27 03:44 | 10/10 截圖核准，console 無 error |
+| QA/Bug | Sagan / Galileo / Archimedes / Heisenberg | completed | 2026-07-27 | A1 10/10 測試通過 |
 | Release Manager | 待 M5 指派 | pending | - | 簽核、發布與回復 |
 
 ## 批次看板
@@ -23,7 +23,7 @@
 | 批次 | 狀態 | 實作者 | Reviewer | QA/Bug | 阻擋 |
 | --- | --- | --- | --- | --- | --- |
 | Batch 0 可回復基準 | completed | Codex / M5 Hermes | Archimedes: APPROVE | 10/10 截圖 | 無 |
-| A1 資料邊界與防回生 | pending | - | - | - | - |
+| A1 資料邊界與防回生 | completed | Ohm / Codex | Heisenberg: Pass | 10/10 tests | 無 |
 | A2 最新廠商資料 | pending | - | - | - | - |
 | A3 廠商卡片與手機版 | pending | - | - | - | - |
 | B1 公開功能清單 | pending | - | - | - | - |
@@ -92,3 +92,16 @@
 - Console：只有兩筆一般 log，沒有 error。
 - 判定：修改前備份、資料量測、HTTP 與視覺基準已成立。
 - 下一步：開始 A1 資料邊界與防回生驗證器。
+
+## 2026-07-27 - A1 資料邊界與防回生核准
+
+- 狀態：`completed`
+- 修改範圍：廠商資料驗證器、主架構產生器的驗證入口、回歸測試。
+- 版本：`48c4475..380f42c`
+- 驗證：固定 11 個廠商分類、11 家公開店家、公開 ID 唯一、候選資料不得直接核實上架。
+- 功夫茶限制：只允許 `功夫茶楊梅四維店`，地址固定為 `楊梅區四維路 90 號`。
+- 防回生：缺少分類或驗證失敗時，產生器不得沿用舊廠商輸出，也不得改寫已產生檔案。
+- 日期規則：核實日期採台北日曆日期，禁止格式錯誤、未來日期與超過 90 天的資料。
+- 測試：10/10 通過；目前資料驗證為 11 個分類、11 家公開店家。
+- Reviewer：Heisenberg 最終判定 `Spec Compliance: Pass`、`Code Quality: Pass`。
+- 下一步：推送 GitHub 後開始 A2 最新廠商資料盤點。
