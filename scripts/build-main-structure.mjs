@@ -1,9 +1,10 @@
 import { mkdir, readFile, writeFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import servicePageEnhancements from '../data/service-page-source.mjs';
+import { assertValidVendorData } from './validate-vendor-data.mjs';
 
 const root = process.cwd();
-const generatedAt = '2026-07-03T09:23:39+0800';
+const generatedAt = process.env.BUILD_TIMESTAMP || new Date().toISOString();
 const internalCategoryIds = new Set(['site-core', 'vendors-admin']);
 
 const isPublicCategory = (categoryOrId) => {
@@ -1456,6 +1457,8 @@ const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 `;
 
 const run = async () => {
+  await assertValidVendorData({ root });
+
   const siteCategories = await readJson('data/site-categories.json');
   const siteFunctions = await readJson('data/site-functions.json');
   const vendorData = await readJson('data/vendors/vendor-categories.json');
