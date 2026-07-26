@@ -112,12 +112,19 @@ test('rejects a verified vendor with a future verification date', async () => {
 });
 
 test('accepts the current Taipei calendar date during Taiwan early morning', async () => {
-  const result = await validateVendorData({
-    root: repositoryRoot,
-    now: new Date('2026-07-26T16:30:00.000Z')
-  });
+  await withTemporaryVendorData(
+    (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
+      source.vendors[0].lastVerifiedAt = '2026-07-27';
+    }),
+    async (root) => {
+      const result = await validateVendorData({
+        root,
+        now: new Date('2026-07-26T16:30:00.000Z')
+      });
 
-  assert.equal(result.valid, true, result.errors.join('\n'));
+      assert.equal(result.valid, true, result.errors.join('\n'));
+    }
+  );
 });
 
 test('rejects a missing expected category even when an extra category keeps the count at 11', async () => {
