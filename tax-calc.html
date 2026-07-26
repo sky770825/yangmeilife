@@ -2,893 +2,100 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>稅費試算 - 濬瑒房產生活平台</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>稅費試算 - 楊梅人在地生活集</title>
+<meta name="description" content="稅費試算頁整理買方、賣方與持有成本項目，先以新版資料頁提供估算比例與核對清單。">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/css/tailwind.min.css">
 <style>
-:root{
-  --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  --glass-bg: rgba(255, 255, 255, 0.25);
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-dark: rgba(30, 30, 30, 0.25);
-  --glass-dark-border: rgba(255, 255, 255, 0.1);
-  --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.2);
-  --border-radius: 1rem;
-  --border-radius-lg: 1.5rem;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-height:100vh;background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 46%,#fff7ed 100%);color:#0f172a;overscroll-behavior-x:none}
+main,section,article,header,footer,nav{max-width:100%;min-width:0}
+img,svg,video,canvas{max-width:100%;height:auto}
+.panel{background:rgba(255,255,255,.88);border:1px solid rgba(148,163,184,.24);box-shadow:0 18px 50px rgba(15,23,42,.08)}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(148,163,184,.24);box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.result-card{background:rgba(255,255,255,.96);border:1px solid rgba(148,163,184,.24);box-shadow:0 6px 18px rgba(15,23,42,.055)}
+.nav-link{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:.7rem;padding:0 .85rem;font-weight:800;text-decoration:none}
+.nav-link.bg-white{background:#fff;color:#4338ca}
+.nav-link.bg-slate-900{background:#0f172a;color:#fff}
+.nav-link:hover{filter:brightness(.98)}
+.ui-break-anywhere{overflow-wrap:anywhere;word-break:break-word}
+.ui-table-fixed{width:100%;table-layout:fixed}
+.ui-min-w-0{min-width:0}
+.compact-desc{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.compact-desc--2{-webkit-line-clamp:2}
+.compact-desc--3{-webkit-line-clamp:3}
+.compact-title{overflow-wrap:anywhere}
+.compact-count-badge{display:inline-flex;min-width:2.55rem;min-height:28px;align-items:center;justify-content:center;text-align:center;line-height:1.05}
+.compact-stat{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-hero-grid,.search-form{display:grid;gap:.5rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.panel,.card,.result-card{min-width:0;overflow-wrap:anywhere}
+.vendor-card-grid{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.vendor-card-grid--single{max-width:560px;margin-inline:auto;grid-template-columns:minmax(0,1fr)!important}
+.vendor-card{display:flex;min-width:0;overflow:hidden;flex-direction:column;border:1px solid rgba(148,163,184,.28);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(15,23,42,.055)}
+.vendor-card-image{display:block;width:100%;aspect-ratio:2/1;height:auto;object-fit:cover;background:#e2e8f0}
+.vendor-card-body{display:flex;min-width:0;flex:1;flex-direction:column;padding:12px}
+.vendor-card-heading{display:flex;min-width:0;align-items:flex-start;justify-content:space-between;gap:8px}
+.vendor-card-title{min-width:0;font-size:17px;line-height:1.28;font-weight:900;color:#020617;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vendor-card-status{flex-shrink:0;border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-status--verified{background:#ecfdf5;color:#047857}
+.vendor-card-status--pending{background:#fff1f2;color:#be123c}
+.vendor-card-meta{margin-top:5px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px;line-height:1.25;font-weight:800;color:#475569}
+.vendor-card-links{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.vendor-card-link{display:flex;min-height:44px;min-width:0;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(203,213,225,.95);border-radius:9px;background:#f8fafc;padding:0 7px;color:#334155;font-size:12px;font-weight:900;line-height:1;text-decoration:none;touch-action:manipulation}
+.vendor-card-link:hover{border-color:rgba(99,102,241,.45);background:#eef2ff;color:#3730a3}
+.vendor-card-link:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+.vendor-card-link svg,.vendor-card-action svg{display:block;width:15px;height:15px;flex:0 0 15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vendor-card-link-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vendor-card-link--disabled{border-color:#e2e8f0;background:#f8fafc;color:#94a3b8}
+.vendor-card-tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.vendor-card-tag{border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-actions{margin-top:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:10px}
+.vendor-card-action{display:flex;min-height:44px;align-items:center;justify-content:center;gap:6px;border-radius:8px;padding:0 10px;font-size:13px;font-weight:900;line-height:1.2;text-align:center;touch-action:manipulation}
+.vendor-card-action--primary{color:#fff}
+.vendor-card-action--secondary{background:#f1f5f9;color:#334155}
+.vendor-card-action:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+@media (min-width:640px){.vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.search-hero-grid{grid-template-columns:minmax(0,1fr) minmax(420px,520px);align-items:end}.search-form{grid-template-columns:minmax(0,1fr) 160px 96px}}
+@media (min-width:1024px){.vendor-card-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1180px){.category-card-grid,#serviceGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1280px){.vendor-card-grid--gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){
+main{padding-inline:16px!important;padding-top:24px!important;padding-bottom:28px!important}
+.panel{border-radius:16px!important;box-shadow:0 12px 30px rgba(15,23,42,.07)}
+.card,.result-card{border-radius:14px!important;box-shadow:0 6px 16px rgba(15,23,42,.055)}
+.entry-hero{padding:20px!important}
+.entry-hero-title{font-size:1.75rem!important;line-height:1.1!important;letter-spacing:0!important}
+.entry-hero-text{margin-top:.65rem!important;font-size:.95rem!important;line-height:1.55!important}
+.entry-pill-row{margin-top:.9rem!important;gap:.4rem!important}
+.entry-pill{padding:.42rem .65rem!important;font-size:.8rem!important;line-height:1.1!important}
+.category-card-grid{margin-top:1rem!important;gap:.75rem!important}
+.category-overview-card,.category-function-card,.result-card,.service-card{padding:14px!important}
+.category-card-icon{font-size:1.5rem!important;line-height:1!important}
+.category-card-title{margin-top:.45rem!important;font-size:1.08rem!important;line-height:1.25!important}
+.compact-desc{margin-top:.45rem!important;line-height:1.45!important}
+.compact-count-badge{min-width:34px;min-height:26px;padding-inline:7px!important}
+.compact-stat{padding:.45rem .5rem!important}
+.service-card{padding:12px!important}
+.service-card .compact-desc{margin-top:.35rem!important;-webkit-line-clamp:2!important}
+.service-card-tags{margin-top:.5rem!important;gap:.25rem!important}
+.search-shell{border-radius:14px!important;padding:12px!important}
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body{
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  transition: var(--transition);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
-  color: #333;
-}
-
-body.dark {
-  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-  color: #f8f9fa;
-}
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0.75rem;
-}
-
-.glass-card{
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-soft);
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.glass-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-}
-
-.glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
-}
-
-body.dark .glass-card {
-  background: var(--glass-dark);
-  border: 1px solid var(--glass-dark-border);
-}
-
-.tax-item{
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  margin-bottom: 0.5rem;
-  transition: var(--transition);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  position: relative;
-}
-
-.tax-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-body.dark .tax-item {
-  background: rgba(30, 30, 30, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.result-card{
-  background: var(--primary);
-  color: white;
-  border-radius: var(--border-radius-lg);
-  padding: 2rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.result-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(30deg); }
-  50% { transform: translateX(100%) translateY(100%) rotate(30deg); }
-}
-
-.input-group {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.input-group label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.375rem;
-  color: #374151;
-  font-size: 0.85rem;
-}
-
-body.dark .input-group label {
-  color: #f3f4f6;
-}
-
-.input-group input,
-.input-group select {
-  width: 100%;
-  padding: 0.625rem 0.75rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  transition: var(--transition);
-  font-size: 0.9rem;
-  color: #374151;
-}
-
-.input-group input:focus,
-.input-group select:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  transform: translateY(-2px);
-}
-
-body.dark .input-group input,
-body.dark .input-group select {
-  background: rgba(30, 30, 30, 0.8);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  color: #f3f4f6;
-}
-
-#themeToggle{
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 50%;
-  z-index: 50;
-  transition: var(--transition);
-  cursor: pointer;
-  font-size: 1.2rem;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-#themeToggle:hover {
-  transform: scale(1.1) rotate(180deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-.back-btn {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border: none;
-  padding: 0.75rem;
-  border-radius: 50%;
-  z-index: 50;
-  transition: var(--transition);
-  cursor: pointer;
-  font-size: 1.2rem;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.back-btn:hover {
-  transform: scale(1.1);
-  background: rgba(255, 255, 255, 1);
-}
-
-body.dark .back-btn {
-  background: rgba(30, 30, 30, 0.8);
-  color: #f3f4f6;
-}
-
-.section-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-}
-
-.tax-amount {
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-
-.tax-description {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  margin-top: 0.125rem;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 1.25rem;
-  align-items: start;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
-.input-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.75rem;
-}
-
-.tax-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-@media (max-width: 768px) {
-  .grid-2,
-  .grid-3,
-  .tax-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .input-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .container {
-    padding: 0.5rem;
-  }
-  
-  .result-card {
-    padding: 1.5rem;
-  }
-  
-  .grid-2 {
-    gap: 1rem;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.pulse {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
+@media (max-width:480px){.vendor-card-body{padding:12px}.vendor-card-title{font-size:16px}.vendor-card-links{gap:6px}.vendor-card-link{padding:0 6px;font-size:12px}.vendor-card-actions{padding-top:10px}}
+@media (max-width:380px){.entry-hero-title{font-size:1.62rem!important}.nav-link{padding:0 .7rem}.entry-pill{font-size:.76rem!important}.compact-count-badge{min-width:32px}}
 </style>
 </head>
 <body>
-<!-- 主題切換 -->
-<button id="themeToggle" aria-label="切換主題模式">🌞</button>
-
-<!-- 返回按鈕 -->
-<button onclick="history.back()" class="back-btn" aria-label="返回上一頁">
-  ←
-</button>
-
-<!-- 標題區 -->
-<header class="text-center py-6 fade-in">
-  <div class="container">
-    <h1 class="text-3xl font-bold text-white mb-2">📄 稅費試算工具</h1>
-    <p class="text-base opacity-90 text-white">2025年房地合一稅2.0最新稅制</p>
-  </div>
-</header>
-
-<main class="container py-2 pb-16">
-  <div class="grid-2">
-    <!-- 左側：輸入區域 -->
-    <div class="space-y-4">
-      <!-- 基本資訊 -->
-      <section class="glass-card p-5 fade-in">
-        <h2 class="section-title">
-          <span class="text-2xl">📏</span>
-          <span>房屋資訊</span>
-        </h2>
-        <div class="input-grid">
-          <div class="input-group">
-            <label>房屋總價 (萬元)</label>
-            <input type="number" id="housePrice" placeholder="例如：1500" value="1500">
-          </div>
-          <div class="input-group">
-            <label>取得成本 (萬元)</label>
-            <input type="number" id="costPrice" placeholder="例如：1200" value="1200">
-          </div>
-          <div class="input-group">
-            <label>房屋類型</label>
-            <select id="houseType">
-              <option value="new">新建房屋</option>
-              <option value="used" selected>中古屋</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>持有年限</label>
-            <select id="holdYears">
-              <option value="1">1年內</option>
-              <option value="2">1-2年</option>
-              <option value="5">2-5年</option>
-              <option value="10" selected>5-10年</option>
-              <option value="20">10年以上</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>房屋用途</label>
-            <select id="houseUsage">
-              <option value="self" selected>自用住宅</option>
-              <option value="investment">投資用途</option>
-              <option value="business">營業用途</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>是否為首次購屋</label>
-            <select id="firstTimeBuyer">
-              <option value="no" selected>否</option>
-              <option value="yes">是</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>土地面積 (坪)</label>
-            <input type="number" id="landArea" placeholder="例如：25" value="25">
-          </div>
-          <div class="input-group">
-            <label>建物面積 (坪)</label>
-            <input type="number" id="buildingArea" placeholder="例如：35" value="35">
-          </div>
-        </div>
-      </section>
-
-    </div>
-
-    <!-- 右側：結果區域 -->
-    <div class="space-y-4">
-      <!-- 稅費總計 -->
-      <section class="result-card pulse">
-        <h3 class="text-xl font-bold mb-3">💰 稅費總計</h3>
-        <div class="grid grid-cols-2 gap-3 text-center mb-3">
-          <div class="bg-white/20 rounded-lg p-3">
-            <div class="text-xl font-bold" id="buyerTotal">NT$ 72,500</div>
-            <div class="text-xs opacity-80">買方負擔</div>
-          </div>
-          <div class="bg-white/20 rounded-lg p-3">
-            <div class="text-xl font-bold" id="sellerTotal">NT$ 60,000</div>
-            <div class="text-xs opacity-80">賣方負擔</div>
-          </div>
-        </div>
-        <div class="pt-3 border-t border-white/20">
-          <div class="text-2xl font-bold" id="totalTax">NT$ 132,500</div>
-          <div class="text-xs opacity-80">總稅費</div>
-        </div>
-      </section>
-
-      <!-- 稅費明細 -->
-      <div class="tax-grid">
-        <!-- 買方稅費 -->
-        <section class="glass-card p-5 fade-in">
-          <h2 class="section-title">
-            <span class="text-2xl">💰</span>
-            <span>買方稅費</span>
-          </h2>
-          <div class="space-y-2">
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏠 契稅</h3>
-                  <p class="tax-description">房屋移轉登記稅</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="deedTax">NT$ 45,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">📋 印花稅</h3>
-                  <p class="tax-description">契約書印花稅</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="stampTax">NT$ 1,500</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">📝 登記規費</h3>
-                  <p class="tax-description">地政事務所規費</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="registrationFee">NT$ 3,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏦 銀行費用</h3>
-                  <p class="tax-description">貸款設定費、手續費</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="bankFee">NT$ 8,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏢 代書費</h3>
-                  <p class="tax-description">代書服務費用</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="notaryFee">NT$ 15,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏠 仲介費 (買方)</h3>
-                  <p class="tax-description">買方負擔仲介服務費 2%</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="buyerAgentFee">NT$ 30,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🔍 履約保證費</h3>
-                  <p class="tax-description">履約保證服務費</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="guaranteeFee">NT$ 5,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">📋 火險地震險</h3>
-                  <p class="tax-description">第一年保險費用</p>
-                </div>
-                <span class="tax-amount text-blue-600" id="insuranceFee">NT$ 3,000</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 賣方稅費 -->
-        <section class="glass-card p-5 fade-in">
-          <h2 class="section-title">
-            <span class="text-2xl">💸</span>
-            <span>賣方稅費</span>
-          </h2>
-          <div class="space-y-2">
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">📊 房地合一稅2.0</h3>
-                  <p class="tax-description" id="unifiedTaxDesc">依持有年限計算</p>
-                </div>
-                <span class="tax-amount text-red-600" id="unifiedTax">NT$ 0</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏠 土地增值稅</h3>
-                  <p class="tax-description">土地增值部分稅負</p>
-                </div>
-                <span class="tax-amount text-red-600" id="landTax">NT$ 30,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏢 仲介費 (賣方)</h3>
-                  <p class="tax-description">賣方負擔仲介服務費 4%</p>
-                </div>
-                <span class="tax-amount text-red-600" id="sellerAgentFee">NT$ 60,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏠 房屋稅</h3>
-                  <p class="tax-description">年度房屋稅 (按比例分攤)</p>
-                </div>
-                <span class="tax-amount text-red-600" id="houseTax">NT$ 8,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🏞️ 地價稅</h3>
-                  <p class="tax-description">年度地價稅 (按比例分攤)</p>
-                </div>
-                <span class="tax-amount text-red-600" id="landValueTax">NT$ 5,000</span>
-              </div>
-            </div>
-
-            <div class="tax-item">
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-semibold text-sm">🔧 修繕費</h3>
-                  <p class="tax-description">房屋修繕整理費用</p>
-                </div>
-                <span class="tax-amount text-red-600" id="repairFee">NT$ 10,000</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-  </div>
-
-  <!-- 下方：資訊區域 -->
-  <div class="grid-3 mt-6">
-    <!-- 節稅建議 -->
-    <section class="glass-card p-5 fade-in">
-      <h3 class="section-title">
-        <span class="text-2xl">💡</span>
-        <span>節稅建議</span>
-      </h3>
-      <div class="space-y-2">
-        <div class="flex items-start space-x-2 p-2 bg-green-50 rounded-lg">
-          <span class="text-green-500 text-lg">💡</span>
-          <span class="text-xs">持有超過5年可適用房地合一稅優惠稅率</span>
-        </div>
-        <div class="flex items-start space-x-2 p-2 bg-blue-50 rounded-lg">
-          <span class="text-blue-500 text-lg">💡</span>
-          <span class="text-xs">自用住宅重購退稅：2年內重購可申請退稅</span>
-        </div>
-        <div class="flex items-start space-x-2 p-2 bg-purple-50 rounded-lg">
-          <span class="text-purple-500 text-lg">💡</span>
-          <span class="text-xs">善用400萬自用住宅免稅額</span>
-        </div>
-        <div class="flex items-start space-x-2 p-2 bg-orange-50 rounded-lg">
-          <span class="text-orange-500 text-lg">💡</span>
-          <span class="text-xs">夫妻可善用每人每年220萬贈與免稅額</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 房地合一稅2.0說明 -->
-    <section class="glass-card p-5 fade-in">
-      <h3 class="section-title">
-        <span class="text-2xl">📚</span>
-        <span>房地合一稅2.0說明</span>
-      </h3>
-      <div class="space-y-3">
-        <div class="p-3 bg-red-100 rounded-lg border-l-4 border-red-500">
-          <div class="flex justify-between items-center">
-            <div>
-              <h4 class="font-semibold text-red-800 text-sm">持有1年內</h4>
-              <p class="text-red-600 text-xs">短期投機</p>
-            </div>
-            <div class="text-right">
-              <p class="text-red-700 text-lg font-bold">45%</p>
-              <p class="text-red-500 text-xs">最高稅率</p>
-            </div>
-          </div>
-        </div>
-        <div class="p-3 bg-orange-100 rounded-lg border-l-4 border-orange-500">
-          <div class="flex justify-between items-center">
-            <div>
-              <h4 class="font-semibold text-orange-800 text-sm">持有1-2年</h4>
-              <p class="text-orange-600 text-xs">短期持有</p>
-            </div>
-            <div class="text-right">
-              <p class="text-orange-700 text-lg font-bold">35%</p>
-              <p class="text-orange-500 text-xs">高稅率</p>
-            </div>
-          </div>
-        </div>
-        <div class="p-3 bg-yellow-100 rounded-lg border-l-4 border-yellow-500">
-          <div class="flex justify-between items-center">
-            <div>
-              <h4 class="font-semibold text-yellow-800 text-sm">持有2-5年</h4>
-              <p class="text-yellow-600 text-xs">中期持有</p>
-            </div>
-            <div class="text-right">
-              <p class="text-yellow-700 text-lg font-bold">20%</p>
-              <p class="text-yellow-500 text-xs">一般稅率</p>
-            </div>
-          </div>
-        </div>
-        <div class="p-3 bg-green-100 rounded-lg border-l-4 border-green-500">
-          <div class="flex justify-between items-center">
-            <div>
-              <h4 class="font-semibold text-green-800 text-sm">持有5-10年</h4>
-              <p class="text-green-600 text-xs">長期持有</p>
-            </div>
-            <div class="text-right">
-              <p class="text-green-700 text-lg font-bold">15%</p>
-              <p class="text-green-500 text-xs">優惠稅率</p>
-            </div>
-          </div>
-        </div>
-        <div class="p-3 bg-blue-100 rounded-lg border-l-4 border-blue-500">
-          <div class="flex justify-between items-center">
-            <div>
-              <h4 class="font-semibold text-blue-800 text-sm">持有10年以上</h4>
-              <p class="text-blue-600 text-xs">超長期持有</p>
-            </div>
-            <div class="text-right">
-              <p class="text-blue-700 text-lg font-bold">15%</p>
-              <p class="text-blue-500 text-xs">最低稅率</p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 自用住宅優惠 -->
-        <div class="mt-4 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
-          <div class="flex items-center space-x-2 mb-2">
-            <span class="text-purple-600 text-lg">🏠</span>
-            <h4 class="font-semibold text-purple-800 text-sm">自用住宅優惠</h4>
-          </div>
-          <div class="text-xs text-purple-700 space-y-1">
-            <div>• 400萬元免稅額</div>
-            <div>• 持有6年以上適用</div>
-            <div>• 需設籍且實際居住</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 快速參考 -->
-    <section class="glass-card p-5 fade-in">
-      <h3 class="section-title">
-        <span class="text-2xl">⚡</span>
-        <span>快速參考</span>
-      </h3>
-      <div class="space-y-3">
-        <!-- 稅率參考 -->
-        <div class="grid grid-cols-2 gap-2">
-          <div class="text-center p-2 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-            <div class="text-lg font-bold text-blue-600">3%</div>
-            <div class="text-xs text-gray-600">契稅費率</div>
-          </div>
-          <div class="text-center p-2 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
-            <div class="text-lg font-bold text-green-600">0.1%</div>
-            <div class="text-xs text-gray-600">印花稅率</div>
-          </div>
-        </div>
-        
-        <!-- 免稅額參考 -->
-        <div class="text-center p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-          <div class="text-lg font-bold text-purple-600">400萬</div>
-          <div class="text-xs text-gray-600">自用住宅免稅額</div>
-        </div>
-        
-        <!-- 仲介費參考 -->
-        <div class="grid grid-cols-2 gap-2">
-          <div class="text-center p-2 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg">
-            <div class="text-lg font-bold text-orange-600">2%</div>
-            <div class="text-xs text-gray-600">買方仲介費</div>
-          </div>
-          <div class="text-center p-2 bg-gradient-to-r from-red-50 to-pink-50 rounded-lg">
-            <div class="text-lg font-bold text-red-600">4%</div>
-            <div class="text-xs text-gray-600">賣方仲介費</div>
-          </div>
-        </div>
-        
-        <!-- 其他費用 -->
-        <div class="space-y-2">
-          <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
-            <span class="text-xs text-gray-600">代書費</span>
-            <span class="text-xs font-semibold text-gray-800">15,000元</span>
-          </div>
-          <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
-            <span class="text-xs text-gray-600">履約保證費</span>
-            <span class="text-xs font-semibold text-gray-800">5,000元</span>
-          </div>
-          <div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg">
-            <span class="text-xs text-gray-600">銀行設定費</span>
-            <span class="text-xs font-semibold text-gray-800">8,000元</span>
-          </div>
-        </div>
-        
-        <!-- 重要提醒 -->
-        <div class="mt-3 p-2 bg-yellow-50 rounded-lg border border-yellow-200">
-          <div class="flex items-center space-x-1 mb-1">
-            <span class="text-yellow-600 text-sm">⚠️</span>
-            <span class="text-xs font-semibold text-yellow-800">重要提醒</span>
-          </div>
-          <div class="text-xs text-yellow-700">
-            實際費用可能因地區、個案而異，建議多方比較
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+<main id="servicePageApp" class="mx-auto max-w-6xl px-4 py-8 sm:py-10" data-service-page="tax-calc">
+  <section class="panel rounded-2xl p-6">
+    <div class="text-sm font-black text-indigo-600">功能頁載入中</div>
+    <h1 class="mt-2 text-2xl font-black">稅費試算</h1>
+  </section>
 </main>
-
-<script>
-// 主題切換
-document.getElementById('themeToggle').addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
-});
-
-// 計算稅費
-function calculateTaxes() {
-  const housePrice = parseFloat(document.getElementById('housePrice').value) * 10000;
-  const houseType = document.getElementById('houseType').value;
-  const holdYears = parseInt(document.getElementById('holdYears').value);
-  const houseUsage = document.getElementById('houseUsage').value;
-  const costPrice = parseFloat(document.getElementById('costPrice').value) * 10000;
-  const landArea = parseFloat(document.getElementById('landArea').value) || 25;
-  const buildingArea = parseFloat(document.getElementById('buildingArea').value) || 35;
-  const firstTimeBuyer = document.getElementById('firstTimeBuyer').value;
-
-  if (!housePrice || !costPrice) return;
-
-  // 買方稅費
-  const deedTax = Math.round(housePrice * 0.03); // 契稅約3%
-  const stampTax = Math.round(housePrice * 0.001); // 印花稅0.1%
-  const registrationFee = Math.round(housePrice * 0.002); // 登記規費0.2%
-  const bankFee = 8000; // 銀行費用固定
-  const notaryFee = 15000; // 代書費固定
-  const buyerAgentFee = Math.round(housePrice * 0.02); // 買方仲介費2%
-  const guaranteeFee = 5000; // 履約保證費固定
-  const insuranceFee = Math.round(buildingArea * 100); // 火險地震險按坪數計算
-
-  // 房地合一稅2.0計算
-  const profit = housePrice - costPrice; // 交易所得
-  let unifiedTax = 0;
-  let taxRate = 0;
-  let taxDesc = '';
-
-  if (profit > 0) {
-    if (holdYears === 1) {
-      taxRate = 0.45;
-      taxDesc = '持有1年內稅率45%';
-    } else if (holdYears === 2) {
-      taxRate = 0.35;
-      taxDesc = '持有1-2年稅率35%';
-    } else if (holdYears === 5) {
-      taxRate = 0.20;
-      taxDesc = '持有2-5年稅率20%';
-    } else if (holdYears === 10) {
-      if (houseUsage === 'self') {
-        // 自用住宅400萬免稅額
-        const taxableProfit = Math.max(0, profit - 4000000);
-        unifiedTax = Math.round(taxableProfit * 0.15);
-        taxDesc = '持有5-10年稅率15% (自用住宅400萬免稅額)';
-      } else {
-        unifiedTax = Math.round(profit * 0.15);
-        taxDesc = '持有5-10年稅率15%';
-      }
-    } else if (holdYears === 20) {
-      if (houseUsage === 'self') {
-        // 自用住宅400萬免稅額
-        const taxableProfit = Math.max(0, profit - 4000000);
-        unifiedTax = Math.round(taxableProfit * 0.15);
-        taxDesc = '持有10年以上稅率15% (自用住宅400萬免稅額)';
-      } else {
-        unifiedTax = Math.round(profit * 0.15);
-        taxDesc = '持有10年以上稅率15%';
-      }
-    }
-
-    // 如果不是長期持有，直接計算
-    if (holdYears < 10) {
-      unifiedTax = Math.round(profit * taxRate);
-    }
-  }
-
-  // 賣方稅費
-  const landTax = Math.round(housePrice * 0.02); // 土地增值稅約2%
-  const sellerAgentFee = Math.round(housePrice * 0.04); // 賣方仲介費4%
-  const houseTax = Math.round(buildingArea * 200); // 房屋稅按坪數計算
-  const landValueTax = Math.round(landArea * 150); // 地價稅按坪數計算
-  const repairFee = 10000; // 修繕費固定
-
-  // 更新顯示
-  document.getElementById('deedTax').textContent = `NT$ ${deedTax.toLocaleString()}`;
-  document.getElementById('stampTax').textContent = `NT$ ${stampTax.toLocaleString()}`;
-  document.getElementById('registrationFee').textContent = `NT$ ${registrationFee.toLocaleString()}`;
-  document.getElementById('bankFee').textContent = `NT$ ${bankFee.toLocaleString()}`;
-  document.getElementById('notaryFee').textContent = `NT$ ${notaryFee.toLocaleString()}`;
-  document.getElementById('buyerAgentFee').textContent = `NT$ ${buyerAgentFee.toLocaleString()}`;
-  document.getElementById('guaranteeFee').textContent = `NT$ ${guaranteeFee.toLocaleString()}`;
-  document.getElementById('insuranceFee').textContent = `NT$ ${insuranceFee.toLocaleString()}`;
-  
-  document.getElementById('unifiedTax').textContent = `NT$ ${unifiedTax.toLocaleString()}`;
-  document.getElementById('unifiedTaxDesc').textContent = taxDesc || '依持有年限計算';
-  document.getElementById('landTax').textContent = `NT$ ${landTax.toLocaleString()}`;
-  document.getElementById('sellerAgentFee').textContent = `NT$ ${sellerAgentFee.toLocaleString()}`;
-  document.getElementById('houseTax').textContent = `NT$ ${houseTax.toLocaleString()}`;
-  document.getElementById('landValueTax').textContent = `NT$ ${landValueTax.toLocaleString()}`;
-  document.getElementById('repairFee').textContent = `NT$ ${repairFee.toLocaleString()}`;
-
-  // 計算總計
-  const buyerTotal = deedTax + stampTax + registrationFee + bankFee + notaryFee + buyerAgentFee + guaranteeFee + insuranceFee;
-  const sellerTotal = unifiedTax + landTax + sellerAgentFee + houseTax + landValueTax + repairFee;
-  const totalTax = buyerTotal + sellerTotal;
-
-  document.getElementById('buyerTotal').textContent = `NT$ ${buyerTotal.toLocaleString()}`;
-  document.getElementById('sellerTotal').textContent = `NT$ ${sellerTotal.toLocaleString()}`;
-  document.getElementById('totalTax').textContent = `NT$ ${totalTax.toLocaleString()}`;
-}
-
-// 監聽變化
-document.querySelectorAll('input, select').forEach(element => {
-  element.addEventListener('input', calculateTaxes);
-});
-
-// 初始計算
-calculateTaxes();
-</script>
+<script src="assets/js/service-page-data.js"></script>
+<script src="assets/js/service-page.js"></script>
+<script src="assets/js/entertainment-data.js"></script>
+<script src="assets/js/entertainment-widgets.js"></script>
 </body>
 </html>

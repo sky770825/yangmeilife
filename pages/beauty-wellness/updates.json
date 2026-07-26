@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "beauty-wellness",
+    "title": "美容美體與按摩舒壓",
+    "owner": "美容舒壓資料維護",
+    "folder": "pages/beauty-wellness/"
+  },
+  "files": {
+    "index": "pages/beauty-wellness/index.html",
+    "updatesPage": "pages/beauty-wellness/updates.html",
+    "updatesData": "pages/beauty-wellness/updates.json"
+  },
+  "functions": [
+    {
+      "id": "beauty-skin",
+      "title": "美容護膚",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "beauty-skin.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "beauty-skin.html",
+      "currentUrl": "beauty-skin.html",
+      "archivePath": "archive/cursor-history/latest/beauty-skin.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "美容",
+        "護膚",
+        "廠商"
+      ]
+    },
+    {
+      "id": "hair-salon",
+      "title": "美髮造型",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "hair-salon.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "hair-salon.html",
+      "currentUrl": "hair-salon.html",
+      "archivePath": "archive/cursor-history/latest/hair-salon.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "美髮",
+        "廠商"
+      ]
+    },
+    {
+      "id": "eyelash-service",
+      "title": "美睫服務",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "eyelash-service.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "eyelash-service.html",
+      "currentUrl": "eyelash-service.html",
+      "archivePath": "archive/cursor-history/latest/eyelash-service.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "美睫",
+        "廠商"
+      ]
+    },
+    {
+      "id": "nail-service",
+      "title": "美甲服務",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "nail-service.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "nail-service.html",
+      "currentUrl": "nail-service.html",
+      "archivePath": "archive/cursor-history/latest/nail-service.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "美甲",
+        "廠商"
+      ]
+    },
+    {
+      "id": "thai-massage",
+      "title": "泰式按摩",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "thai-massage.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "thai-massage.html",
+      "currentUrl": "thai-massage.html",
+      "archivePath": "archive/cursor-history/latest/thai-massage.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "按摩",
+        "泰式"
+      ]
+    },
+    {
+      "id": "vietnamese-massage",
+      "title": "越式按摩",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "vietnamese-massage.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "vietnamese-massage.html",
+      "currentUrl": "vietnamese-massage.html",
+      "archivePath": "archive/cursor-history/latest/vietnamese-massage.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "按摩",
+        "越式"
+      ]
+    },
+    {
+      "id": "taiwanese-massage",
+      "title": "台式按摩",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "taiwanese-massage.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "taiwanese-massage.html",
+      "currentUrl": "taiwanese-massage.html",
+      "archivePath": "archive/cursor-history/latest/taiwanese-massage.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "按摩",
+        "台式"
+      ]
+    },
+    {
+      "id": "american-chiropractic",
+      "title": "美式整復",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "american-chiropractic.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "american-chiropractic.html",
+      "currentUrl": "american-chiropractic.html",
+      "archivePath": "archive/cursor-history/latest/american-chiropractic.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "整復",
+        "舒壓"
+      ]
+    }
+  ]
+}

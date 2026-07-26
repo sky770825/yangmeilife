@@ -1,0 +1,3499 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "pages": [
+    {
+      "id": "dashboard",
+      "page": "dashboard.html",
+      "title": "生活助手儀表板",
+      "description": "生活助手與常用工具集中入口。",
+      "tags": [
+        "生活助手",
+        "入口"
+      ],
+      "categoryId": "site-core",
+      "categoryTitle": "網站核心與導覽",
+      "categoryUrl": "pages/site-core/index.html",
+      "updatesUrl": "pages/site-core/updates.html",
+      "archivePath": "archive/cursor-history/latest/dashboard.html",
+      "status": "正式功能頁",
+      "accent": "#4f46e5",
+      "type": "tool",
+      "summary": "生活助手儀表板集中常用工具、最近使用、提醒與個人紀錄入口，作為日常操作的第二層首頁。",
+      "highlights": [
+        "常用入口",
+        "個人紀錄",
+        "提醒彙整"
+      ],
+      "items": [
+        {
+          "title": "個人生活紀錄",
+          "meta": "收納/健康/帳務",
+          "desc": "把物品收納、健康紀錄、水電費、記帳與維修紀錄集中成常用入口。",
+          "tags": [
+            "個人工具",
+            "紀錄"
+          ],
+          "href": "pages/personal-tools/index.html"
+        },
+        {
+          "title": "日常快速查詢",
+          "meta": "天氣/停車/垃圾車",
+          "desc": "連回生活資訊分類，讓使用者從儀表板快速進入每日查詢。",
+          "tags": [
+            "生活資訊",
+            "快速入口"
+          ],
+          "href": "pages/daily-info/index.html"
+        },
+        {
+          "title": "提醒與最近使用",
+          "meta": "待串接 localStorage",
+          "desc": "保留提醒、最近使用與收藏資料的欄位，後續可接本機紀錄或會員資料。",
+          "tags": [
+            "提醒",
+            "使用紀錄"
+          ],
+          "href": "notifications.html"
+        }
+      ],
+      "checklist": [
+        "確認要放在儀表板的常用功能順序",
+        "串接最近使用與收藏資料",
+        "補上提醒來源與通知設定連動"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待串接真實使用紀錄",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁已從舊版儀表板整理為新版入口；統計數字與最近使用仍需接實際本機或會員資料。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "share",
+      "page": "share.html",
+      "title": "分享頁",
+      "description": "網站分享與轉傳入口。",
+      "tags": [
+        "分享"
+      ],
+      "categoryId": "site-core",
+      "categoryTitle": "網站核心與導覽",
+      "categoryUrl": "pages/site-core/index.html",
+      "updatesUrl": "pages/site-core/updates.html",
+      "archivePath": "archive/cursor-history/latest/share.html",
+      "status": "正式功能頁",
+      "accent": "#0891b2",
+      "type": "tool",
+      "summary": "分享頁整理網站轉傳、分享文字、社群平台與 QR code 需求，後續可接 Web Share API 與正式短連結。",
+      "highlights": [
+        "分享文案",
+        "社群轉傳",
+        "QR code"
+      ],
+      "items": [
+        {
+          "title": "分享內容設定",
+          "meta": "標題/描述/網址",
+          "desc": "整理分享標題、描述與目標網址，之後可做即時預覽與固定模板。",
+          "tags": [
+            "文案",
+            "預覽"
+          ]
+        },
+        {
+          "title": "平台分享入口",
+          "meta": "LINE/Facebook/WhatsApp",
+          "desc": "保留常用社群平台的分享邏輯，優先支援 LINE 與手機原生分享。",
+          "tags": [
+            "LINE",
+            "社群"
+          ]
+        },
+        {
+          "title": "連結與 QR code",
+          "meta": "複製/掃碼",
+          "desc": "保留複製分享文字、產生 QR code 與下載圖檔的維護節點。",
+          "tags": [
+            "QR code",
+            "複製"
+          ]
+        }
+      ],
+      "checklist": [
+        "更新正式網站分享網址",
+        "確認 LINE 分享文字格式",
+        "決定 QR code 產生服務或改成本地產生"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待接正式網域",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "舊版分享流程已轉成新版資料頁；分享網址與統計數字仍需在正式網域上核對。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "notifications",
+      "page": "notifications.html",
+      "title": "通知中心",
+      "description": "通知與提醒內容頁。",
+      "tags": [
+        "通知"
+      ],
+      "categoryId": "site-core",
+      "categoryTitle": "網站核心與導覽",
+      "categoryUrl": "pages/site-core/index.html",
+      "updatesUrl": "pages/site-core/updates.html",
+      "archivePath": "archive/cursor-history/latest/notifications.html",
+      "status": "正式功能頁",
+      "accent": "#dc2626",
+      "type": "tool",
+      "summary": "通知中心整理權限申請、提醒類型、提醒時間與勿擾設定，先作為通知規則的維護頁。",
+      "highlights": [
+        "通知權限",
+        "提醒時間",
+        "勿擾設定"
+      ],
+      "items": [
+        {
+          "title": "通知權限狀態",
+          "meta": "瀏覽器權限",
+          "desc": "保留權限申請與狀態顯示，實作時需處理瀏覽器支援與使用者拒絕情境。",
+          "tags": [
+            "權限",
+            "瀏覽器"
+          ]
+        },
+        {
+          "title": "生活提醒類型",
+          "meta": "垃圾車/天氣/房產",
+          "desc": "整理垃圾車、天氣、利率、房產與補助資訊等提醒項目。",
+          "tags": [
+            "提醒項目",
+            "分類"
+          ]
+        },
+        {
+          "title": "時間與勿擾設定",
+          "meta": "排程規則",
+          "desc": "保留提醒時間、靜音模式與勿擾區間，後續可接實際排程服務。",
+          "tags": [
+            "時間",
+            "勿擾"
+          ]
+        }
+      ],
+      "checklist": [
+        "確認通知類型與預設開關",
+        "加入瀏覽器權限降級提示",
+        "決定提醒資料來源與排程方式"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待接通知服務",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前整理通知規則與 UI 架構，尚未接後端推播或正式排程服務。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "loan-calc-external",
+      "page": "loan-calc.html",
+      "title": "房貸試算",
+      "description": "房貸與付款能力估算入口。",
+      "tags": [
+        "房貸",
+        "試算"
+      ],
+      "categoryId": "real-estate",
+      "categoryTitle": "房產金融與物件",
+      "categoryUrl": "pages/real-estate/index.html",
+      "updatesUrl": "pages/real-estate/updates.html",
+      "archivePath": "archive/cursor-history/latest/loan-calc.html",
+      "status": "正式功能頁",
+      "accent": "#2563eb",
+      "type": "calculator",
+      "summary": "房貸試算頁保留外部正式工具為主入口，同時建立站內新版試算說明與月付金額粗估。",
+      "highlights": [
+        "月付估算",
+        "利率參考",
+        "外部正式工具"
+      ],
+      "items": [
+        {
+          "title": "貸款金額",
+          "meta": "總價扣除自備款",
+          "desc": "整理房屋總價、自備款、貸款成數與貸款本金的估算邏輯。",
+          "tags": [
+            "總價",
+            "自備款"
+          ]
+        },
+        {
+          "title": "月付金額",
+          "meta": "年限/利率",
+          "desc": "依貸款年限與利率粗估每月付款，正式細節仍以銀行與外部工具為準。",
+          "tags": [
+            "月付",
+            "利率"
+          ]
+        },
+        {
+          "title": "還款風險",
+          "meta": "收入比例",
+          "desc": "提醒使用者核對收入、預備金、升息情境與管理費等支出。",
+          "tags": [
+            "風險",
+            "現金流"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對外部房貸工具網址",
+        "補上銀行利率資料來源",
+        "決定是否把正式公式搬回站內"
+      ],
+      "calculator": {
+        "label": "30 年 2.0% 月付粗估",
+        "unit": "萬元貸款",
+        "defaultQuantity": 1200,
+        "options": [
+          {
+            "label": "本息平均攤還月付",
+            "price": 37,
+            "mode": "perUnit"
+          },
+          {
+            "label": "每月管理與保險預留",
+            "price": 3,
+            "mode": "perUnit"
+          }
+        ]
+      },
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "外部正式工具優先",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "站內頁提供新版說明與粗估；正式試算主入口仍連到外部房貸工具。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "investor",
+      "page": "investor.html",
+      "title": "投資人工具",
+      "description": "房產投資估算與管理入口。",
+      "tags": [
+        "投資",
+        "房產"
+      ],
+      "categoryId": "real-estate",
+      "categoryTitle": "房產金融與物件",
+      "categoryUrl": "pages/real-estate/index.html",
+      "updatesUrl": "pages/real-estate/updates.html",
+      "archivePath": "archive/cursor-history/latest/investor.html",
+      "status": "正式功能頁",
+      "accent": "#7c3aed",
+      "type": "tool",
+      "summary": "投資人工具頁整理市場指標、投報分析、稅務與物件評估入口，協助房產投資前做初步檢核。",
+      "highlights": [
+        "市場指標",
+        "投報分析",
+        "風險檢核"
+      ],
+      "items": [
+        {
+          "title": "投報與現金流",
+          "meta": "租金/貸款/空置",
+          "desc": "整理租金報酬率、貸款月付、空置期與年度成本，避免只看總價。",
+          "tags": [
+            "投報率",
+            "現金流"
+          ],
+          "href": "loan-calc.html"
+        },
+        {
+          "title": "稅務與持有成本",
+          "meta": "買賣/持有",
+          "desc": "串接稅費試算，先看契稅、房地合一稅、仲介費與管理成本。",
+          "tags": [
+            "稅費",
+            "持有成本"
+          ],
+          "href": "tax-calc.html"
+        },
+        {
+          "title": "物件與區域評估",
+          "meta": "交通/屋況/出租性",
+          "desc": "把區域、交通、屋況、修繕與出租需求拆成投資前檢查清單。",
+          "tags": [
+            "物件",
+            "區域"
+          ],
+          "href": "inspection.html"
+        }
+      ],
+      "checklist": [
+        "確認市場指標資料來源",
+        "補上楊梅區域投資欄位",
+        "避免使用未核實的即時行情數字"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待核實市場資料",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "舊版投資頁的市場數字尚未核實；新版頁先保留投資檢核流程與工具入口。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "tax-calc",
+      "page": "tax-calc.html",
+      "title": "稅費試算",
+      "description": "買賣與持有相關稅費試算工具。",
+      "tags": [
+        "稅費",
+        "試算"
+      ],
+      "categoryId": "real-estate",
+      "categoryTitle": "房產金融與物件",
+      "categoryUrl": "pages/real-estate/index.html",
+      "updatesUrl": "pages/real-estate/updates.html",
+      "archivePath": "archive/cursor-history/latest/tax-calc.html",
+      "status": "正式功能頁",
+      "accent": "#db2777",
+      "type": "calculator",
+      "summary": "稅費試算頁整理買方、賣方與持有成本項目，先以新版資料頁提供估算比例與核對清單。",
+      "highlights": [
+        "買方稅費",
+        "賣方稅費",
+        "持有成本"
+      ],
+      "items": [
+        {
+          "title": "買方成本",
+          "meta": "契稅/印花/規費",
+          "desc": "整理契稅、印花稅、登記規費、銀行費用、代書費與保險費。",
+          "tags": [
+            "買方",
+            "契稅"
+          ]
+        },
+        {
+          "title": "賣方成本",
+          "meta": "房地合一/仲介",
+          "desc": "整理房地合一稅、土地增值稅、仲介費與修繕成本等賣方負擔。",
+          "tags": [
+            "賣方",
+            "房地合一"
+          ]
+        },
+        {
+          "title": "自用與持有年限",
+          "meta": "條件差異",
+          "desc": "保留自用住宅、首次購屋與持有年限等影響稅負的條件。",
+          "tags": [
+            "自用",
+            "持有年限"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對最新稅制與免稅額",
+        "分開買方與賣方負擔",
+        "補上官方稅務來源連結"
+      ],
+      "calculator": {
+        "label": "成交價稅費粗估",
+        "unit": "萬元成交價",
+        "defaultQuantity": 1500,
+        "options": [
+          {
+            "label": "契稅約 3%",
+            "price": 300,
+            "mode": "perUnit"
+          },
+          {
+            "label": "印花與登記規費約 0.3%",
+            "price": 30,
+            "mode": "perUnit"
+          },
+          {
+            "label": "買方仲介費約 2%",
+            "price": 200,
+            "mode": "perUnit"
+          },
+          {
+            "label": "代書與銀行固定成本",
+            "price": 23000,
+            "mode": "fixed"
+          }
+        ]
+      },
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待核對最新稅制",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁為稅費估算架構，正式金額仍需以主管機關、代書或稅務專業確認。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "rental-mgmt",
+      "page": "rental-mgmt.html",
+      "title": "租賃管理工具",
+      "description": "租屋管理與租務紀錄功能。",
+      "tags": [
+        "租屋",
+        "管理"
+      ],
+      "categoryId": "real-estate",
+      "categoryTitle": "房產金融與物件",
+      "categoryUrl": "pages/real-estate/index.html",
+      "updatesUrl": "pages/real-estate/updates.html",
+      "archivePath": "archive/cursor-history/latest/rental-mgmt.html",
+      "status": "正式功能頁",
+      "accent": "#0f766e",
+      "type": "service",
+      "summary": "租賃管理工具整理委託出租、租客篩選、維修管理、收租與合約流程，與包租代管廠商頁分工。",
+      "highlights": [
+        "委託出租",
+        "租客管理",
+        "收租維修"
+      ],
+      "items": [
+        {
+          "title": "委託出租流程",
+          "meta": "評估/定價/行銷",
+          "desc": "整理房屋評估、市場定價、廣告曝光、帶看與簽約交屋流程。",
+          "tags": [
+            "出租流程",
+            "定價"
+          ]
+        },
+        {
+          "title": "租客與合約管理",
+          "meta": "篩選/簽約/續約",
+          "desc": "保留租客資料、租約條件、押金、續約與退租檢查節點。",
+          "tags": [
+            "租客",
+            "合約"
+          ]
+        },
+        {
+          "title": "維修與財務管理",
+          "meta": "收租/修繕/報表",
+          "desc": "整理租金收付、維修派工、年度報表與屋況追蹤。",
+          "tags": [
+            "收租",
+            "維修"
+          ],
+          "href": "rental-management.html"
+        }
+      ],
+      "checklist": [
+        "確認委託出租表單欄位",
+        "分清楚工具頁與廠商列表頁責任",
+        "補上租約與維修紀錄資料來源"
+      ],
+      "calculator": {
+        "label": "管理費粗估",
+        "unit": "萬元月租",
+        "defaultQuantity": 3,
+        "options": [
+          {
+            "label": "基本管理費 5%",
+            "price": 500,
+            "mode": "perUnit"
+          },
+          {
+            "label": "修繕預留 3%",
+            "price": 300,
+            "mode": "perUnit"
+          },
+          {
+            "label": "每月行政固定成本",
+            "price": 1000,
+            "mode": "fixed"
+          }
+        ]
+      },
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待補真實服務條款",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁為租賃管理流程與工具入口；實際服務費率、合約與維修條款需再核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "weather",
+      "page": "weather.html",
+      "title": "天氣查詢",
+      "description": "楊梅在地天氣資訊入口。",
+      "tags": [
+        "天氣"
+      ],
+      "categoryId": "daily-info",
+      "categoryTitle": "在地生活與交通資訊",
+      "categoryUrl": "pages/daily-info/index.html",
+      "updatesUrl": "pages/daily-info/updates.html",
+      "archivePath": "archive/cursor-history/latest/weather.html",
+      "status": "正式功能頁",
+      "accent": "#0ea5e9",
+      "type": "info",
+      "summary": "把楊梅每日天氣、降雨與外出提醒集中到同一頁，後續可接氣象 API 或人工更新。",
+      "highlights": [
+        "楊梅區",
+        "每日核對",
+        "天氣提醒"
+      ],
+      "items": [
+        {
+          "title": "今日天氣",
+          "meta": "早中晚概況",
+          "desc": "記錄溫度、降雨機率、體感與外出建議。",
+          "tags": [
+            "溫度",
+            "降雨"
+          ]
+        },
+        {
+          "title": "降雨觀察",
+          "meta": "午後雷陣雨",
+          "desc": "整理午後降雨、鋒面或颱風影響，方便居民安排行程。",
+          "tags": [
+            "雨勢",
+            "提醒"
+          ]
+        },
+        {
+          "title": "空氣與紫外線",
+          "meta": "戶外活動",
+          "desc": "標記空品、紫外線與長時間戶外活動注意事項。",
+          "tags": [
+            "空品",
+            "紫外線"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對中央氣象署資料時間",
+        "更新降雨與颱風提醒",
+        "補上通勤或外出注意事項"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "garbage",
+      "page": "garbage.html",
+      "title": "垃圾車時間",
+      "description": "垃圾車清運資訊與時間查詢。",
+      "tags": [
+        "垃圾車",
+        "清運"
+      ],
+      "categoryId": "daily-info",
+      "categoryTitle": "在地生活與交通資訊",
+      "categoryUrl": "pages/daily-info/index.html",
+      "updatesUrl": "pages/daily-info/updates.html",
+      "archivePath": "archive/cursor-history/latest/garbage.html",
+      "status": "正式功能頁",
+      "accent": "#16a34a",
+      "type": "info",
+      "summary": "先建立楊梅垃圾車時間的新版頁面骨架，將清運路線、提醒事項與資料更新拆清楚。",
+      "highlights": [
+        "清運提醒",
+        "區域路線",
+        "待官方核對"
+      ],
+      "items": [
+        {
+          "title": "楊梅市區路線",
+          "meta": "傍晚時段",
+          "desc": "市區主幹道與住宅區清運資訊，正式上線前需逐站核對。",
+          "tags": [
+            "市區",
+            "傍晚"
+          ]
+        },
+        {
+          "title": "埔心生活圈",
+          "meta": "社區集中",
+          "desc": "埔心車站、商圈與周邊社區可放入分段時間。",
+          "tags": [
+            "埔心",
+            "社區"
+          ]
+        },
+        {
+          "title": "富岡與周邊",
+          "meta": "路線整理",
+          "desc": "富岡老街、車站周邊與外圍里別可獨立維護。",
+          "tags": [
+            "富岡",
+            "路線"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對桃園環保局清運時間",
+        "新增停靠點與週期",
+        "標記資源回收與廚餘規則"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "bus",
+      "page": "bus.html",
+      "title": "公車動態",
+      "description": "公車路線與動態查詢。",
+      "tags": [
+        "公車",
+        "交通"
+      ],
+      "categoryId": "daily-info",
+      "categoryTitle": "在地生活與交通資訊",
+      "categoryUrl": "pages/daily-info/index.html",
+      "updatesUrl": "pages/daily-info/updates.html",
+      "archivePath": "archive/cursor-history/latest/bus.html",
+      "status": "正式功能頁",
+      "accent": "#2563eb",
+      "type": "info",
+      "summary": "建立楊梅常用公車動態入口，先整理路線方向、站點與外部查詢位置。",
+      "highlights": [
+        "公車動態",
+        "站點整理",
+        "通勤入口"
+      ],
+      "items": [
+        {
+          "title": "楊梅火車站周邊",
+          "meta": "轉乘核心",
+          "desc": "整理常用路線與轉乘方向，適合放即時動態連結。",
+          "tags": [
+            "火車站",
+            "轉乘"
+          ]
+        },
+        {
+          "title": "埔心車站周邊",
+          "meta": "通勤節點",
+          "desc": "放置埔心站、商圈與學區通勤常用公車資訊。",
+          "tags": [
+            "埔心",
+            "通勤"
+          ]
+        },
+        {
+          "title": "富岡方向",
+          "meta": "區域接駁",
+          "desc": "整理富岡、外圍里別與假日活動交通資訊。",
+          "tags": [
+            "富岡",
+            "接駁"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對常用路線編號",
+        "補上官方即時動態連結",
+        "整理尖峰與離峰提醒"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "parking",
+      "page": "parking.html",
+      "title": "停車資訊",
+      "description": "停車位置與在地停車資訊。",
+      "tags": [
+        "停車"
+      ],
+      "categoryId": "daily-info",
+      "categoryTitle": "在地生活與交通資訊",
+      "categoryUrl": "pages/daily-info/index.html",
+      "updatesUrl": "pages/daily-info/updates.html",
+      "archivePath": "archive/cursor-history/latest/parking.html",
+      "status": "正式功能頁",
+      "accent": "#4f46e5",
+      "type": "info",
+      "summary": "把停車場、路邊停車與活動臨停資訊做成可更新清單。",
+      "highlights": [
+        "停車場",
+        "路邊停車",
+        "活動臨停"
+      ],
+      "items": [
+        {
+          "title": "楊梅火車站周邊",
+          "meta": "高需求區",
+          "desc": "整理站前停車場、短停與接送動線。",
+          "tags": [
+            "站前",
+            "短停"
+          ]
+        },
+        {
+          "title": "四維商圈",
+          "meta": "餐飲商圈",
+          "desc": "可標記用餐尖峰、收費停車場與步行距離。",
+          "tags": [
+            "商圈",
+            "用餐"
+          ]
+        },
+        {
+          "title": "埔心與富岡",
+          "meta": "分區整理",
+          "desc": "按車站、學區與市場周邊整理可停車位置。",
+          "tags": [
+            "埔心",
+            "富岡"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對收費資訊",
+        "標記營業時間",
+        "新增活動臨停公告"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "taxi",
+      "page": "taxi.html",
+      "title": "計程車行",
+      "description": "在地叫車與計程車資訊。",
+      "tags": [
+        "計程車",
+        "叫車"
+      ],
+      "categoryId": "daily-info",
+      "categoryTitle": "在地生活與交通資訊",
+      "categoryUrl": "pages/daily-info/index.html",
+      "updatesUrl": "pages/daily-info/updates.html",
+      "archivePath": "archive/cursor-history/latest/taxi.html",
+      "status": "正式功能頁",
+      "accent": "#ca8a04",
+      "type": "info",
+      "summary": "建立在地叫車資訊頁，整理車行、常用上下車點與服務範圍。",
+      "highlights": [
+        "叫車資訊",
+        "服務範圍",
+        "上下車點"
+      ],
+      "items": [
+        {
+          "title": "楊梅車站叫車",
+          "meta": "站前接送",
+          "desc": "放置車站周邊叫車、排班與接送提醒。",
+          "tags": [
+            "車站",
+            "接送"
+          ]
+        },
+        {
+          "title": "埔心生活圈",
+          "meta": "社區叫車",
+          "desc": "整理埔心商圈、學區與住宅區常用叫車資訊。",
+          "tags": [
+            "埔心",
+            "住宅"
+          ]
+        },
+        {
+          "title": "夜間與長程",
+          "meta": "需提前確認",
+          "desc": "標記夜間、機場或跨區車資需先確認。",
+          "tags": [
+            "夜間",
+            "長程"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對車行電話",
+        "更新營業時間",
+        "加入特殊需求提醒"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "rate",
+      "page": "rate.html",
+      "title": "匯率查詢",
+      "description": "匯率或費率查詢工具。",
+      "tags": [
+        "匯率",
+        "查詢"
+      ],
+      "categoryId": "daily-info",
+      "categoryTitle": "在地生活與交通資訊",
+      "categoryUrl": "pages/daily-info/index.html",
+      "updatesUrl": "pages/daily-info/updates.html",
+      "archivePath": "archive/cursor-history/latest/rate.html",
+      "status": "正式功能頁",
+      "accent": "#0891b2",
+      "type": "info",
+      "summary": "匯率與費率資訊先做成在地查詢入口，後續可接正式 API 或外部來源。",
+      "highlights": [
+        "匯率",
+        "費率",
+        "換算"
+      ],
+      "items": [
+        {
+          "title": "主要幣別",
+          "meta": "美元/日圓/人民幣",
+          "desc": "保留常用幣別位置，後續可改為即時資料。",
+          "tags": [
+            "匯率",
+            "幣別"
+          ]
+        },
+        {
+          "title": "旅行換匯",
+          "meta": "出國前核對",
+          "desc": "提供旅行換匯前的資料核對與提醒欄位。",
+          "tags": [
+            "旅行",
+            "換匯"
+          ]
+        },
+        {
+          "title": "手續費提醒",
+          "meta": "銀行/平台差異",
+          "desc": "紀錄換匯手續費、刷卡匯差與更新來源。",
+          "tags": [
+            "手續費",
+            "銀行"
+          ]
+        }
+      ],
+      "checklist": [
+        "確認資料來源",
+        "標記更新時間",
+        "補上常用幣別順序"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "local-life",
+      "page": "local-life.html",
+      "title": "在地生活",
+      "description": "在地生活資訊總覽。",
+      "tags": [
+        "在地",
+        "生活"
+      ],
+      "categoryId": "daily-info",
+      "categoryTitle": "在地生活與交通資訊",
+      "categoryUrl": "pages/daily-info/index.html",
+      "updatesUrl": "pages/daily-info/updates.html",
+      "archivePath": "archive/cursor-history/latest/local-life.html",
+      "status": "正式功能頁",
+      "accent": "#0f766e",
+      "type": "info",
+      "summary": "在地生活頁作為楊梅日常資訊總入口，承接交通、生活、活動與常用查詢。",
+      "highlights": [
+        "地方總覽",
+        "生活查詢",
+        "活動整理"
+      ],
+      "items": [
+        {
+          "title": "今日生活提醒",
+          "meta": "每日更新",
+          "desc": "可放天氣、垃圾車、活動與交通提醒。",
+          "tags": [
+            "今日",
+            "提醒"
+          ]
+        },
+        {
+          "title": "商圈與地標",
+          "meta": "楊梅/埔心/富岡",
+          "desc": "按生活圈整理常用店家、地標與活動。",
+          "tags": [
+            "商圈",
+            "地標"
+          ]
+        },
+        {
+          "title": "常用服務入口",
+          "meta": "快速導覽",
+          "desc": "串接其他功能頁，作為地方資訊首頁。",
+          "tags": [
+            "導覽",
+            "入口"
+          ]
+        }
+      ],
+      "checklist": [
+        "整理本週活動",
+        "核對常用入口",
+        "補上商圈資訊"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "renovation",
+      "page": "renovation.html",
+      "title": "裝潢設計",
+      "description": "裝潢、室內設計與工程服務入口。",
+      "tags": [
+        "裝潢",
+        "設計"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/renovation.html",
+      "status": "正式功能頁",
+      "accent": "#7c3aed",
+      "type": "service",
+      "summary": "裝潢設計頁先整理丈量、風格、預算與施工流程，後續可放真實廠商作品。",
+      "highlights": [
+        "丈量估價",
+        "施工流程",
+        "作品整理"
+      ],
+      "items": [
+        {
+          "title": "室內設計丈量",
+          "meta": "需求訪談",
+          "desc": "確認坪數、格局、預算、入住時間與風格方向。",
+          "tags": [
+            "丈量",
+            "設計"
+          ]
+        },
+        {
+          "title": "工程統包",
+          "meta": "排程控管",
+          "desc": "整合木作、水電、油漆、系統櫃與驗收節點。",
+          "tags": [
+            "統包",
+            "排程"
+          ]
+        },
+        {
+          "title": "局部改造",
+          "meta": "小坪數/舊屋",
+          "desc": "適合廚房、浴室、收納、地板或牆面局部更新。",
+          "tags": [
+            "局部",
+            "舊屋"
+          ]
+        }
+      ],
+      "checklist": [
+        "補上真實作品照片",
+        "確認估價欄位",
+        "新增合作廠商資料"
+      ],
+      "calculator": {
+        "label": "裝潢預算粗估",
+        "unit": "坪",
+        "defaultQuantity": 24,
+        "options": [
+          {
+            "label": "基礎設計與丈量",
+            "price": 2500,
+            "mode": "perUnit"
+          },
+          {
+            "label": "中度裝修工程",
+            "price": 18000,
+            "mode": "perUnit"
+          },
+          {
+            "label": "收納與系統櫃",
+            "price": 9000,
+            "mode": "perUnit"
+          }
+        ]
+      },
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "decor-calc",
+      "page": "decor-calc.html",
+      "title": "裝潢估算",
+      "description": "裝潢費用與項目估算。",
+      "tags": [
+        "裝潢",
+        "估算"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/decor-calc.html",
+      "status": "正式功能頁",
+      "accent": "#9333ea",
+      "type": "calculator",
+      "summary": "把舊版裝潢估算整理成新版計算器，可用坪數與項目先做快速預算區間。",
+      "highlights": [
+        "坪數估算",
+        "項目勾選",
+        "預算區間"
+      ],
+      "items": [
+        {
+          "title": "基礎裝潢",
+          "meta": "天花/地板/油漆",
+          "desc": "適合新成屋或局部整理的基礎項目。",
+          "tags": [
+            "基礎",
+            "新成屋"
+          ]
+        },
+        {
+          "title": "中古屋整理",
+          "meta": "水電/衛浴/廚房",
+          "desc": "中古屋常見工程，需預留拆除與管線預算。",
+          "tags": [
+            "中古屋",
+            "水電"
+          ]
+        },
+        {
+          "title": "收納強化",
+          "meta": "系統櫃/儲藏",
+          "desc": "以日常收納需求估算櫃體與機能配置。",
+          "tags": [
+            "收納",
+            "系統櫃"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對每坪單價",
+        "分開材料與工資",
+        "保留備用預算比例"
+      ],
+      "calculator": {
+        "label": "裝潢項目試算",
+        "unit": "坪",
+        "defaultQuantity": 30,
+        "options": [
+          {
+            "label": "油漆與牆面整理",
+            "price": 3500,
+            "mode": "perUnit"
+          },
+          {
+            "label": "地板更新",
+            "price": 5200,
+            "mode": "perUnit"
+          },
+          {
+            "label": "水電更新",
+            "price": 6800,
+            "mode": "perUnit"
+          },
+          {
+            "label": "系統櫃",
+            "price": 12000,
+            "mode": "perUnit"
+          }
+        ]
+      },
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "water-electric",
+      "page": "water-electric.html",
+      "title": "水電修繕",
+      "description": "水電維修與服務廠商入口。",
+      "tags": [
+        "水電",
+        "維修"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/water-electric.html",
+      "status": "正式功能頁",
+      "accent": "#0284c7",
+      "type": "service",
+      "summary": "水電修繕頁整理常見急修、估價需求與到府前要準備的資訊。",
+      "highlights": [
+        "漏水急修",
+        "電路檢查",
+        "到府估價"
+      ],
+      "items": [
+        {
+          "title": "漏水與管線",
+          "meta": "急件優先",
+          "desc": "記錄漏水位置、發生時間、照片與是否影響鄰戶。",
+          "tags": [
+            "漏水",
+            "管線"
+          ]
+        },
+        {
+          "title": "插座與開關",
+          "meta": "安全檢查",
+          "desc": "適合整理跳電、插座老化、開關異常等需求。",
+          "tags": [
+            "電路",
+            "安全"
+          ]
+        },
+        {
+          "title": "衛浴與熱水器",
+          "meta": "設備維修",
+          "desc": "整理水龍頭、馬桶、排水、熱水器與加壓馬達問題。",
+          "tags": [
+            "衛浴",
+            "熱水器"
+          ]
+        }
+      ],
+      "checklist": [
+        "上傳問題照片",
+        "確認可施工時段",
+        "標記是否急件"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "inspection-company",
+      "page": "inspection-company.html",
+      "title": "驗屋公司",
+      "description": "驗屋公司與專業檢查服務。",
+      "tags": [
+        "驗屋",
+        "廠商"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/inspection-company.html",
+      "status": "正式功能頁",
+      "accent": "#475569",
+      "type": "service",
+      "summary": "驗屋公司頁整理交屋、漏水、機電與報告項目，方便後續接正式廠商。",
+      "highlights": [
+        "交屋驗屋",
+        "漏水檢測",
+        "報告項目"
+      ],
+      "items": [
+        {
+          "title": "新成屋交屋",
+          "meta": "交屋前",
+          "desc": "檢查牆地、門窗、水電、排水與設備瑕疵。",
+          "tags": [
+            "交屋",
+            "新成屋"
+          ]
+        },
+        {
+          "title": "中古屋檢查",
+          "meta": "買賣前",
+          "desc": "聚焦漏水、壁癌、管線、結構與使用痕跡。",
+          "tags": [
+            "中古屋",
+            "漏水"
+          ]
+        },
+        {
+          "title": "驗屋報告",
+          "meta": "照片紀錄",
+          "desc": "整理問題照片、位置、嚴重度與改善建議。",
+          "tags": [
+            "報告",
+            "照片"
+          ]
+        }
+      ],
+      "checklist": [
+        "新增廠商服務範圍",
+        "補上報告格式",
+        "確認收費方式"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "inspection",
+      "page": "inspection.html",
+      "title": "驗屋檢查工具",
+      "description": "驗屋紀錄、檢查表與相關工具。",
+      "tags": [
+        "驗屋",
+        "工具"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/inspection.html",
+      "status": "正式功能頁",
+      "accent": "#334155",
+      "type": "checklist",
+      "summary": "驗屋檢查工具頁先提供可勾選的房屋維護清單，後續可加入照片與報告匯出。",
+      "highlights": [
+        "維護檢查",
+        "進度保存",
+        "報告草稿"
+      ],
+      "items": [
+        {
+          "title": "基本結構",
+          "meta": "牆面/地板/天花",
+          "desc": "檢查裂縫、滲水、空鼓、翹起或異音。",
+          "tags": [
+            "結構",
+            "牆面"
+          ]
+        },
+        {
+          "title": "水電設備",
+          "meta": "排水/插座/照明",
+          "desc": "檢查漏水、排水、插座、燈具與開關。",
+          "tags": [
+            "水電",
+            "設備"
+          ]
+        },
+        {
+          "title": "門窗安全",
+          "meta": "密合/鎖具/紗窗",
+          "desc": "檢查窗戶滑軌、門鎖、紗窗與防水密合。",
+          "tags": [
+            "門窗",
+            "安全"
+          ]
+        }
+      ],
+      "checklist": [
+        "牆面是否裂縫或滲水",
+        "排水是否順暢",
+        "插座與開關是否正常",
+        "門窗是否密合",
+        "陽台排水是否暢通"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "anti-dust-screen",
+      "page": "anti-dust-screen.html",
+      "title": "防霾紗網",
+      "description": "防霾紗網與空氣改善相關服務。",
+      "tags": [
+        "防霾",
+        "紗網"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/anti-dust-screen.html",
+      "status": "正式功能頁",
+      "accent": "#059669",
+      "type": "service",
+      "summary": "防霾紗網頁整理丈量、材質、施工與售後維護，後續可放廠商報價。",
+      "highlights": [
+        "到府丈量",
+        "材質比較",
+        "施工維護"
+      ],
+      "items": [
+        {
+          "title": "窗型丈量",
+          "meta": "尺寸確認",
+          "desc": "記錄窗戶尺寸、開窗方向、是否需拆舊。",
+          "tags": [
+            "丈量",
+            "窗型"
+          ]
+        },
+        {
+          "title": "材質選擇",
+          "meta": "防霾/防蚊/透光",
+          "desc": "比較通風、透光、清潔與價格差異。",
+          "tags": [
+            "材質",
+            "防霾"
+          ]
+        },
+        {
+          "title": "安裝維護",
+          "meta": "施工後檢查",
+          "desc": "確認軌道、密合度、清潔方式與保固。",
+          "tags": [
+            "安裝",
+            "保固"
+          ]
+        }
+      ],
+      "checklist": [
+        "補上材質照片",
+        "確認丈量欄位",
+        "整理保固條款"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "paint-service",
+      "page": "paint-service.html",
+      "title": "油漆工程",
+      "description": "油漆、粉刷、批土與修繕服務。",
+      "tags": [
+        "油漆",
+        "工程"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/paint-service.html",
+      "status": "正式功能頁",
+      "accent": "#f97316",
+      "type": "service",
+      "summary": "油漆工程頁整理牆況、坪數、漆種與施工天數，方便後續估價。",
+      "highlights": [
+        "牆面整理",
+        "漆種選擇",
+        "施工天數"
+      ],
+      "items": [
+        {
+          "title": "室內粉刷",
+          "meta": "客廳/房間",
+          "desc": "記錄牆面狀況、顏色、坪數與家具保護需求。",
+          "tags": [
+            "粉刷",
+            "室內"
+          ]
+        },
+        {
+          "title": "壁癌處理",
+          "meta": "需先查漏",
+          "desc": "把滲水來源、牆面剝落與防水處理分開估算。",
+          "tags": [
+            "壁癌",
+            "防水"
+          ]
+        },
+        {
+          "title": "局部修補",
+          "meta": "退租/交屋",
+          "desc": "適合小面積補土、補漆、孔洞與污漬處理。",
+          "tags": [
+            "修補",
+            "退租"
+          ]
+        }
+      ],
+      "checklist": [
+        "拍攝牆面照片",
+        "確認施工坪數",
+        "標記是否有壁癌"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "pest-control",
+      "page": "pest-control.html",
+      "title": "病媒防治",
+      "description": "白蟻、除蟲與環境防治服務。",
+      "tags": [
+        "除蟲",
+        "病媒"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/pest-control.html",
+      "status": "正式功能頁",
+      "accent": "#65a30d",
+      "type": "service",
+      "summary": "病媒防治頁整理白蟻、蟑螂、螞蟻、跳蚤與環境處理需求。",
+      "highlights": [
+        "白蟻防治",
+        "環境處理",
+        "定期維護"
+      ],
+      "items": [
+        {
+          "title": "白蟻檢測",
+          "meta": "木作/牆角",
+          "desc": "記錄發現位置、木作狀況與是否擴散。",
+          "tags": [
+            "白蟻",
+            "檢測"
+          ]
+        },
+        {
+          "title": "蟑螂螞蟻",
+          "meta": "居家環境",
+          "desc": "整理出沒區域、頻率、廚房與排水孔狀況。",
+          "tags": [
+            "蟑螂",
+            "螞蟻"
+          ]
+        },
+        {
+          "title": "社區定期防治",
+          "meta": "公共區域",
+          "desc": "適合大樓、公寓與店面定期消毒規劃。",
+          "tags": [
+            "社區",
+            "消毒"
+          ]
+        }
+      ],
+      "checklist": [
+        "補出沒照片",
+        "確認施作坪數",
+        "記錄家中是否有寵物或幼童"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "moving-company",
+      "page": "moving-company.html",
+      "title": "搬家公司",
+      "description": "搬家與運送服務入口。",
+      "tags": [
+        "搬家"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/moving-company.html",
+      "status": "正式功能頁",
+      "accent": "#dc2626",
+      "type": "service",
+      "summary": "搬家公司頁整理物品量、樓層、車型與特殊搬運需求。",
+      "highlights": [
+        "搬家估價",
+        "樓層車型",
+        "特殊物品"
+      ],
+      "items": [
+        {
+          "title": "一般家庭搬家",
+          "meta": "套房/家庭",
+          "desc": "記錄物品量、樓層、電梯、停車與搬運距離。",
+          "tags": [
+            "家庭",
+            "估價"
+          ]
+        },
+        {
+          "title": "大型家具",
+          "meta": "需拆裝",
+          "desc": "沙發、床架、衣櫃、冰箱與洗衣機需單獨標記。",
+          "tags": [
+            "家具",
+            "拆裝"
+          ]
+        },
+        {
+          "title": "店面與辦公",
+          "meta": "夜間/假日",
+          "desc": "整理營業設備、文件箱、辦公桌與搬運時間。",
+          "tags": [
+            "店面",
+            "辦公"
+          ]
+        }
+      ],
+      "checklist": [
+        "列出大型家具",
+        "確認起迄樓層",
+        "拍攝搬運動線"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "air-conditioning",
+      "page": "air-conditioning.html",
+      "title": "冷氣服務",
+      "description": "冷氣清洗、維修與安裝服務。",
+      "tags": [
+        "冷氣",
+        "清洗"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/air-conditioning.html",
+      "status": "正式功能頁",
+      "accent": "#0369a1",
+      "type": "service",
+      "summary": "冷氣服務頁整理清洗、維修、安裝與季節性保養資訊。",
+      "highlights": [
+        "冷氣清洗",
+        "安裝維修",
+        "季節保養"
+      ],
+      "items": [
+        {
+          "title": "分離式清洗",
+          "meta": "室內機/室外機",
+          "desc": "記錄品牌、噸數、台數、安裝位置與使用年限。",
+          "tags": [
+            "清洗",
+            "分離式"
+          ]
+        },
+        {
+          "title": "冷氣不冷",
+          "meta": "維修檢查",
+          "desc": "整理不冷、滴水、異音、跳電與冷媒檢查。",
+          "tags": [
+            "維修",
+            "冷媒"
+          ]
+        },
+        {
+          "title": "新機安裝",
+          "meta": "場勘估價",
+          "desc": "確認電源、管線、排水、室外機位置與施工動線。",
+          "tags": [
+            "安裝",
+            "場勘"
+          ]
+        }
+      ],
+      "checklist": [
+        "確認冷氣品牌與噸數",
+        "拍攝室內外機位置",
+        "標記是否高樓或需吊車"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "item-storage",
+      "page": "item-storage.html",
+      "title": "收納倉儲",
+      "description": "物品收納、倉儲與整理服務。",
+      "tags": [
+        "收納",
+        "倉儲"
+      ],
+      "categoryId": "home-services",
+      "categoryTitle": "居家修繕與工程服務",
+      "categoryUrl": "pages/home-services/index.html",
+      "updatesUrl": "pages/home-services/updates.html",
+      "archivePath": "archive/cursor-history/latest/item-storage.html",
+      "status": "正式功能頁",
+      "accent": "#7c2d12",
+      "type": "service",
+      "summary": "收納倉儲頁整理短租倉、居家整理、搬遷暫存與物品清單。",
+      "highlights": [
+        "短期倉儲",
+        "居家整理",
+        "搬遷暫存"
+      ],
+      "items": [
+        {
+          "title": "短期暫存",
+          "meta": "搬家/裝修",
+          "desc": "適合搬家過渡、裝潢期間或季節用品暫放。",
+          "tags": [
+            "暫存",
+            "搬家"
+          ]
+        },
+        {
+          "title": "居家整理",
+          "meta": "分類收納",
+          "desc": "整理衣物、文件、玩具、電器與不常用物品。",
+          "tags": [
+            "整理",
+            "收納"
+          ]
+        },
+        {
+          "title": "大型物品",
+          "meta": "需尺寸確認",
+          "desc": "家具、家電與大型箱件需事先確認尺寸與搬運方式。",
+          "tags": [
+            "大型",
+            "尺寸"
+          ]
+        }
+      ],
+      "checklist": [
+        "建立物品清單",
+        "確認保存期限",
+        "標記易碎或貴重物"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "receipt",
+      "page": "receipt.html",
+      "title": "發票對獎",
+      "description": "統一發票對獎與記帳相關入口。",
+      "tags": [
+        "發票",
+        "記帳"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/receipt.html",
+      "status": "正式功能頁",
+      "accent": "#7c3aed",
+      "type": "tool",
+      "summary": "發票對獎頁先整理號碼輸入、期別核對、紀錄保存與官方資料更新流程。",
+      "highlights": [
+        "發票號碼",
+        "期別核對",
+        "中獎紀錄"
+      ],
+      "items": [
+        {
+          "title": "號碼輸入",
+          "meta": "8 碼發票",
+          "desc": "保留手動輸入與掃描欄位，後續可接官方開獎資料。",
+          "tags": [
+            "8碼",
+            "對獎"
+          ]
+        },
+        {
+          "title": "期別管理",
+          "meta": "雙月期別",
+          "desc": "整理每期開獎時間、兌獎期限與資料來源。",
+          "tags": [
+            "期別",
+            "期限"
+          ]
+        },
+        {
+          "title": "紀錄保存",
+          "meta": "本機紀錄",
+          "desc": "可記錄已查詢號碼與中獎狀態，方便下次追蹤。",
+          "tags": [
+            "紀錄",
+            "localStorage"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對官方開獎號碼",
+        "標記兌獎期限",
+        "整理使用者輸入欄位"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "expense-tracker",
+      "page": "expense-tracker.html",
+      "title": "每日記帳",
+      "description": "日常記帳與支出紀錄。",
+      "tags": [
+        "記帳"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/expense-tracker.html",
+      "status": "正式功能頁",
+      "accent": "#dc2626",
+      "type": "tool",
+      "summary": "每日記帳頁整理收入、支出、分類、月預算與快速統計。",
+      "highlights": [
+        "收支紀錄",
+        "分類統計",
+        "月預算"
+      ],
+      "items": [
+        {
+          "title": "支出紀錄",
+          "meta": "餐飲/交通/生活",
+          "desc": "記錄金額、分類、備註與日期，後續可接圖表。",
+          "tags": [
+            "支出",
+            "分類"
+          ]
+        },
+        {
+          "title": "收入紀錄",
+          "meta": "薪資/租金/其他",
+          "desc": "讓日常帳務能同時追收入與支出。",
+          "tags": [
+            "收入",
+            "現金流"
+          ]
+        },
+        {
+          "title": "月預算",
+          "meta": "預警提醒",
+          "desc": "建立每月預算、剩餘額度與分類超支提醒。",
+          "tags": [
+            "預算",
+            "提醒"
+          ]
+        }
+      ],
+      "checklist": [
+        "確認分類清單",
+        "補上匯出格式",
+        "檢查本機儲存資料結構"
+      ],
+      "calculator": {
+        "label": "月支出粗估",
+        "unit": "天",
+        "defaultQuantity": 30,
+        "options": [
+          {
+            "label": "每日餐飲",
+            "price": 250,
+            "mode": "perUnit"
+          },
+          {
+            "label": "交通與停車",
+            "price": 120,
+            "mode": "perUnit"
+          },
+          {
+            "label": "生活雜支",
+            "price": 180,
+            "mode": "perUnit"
+          }
+        ]
+      },
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "todo-list",
+      "page": "todo-list.html",
+      "title": "待辦清單",
+      "description": "個人待辦事項管理。",
+      "tags": [
+        "待辦"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/todo-list.html",
+      "status": "正式功能頁",
+      "accent": "#2563eb",
+      "type": "tool",
+      "summary": "待辦清單頁整理今日事項、週期任務、提醒與完成進度。",
+      "highlights": [
+        "今日待辦",
+        "週期任務",
+        "進度保存"
+      ],
+      "items": [
+        {
+          "title": "今日事項",
+          "meta": "優先處理",
+          "desc": "把今天要完成的行政、家務與工作事項集中管理。",
+          "tags": [
+            "今日",
+            "任務"
+          ]
+        },
+        {
+          "title": "週期任務",
+          "meta": "每週/月固定",
+          "desc": "適合繳費、保養、打掃、回診與家庭例行事項。",
+          "tags": [
+            "週期",
+            "提醒"
+          ]
+        },
+        {
+          "title": "完成追蹤",
+          "meta": "進度保存",
+          "desc": "保留完成比例與未完成事項，方便隔天延續。",
+          "tags": [
+            "完成",
+            "追蹤"
+          ]
+        }
+      ],
+      "checklist": [
+        "整理預設任務分類",
+        "確認提醒欄位",
+        "加入完成狀態保存"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "price-comparison",
+      "page": "price-comparison.html",
+      "title": "比價工具",
+      "description": "日常採購或服務比價工具。",
+      "tags": [
+        "比價"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/price-comparison.html",
+      "status": "正式功能頁",
+      "accent": "#0f766e",
+      "type": "tool",
+      "summary": "比價工具頁整理商品、服務、單價、數量與總成本比較。",
+      "highlights": [
+        "價格比較",
+        "單位換算",
+        "決策紀錄"
+      ],
+      "items": [
+        {
+          "title": "商品比價",
+          "meta": "單價/容量",
+          "desc": "比較不同容量、規格與優惠後的實際單價。",
+          "tags": [
+            "商品",
+            "單價"
+          ]
+        },
+        {
+          "title": "服務比價",
+          "meta": "項目/工資",
+          "desc": "適合裝修、水電、搬家等服務報價比較。",
+          "tags": [
+            "服務",
+            "報價"
+          ]
+        },
+        {
+          "title": "採購紀錄",
+          "meta": "常買項目",
+          "desc": "保存常用商品價格，建立在地採購參考。",
+          "tags": [
+            "採購",
+            "紀錄"
+          ]
+        }
+      ],
+      "checklist": [
+        "補上單位換算",
+        "確認比較欄位",
+        "加入備註與來源"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "health-record",
+      "page": "health-record.html",
+      "title": "健康紀錄",
+      "description": "個人健康資料與生活紀錄。",
+      "tags": [
+        "健康",
+        "紀錄"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/health-record.html",
+      "status": "正式功能頁",
+      "accent": "#059669",
+      "type": "tool",
+      "summary": "健康紀錄頁整理血壓、體重、睡眠、用藥與回診提醒。",
+      "highlights": [
+        "健康數據",
+        "用藥提醒",
+        "回診紀錄"
+      ],
+      "items": [
+        {
+          "title": "日常量測",
+          "meta": "血壓/體重",
+          "desc": "可紀錄常用健康數值，方便追蹤趨勢。",
+          "tags": [
+            "血壓",
+            "體重"
+          ]
+        },
+        {
+          "title": "用藥紀錄",
+          "meta": "時間/劑量",
+          "desc": "整理用藥時間、劑量與是否已服用。",
+          "tags": [
+            "用藥",
+            "提醒"
+          ]
+        },
+        {
+          "title": "回診資訊",
+          "meta": "診所/日期",
+          "desc": "保留回診日期、科別與醫師建議。",
+          "tags": [
+            "回診",
+            "診所"
+          ]
+        }
+      ],
+      "checklist": [
+        "確認隱私提示",
+        "整理常用量測欄位",
+        "加入回診提醒"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "utility-tracking",
+      "page": "utility-tracking.html",
+      "title": "水電費追蹤",
+      "description": "水電瓦斯等帳務追蹤。",
+      "tags": [
+        "水電費",
+        "帳務"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/utility-tracking.html",
+      "status": "正式功能頁",
+      "accent": "#0284c7",
+      "type": "tool",
+      "summary": "水電費追蹤頁整理用電、用水、瓦斯、帳單與繳費提醒。",
+      "highlights": [
+        "用量紀錄",
+        "帳單追蹤",
+        "繳費提醒"
+      ],
+      "items": [
+        {
+          "title": "用電紀錄",
+          "meta": "度數/金額",
+          "desc": "記錄每期用電與帳單，觀察季節變化。",
+          "tags": [
+            "電費",
+            "度數"
+          ]
+        },
+        {
+          "title": "水費瓦斯",
+          "meta": "生活帳務",
+          "desc": "集中保存水費、瓦斯費與繳費日期。",
+          "tags": [
+            "水費",
+            "瓦斯"
+          ]
+        },
+        {
+          "title": "異常提醒",
+          "meta": "用量變化",
+          "desc": "標記用量突然變高或帳單異常，方便追查。",
+          "tags": [
+            "異常",
+            "提醒"
+          ]
+        }
+      ],
+      "checklist": [
+        "確認帳單週期",
+        "新增繳費提醒",
+        "整理歷史用量欄位"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "maintenance-record",
+      "page": "maintenance-record.html",
+      "title": "保養維修紀錄",
+      "description": "家電、車輛或生活設備維修紀錄。",
+      "tags": [
+        "維修",
+        "紀錄"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/maintenance-record.html",
+      "status": "正式功能頁",
+      "accent": "#9333ea",
+      "type": "tool",
+      "summary": "保養維修紀錄頁整理家電、設備、車輛與房屋維護歷史。",
+      "highlights": [
+        "維修紀錄",
+        "保固期限",
+        "下次保養"
+      ],
+      "items": [
+        {
+          "title": "家電保養",
+          "meta": "冷氣/冰箱/洗衣機",
+          "desc": "保存清洗、維修、保固與師傅資訊。",
+          "tags": [
+            "家電",
+            "保固"
+          ]
+        },
+        {
+          "title": "居家設備",
+          "meta": "水電/門窗/管線",
+          "desc": "紀錄維修日期、問題、費用與下次檢查時間。",
+          "tags": [
+            "設備",
+            "維修"
+          ]
+        },
+        {
+          "title": "費用追蹤",
+          "meta": "年度成本",
+          "desc": "建立每年維護成本，方便判斷汰換時機。",
+          "tags": [
+            "費用",
+            "年度"
+          ]
+        }
+      ],
+      "checklist": [
+        "整理設備分類",
+        "新增保固日期",
+        "加入維修廠商欄位"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "motorcycle-maintenance",
+      "page": "motorcycle-maintenance.html",
+      "title": "機車保養",
+      "description": "機車保養與維修紀錄工具。",
+      "tags": [
+        "機車",
+        "保養"
+      ],
+      "categoryId": "personal-tools",
+      "categoryTitle": "個人紀錄與生活工具",
+      "categoryUrl": "pages/personal-tools/index.html",
+      "updatesUrl": "pages/personal-tools/updates.html",
+      "archivePath": "archive/cursor-history/latest/motorcycle-maintenance.html",
+      "status": "正式功能頁",
+      "accent": "#ea580c",
+      "type": "tool",
+      "summary": "機車保養頁整理里程、換油、輪胎、煞車與定檢提醒。",
+      "highlights": [
+        "里程紀錄",
+        "定期保養",
+        "定檢提醒"
+      ],
+      "items": [
+        {
+          "title": "換油與耗材",
+          "meta": "里程週期",
+          "desc": "記錄機油、齒輪油、空濾與皮帶更換時間。",
+          "tags": [
+            "換油",
+            "耗材"
+          ]
+        },
+        {
+          "title": "安全檢查",
+          "meta": "輪胎/煞車/燈號",
+          "desc": "整理日常騎乘前後的安全檢查項目。",
+          "tags": [
+            "安全",
+            "煞車"
+          ]
+        },
+        {
+          "title": "驗車定檢",
+          "meta": "日期提醒",
+          "desc": "保存定檢期限、保險與稅費提醒。",
+          "tags": [
+            "定檢",
+            "保險"
+          ]
+        }
+      ],
+      "checklist": [
+        "輸入目前里程",
+        "標記下次換油里程",
+        "補上定檢日期"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "community-board",
+      "page": "community-board.html",
+      "title": "社區公告",
+      "description": "社區公告與地方資訊發布。",
+      "tags": [
+        "社區",
+        "公告"
+      ],
+      "categoryId": "community-content",
+      "categoryTitle": "社群互動與地方內容",
+      "categoryUrl": "pages/community-content/index.html",
+      "updatesUrl": "pages/community-content/updates.html",
+      "archivePath": "archive/cursor-history/latest/community-board.html",
+      "status": "正式功能頁",
+      "accent": "#4f46e5",
+      "type": "community",
+      "summary": "社區公告頁整理公告分類、發布流程、搜尋與置頂資訊。",
+      "highlights": [
+        "公告發布",
+        "分類搜尋",
+        "置頂提醒"
+      ],
+      "items": [
+        {
+          "title": "重要公告",
+          "meta": "置頂顯示",
+          "desc": "停水、停電、管委會、活動與安全提醒可集中發布。",
+          "tags": [
+            "置頂",
+            "公告"
+          ]
+        },
+        {
+          "title": "生活提醒",
+          "meta": "社區日常",
+          "desc": "垃圾、停車、工程與清潔提醒可按日期維護。",
+          "tags": [
+            "提醒",
+            "日期"
+          ]
+        },
+        {
+          "title": "活動資訊",
+          "meta": "地方參與",
+          "desc": "里民活動、親子活動與商圈活動可放在公告流。",
+          "tags": [
+            "活動",
+            "地方"
+          ]
+        }
+      ],
+      "checklist": [
+        "設定公告分類",
+        "確認發布權限",
+        "加入搜尋與置頂規則"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "community-chat",
+      "page": "community-chat.html",
+      "title": "社區聊天",
+      "description": "社區互動與聊天功能。",
+      "tags": [
+        "社群",
+        "聊天"
+      ],
+      "categoryId": "community-content",
+      "categoryTitle": "社群互動與地方內容",
+      "categoryUrl": "pages/community-content/index.html",
+      "updatesUrl": "pages/community-content/updates.html",
+      "archivePath": "archive/cursor-history/latest/community-chat.html",
+      "status": "正式功能頁",
+      "accent": "#0891b2",
+      "type": "community",
+      "summary": "社區聊天頁整理留言主題、回覆規則、檢舉與公告導流。",
+      "highlights": [
+        "聊天主題",
+        "回覆互動",
+        "社群管理"
+      ],
+      "items": [
+        {
+          "title": "生活問答",
+          "meta": "鄰里互助",
+          "desc": "讓居民詢問店家、交通、修繕與生活資訊。",
+          "tags": [
+            "問答",
+            "互助"
+          ]
+        },
+        {
+          "title": "即時討論",
+          "meta": "事件交流",
+          "desc": "適合短期活動、交通狀況與臨時提醒。",
+          "tags": [
+            "討論",
+            "即時"
+          ]
+        },
+        {
+          "title": "社群規範",
+          "meta": "管理機制",
+          "desc": "保留檢舉、隱藏與管理規則的位置。",
+          "tags": [
+            "規範",
+            "管理"
+          ]
+        }
+      ],
+      "checklist": [
+        "整理留言分類",
+        "設定管理規範",
+        "確認資料保存方式"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "reviews",
+      "page": "reviews.html",
+      "title": "評論與評價",
+      "description": "服務評論、評價與回饋。",
+      "tags": [
+        "評論"
+      ],
+      "categoryId": "community-content",
+      "categoryTitle": "社群互動與地方內容",
+      "categoryUrl": "pages/community-content/index.html",
+      "updatesUrl": "pages/community-content/updates.html",
+      "archivePath": "archive/cursor-history/latest/reviews.html",
+      "status": "正式功能頁",
+      "accent": "#ca8a04",
+      "type": "community",
+      "summary": "評論與評價頁整理服務評價、星等、照片與回饋管理。",
+      "highlights": [
+        "星等評論",
+        "服務回饋",
+        "照片佐證"
+      ],
+      "items": [
+        {
+          "title": "服務評價",
+          "meta": "店家/師傅",
+          "desc": "收集服務品質、價格、準時度與後續處理。",
+          "tags": [
+            "服務",
+            "星等"
+          ]
+        },
+        {
+          "title": "使用心得",
+          "meta": "地方經驗",
+          "desc": "居民可分享店家、工具與活動使用心得。",
+          "tags": [
+            "心得",
+            "地方"
+          ]
+        },
+        {
+          "title": "回饋管理",
+          "meta": "異常處理",
+          "desc": "保留申訴、修正與店家回覆機制。",
+          "tags": [
+            "回饋",
+            "管理"
+          ]
+        }
+      ],
+      "checklist": [
+        "整理評價欄位",
+        "確認照片上傳策略",
+        "建立回覆規則"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "worship",
+      "page": "worship.html",
+      "title": "拜拜專區",
+      "description": "在地信仰、廟宇與拜拜資訊。",
+      "tags": [
+        "拜拜",
+        "文化"
+      ],
+      "categoryId": "community-content",
+      "categoryTitle": "社群互動與地方內容",
+      "categoryUrl": "pages/community-content/index.html",
+      "updatesUrl": "pages/community-content/updates.html",
+      "archivePath": "archive/cursor-history/latest/worship.html",
+      "status": "正式功能頁",
+      "accent": "#7c3aed",
+      "type": "content",
+      "summary": "拜拜專區整理楊梅在地廟宇、節慶、供品與參拜提醒。",
+      "highlights": [
+        "廟宇資訊",
+        "節慶活動",
+        "參拜提醒"
+      ],
+      "items": [
+        {
+          "title": "在地廟宇",
+          "meta": "楊梅/埔心/富岡",
+          "desc": "整理廟宇名稱、地址、主祀與活動。",
+          "tags": [
+            "廟宇",
+            "地址"
+          ]
+        },
+        {
+          "title": "節慶日程",
+          "meta": "農曆活動",
+          "desc": "記錄重要祭典、遶境、平安餐與活動日期。",
+          "tags": [
+            "節慶",
+            "農曆"
+          ]
+        },
+        {
+          "title": "供品與流程",
+          "meta": "參拜指南",
+          "desc": "保留常見供品、參拜順序與注意事項。",
+          "tags": [
+            "供品",
+            "流程"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對廟宇資料",
+        "補上節慶日期",
+        "新增交通與停車資訊"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "second-hand",
+      "page": "second-hand.html",
+      "title": "二手交易",
+      "description": "二手物品刊登、照片與聯絡資訊。",
+      "tags": [
+        "二手",
+        "交易"
+      ],
+      "categoryId": "community-content",
+      "categoryTitle": "社群互動與地方內容",
+      "categoryUrl": "pages/community-content/index.html",
+      "updatesUrl": "pages/community-content/updates.html",
+      "archivePath": "archive/cursor-history/latest/second-hand.html",
+      "status": "正式功能頁",
+      "accent": "#16a34a",
+      "type": "community",
+      "summary": "二手交易頁整理刊登欄位、照片、聯絡方式、分類與安全提醒。",
+      "highlights": [
+        "物品刊登",
+        "照片管理",
+        "交易安全"
+      ],
+      "items": [
+        {
+          "title": "物品刊登",
+          "meta": "分類/價格",
+          "desc": "保留品名、狀況、價格、地點與聯絡資訊。",
+          "tags": [
+            "刊登",
+            "價格"
+          ]
+        },
+        {
+          "title": "照片整理",
+          "meta": "多圖上傳",
+          "desc": "後續可接壓縮與預覽，方便買家確認狀況。",
+          "tags": [
+            "照片",
+            "預覽"
+          ]
+        },
+        {
+          "title": "交易提醒",
+          "meta": "面交安全",
+          "desc": "加入面交地點、付款方式與防詐提醒。",
+          "tags": [
+            "安全",
+            "面交"
+          ]
+        }
+      ],
+      "checklist": [
+        "確認刊登欄位",
+        "補上照片壓縮流程",
+        "整理交易安全文字"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "subsidy",
+      "page": "subsidy.html",
+      "title": "補助優惠",
+      "description": "政府補助、優惠資訊與活動整理。",
+      "tags": [
+        "補助",
+        "優惠"
+      ],
+      "categoryId": "community-content",
+      "categoryTitle": "社群互動與地方內容",
+      "categoryUrl": "pages/community-content/index.html",
+      "updatesUrl": "pages/community-content/updates.html",
+      "archivePath": "archive/cursor-history/latest/subsidy.html",
+      "status": "正式功能頁",
+      "accent": "#db2777",
+      "type": "content",
+      "summary": "補助優惠頁整理政府補助、申請資格、期限與資料來源。",
+      "highlights": [
+        "補助整理",
+        "申請資格",
+        "期限提醒"
+      ],
+      "items": [
+        {
+          "title": "桃園市補助",
+          "meta": "地方政策",
+          "desc": "整理生育、育兒、租屋、修繕與社福補助。",
+          "tags": [
+            "桃園",
+            "補助"
+          ]
+        },
+        {
+          "title": "申請資格",
+          "meta": "條件核對",
+          "desc": "把戶籍、收入、年齡、身分與文件需求拆清楚。",
+          "tags": [
+            "資格",
+            "文件"
+          ]
+        },
+        {
+          "title": "期限與連結",
+          "meta": "避免過期",
+          "desc": "保留公告日期、截止日與官方來源連結。",
+          "tags": [
+            "期限",
+            "官方"
+          ]
+        }
+      ],
+      "checklist": [
+        "核對官方公告",
+        "補上申請期限",
+        "整理申請文件清單"
+      ],
+      "dataStatus": {
+        "dataReadiness": "展示資料",
+        "verificationStatus": "待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁目前為新版功能架構與示範資料，尚未完成官方資料、商家資訊或 API 來源核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "games",
+      "page": "games.html",
+      "title": "遊戲大廳",
+      "description": "輕鬆時光小遊戲入口。",
+      "tags": [
+        "遊戲"
+      ],
+      "categoryId": "leisure",
+      "categoryTitle": "輕鬆時光與互動娛樂",
+      "categoryUrl": "pages/leisure/index.html",
+      "updatesUrl": "pages/leisure/updates.html",
+      "archivePath": "archive/cursor-history/latest/games.html",
+      "status": "正式功能頁",
+      "accent": "#7c3aed",
+      "type": "game-hub",
+      "summary": "遊戲大廳已重做為路線記憶、市集快手、梅花合成與生活快問，四個核心遊戲都已加深為可重複挑戰的長玩法，並加入成就徽章、SVG 視覺資產、短動效與分數難度平衡。",
+      "highlights": [
+        "新版遊戲組",
+        "多關卡地圖",
+        "任務模式",
+        "短動效",
+        "分數平衡"
+      ],
+      "items": [
+        {
+          "title": "益智遊戲組",
+          "meta": "Wordle / 2048 / 數獨 / 三消",
+          "desc": "保留文字猜謎、數字合併、數獨與三消等益智遊戲入口，後續需重接遊戲引擎。",
+          "tags": [
+            "益智",
+            "分數"
+          ]
+        },
+        {
+          "title": "反應與記憶組",
+          "meta": "記憶配對 / 反應測試",
+          "desc": "整理翻牌配對、反應速度測試與成績紀錄欄位，適合手機短時間互動。",
+          "tags": [
+            "記憶",
+            "反應"
+          ]
+        },
+        {
+          "title": "經典街機組",
+          "meta": "俄羅斯方塊 / 貪吃蛇 / 打地鼠 / 剪刀石頭布",
+          "desc": "保留舊版街機與對戰入口，後續應以獨立模組重接，避免大型腳本塞回頁面。",
+          "tags": [
+            "街機",
+            "對戰"
+          ]
+        },
+        {
+          "title": "積分與成就",
+          "meta": "localStorage",
+          "desc": "舊版用本機儲存保存總積分、最高分與成就；正式化時需定義資料 key 與重置規則。",
+          "tags": [
+            "積分",
+            "成就",
+            "localStorage"
+          ]
+        },
+        {
+          "title": "遊戲視覺資產",
+          "meta": "visualConfig / SVG",
+          "desc": "四個核心遊戲已補路線節點、市集物件、合成方塊與題庫徽章，圖示與色票集中在資料檔維護。",
+          "tags": [
+            "SVG",
+            "視覺資產",
+            "資料驅動"
+          ]
+        },
+        {
+          "title": "遊戲動效節奏",
+          "meta": "motionConfig / CSS",
+          "desc": "路線、市集、合成與快問已補一次性短動效，使用 transform / opacity，並保留 reduced-motion 降級。",
+          "tags": [
+            "動效",
+            "reduced-motion",
+            "操作回饋"
+          ]
+        },
+        {
+          "title": "遊戲平衡版本",
+          "meta": "balanceConfig",
+          "desc": "已把每日挑戰、路線、市集、合成與快問調到更接近的分數區間，避免單一玩法爆分。",
+          "tags": [
+            "平衡",
+            "難度",
+            "分數"
+          ]
+        }
+      ],
+      "checklist": [
+        "完成路線記憶、市集快手、梅花合成與生活快問新版遊戲組",
+        "路線記憶已加深為 4 張地圖、多關卡解鎖、干擾選項與最高關卡紀錄",
+        "市集快手已加深為 45 秒限時、8 題、連擊、快答加分與錯誤扣分",
+        "梅花合成已加深為 4 組任務、目標方塊、步數限制、完成獎勵、鍵盤方向鍵與手機方向控制",
+        "生活快問已加深為 4 組題庫、正確率、錯題回顧與題庫最高紀錄",
+        "成就徽章已接入 10 組條件、SVG 徽章、解鎖進度與 localStorage 持久化",
+        "完成路線節點、市集物件、合成方塊與題庫徽章的資料驅動 SVG 視覺資產",
+        "完成路線、市集、合成與快問的一次性短動效與 reduced-motion 降級",
+        "完成每日挑戰 bonus、路線倍率、市集快答、合成任務與快問獎勵的平衡調整",
+        "完成每日挑戰、成功/錯誤回饋、音效震動與重置分數流程",
+        "遊戲設定已拆到 data/entertainment/games.json"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已完成四遊戲深度玩法、共用成就徽章、SVG 視覺資產、短動效節奏與分數難度平衡",
+        "verificationStatus": "新版四遊戲深度玩法、視覺資產、動效節奏與平衡參數可用，待後續廠商資料正式化",
+        "needsVerification": true,
+        "sourceFile": "data/entertainment/games.json",
+        "sourceNote": "新版頁已重做為四個在地情境小遊戲，並依 UI/UX skill 補上觸控回饋、鍵盤焦點、reduced-motion、每日挑戰與分數重置；目前已把路線記憶加深為多關卡地圖，市集快手加深為限時模式，梅花合成加深為任務模式，生活快問加深為題庫模式，並新增成就徽章牆、路線節點、市集物件、合成方塊、題庫徽章、一次性短動效與 balanceConfig 平衡參數。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "fortune",
+      "page": "fortune.html",
+      "title": "每日運勢",
+      "description": "每日運勢與星座內容。",
+      "tags": [
+        "運勢"
+      ],
+      "categoryId": "leisure",
+      "categoryTitle": "輕鬆時光與互動娛樂",
+      "categoryUrl": "pages/leisure/index.html",
+      "updatesUrl": "pages/leisure/updates.html",
+      "archivePath": "archive/cursor-history/latest/fortune.html",
+      "status": "正式功能頁",
+      "accent": "#9333ea",
+      "type": "content",
+      "summary": "每日運勢頁整理水晶、塔羅、籤詩、星座、數字、顏色與水晶建議等多種娛樂占卜入口，並先接上今日運勢與三牌塔羅互動。",
+      "highlights": [
+        "今日運勢",
+        "三牌塔羅",
+        "歷史收藏"
+      ],
+      "items": [
+        {
+          "title": "今日運勢",
+          "meta": "水晶球 / 星級",
+          "desc": "舊版用一到五星、幸運數字、幸運色與適合/避免事項組成每日運勢。",
+          "tags": [
+            "今日",
+            "幸運色"
+          ]
+        },
+        {
+          "title": "塔羅占卜",
+          "meta": "三牌 / 五牌 / 七牌",
+          "desc": "整理塔羅牌名稱、牌義、牌陣位置與分享功能，後續可拆成獨立資料檔。",
+          "tags": [
+            "塔羅",
+            "牌陣"
+          ]
+        },
+        {
+          "title": "籤詩與星座",
+          "meta": "籤詩 / 星座",
+          "desc": "保留籤詩解讀、星座運勢、感情、財富與健康建議欄位。",
+          "tags": [
+            "籤詩",
+            "星座"
+          ]
+        },
+        {
+          "title": "數字顏色水晶",
+          "meta": "數字 / 顏色 / 水晶",
+          "desc": "整理幸運數字、今日顏色與水晶建議，供每日內容輪換。",
+          "tags": [
+            "數字",
+            "顏色",
+            "水晶"
+          ]
+        },
+        {
+          "title": "歷史與收藏",
+          "meta": "localStorage",
+          "desc": "舊版支援保存歷史、收藏與分享；正式化需定義資料保存與清除策略。",
+          "tags": [
+            "收藏",
+            "分享"
+          ]
+        }
+      ],
+      "checklist": [
+        "完成今日運勢、星座切換、三牌塔羅、保存紀錄與複製分享",
+        "運勢、塔羅、星座、顏色與水晶資料已拆到 data/entertainment/fortune.json",
+        "標示娛樂內容非專業建議",
+        "確認收藏與歷史紀錄 localStorage key"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已接第一階段互動與資料檔",
+        "verificationStatus": "娛樂資料待核實",
+        "needsVerification": true,
+        "sourceFile": "data/entertainment/fortune.json",
+        "sourceNote": "此頁已接入今日運勢、三牌塔羅、歷史保存與分享文字；互動資料已拆檔，結果僅供互動娛樂。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "mbti",
+      "page": "mbti.html",
+      "title": "MBTI 測驗",
+      "description": "性格測驗與互動內容。",
+      "tags": [
+        "MBTI"
+      ],
+      "categoryId": "leisure",
+      "categoryTitle": "輕鬆時光與互動娛樂",
+      "categoryUrl": "pages/leisure/index.html",
+      "updatesUrl": "pages/leisure/updates.html",
+      "archivePath": "archive/cursor-history/latest/mbti.html",
+      "status": "正式功能頁",
+      "accent": "#2563eb",
+      "type": "tool",
+      "summary": "MBTI 測驗頁整理舊版 20 題性格傾向測驗、16 型結果資料庫、出生資訊與分享流程，並先接上 20 題互動測驗。",
+      "highlights": [
+        "20 題互動",
+        "16 型結果",
+        "非專業評量"
+      ],
+      "items": [
+        {
+          "title": "基本資料",
+          "meta": "出生年月日 / 性別",
+          "desc": "舊版在測驗前收集出生資訊與選填性別，用於後續年齡分層分析。",
+          "tags": [
+            "基本資料",
+            "年齡"
+          ]
+        },
+        {
+          "title": "20 題測驗",
+          "meta": "E/I、N/S、F/T、J/P",
+          "desc": "題庫涵蓋社交、學習、決策、時間管理、壓力與工作環境偏好。",
+          "tags": [
+            "題庫",
+            "測驗"
+          ]
+        },
+        {
+          "title": "16 型結果庫",
+          "meta": "ENFP 到 ISTJ",
+          "desc": "舊版包含類型名稱、描述、優勢、弱點、適合職業與配對建議。",
+          "tags": [
+            "16型",
+            "結果"
+          ]
+        },
+        {
+          "title": "結果分享",
+          "meta": "Web Share / fallback",
+          "desc": "保留測驗結果分享流程，正式化時需補隱私提示與資料保存策略。",
+          "tags": [
+            "分享",
+            "隱私"
+          ]
+        }
+      ],
+      "checklist": [
+        "完成 20 題逐題作答、進度條、結果保存與重新開始",
+        "20 題題庫與 16 型結果已拆到 data/entertainment/mbti.json",
+        "加上非醫療/非心理專業評量提示",
+        "確認出生資料是否需要保存或僅本機使用"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已接第一階段互動與資料檔",
+        "verificationStatus": "非專業心理評量",
+        "needsVerification": true,
+        "sourceFile": "data/entertainment/mbti.json",
+        "sourceNote": "此頁已接入 20 題互動測驗、進度條、結果保存與重新開始；題庫與結果資料已拆檔，結果不應被視為專業心理評估。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "daily-quote",
+      "page": "daily-quote.html",
+      "title": "每日金句",
+      "description": "每日語錄、金句與分享內容。",
+      "tags": [
+        "金句"
+      ],
+      "categoryId": "leisure",
+      "categoryTitle": "輕鬆時光與互動娛樂",
+      "categoryUrl": "pages/leisure/index.html",
+      "updatesUrl": "pages/leisure/updates.html",
+      "archivePath": "archive/cursor-history/latest/daily-quote.html",
+      "status": "正式功能頁",
+      "accent": "#16a34a",
+      "type": "content",
+      "summary": "每日金句頁整理舊版金句資料庫、分類搜尋、隨機金句、收藏與分享需求，並先接上篩選、搜尋、收藏與複製分享。",
+      "highlights": [
+        "分類搜尋",
+        "收藏分享",
+        "待來源核實"
+      ],
+      "items": [
+        {
+          "title": "主題分類",
+          "meta": "成功/勵志/智慧/生活",
+          "desc": "舊版包含成功、勵志、智慧、生活、愛情、友情、工作、健康等主題。",
+          "tags": [
+            "分類",
+            "主題"
+          ]
+        },
+        {
+          "title": "今日與隨機金句",
+          "meta": "每日一句 / 隨機",
+          "desc": "保留今日金句、隨機抽選與主題切換流程，後續可接每日排程。",
+          "tags": [
+            "今日",
+            "隨機"
+          ]
+        },
+        {
+          "title": "搜尋與收藏",
+          "meta": "關鍵字 / localStorage",
+          "desc": "舊版可搜尋文字與作者，並保存最近收藏金句。",
+          "tags": [
+            "搜尋",
+            "收藏"
+          ]
+        },
+        {
+          "title": "分享流程",
+          "meta": "Web Share / 複製",
+          "desc": "整理原生分享與剪貼簿 fallback，需確認正式站分享文字。",
+          "tags": [
+            "分享",
+            "剪貼簿"
+          ]
+        }
+      ],
+      "checklist": [
+        "完成分類篩選、關鍵字搜尋、隨機金句、收藏與複製分享",
+        "金句分類與文案已拆到 data/entertainment/daily-quotes.json",
+        "核對金句來源與授權風險",
+        "整理收藏資料 key 與清除規則"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已接第一階段互動與資料檔",
+        "verificationStatus": "文字來源待核實",
+        "needsVerification": true,
+        "sourceFile": "data/entertainment/daily-quotes.json",
+        "sourceNote": "此頁已接入分類篩選、搜尋、隨機抽選、收藏與分享文字；金句資料已拆檔，引用來源、作者與授權狀態仍需核實後才能當正式內容使用。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "vendor-admin",
+      "page": "vendor-admin.html",
+      "title": "店家資料管理",
+      "description": "店家基本資料、服務內容與圖片整理。",
+      "tags": [
+        "店家",
+        "資料"
+      ],
+      "categoryId": "vendors-admin",
+      "categoryTitle": "店家合作與資料管理",
+      "categoryUrl": "pages/vendors-admin/index.html",
+      "updatesUrl": "pages/vendors-admin/updates.html",
+      "archivePath": "archive/cursor-history/latest/vendor-admin.html",
+      "status": "正式功能頁",
+      "accent": "#4f46e5",
+      "type": "admin",
+      "summary": "店家資料管理頁整理品牌、服務、圖片與聯絡資訊，方便後續維護店家內容。",
+      "highlights": [
+        "店家資料",
+        "品牌服務",
+        "圖片管理"
+      ],
+      "items": [
+        {
+          "title": "店家登入與區域",
+          "meta": "區域/帳號",
+          "desc": "整理店家登入入口、服務區域與基本帳號資訊。",
+          "tags": [
+            "登入",
+            "權限"
+          ]
+        },
+        {
+          "title": "品牌管理",
+          "meta": "品牌名稱/分類/Logo",
+          "desc": "整理品牌名稱、分類、Logo、描述、官方網站與上下架狀態。",
+          "tags": [
+            "品牌",
+            "Logo"
+          ]
+        },
+        {
+          "title": "服務管理",
+          "meta": "服務類型/價格/圖片",
+          "desc": "整理服務名稱、類型、分類、價格範圍、服務時長、服務圖片與特色。",
+          "tags": [
+            "服務",
+            "價格",
+            "圖片"
+          ]
+        },
+        {
+          "title": "帳號設定",
+          "meta": "聯絡人/電話/地址",
+          "desc": "保存店家名稱、聯絡人、電話、信箱、地址與店家描述。",
+          "tags": [
+            "店家資料",
+            "聯絡資訊"
+          ]
+        }
+      ],
+      "checklist": [
+        "移除前端硬編金鑰，改由環境變數或後端代理管理",
+        "確認廠商登入與資料權限規則",
+        "整理品牌與服務欄位對應資料表",
+        "補上圖片上傳限制、壓縮與錯誤處理"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待接正式權限",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁整理店家資料、品牌、服務與圖片管理內容，後續可銜接正式登入權限。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "test-image-upload",
+      "page": "test-image-upload.html",
+      "title": "圖片上傳",
+      "description": "店家圖片上傳與素材整理入口。",
+      "tags": [
+        "圖片",
+        "上傳"
+      ],
+      "categoryId": "vendors-admin",
+      "categoryTitle": "店家合作與資料管理",
+      "categoryUrl": "pages/vendors-admin/index.html",
+      "updatesUrl": "pages/vendors-admin/updates.html",
+      "archivePath": "archive/cursor-history/latest/test-image-upload.html",
+      "status": "正式功能頁",
+      "accent": "#0ea5e9",
+      "type": "admin",
+      "summary": "圖片上傳頁整理素材選擇、預覽、公開網址與限制提醒。",
+      "highlights": [
+        "圖片預覽",
+        "圖片上傳",
+        "公開網址"
+      ],
+      "items": [
+        {
+          "title": "圖片選擇與預覽",
+          "meta": "image/*",
+          "desc": "選擇圖片後先用 FileReader 預覽，避免上傳錯誤檔案。",
+          "tags": [
+            "預覽",
+            "檔案格式"
+          ]
+        },
+        {
+          "title": "上傳流程",
+          "meta": "圖片網址",
+          "desc": "上傳後產生可用於店家卡片的圖片網址。",
+          "tags": [
+            "上傳",
+            "公開網址"
+          ]
+        },
+        {
+          "title": "格式與限制",
+          "meta": "格式/大小",
+          "desc": "提醒圖片格式、檔案大小與壓縮需求。",
+          "tags": [
+            "限制",
+            "圖片處理"
+          ]
+        }
+      ],
+      "checklist": [
+        "決定正式圖片 bucket 與資料夾命名",
+        "補上檔案大小與副檔名限制",
+        "串接壓縮與縮圖產生流程",
+        "確認公開 URL 與刪除權限"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "待接正式儲存設定",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁整理圖片上傳、預覽與公開網址需求，後續可銜接正式儲存設定。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "booking",
+      "page": "booking.html",
+      "title": "預約服務",
+      "description": "預約服務、店家合作與需求填寫入口。",
+      "tags": [
+        "預約"
+      ],
+      "categoryId": "vendors-admin",
+      "categoryTitle": "店家合作與資料管理",
+      "categoryUrl": "pages/vendors-admin/index.html",
+      "updatesUrl": "pages/vendors-admin/updates.html",
+      "archivePath": null,
+      "status": "正式功能頁",
+      "accent": "#16a34a",
+      "type": "admin",
+      "summary": "預約服務頁整理合作預約、店家諮詢、服務時段與後續通知欄位。",
+      "highlights": [
+        "預約表單",
+        "時段管理",
+        "通知追蹤"
+      ],
+      "items": [
+        {
+          "title": "預約需求表單",
+          "meta": "姓名/電話/服務",
+          "desc": "先整理預約姓名、電話、服務類型、地址、備註與希望聯絡時間。",
+          "tags": [
+            "表單",
+            "需求"
+          ]
+        },
+        {
+          "title": "店家時段管理",
+          "meta": "可預約/已滿/休息",
+          "desc": "讓店家維護可預約日期、時段與服務容量。",
+          "tags": [
+            "時段",
+            "店家"
+          ],
+          "href": "vendor-admin.html"
+        },
+        {
+          "title": "通知與追蹤",
+          "meta": "LINE/簡訊/站內",
+          "desc": "預約送出後需追蹤確認、改期、取消與通知紀錄。",
+          "tags": [
+            "通知",
+            "狀態"
+          ]
+        }
+      ],
+      "checklist": [
+        "定義預約資料表欄位",
+        "決定通知管道與失敗補償流程",
+        "補上廠商時段管理規則",
+        "設計預約狀態：待確認、已確認、改期、取消"
+      ],
+      "dataStatus": {
+        "dataReadiness": "新版資料頁",
+        "verificationStatus": "待建立正式表單",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁原本沒有舊版來源，目前先建立新版預約資料與維護架構，正式送出流程仍待串接。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    },
+    {
+      "id": "hospital-clinic",
+      "page": "hospital-clinic.html",
+      "title": "醫院診所",
+      "description": "在地診所、醫療與健康資源。",
+      "tags": [
+        "醫療",
+        "診所"
+      ],
+      "categoryId": "health-care",
+      "categoryTitle": "醫療照護與健康服務",
+      "categoryUrl": "pages/health-care/index.html",
+      "updatesUrl": "pages/health-care/updates.html",
+      "archivePath": "archive/cursor-history/latest/hospital-clinic.html",
+      "status": "正式功能頁",
+      "accent": "#dc2626",
+      "type": "info",
+      "summary": "醫院診所頁整理舊版醫療資源清單、搜尋分類與收藏需求，先轉成新版可搜尋資料卡。",
+      "highlights": [
+        "醫院診所",
+        "科別搜尋",
+        "待核實名單"
+      ],
+      "items": [
+        {
+          "title": "天成醫院",
+          "meta": "醫院 · 24小時急診服務",
+          "desc": "桃園市楊梅區新成路128號｜03-478-2350｜內科、外科、兒科、婦產科、骨科、急診科、復健科、家醫科。",
+          "tags": [
+            "醫院",
+            "急診",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E6%96%B0%E6%88%90%E8%B7%AF128%E8%99%9F"
+        },
+        {
+          "title": "楊梅區衛生所",
+          "meta": "診所 · 預防保健",
+          "desc": "桃園市楊梅區新成路128號｜03-478-3688｜疫苗接種、健康檢查、慢性病管理。",
+          "tags": [
+            "衛生所",
+            "疫苗",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E6%96%B0%E6%88%90%E8%B7%AF128%E8%99%9F"
+        },
+        {
+          "title": "楊梅牙醫診所",
+          "meta": "牙醫 · 一般牙科",
+          "desc": "桃園市楊梅區大成路二段123號｜03-478-5678｜洗牙、補牙、根管治療、矯正、植牙。",
+          "tags": [
+            "牙醫",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%A4%A7%E6%88%90%E8%B7%AF%E4%BA%8C%E6%AE%B5123%E8%99%9F"
+        },
+        {
+          "title": "明視眼科診所",
+          "meta": "眼科 · 視力檢查",
+          "desc": "桃園市楊梅區中正路45號｜03-478-2345｜眼疾治療、配鏡、白內障、青光眼。",
+          "tags": [
+            "眼科",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF45%E8%99%9F"
+        },
+        {
+          "title": "康是美藥局（楊梅店）",
+          "meta": "藥局 · 每日營業",
+          "desc": "桃園市楊梅區中正路78號｜03-478-3456｜藥品販售、健康諮詢、處方箋調劑、保健食品。",
+          "tags": [
+            "藥局",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF78%E8%99%9F"
+        },
+        {
+          "title": "屈臣氏藥局（楊梅店）",
+          "meta": "藥局 · 每日營業",
+          "desc": "桃園市楊梅區大成路一段156號｜03-478-4567｜處方箋調劑、健康諮詢、美妝保養。",
+          "tags": [
+            "藥局",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%A4%A7%E6%88%90%E8%B7%AF%E4%B8%80%E6%AE%B5156%E8%99%9F"
+        },
+        {
+          "title": "仁心中醫診所",
+          "meta": "中醫 · 針灸推拿",
+          "desc": "桃園市楊梅區新農街88號｜03-478-6789｜內科、針灸、推拿、傷科、婦科、兒科。",
+          "tags": [
+            "中醫",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E6%96%B0%E8%BE%B2%E8%A1%9788%E8%99%9F"
+        },
+        {
+          "title": "健安骨科診所",
+          "meta": "診所 · 骨科復健",
+          "desc": "桃園市楊梅區新成路56號｜03-478-7890｜骨科、復健、物理治療、運動傷害。",
+          "tags": [
+            "骨科",
+            "復健",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E6%96%B0%E6%88%90%E8%B7%AF56%E8%99%9F"
+        },
+        {
+          "title": "小太陽小兒科診所",
+          "meta": "診所 · 小兒科",
+          "desc": "桃園市楊梅區中正路112號｜03-478-8901｜小兒科、疫苗接種、健康檢查、過敏專科。",
+          "tags": [
+            "小兒科",
+            "疫苗",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF112%E8%99%9F"
+        },
+        {
+          "title": "美肌皮膚科診所",
+          "meta": "診所 · 皮膚科",
+          "desc": "桃園市楊梅區大成路三段89號｜03-478-9012｜皮膚疾病診療、醫學美容、青春痘治療。",
+          "tags": [
+            "皮膚科",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%A4%A7%E6%88%90%E8%B7%AF%E4%B8%89%E6%AE%B589%E8%99%9F"
+        },
+        {
+          "title": "楊梅內科診所",
+          "meta": "診所 · 內科家醫",
+          "desc": "桃園市楊梅區新農街156號｜03-478-0123｜內科、家醫科、慢性病管理、健康檢查。",
+          "tags": [
+            "內科",
+            "家醫",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E6%96%B0%E8%BE%B2%E8%A1%97156%E8%99%9F"
+        },
+        {
+          "title": "安心婦產科診所",
+          "meta": "診所 · 婦產科",
+          "desc": "桃園市楊梅區中正路234號｜03-478-1234｜產檢、超音波檢查、婦科疾病。",
+          "tags": [
+            "婦產科",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF234%E8%99%9F"
+        },
+        {
+          "title": "杏林藥局",
+          "meta": "藥局 · 中西藥調劑",
+          "desc": "桃園市楊梅區新成路201號｜03-478-2345｜藥品販售、處方箋調劑、健康諮詢、中藥調配。",
+          "tags": [
+            "藥局",
+            "待核實"
+          ],
+          "href": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E6%96%B0%E6%88%90%E8%B7%AF201%E8%99%9F"
+        }
+      ],
+      "checklist": [
+        "核對每筆醫療院所名稱、地址與電話",
+        "補上官方或健保特約資料來源",
+        "確認營業時間與科別是否仍有效",
+        "建立收藏資料與搜尋條件的正式資料檔"
+      ],
+      "dataStatus": {
+        "dataReadiness": "已整理舊版來源",
+        "verificationStatus": "醫療資料待核實",
+        "needsVerification": true,
+        "sourceFile": "data/service-page-source.mjs",
+        "sourceNote": "此頁沿用舊版醫療資源清單並轉為新版資料卡；名稱、電話、地址、科別與營業時間尚未完成官方核實。",
+        "lastVerifiedAt": null,
+        "updatedAt": "2026-07-03T09:23:39+0800"
+      }
+    }
+  ]
+}

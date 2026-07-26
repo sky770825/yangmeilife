@@ -1,0 +1,114 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "site-core",
+    "title": "網站核心與導覽",
+    "owner": "網站管理者",
+    "folder": "pages/site-core/"
+  },
+  "files": {
+    "index": "pages/site-core/index.html",
+    "updatesPage": "pages/site-core/updates.html",
+    "updatesData": "pages/site-core/updates.json"
+  },
+  "functions": [
+    {
+      "id": "home",
+      "title": "首頁",
+      "status": "可使用",
+      "implementationStatus": "current-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "index.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "index.html",
+      "currentUrl": "index.html",
+      "archivePath": "archive/cursor-history/latest/index.html",
+      "updateType": "content",
+      "tags": [
+        "首頁",
+        "導覽"
+      ]
+    },
+    {
+      "id": "search",
+      "title": "搜尋服務",
+      "status": "可使用",
+      "implementationStatus": "current-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "search.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "search.html",
+      "currentUrl": "search.html",
+      "archivePath": "archive/cursor-history/latest/search.html",
+      "updateType": "content",
+      "tags": [
+        "搜尋",
+        "索引"
+      ]
+    },
+    {
+      "id": "dashboard",
+      "title": "生活助手儀表板",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "dashboard.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "dashboard.html",
+      "currentUrl": "dashboard.html",
+      "archivePath": "archive/cursor-history/latest/dashboard.html",
+      "updateType": "content",
+      "tags": [
+        "生活助手",
+        "入口"
+      ]
+    },
+    {
+      "id": "share",
+      "title": "分享頁",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "share.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "share.html",
+      "currentUrl": "share.html",
+      "archivePath": "archive/cursor-history/latest/share.html",
+      "updateType": "content",
+      "tags": [
+        "分享"
+      ]
+    },
+    {
+      "id": "notifications",
+      "title": "通知中心",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "notifications.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "notifications.html",
+      "currentUrl": "notifications.html",
+      "archivePath": "archive/cursor-history/latest/notifications.html",
+      "updateType": "content",
+      "tags": [
+        "通知"
+      ]
+    }
+  ]
+}

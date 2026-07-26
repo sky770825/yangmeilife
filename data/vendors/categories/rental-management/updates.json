@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "owner": "商家營運維護",
+  "page": "rental-management.html",
+  "title": "楊梅包租代管廠商",
+  "source": "data/vendors/categories/rental-management/vendors.json",
+  "summary": "前台共 0 筆廠商；已核實 0 筆、待核實 0 筆；待補候選 3 筆。",
+  "counts": {
+    "total": 0,
+    "verified": 0,
+    "needsVerification": 0,
+    "missingPhone": 0,
+    "missingAddress": 0,
+    "missingOfficialSource": 0
+  },
+  "candidateCounts": {
+    "total": 3,
+    "needsSource": 3,
+    "needsPhone": 3,
+    "needsAddress": 3
+  },
+  "updateChecklist": [
+    "店名與服務地區",
+    "電話（官方或平台可確認來源）",
+    "地址（官方或地圖可確認來源）",
+    "官方網站 / 地圖 / LINE 連結",
+    "營業時間（有官方來源才可填）",
+    "價格區間與服務標籤",
+    "照片網址（需授權）",
+    "核實狀態與 lastVerifiedAt"
+  ],
+  "vendors": [],
+  "candidateVendors": [
+    {
+      "id": "rental-management-1",
+      "name": "楊梅租管顧問",
+      "area": "楊梅市區",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "rental-management-2",
+      "name": "埔心社宅包租團隊",
+      "area": "埔心周邊",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "rental-management-3",
+      "name": "富岡出租管理",
+      "area": "富岡周邊",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "owner": "商家營運維護",
+  "page": "nail-service.html",
+  "title": "楊梅美甲服務廠商",
+  "source": "data/vendors/categories/nail-service/vendors.json",
+  "summary": "前台共 4 筆廠商；已核實 4 筆、待核實 0 筆；待補候選 3 筆。",
+  "counts": {
+    "total": 4,
+    "verified": 4,
+    "needsVerification": 0,
+    "missingPhone": 0,
+    "missingAddress": 0,
+    "missingOfficialSource": 0
+  },
+  "candidateCounts": {
+    "total": 3,
+    "needsSource": 3,
+    "needsPhone": 3,
+    "needsAddress": 3
+  },
+  "updateChecklist": [
+    "店名與服務地區",
+    "電話（官方或平台可確認來源）",
+    "地址（官方或地圖可確認來源）",
+    "官方網站 / 地圖 / LINE 連結",
+    "營業時間（有官方來源才可填）",
+    "價格區間與服務標籤",
+    "照片網址（需授權）",
+    "核實狀態與 lastVerifiedAt"
+  ],
+  "vendors": [
+    {
+      "id": "nail-service-real-1",
+      "name": "嶼你YN美甲美學殿",
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "needsVerification": false,
+      "missingFields": [],
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-03T08:51:37+0800"
+    },
+    {
+      "id": "nail-service-real-2",
+      "name": "八四時髦指感空間",
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "needsVerification": false,
+      "missingFields": [],
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-03T08:51:37+0800"
+    },
+    {
+      "id": "nail-service-real-3",
+      "name": "妮莉莎美學 Nelissa Aesthetic",
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "needsVerification": false,
+      "missingFields": [],
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-03T08:51:37+0800"
+    },
+    {
+      "id": "nail-service-real-4",
+      "name": "Relax蕾娜絲美甲美睫概念館（四維店）",
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "needsVerification": false,
+      "missingFields": [],
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-03T08:51:37+0800"
+    }
+  ],
+  "candidateVendors": [
+    {
+      "id": "nail-service-1",
+      "name": "楊梅指尖美學",
+      "area": "楊梅市區",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "nail-service-2",
+      "name": "埔心日系美甲室",
+      "area": "埔心商圈",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "nail-service-3",
+      "name": "富岡手足護理",
+      "area": "富岡車站",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    }
+  ]
+}

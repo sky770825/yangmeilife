@@ -1,0 +1,17 @@
+priority,scope,asset_group,planned_quantity,current_gap,desktop_spec,mobile_spec,format,max_file_size,source_policy,backend_placement,status
+P0,brand,水平品牌Logo,1,1,SVG plus 1024px PNG,同來源,SVG/PNG,150KB,正式品牌稿,global_settings,missing
+P0,brand,方形品牌識別,1,1,1024x1024,512x512,SVG/PNG,150KB,正式品牌稿,global_settings,missing
+P0,seo,全站OG分享圖,1,1,1200x630,共用,WebP/JPEG,300KB,自有設計,global_settings,missing
+P0,home,首頁主視覺桌機,1,1,1920x720,not_applicable,AVIF/WebP,500KB,楊梅實景或自有授權圖,banners:home_hero,missing
+P0,home,首頁主視覺手機,1,1,not_applicable,1080x1080,AVIF/WebP,450KB,與桌機同主題獨立裁切,banners:home_hero,missing
+P1,categories,公開分類封面,9,9,1600x600,1080x720,AVIF/WebP,400KB,在地實景或自有設計,categories.hero_media_id,missing
+P0,functions,功能卡縮圖,56,56,640x640 with 160/320/640 variants,640x640,WebP,150KB,自有或明確授權,functions.thumbnail_media_id,external_only
+P0,vendors,店家卡封面,11,7,1200x800,600x400,WebP,250KB,店家授權實景,vendors.cover_media_id,partial
+P1,vendors,店家Logo,11,11,512x512,256x256,WebP/PNG,120KB,店家官方檔案,vendors.logo_media_id,missing
+P1,vendors,店家圖庫最低組,33,33,1600x1200,960x720,WebP,350KB,每家至少3張授權實景,vendor_media,missing
+P1,vendors,菜單或價目表,11,11,1440x1920,1080x1440,WebP/JPEG,500KB,店家提供並標有效日期,vendor_media,missing
+P1,home,精選展示海報,4,4,1280x720,960x540,WebP,300KB,真實內容海報,featured_media.poster_id,stock_only
+P1,banners,活動橫幅桌機,2,2,1440x360,not_applicable,AVIF/WebP,400KB,自有設計,banners.desktop_media_id,missing
+P1,banners,活動橫幅手機,2,2,not_applicable,1080x540,AVIF/WebP,350KB,與桌機同活動獨立排版,banners.mobile_media_id,missing
+P0,system,圖片載入fallback,1,1,1200x800,600x400,WebP,150KB,品牌自有,global_settings.image_fallback_id,missing
+P2,empty_state,空店家狀態圖示,1,1,SVG,SVG,SVG,30KB,Lucide或自有向量元件,ui_component,missing

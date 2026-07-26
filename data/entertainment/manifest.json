@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "runtimeFile": "assets/js/entertainment-data.js",
+  "sourceFolder": "data/entertainment/",
+  "files": [
+    "data/entertainment/games.json",
+    "data/entertainment/fortune.json",
+    "data/entertainment/mbti.json",
+    "data/entertainment/daily-quotes.json"
+  ],
+  "pages": [
+    "games.html",
+    "fortune.html",
+    "mbti.html",
+    "daily-quote.html"
+  ]
+}

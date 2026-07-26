@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>在地生活與交通資訊資訊更新 - 楊梅人在地生活集</title>
+<meta name="description" content="在地生活與交通資訊的功能維護與內容更新清單">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/tailwind.min.css">
+<style>
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-height:100vh;background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 46%,#fff7ed 100%);color:#0f172a;overscroll-behavior-x:none}
+main,section,article,header,footer,nav{max-width:100%;min-width:0}
+img,svg,video,canvas{max-width:100%;height:auto}
+.panel{background:rgba(255,255,255,.88);border:1px solid rgba(148,163,184,.24);box-shadow:0 18px 50px rgba(15,23,42,.08)}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(148,163,184,.24);box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.result-card{background:rgba(255,255,255,.96);border:1px solid rgba(148,163,184,.24);box-shadow:0 6px 18px rgba(15,23,42,.055)}
+.nav-link{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:.7rem;padding:0 .85rem;font-weight:800;text-decoration:none}
+.nav-link.bg-white{background:#fff;color:#4338ca}
+.nav-link.bg-slate-900{background:#0f172a;color:#fff}
+.nav-link:hover{filter:brightness(.98)}
+.ui-break-anywhere{overflow-wrap:anywhere;word-break:break-word}
+.ui-table-fixed{width:100%;table-layout:fixed}
+.ui-min-w-0{min-width:0}
+.compact-desc{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.compact-desc--2{-webkit-line-clamp:2}
+.compact-desc--3{-webkit-line-clamp:3}
+.compact-title{overflow-wrap:anywhere}
+.compact-count-badge{display:inline-flex;min-width:2.55rem;min-height:28px;align-items:center;justify-content:center;text-align:center;line-height:1.05}
+.compact-stat{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-hero-grid,.search-form{display:grid;gap:.5rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.panel,.card,.result-card{min-width:0;overflow-wrap:anywhere}
+.vendor-card-grid{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.vendor-card-grid--single{max-width:560px;margin-inline:auto;grid-template-columns:minmax(0,1fr)!important}
+.vendor-card{display:flex;min-width:0;overflow:hidden;flex-direction:column;border:1px solid rgba(148,163,184,.28);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(15,23,42,.055)}
+.vendor-card-image{display:block;width:100%;aspect-ratio:2/1;height:auto;object-fit:cover;background:#e2e8f0}
+.vendor-card-body{display:flex;min-width:0;flex:1;flex-direction:column;padding:12px}
+.vendor-card-heading{display:flex;min-width:0;align-items:flex-start;justify-content:space-between;gap:8px}
+.vendor-card-title{min-width:0;font-size:17px;line-height:1.28;font-weight:900;color:#020617;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vendor-card-status{flex-shrink:0;border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-status--verified{background:#ecfdf5;color:#047857}
+.vendor-card-status--pending{background:#fff1f2;color:#be123c}
+.vendor-card-meta{margin-top:5px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px;line-height:1.25;font-weight:800;color:#475569}
+.vendor-card-links{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.vendor-card-link{display:flex;min-height:44px;min-width:0;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(203,213,225,.95);border-radius:9px;background:#f8fafc;padding:0 7px;color:#334155;font-size:12px;font-weight:900;line-height:1;text-decoration:none;touch-action:manipulation}
+.vendor-card-link:hover{border-color:rgba(99,102,241,.45);background:#eef2ff;color:#3730a3}
+.vendor-card-link:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+.vendor-card-link svg,.vendor-card-action svg{display:block;width:15px;height:15px;flex:0 0 15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vendor-card-link-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vendor-card-link--disabled{border-color:#e2e8f0;background:#f8fafc;color:#94a3b8}
+.vendor-card-tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.vendor-card-tag{border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-actions{margin-top:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:10px}
+.vendor-card-action{display:flex;min-height:44px;align-items:center;justify-content:center;gap:6px;border-radius:8px;padding:0 10px;font-size:13px;font-weight:900;line-height:1.2;text-align:center;touch-action:manipulation}
+.vendor-card-action--primary{color:#fff}
+.vendor-card-action--secondary{background:#f1f5f9;color:#334155}
+.vendor-card-action:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+@media (min-width:640px){.vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.search-hero-grid{grid-template-columns:minmax(0,1fr) minmax(420px,520px);align-items:end}.search-form{grid-template-columns:minmax(0,1fr) 160px 96px}}
+@media (min-width:1024px){.vendor-card-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1180px){.category-card-grid,#serviceGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1280px){.vendor-card-grid--gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){
+main{padding-inline:16px!important;padding-top:24px!important;padding-bottom:28px!important}
+.panel{border-radius:16px!important;box-shadow:0 12px 30px rgba(15,23,42,.07)}
+.card,.result-card{border-radius:14px!important;box-shadow:0 6px 16px rgba(15,23,42,.055)}
+.entry-hero{padding:20px!important}
+.entry-hero-title{font-size:1.75rem!important;line-height:1.1!important;letter-spacing:0!important}
+.entry-hero-text{margin-top:.65rem!important;font-size:.95rem!important;line-height:1.55!important}
+.entry-pill-row{margin-top:.9rem!important;gap:.4rem!important}
+.entry-pill{padding:.42rem .65rem!important;font-size:.8rem!important;line-height:1.1!important}
+.category-card-grid{margin-top:1rem!important;gap:.75rem!important}
+.category-overview-card,.category-function-card,.result-card,.service-card{padding:14px!important}
+.category-card-icon{font-size:1.5rem!important;line-height:1!important}
+.category-card-title{margin-top:.45rem!important;font-size:1.08rem!important;line-height:1.25!important}
+.compact-desc{margin-top:.45rem!important;line-height:1.45!important}
+.compact-count-badge{min-width:34px;min-height:26px;padding-inline:7px!important}
+.compact-stat{padding:.45rem .5rem!important}
+.service-card{padding:12px!important}
+.service-card .compact-desc{margin-top:.35rem!important;-webkit-line-clamp:2!important}
+.service-card-tags{margin-top:.5rem!important;gap:.25rem!important}
+.search-shell{border-radius:14px!important;padding:12px!important}
+}
+@media (max-width:480px){.vendor-card-body{padding:12px}.vendor-card-title{font-size:16px}.vendor-card-links{gap:6px}.vendor-card-link{padding:0 6px;font-size:12px}.vendor-card-actions{padding-top:10px}}
+@media (max-width:380px){.entry-hero-title{font-size:1.62rem!important}.nav-link{padding:0 .7rem}.entry-pill{font-size:.76rem!important}.compact-count-badge{min-width:32px}}
+</style>
+</head>
+<body>
+<main class="mx-auto max-w-6xl px-4 py-8 sm:py-10">
+  <nav class="mb-5 flex flex-wrap gap-2 text-sm">
+    <a class="nav-link bg-white text-indigo-700 shadow-sm" href="../../index.html">首頁</a>
+    <a class="nav-link bg-white text-indigo-700 shadow-sm" href="../index.html">功能分類</a>
+    <a class="nav-link bg-slate-900 text-white shadow-sm" href="index.html">在地生活與交通資訊</a>
+  </nav>
+  <header class="panel rounded-2xl p-6 sm:p-8">
+    <div class="text-sm font-black text-indigo-600">資訊更新中心</div>
+    <h1 class="mt-2 text-3xl font-black tracking-tight sm:text-4xl">在地生活與交通資訊｜資訊更新</h1>
+    <p class="mt-3 max-w-3xl text-slate-600">這個頁面對應同資料夾內的 <code class="rounded bg-white px-1.5 py-0.5">updates.json</code>，之後更新內容先改資料檔，再同步到正式頁。</p>
+    <div class="mt-5 flex flex-wrap gap-2 text-sm font-bold text-slate-600">
+      <span class="rounded-full bg-white px-3 py-1">維護：生活資訊維護</span>
+      <span class="rounded-full bg-white px-3 py-1">功能：7</span>
+      <span class="rounded-full bg-white px-3 py-1">生成：2026-07-03T09:23:39+0800</span>
+    </div>
+  </header>
+  <section class="mt-6 max-w-full overflow-x-auto rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <table class="ui-table-fixed w-full table-fixed text-left text-sm">
+      <thead>
+        <tr class="border-b border-slate-300 text-slate-500">
+          <th class="ui-break-anywhere w-[22%] break-words py-2 pr-3">功能</th>
+          <th class="ui-break-anywhere w-[22%] break-words px-3 py-2">狀態</th>
+          <th class="ui-break-anywhere w-[30%] break-words px-3 py-2">目前頁/連結</th>
+          <th class="ui-break-anywhere w-[26%] break-words py-2 pl-3">舊版來源</th>
+        </tr>
+      </thead>
+      <tbody><tr class="border-b border-slate-200 align-top">
+  <td class="ui-break-anywhere break-words py-3 pr-3 font-black">天氣查詢</td>
+  <td class="px-3 py-3"><span class="rounded-full px-2 py-1 text-xs font-black bg-emerald-50 text-emerald-700">可使用</span></td>
+  <td class="ui-break-anywhere break-all px-3 py-3 text-slate-600">weather.html</td>
+  <td class="ui-break-anywhere break-all py-3 pl-3 text-slate-600">archive/cursor-history/latest/weather.html</td>
+</tr>
+<tr class="border-b border-slate-200 align-top">
+  <td class="ui-break-anywhere break-words py-3 pr-3 font-black">垃圾車時間</td>
+  <td class="px-3 py-3"><span class="rounded-full px-2 py-1 text-xs font-black bg-emerald-50 text-emerald-700">可使用</span></td>
+  <td class="ui-break-anywhere break-all px-3 py-3 text-slate-600">garbage.html</td>
+  <td class="ui-break-anywhere break-all py-3 pl-3 text-slate-600">archive/cursor-history/latest/garbage.html</td>
+</tr>
+<tr class="border-b border-slate-200 align-top">
+  <td class="ui-break-anywhere break-words py-3 pr-3 font-black">公車動態</td>
+  <td class="px-3 py-3"><span class="rounded-full px-2 py-1 text-xs font-black bg-emerald-50 text-emerald-700">可使用</span></td>
+  <td class="ui-break-anywhere break-all px-3 py-3 text-slate-600">bus.html</td>
+  <td class="ui-break-anywhere break-all py-3 pl-3 text-slate-600">archive/cursor-history/latest/bus.html</td>
+</tr>
+<tr class="border-b border-slate-200 align-top">
+  <td class="ui-break-anywhere break-words py-3 pr-3 font-black">停車資訊</td>
+  <td class="px-3 py-3"><span class="rounded-full px-2 py-1 text-xs font-black bg-emerald-50 text-emerald-700">可使用</span></td>
+  <td class="ui-break-anywhere break-all px-3 py-3 text-slate-600">parking.html</td>
+  <td class="ui-break-anywhere break-all py-3 pl-3 text-slate-600">archive/cursor-history/latest/parking.html</td>
+</tr>
+<tr class="border-b border-slate-200 align-top">
+  <td class="ui-break-anywhere break-words py-3 pr-3 font-black">計程車行</td>
+  <td class="px-3 py-3"><span class="rounded-full px-2 py-1 text-xs font-black bg-emerald-50 text-emerald-700">可使用</span></td>
+  <td class="ui-break-anywhere break-all px-3 py-3 text-slate-600">taxi.html</td>
+  <td class="ui-break-anywhere break-all py-3 pl-3 text-slate-600">archive/cursor-history/latest/taxi.html</td>
+</tr>
+<tr class="border-b border-slate-200 align-top">
+  <td class="ui-break-anywhere break-words py-3 pr-3 font-black">匯率查詢</td>
+  <td class="px-3 py-3"><span class="rounded-full px-2 py-1 text-xs font-black bg-emerald-50 text-emerald-700">可使用</span></td>
+  <td class="ui-break-anywhere break-all px-3 py-3 text-slate-600">rate.html</td>
+  <td class="ui-break-anywhere break-all py-3 pl-3 text-slate-600">archive/cursor-history/latest/rate.html</td>
+</tr>
+<tr class="border-b border-slate-200 align-top">
+  <td class="ui-break-anywhere break-words py-3 pr-3 font-black">在地生活</td>
+  <td class="px-3 py-3"><span class="rounded-full px-2 py-1 text-xs font-black bg-emerald-50 text-emerald-700">可使用</span></td>
+  <td class="ui-break-anywhere break-all px-3 py-3 text-slate-600">local-life.html</td>
+  <td class="ui-break-anywhere break-all py-3 pl-3 text-slate-600">archive/cursor-history/latest/local-life.html</td>
+</tr></tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

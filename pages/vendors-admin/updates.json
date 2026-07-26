@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "vendors-admin",
+    "title": "店家合作與資料管理",
+    "owner": "商家營運維護",
+    "folder": "pages/vendors-admin/"
+  },
+  "files": {
+    "index": "pages/vendors-admin/index.html",
+    "updatesPage": "pages/vendors-admin/updates.html",
+    "updatesData": "pages/vendors-admin/updates.json"
+  },
+  "functions": [
+    {
+      "id": "vendor-join",
+      "title": "店家登錄",
+      "status": "外部服務",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://lin.ee/Ij6z94H",
+      "primaryTarget": null,
+      "primaryTargetUrl": "https://lin.ee/Ij6z94H",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": null,
+      "currentUrl": "https://lin.ee/Ij6z94H",
+      "archivePath": null,
+      "updateType": "content",
+      "tags": [
+        "店家",
+        "合作"
+      ]
+    },
+    {
+      "id": "vendor-admin",
+      "title": "店家資料管理",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "vendor-admin.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "vendor-admin.html",
+      "currentUrl": "vendor-admin.html",
+      "archivePath": "archive/cursor-history/latest/vendor-admin.html",
+      "updateType": "content",
+      "tags": [
+        "店家",
+        "資料"
+      ]
+    },
+    {
+      "id": "test-image-upload",
+      "title": "圖片上傳",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "test-image-upload.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "test-image-upload.html",
+      "currentUrl": "test-image-upload.html",
+      "archivePath": "archive/cursor-history/latest/test-image-upload.html",
+      "updateType": "content",
+      "tags": [
+        "圖片",
+        "上傳"
+      ]
+    },
+    {
+      "id": "booking",
+      "title": "預約服務",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "booking.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "booking.html",
+      "currentUrl": "booking.html",
+      "archivePath": null,
+      "updateType": "content",
+      "tags": [
+        "預約"
+      ]
+    }
+  ]
+}

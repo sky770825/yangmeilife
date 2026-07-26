@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "owner": "商家營運維護",
+  "page": "american-chiropractic.html",
+  "title": "楊梅美式整復廠商",
+  "source": "data/vendors/categories/american-chiropractic/vendors.json",
+  "summary": "前台共 0 筆廠商；已核實 0 筆、待核實 0 筆；待補候選 3 筆。",
+  "counts": {
+    "total": 0,
+    "verified": 0,
+    "needsVerification": 0,
+    "missingPhone": 0,
+    "missingAddress": 0,
+    "missingOfficialSource": 0
+  },
+  "candidateCounts": {
+    "total": 3,
+    "needsSource": 3,
+    "needsPhone": 3,
+    "needsAddress": 3
+  },
+  "updateChecklist": [
+    "店名與服務地區",
+    "電話（官方或平台可確認來源）",
+    "地址（官方或地圖可確認來源）",
+    "官方網站 / 地圖 / LINE 連結",
+    "營業時間（有官方來源才可填）",
+    "價格區間與服務標籤",
+    "照片網址（需授權）",
+    "核實狀態與 lastVerifiedAt"
+  ],
+  "vendors": [],
+  "candidateVendors": [
+    {
+      "id": "american-chiropractic-1",
+      "name": "楊梅脊衡整復所",
+      "area": "楊梅市區",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "american-chiropractic-2",
+      "name": "埔心關節調理室",
+      "area": "埔心商圈",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "american-chiropractic-3",
+      "name": "富岡動作修復",
+      "area": "富岡車站",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    }
+  ]
+}

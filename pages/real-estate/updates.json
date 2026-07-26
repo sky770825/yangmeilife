@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "real-estate",
+    "title": "房產金融與物件",
+    "owner": "房產內容管理",
+    "folder": "pages/real-estate/"
+  },
+  "files": {
+    "index": "pages/real-estate/index.html",
+    "updatesPage": "pages/real-estate/updates.html",
+    "updatesData": "pages/real-estate/updates.json"
+  },
+  "functions": [
+    {
+      "id": "property-valuation",
+      "title": "房屋估價",
+      "status": "外部服務",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://lin.ee/Ij6z94H",
+      "primaryTarget": null,
+      "primaryTargetUrl": "https://lin.ee/Ij6z94H",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": null,
+      "currentUrl": "https://lin.ee/Ij6z94H",
+      "archivePath": null,
+      "updateType": "content",
+      "tags": [
+        "房屋",
+        "估價",
+        "LINE"
+      ]
+    },
+    {
+      "id": "loan-calc-external",
+      "title": "房貸試算",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "dual-entry",
+      "externalUrl": "https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2",
+      "primaryTarget": "external-link",
+      "primaryTargetUrl": "https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2",
+      "secondaryTargetType": "local-page",
+      "secondaryTargetUrl": "loan-calc.html",
+      "page": "loan-calc.html",
+      "currentUrl": "https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2",
+      "archivePath": "archive/cursor-history/latest/loan-calc.html",
+      "updateType": "content",
+      "tags": [
+        "房貸",
+        "試算"
+      ]
+    },
+    {
+      "id": "featured-properties",
+      "title": "精選物件",
+      "status": "外部服務",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://flyjung168.pages.dev/",
+      "primaryTarget": null,
+      "primaryTargetUrl": "https://flyjung168.pages.dev/",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": null,
+      "currentUrl": "https://flyjung168.pages.dev/",
+      "archivePath": null,
+      "updateType": "content",
+      "tags": [
+        "房訊",
+        "物件"
+      ]
+    },
+    {
+      "id": "pre-sale",
+      "title": "新案預售",
+      "status": "外部服務",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://salersteam.pages.dev/junyang",
+      "primaryTarget": null,
+      "primaryTargetUrl": "https://salersteam.pages.dev/junyang",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": null,
+      "currentUrl": "https://salersteam.pages.dev/junyang",
+      "archivePath": null,
+      "updateType": "content",
+      "tags": [
+        "新案",
+        "預售"
+      ]
+    },
+    {
+      "id": "investor",
+      "title": "投資人工具",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "investor.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "investor.html",
+      "currentUrl": "investor.html",
+      "archivePath": "archive/cursor-history/latest/investor.html",
+      "updateType": "content",
+      "tags": [
+        "投資",
+        "房產"
+      ]
+    },
+    {
+      "id": "tax-calc",
+      "title": "稅費試算",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "tax-calc.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "tax-calc.html",
+      "currentUrl": "tax-calc.html",
+      "archivePath": "archive/cursor-history/latest/tax-calc.html",
+      "updateType": "content",
+      "tags": [
+        "稅費",
+        "試算"
+      ]
+    },
+    {
+      "id": "rental-management",
+      "title": "包租代管",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "rental-management.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "rental-management.html",
+      "currentUrl": "rental-management.html",
+      "archivePath": "archive/cursor-history/latest/rental-management.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "租賃",
+        "包租代管",
+        "廠商"
+      ]
+    },
+    {
+      "id": "rental-mgmt",
+      "title": "租賃管理工具",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "rental-mgmt.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "rental-mgmt.html",
+      "currentUrl": "rental-mgmt.html",
+      "archivePath": "archive/cursor-history/latest/rental-mgmt.html",
+      "updateType": "content",
+      "tags": [
+        "租屋",
+        "管理"
+      ]
+    }
+  ]
+}

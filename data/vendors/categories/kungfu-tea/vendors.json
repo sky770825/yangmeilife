@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "page": "kungfu-tea.html",
+  "title": "楊梅飲品廠商",
+  "accent": "#f59e0b",
+  "intro": "此頁先補入飲品周邊廠商卡，讓餐飲專區內容更完整。",
+  "categoryId": "food-drink",
+  "categoryTitle": "美食餐飲與行動攤商",
+  "dataStatus": {
+    "dataReadiness": "已核實資料",
+    "verificationStatus": "已核實",
+    "needsVerification": false,
+    "sourceFile": "data/vendors/categories/kungfu-tea/vendors.json",
+    "sourceNote": "此分類已有店家完成電話、地址與來源核實；未有官方來源的欄位維持空值。",
+    "lastVerifiedAt": "2026-07-03",
+    "updatedAt": "2026-07-03T09:23:39+0800"
+  },
+  "vendors": [
+    {
+      "id": "kungfu-tea-1",
+      "name": "功夫茶楊梅四維店",
+      "area": "楊梅四維商圈",
+      "price": "$30 起",
+      "rating": null,
+      "image": "https://www.kungfutea.com.tw/upload/base_fb_img/twL_01ns_web_base_22J20_KKm0ZoJRNN.png",
+      "imageSourceType": "official",
+      "imageSource": "功夫茶官方網站 og:image",
+      "imageSourceUrl": "https://www.kungfutea.com.tw/location/?page=11",
+      "tags": [
+        "茶飲",
+        "外帶",
+        "LINE點餐"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/kungfu-tea/vendors.json",
+      "sourceNote": "電話與地址以功夫茶官方據點頁及店家頁核實；營業時間未在本批使用的官方來源中確認。",
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-03T07:18:00+0800",
+      "phone": "03-488-2975",
+      "address": "楊梅區四維路 90 號",
+      "businessHours": null,
+      "officialUrl": "https://www.kungfutea.com.tw/location/?page=11",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=326%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%9B%9B%E7%B6%AD%E8%B7%AF90%E8%99%9F",
+      "lineUrl": "https://line.me/R/ti/p/@359subhu",
+      "contactNote": "官方據點電話已核實；頁面只保留楊梅區四維路 90 號店家。",
+      "verificationLevel": "verified",
+      "missingFields": [],
+      "officialSource": "功夫茶官方據點 / 功夫茶楊梅四維店店家頁",
+      "sourceUrls": [
+        "https://www.kungfutea.com.tw/location/?page=11",
+        "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
+      ]
+    }
+  ],
+  "candidateVendors": [],
+  "displayTitle": "楊梅飲品店家",
+  "displayIntro": "精選楊梅在地飲品店，快速查看電話、導航與官方資訊。"
+}

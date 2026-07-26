@@ -2,526 +2,100 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>投資客專區 - 濬瑒房產生活平台</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>投資人工具 - 楊梅人在地生活集</title>
+<meta name="description" content="投資人工具頁整理市場指標、投報分析、稅務與物件評估入口，協助房產投資前做初步檢核。">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/css/tailwind.min.css">
 <style>
-:root {
-  --grad-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --grad-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --grad-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-  --grad-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-height:100vh;background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 46%,#fff7ed 100%);color:#0f172a;overscroll-behavior-x:none}
+main,section,article,header,footer,nav{max-width:100%;min-width:0}
+img,svg,video,canvas{max-width:100%;height:auto}
+.panel{background:rgba(255,255,255,.88);border:1px solid rgba(148,163,184,.24);box-shadow:0 18px 50px rgba(15,23,42,.08)}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(148,163,184,.24);box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.result-card{background:rgba(255,255,255,.96);border:1px solid rgba(148,163,184,.24);box-shadow:0 6px 18px rgba(15,23,42,.055)}
+.nav-link{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:.7rem;padding:0 .85rem;font-weight:800;text-decoration:none}
+.nav-link.bg-white{background:#fff;color:#4338ca}
+.nav-link.bg-slate-900{background:#0f172a;color:#fff}
+.nav-link:hover{filter:brightness(.98)}
+.ui-break-anywhere{overflow-wrap:anywhere;word-break:break-word}
+.ui-table-fixed{width:100%;table-layout:fixed}
+.ui-min-w-0{min-width:0}
+.compact-desc{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.compact-desc--2{-webkit-line-clamp:2}
+.compact-desc--3{-webkit-line-clamp:3}
+.compact-title{overflow-wrap:anywhere}
+.compact-count-badge{display:inline-flex;min-width:2.55rem;min-height:28px;align-items:center;justify-content:center;text-align:center;line-height:1.05}
+.compact-stat{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-hero-grid,.search-form{display:grid;gap:.5rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.panel,.card,.result-card{min-width:0;overflow-wrap:anywhere}
+.vendor-card-grid{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.vendor-card-grid--single{max-width:560px;margin-inline:auto;grid-template-columns:minmax(0,1fr)!important}
+.vendor-card{display:flex;min-width:0;overflow:hidden;flex-direction:column;border:1px solid rgba(148,163,184,.28);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(15,23,42,.055)}
+.vendor-card-image{display:block;width:100%;aspect-ratio:2/1;height:auto;object-fit:cover;background:#e2e8f0}
+.vendor-card-body{display:flex;min-width:0;flex:1;flex-direction:column;padding:12px}
+.vendor-card-heading{display:flex;min-width:0;align-items:flex-start;justify-content:space-between;gap:8px}
+.vendor-card-title{min-width:0;font-size:17px;line-height:1.28;font-weight:900;color:#020617;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vendor-card-status{flex-shrink:0;border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-status--verified{background:#ecfdf5;color:#047857}
+.vendor-card-status--pending{background:#fff1f2;color:#be123c}
+.vendor-card-meta{margin-top:5px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px;line-height:1.25;font-weight:800;color:#475569}
+.vendor-card-links{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.vendor-card-link{display:flex;min-height:44px;min-width:0;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(203,213,225,.95);border-radius:9px;background:#f8fafc;padding:0 7px;color:#334155;font-size:12px;font-weight:900;line-height:1;text-decoration:none;touch-action:manipulation}
+.vendor-card-link:hover{border-color:rgba(99,102,241,.45);background:#eef2ff;color:#3730a3}
+.vendor-card-link:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+.vendor-card-link svg,.vendor-card-action svg{display:block;width:15px;height:15px;flex:0 0 15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vendor-card-link-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vendor-card-link--disabled{border-color:#e2e8f0;background:#f8fafc;color:#94a3b8}
+.vendor-card-tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.vendor-card-tag{border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-actions{margin-top:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:10px}
+.vendor-card-action{display:flex;min-height:44px;align-items:center;justify-content:center;gap:6px;border-radius:8px;padding:0 10px;font-size:13px;font-weight:900;line-height:1.2;text-align:center;touch-action:manipulation}
+.vendor-card-action--primary{color:#fff}
+.vendor-card-action--secondary{background:#f1f5f9;color:#334155}
+.vendor-card-action:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+@media (min-width:640px){.vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.search-hero-grid{grid-template-columns:minmax(0,1fr) minmax(420px,520px);align-items:end}.search-form{grid-template-columns:minmax(0,1fr) 160px 96px}}
+@media (min-width:1024px){.vendor-card-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1180px){.category-card-grid,#serviceGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1280px){.vendor-card-grid--gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){
+main{padding-inline:16px!important;padding-top:24px!important;padding-bottom:28px!important}
+.panel{border-radius:16px!important;box-shadow:0 12px 30px rgba(15,23,42,.07)}
+.card,.result-card{border-radius:14px!important;box-shadow:0 6px 16px rgba(15,23,42,.055)}
+.entry-hero{padding:20px!important}
+.entry-hero-title{font-size:1.75rem!important;line-height:1.1!important;letter-spacing:0!important}
+.entry-hero-text{margin-top:.65rem!important;font-size:.95rem!important;line-height:1.55!important}
+.entry-pill-row{margin-top:.9rem!important;gap:.4rem!important}
+.entry-pill{padding:.42rem .65rem!important;font-size:.8rem!important;line-height:1.1!important}
+.category-card-grid{margin-top:1rem!important;gap:.75rem!important}
+.category-overview-card,.category-function-card,.result-card,.service-card{padding:14px!important}
+.category-card-icon{font-size:1.5rem!important;line-height:1!important}
+.category-card-title{margin-top:.45rem!important;font-size:1.08rem!important;line-height:1.25!important}
+.compact-desc{margin-top:.45rem!important;line-height:1.45!important}
+.compact-count-badge{min-width:34px;min-height:26px;padding-inline:7px!important}
+.compact-stat{padding:.45rem .5rem!important}
+.service-card{padding:12px!important}
+.service-card .compact-desc{margin-top:.35rem!important;-webkit-line-clamp:2!important}
+.service-card-tags{margin-top:.5rem!important;gap:.25rem!important}
+.search-shell{border-radius:14px!important;padding:12px!important}
 }
-
-body {
-  font-family: 'Arial', sans-serif;
-  background: var(--grad-primary);
-  min-height: 100vh;
-}
-
-.glass {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.investor-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.investor-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.tool-item {
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 0.5rem;
-  background: rgba(102, 126, 234, 0.05);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.tool-item:hover {
-  background: rgba(102, 126, 234, 0.1);
-  transform: translateX(5px);
-}
-
-.metric-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  padding: 1.5rem;
-  text-center;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.metric-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.metric-value {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #667eea;
-  margin-bottom: 0.5rem;
-}
-
-.metric-label {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-.chart-container {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.chart-placeholder {
-  height: 200px;
-  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6b7280;
-  font-weight: bold;
-}
-
-.news-item {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  border-left: 4px solid #667eea;
-  transition: all 0.3s ease;
-}
-
-.news-item:hover {
-  background: rgba(102, 126, 234, 0.05);
-  transform: translateX(5px);
-}
-
-.news-title {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: #1f2937;
-}
-
-.news-meta {
-  font-size: 0.8rem;
-  color: #6b7280;
-}
-
-.alert-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  border-left: 5px solid #ef4444;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.alert-title {
-  color: #ef4444;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.alert-content {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-#themeToggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: var(--grad-primary);
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-#themeToggle:hover {
-  transform: scale(1.1);
-}
-
-.back-btn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-.dark {
-  --grad-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-}
-
-.dark .investor-card,
-.dark .metric-card,
-.dark .chart-container,
-.dark .news-item,
-.dark .alert-card {
-  background: rgba(30, 30, 30, 0.95);
-  color: white;
-}
-
-.dark .tool-item:hover {
-  background: rgba(102, 126, 234, 0.2);
-}
-
-.dark .news-title {
-  color: #f9fafb;
-}
-
-.dark .metric-value {
-  color: #818cf8;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
-}
-
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+@media (max-width:480px){.vendor-card-body{padding:12px}.vendor-card-title{font-size:16px}.vendor-card-links{gap:6px}.vendor-card-link{padding:0 6px;font-size:12px}.vendor-card-actions{padding-top:10px}}
+@media (max-width:380px){.entry-hero-title{font-size:1.62rem!important}.nav-link{padding:0 .7rem}.entry-pill{font-size:.76rem!important}.compact-count-badge{min-width:32px}}
 </style>
 </head>
 <body>
-<!-- 主題切換按鈕 -->
-<button id="themeToggle" onclick="toggleTheme()">🌓</button>
-
-<!-- 返回按鈕 -->
-<button class="back-btn" onclick="goBack()" title="返回主頁">←</button>
-
-<!-- 頁面標題 -->
-<div class="container mx-auto px-4 py-8">
-  <div class="text-center mb-8">
-    <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">💰 投資客專區</h1>
-    <p class="text-xl text-white opacity-90">專業投資工具，掌握房產投資先機</p>
-  </div>
-
-  <!-- 投資指標 -->
-  <div class="glass rounded-2xl p-6 mb-8">
-    <h2 class="text-2xl font-bold text-white mb-6 text-center">📊 市場指標</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="metric-card">
-        <div class="metric-value">2.85%</div>
-        <div class="metric-label">平均租金報酬率</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">1,250萬</div>
-        <div class="metric-label">平均房價</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">+3.2%</div>
-        <div class="metric-label">房價年漲幅</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">85天</div>
-        <div class="metric-label">平均銷售天數</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 投資工具 -->
-  <div class="investor-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">🛠️</span>
-      投資分析工具
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="tool-item" onclick="openTool('loan-calc.html')">
-        <div class="text-3xl mr-3">💰</div>
-        <div class="flex-1">
-          <div class="font-bold">投資回報計算</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">計算房產投資的現金流和回報率</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
-      <div class="tool-item" onclick="openTool('tax-calc.html')">
-        <div class="text-3xl mr-3">📊</div>
-        <div class="flex-1">
-          <div class="font-bold">稅務優化分析</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">分析投資房產的稅務影響</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
-      <div class="tool-item" onclick="openTool('rate.html')">
-        <div class="text-3xl mr-3">📈</div>
-        <div class="flex-1">
-          <div class="font-bold">利率監控</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">即時監控銀行利率變化</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
-      <div class="tool-item" onclick="openTool('inspection.html')">
-        <div class="text-3xl mr-3">🔍</div>
-        <div class="flex-1">
-          <div class="font-bold">投資評估</div>
-          <div class="text-sm text-gray-600 dark:text-gray-400">專業的投資房產評估工具</div>
-        </div>
-        <div class="text-2xl opacity-60">→</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 房價趨勢圖 -->
-  <div class="chart-container mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">📈</span>
-      房價趨勢分析
-    </h2>
-    <div class="chart-placeholder">
-      <div class="text-center">
-        <div class="text-4xl mb-2">📊</div>
-        <div>房價趨勢圖表</div>
-        <div class="text-sm mt-2">顯示過去12個月的房價變化趨勢</div>
-      </div>
-    </div>
-    <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-      <div>
-        <div class="font-bold text-green-600">+2.3%</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400">本月漲幅</div>
-      </div>
-      <div>
-        <div class="font-bold text-blue-600">+8.7%</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400">季漲幅</div>
-      </div>
-      <div>
-        <div class="font-bold text-purple-600">+15.2%</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400">年漲幅</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 投資熱區分析 -->
-  <div class="investor-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">🔥</span>
-      投資熱區分析
-    </h2>
-    <div class="space-y-4">
-      <div class="news-item">
-        <div class="news-title">信義區 - 投資潛力 ⭐⭐⭐⭐⭐</div>
-        <div class="news-meta">
-          平均房價: 2,500萬 | 租金報酬率: 3.2% | 交通便利度: 極佳
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-title">大安區 - 穩定收益 ⭐⭐⭐⭐</div>
-        <div class="news-meta">
-          平均房價: 2,200萬 | 租金報酬率: 2.8% | 學區優勢: 優秀
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-title">中山區 - 新興潛力 ⭐⭐⭐⭐</div>
-        <div class="news-meta">
-          平均房價: 1,800萬 | 租金報酬率: 3.5% | 發展潛力: 高
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-title">松山區 - 交通優勢 ⭐⭐⭐</div>
-        <div class="news-meta">
-          平均房價: 1,600萬 | 租金報酬率: 3.1% | 機場便利: 優越
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 市場動態 -->
-  <div class="investor-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">📰</span>
-      投資市場動態
-    </h2>
-    <div class="space-y-4">
-      <div class="news-item">
-        <div class="news-title">央行升息0.25% 對房市影響分析</div>
-        <div class="news-meta">2024-03-15 | 經濟日報</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-          央行宣布升息0.25%，預期將對房貸利率產生影響，投資客需重新評估投資成本...
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-title">新北重劃區土地標售 投資客搶進</div>
-        <div class="news-meta">2024-03-14 | 工商時報</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-          新北市重劃區土地標售創新高價，顯示投資客對該區域發展前景看好...
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-title">租賃市場回溫 租金報酬率提升</div>
-        <div class="news-meta">2024-03-13 | 房產週刊</div>
-        <div class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-          隨著經濟復甦，租賃市場需求增加，租金報酬率較去年同期提升0.3%...
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 投資警報 -->
-  <div class="alert-card mb-8">
-    <div class="alert-title">⚠️ 投資風險提醒</div>
-    <div class="alert-content">
-      <ul class="space-y-2">
-        <li>• 房市投資存在價格波動風險，請謹慎評估個人財務狀況</li>
-        <li>• 建議投資前進行充分的市場調研和專業諮詢</li>
-        <li>• 注意利率變化對投資回報的影響</li>
-        <li>• 考慮流動性風險，房產變現需要時間</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 投資策略建議 -->
-  <div class="investor-card mb-8">
-    <h2 class="text-xl font-bold mb-4 flex items-center">
-      <span class="text-2xl mr-2">💡</span>
-      投資策略建議
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
-        <h3 class="font-bold text-blue-800 dark:text-blue-200 mb-2">🏠 保守型投資</h3>
-        <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-          <li>• 選擇成熟商圈物件</li>
-          <li>• 重視穩定租金收益</li>
-          <li>• 低槓桿操作</li>
-          <li>• 長期持有策略</li>
-        </ul>
-      </div>
-      <div class="bg-green-50 dark:bg-green-900 p-4 rounded-lg">
-        <h3 class="font-bold text-green-800 dark:text-green-200 mb-2">🚀 積極型投資</h3>
-        <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
-          <li>• 關注新興發展區域</li>
-          <li>• 追求資本增值</li>
-          <li>• 適度槓桿運用</li>
-          <li>• 短期獲利策略</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 聯絡資訊 -->
-  <div class="glass rounded-2xl p-6 text-center">
-    <h3 class="text-xl font-bold text-white mb-4">📞 投資諮詢專線</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-white">
-      <div>
-        <div class="text-2xl mb-2">📱</div>
-        <div class="font-bold">投資專線</div>
-        <div class="text-sm opacity-90">0925-666-597</div>
-      </div>
-      <div>
-        <div class="text-2xl mb-2">📧</div>
-        <div class="font-bold">投資信箱</div>
-        <div class="text-sm opacity-90">investor@realtor.com</div>
-      </div>
-      <div>
-        <div class="text-2xl mb-2">🕒</div>
-        <div class="font-bold">服務時間</div>
-        <div class="text-sm opacity-90">週一至週五 9:00-18:00</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// 主題切換
-function toggleTheme() {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-}
-
-// 載入主題
-function loadTheme() {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark');
-  }
-}
-
-// 返回主頁
-function goBack() {
-  window.location.href = 'index.html';
-}
-
-// 開啟工具
-function openTool(url) {
-  if (url.startsWith('http')) {
-    window.open(url, '_blank');
-  } else {
-    window.location.href = url;
-  }
-}
-
-// 初始化
-document.addEventListener('DOMContentLoaded', function() {
-  loadTheme();
-  
-  // 模擬數據更新
-  updateMarketData();
-  
-  // 每30秒更新一次數據
-  setInterval(updateMarketData, 30000);
-});
-
-// 更新市場數據
-function updateMarketData() {
-  // 模擬數據變化
-  const metrics = document.querySelectorAll('.metric-value');
-  metrics.forEach(metric => {
-    if (metric.textContent.includes('%')) {
-      const currentValue = parseFloat(metric.textContent);
-      const change = (Math.random() - 0.5) * 0.1;
-      const newValue = Math.max(0, currentValue + change);
-      metric.textContent = newValue.toFixed(2) + '%';
-    }
-  });
-}
-</script>
+<main id="servicePageApp" class="mx-auto max-w-6xl px-4 py-8 sm:py-10" data-service-page="investor">
+  <section class="panel rounded-2xl p-6">
+    <div class="text-sm font-black text-indigo-600">功能頁載入中</div>
+    <h1 class="mt-2 text-2xl font-black">投資人工具</h1>
+  </section>
+</main>
+<script src="assets/js/service-page-data.js"></script>
+<script src="assets/js/service-page.js"></script>
+<script src="assets/js/entertainment-data.js"></script>
+<script src="assets/js/entertainment-widgets.js"></script>
 </body>
 </html>

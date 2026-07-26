@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "health-care",
+    "title": "醫療照護與健康服務",
+    "owner": "健康照護資料維護",
+    "folder": "pages/health-care/"
+  },
+  "files": {
+    "index": "pages/health-care/index.html",
+    "updatesPage": "pages/health-care/updates.html",
+    "updatesData": "pages/health-care/updates.json"
+  },
+  "functions": [
+    {
+      "id": "crown-care",
+      "title": "冠冕居服",
+      "status": "外部服務",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://www.crowncare.tw/",
+      "primaryTarget": null,
+      "primaryTargetUrl": "https://www.crowncare.tw/",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": null,
+      "currentUrl": "https://www.crowncare.tw/",
+      "archivePath": null,
+      "updateType": "content",
+      "tags": [
+        "長照",
+        "居服"
+      ]
+    },
+    {
+      "id": "hospital-clinic",
+      "title": "醫院診所",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "hospital-clinic.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "hospital-clinic.html",
+      "currentUrl": "hospital-clinic.html",
+      "archivePath": "archive/cursor-history/latest/hospital-clinic.html",
+      "updateType": "content",
+      "tags": [
+        "醫療",
+        "診所"
+      ]
+    }
+  ]
+}

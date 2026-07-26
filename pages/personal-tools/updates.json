@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "personal-tools",
+    "title": "個人紀錄與生活工具",
+    "owner": "工具功能維護",
+    "folder": "pages/personal-tools/"
+  },
+  "files": {
+    "index": "pages/personal-tools/index.html",
+    "updatesPage": "pages/personal-tools/updates.html",
+    "updatesData": "pages/personal-tools/updates.json"
+  },
+  "functions": [
+    {
+      "id": "receipt",
+      "title": "發票對獎",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "receipt.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "receipt.html",
+      "currentUrl": "receipt.html",
+      "archivePath": "archive/cursor-history/latest/receipt.html",
+      "updateType": "content",
+      "tags": [
+        "發票",
+        "記帳"
+      ]
+    },
+    {
+      "id": "expense-tracker",
+      "title": "每日記帳",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "expense-tracker.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "expense-tracker.html",
+      "currentUrl": "expense-tracker.html",
+      "archivePath": "archive/cursor-history/latest/expense-tracker.html",
+      "updateType": "content",
+      "tags": [
+        "記帳"
+      ]
+    },
+    {
+      "id": "todo-list",
+      "title": "待辦清單",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "todo-list.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "todo-list.html",
+      "currentUrl": "todo-list.html",
+      "archivePath": "archive/cursor-history/latest/todo-list.html",
+      "updateType": "content",
+      "tags": [
+        "待辦"
+      ]
+    },
+    {
+      "id": "price-comparison",
+      "title": "比價工具",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "price-comparison.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "price-comparison.html",
+      "currentUrl": "price-comparison.html",
+      "archivePath": "archive/cursor-history/latest/price-comparison.html",
+      "updateType": "content",
+      "tags": [
+        "比價"
+      ]
+    },
+    {
+      "id": "health-record",
+      "title": "健康紀錄",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "health-record.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "health-record.html",
+      "currentUrl": "health-record.html",
+      "archivePath": "archive/cursor-history/latest/health-record.html",
+      "updateType": "content",
+      "tags": [
+        "健康",
+        "紀錄"
+      ]
+    },
+    {
+      "id": "utility-tracking",
+      "title": "水電費追蹤",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "utility-tracking.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "utility-tracking.html",
+      "currentUrl": "utility-tracking.html",
+      "archivePath": "archive/cursor-history/latest/utility-tracking.html",
+      "updateType": "content",
+      "tags": [
+        "水電費",
+        "帳務"
+      ]
+    },
+    {
+      "id": "maintenance-record",
+      "title": "保養維修紀錄",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "maintenance-record.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "maintenance-record.html",
+      "currentUrl": "maintenance-record.html",
+      "archivePath": "archive/cursor-history/latest/maintenance-record.html",
+      "updateType": "content",
+      "tags": [
+        "維修",
+        "紀錄"
+      ]
+    },
+    {
+      "id": "motorcycle-maintenance",
+      "title": "機車保養",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "motorcycle-maintenance.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "motorcycle-maintenance.html",
+      "currentUrl": "motorcycle-maintenance.html",
+      "archivePath": "archive/cursor-history/latest/motorcycle-maintenance.html",
+      "updateType": "content",
+      "tags": [
+        "機車",
+        "保養"
+      ]
+    }
+  ]
+}

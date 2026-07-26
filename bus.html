@@ -2,699 +2,100 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>楊梅公車時刻表 - 濬瑒房產生活平台</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>公車動態 - 楊梅人在地生活集</title>
+<meta name="description" content="建立楊梅常用公車動態入口，先整理路線方向、站點與外部查詢位置。">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/css/tailwind.min.css">
 <style>
-:root{
-  --grad:linear-gradient(135deg,#10b981,#059669);
-  --glass-bg:rgba(255,255,255,0.6);
-  --glass-dark:rgba(30,30,30,0.6);
-  --shadow-light:0 4px 12px rgba(0,0,0,.1);
-  --border-radius:1rem;
-  --transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-height:100vh;background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 46%,#fff7ed 100%);color:#0f172a;overscroll-behavior-x:none}
+main,section,article,header,footer,nav{max-width:100%;min-width:0}
+img,svg,video,canvas{max-width:100%;height:auto}
+.panel{background:rgba(255,255,255,.88);border:1px solid rgba(148,163,184,.24);box-shadow:0 18px 50px rgba(15,23,42,.08)}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(148,163,184,.24);box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.result-card{background:rgba(255,255,255,.96);border:1px solid rgba(148,163,184,.24);box-shadow:0 6px 18px rgba(15,23,42,.055)}
+.nav-link{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:.7rem;padding:0 .85rem;font-weight:800;text-decoration:none}
+.nav-link.bg-white{background:#fff;color:#4338ca}
+.nav-link.bg-slate-900{background:#0f172a;color:#fff}
+.nav-link:hover{filter:brightness(.98)}
+.ui-break-anywhere{overflow-wrap:anywhere;word-break:break-word}
+.ui-table-fixed{width:100%;table-layout:fixed}
+.ui-min-w-0{min-width:0}
+.compact-desc{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.compact-desc--2{-webkit-line-clamp:2}
+.compact-desc--3{-webkit-line-clamp:3}
+.compact-title{overflow-wrap:anywhere}
+.compact-count-badge{display:inline-flex;min-width:2.55rem;min-height:28px;align-items:center;justify-content:center;text-align:center;line-height:1.05}
+.compact-stat{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-hero-grid,.search-form{display:grid;gap:.5rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.panel,.card,.result-card{min-width:0;overflow-wrap:anywhere}
+.vendor-card-grid{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.vendor-card-grid--single{max-width:560px;margin-inline:auto;grid-template-columns:minmax(0,1fr)!important}
+.vendor-card{display:flex;min-width:0;overflow:hidden;flex-direction:column;border:1px solid rgba(148,163,184,.28);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(15,23,42,.055)}
+.vendor-card-image{display:block;width:100%;aspect-ratio:2/1;height:auto;object-fit:cover;background:#e2e8f0}
+.vendor-card-body{display:flex;min-width:0;flex:1;flex-direction:column;padding:12px}
+.vendor-card-heading{display:flex;min-width:0;align-items:flex-start;justify-content:space-between;gap:8px}
+.vendor-card-title{min-width:0;font-size:17px;line-height:1.28;font-weight:900;color:#020617;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vendor-card-status{flex-shrink:0;border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-status--verified{background:#ecfdf5;color:#047857}
+.vendor-card-status--pending{background:#fff1f2;color:#be123c}
+.vendor-card-meta{margin-top:5px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px;line-height:1.25;font-weight:800;color:#475569}
+.vendor-card-links{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.vendor-card-link{display:flex;min-height:44px;min-width:0;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(203,213,225,.95);border-radius:9px;background:#f8fafc;padding:0 7px;color:#334155;font-size:12px;font-weight:900;line-height:1;text-decoration:none;touch-action:manipulation}
+.vendor-card-link:hover{border-color:rgba(99,102,241,.45);background:#eef2ff;color:#3730a3}
+.vendor-card-link:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+.vendor-card-link svg,.vendor-card-action svg{display:block;width:15px;height:15px;flex:0 0 15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vendor-card-link-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vendor-card-link--disabled{border-color:#e2e8f0;background:#f8fafc;color:#94a3b8}
+.vendor-card-tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.vendor-card-tag{border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-actions{margin-top:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:10px}
+.vendor-card-action{display:flex;min-height:44px;align-items:center;justify-content:center;gap:6px;border-radius:8px;padding:0 10px;font-size:13px;font-weight:900;line-height:1.2;text-align:center;touch-action:manipulation}
+.vendor-card-action--primary{color:#fff}
+.vendor-card-action--secondary{background:#f1f5f9;color:#334155}
+.vendor-card-action:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+@media (min-width:640px){.vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.search-hero-grid{grid-template-columns:minmax(0,1fr) minmax(420px,520px);align-items:end}.search-form{grid-template-columns:minmax(0,1fr) 160px 96px}}
+@media (min-width:1024px){.vendor-card-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1180px){.category-card-grid,#serviceGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1280px){.vendor-card-grid--gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){
+main{padding-inline:16px!important;padding-top:24px!important;padding-bottom:28px!important}
+.panel{border-radius:16px!important;box-shadow:0 12px 30px rgba(15,23,42,.07)}
+.card,.result-card{border-radius:14px!important;box-shadow:0 6px 16px rgba(15,23,42,.055)}
+.entry-hero{padding:20px!important}
+.entry-hero-title{font-size:1.75rem!important;line-height:1.1!important;letter-spacing:0!important}
+.entry-hero-text{margin-top:.65rem!important;font-size:.95rem!important;line-height:1.55!important}
+.entry-pill-row{margin-top:.9rem!important;gap:.4rem!important}
+.entry-pill{padding:.42rem .65rem!important;font-size:.8rem!important;line-height:1.1!important}
+.category-card-grid{margin-top:1rem!important;gap:.75rem!important}
+.category-overview-card,.category-function-card,.result-card,.service-card{padding:14px!important}
+.category-card-icon{font-size:1.5rem!important;line-height:1!important}
+.category-card-title{margin-top:.45rem!important;font-size:1.08rem!important;line-height:1.25!important}
+.compact-desc{margin-top:.45rem!important;line-height:1.45!important}
+.compact-count-badge{min-width:34px;min-height:26px;padding-inline:7px!important}
+.compact-stat{padding:.45rem .5rem!important}
+.service-card{padding:12px!important}
+.service-card .compact-desc{margin-top:.35rem!important;-webkit-line-clamp:2!important}
+.service-card-tags{margin-top:.5rem!important;gap:.25rem!important}
+.search-shell{border-radius:14px!important;padding:12px!important}
 }
-
-body{
-  background:linear-gradient(to bottom,#d1fae5,#fff);
-  transition:var(--transition);
-  font-family:system-ui,-apple-system,sans-serif;
-  line-height:1.6;
-}
-
-.glass-card{
-  background:var(--glass-bg);
-  backdrop-filter:blur(10px);
-  border-radius:var(--border-radius);
-  border:1px solid rgba(255,255,255,0.2);
-}
-
-.bus-card{
-  background:rgba(255,255,255,0.8);
-  border-radius:0.5rem;
-  padding:0.75rem;
-  margin-bottom:0.5rem;
-  transition:var(--transition);
-  border-left:3px solid #10b981;
-}
-
-.bus-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow-light);
-}
-
-.arriving{
-  background:linear-gradient(135deg,#f59e0b,#d97706);
-  color:white;
-  animation:pulse 2s infinite;
-}
-
-.delayed{
-  background:linear-gradient(135deg,#ef4444,#dc2626);
-  color:white;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
-}
-
-#themeToggle{
-  position:fixed;
-  top:0.75rem;
-  right:0.75rem;
-  background:var(--grad);
-  color:#fff;
-  border:none;
-  padding:.4rem .6rem;
-  border-radius:9999px;
-  z-index:50;
-  transition:var(--transition);
-  cursor:pointer;
-  font-size:1rem;
-}
+@media (max-width:480px){.vendor-card-body{padding:12px}.vendor-card-title{font-size:16px}.vendor-card-links{gap:6px}.vendor-card-link{padding:0 6px;font-size:12px}.vendor-card-actions{padding-top:10px}}
+@media (max-width:380px){.entry-hero-title{font-size:1.62rem!important}.nav-link{padding:0 .7rem}.entry-pill{font-size:.76rem!important}.compact-count-badge{min-width:32px}}
 </style>
 </head>
 <body>
-<!-- 主題切換 -->
-<button id="themeToggle" aria-label="切換主題模式">🌞</button>
-
-<!-- 返回按鈕 -->
-<button onclick="history.back()" class="fixed top-3 left-3 bg-white shadow-lg rounded-full p-2 z-50 hover:scale-105 transition text-sm">
-  ←
-</button>
-
-<!-- 標題區 -->
-<header class="text-center py-4" style="background:var(--grad);color:white;">
-  <h1 class="text-2xl font-bold">🚌 楊梅公車時刻表</h1>
-  <p class="text-xs opacity-90 mt-1">楊梅區公車路線與時刻表查詢</p>
-</header>
-
-<main class="px-2 py-2 pb-16 space-y-3">
-  <!-- 路線選擇 -->
-  <section class="glass-card p-4 shadow-lg">
-    <h2 class="text-lg font-bold mb-3">🚌 選擇路線</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
-      <button onclick="showRoute('L608')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">L608 永寧上田線</div>
-            <div class="text-xs text-gray-600">永寧站 ↔ 楊梅火車站</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('L609')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">L609 幼獅工業區線</div>
-            <div class="text-xs text-gray-600">藝術社區 ↔ 幼獅工業區</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('L615')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">L615 楊梅頭湖線</div>
-            <div class="text-xs text-gray-600">楊梅後火車站 ↔ 八方園餐廳</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('301')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">301 桃園-楊梅</div>
-            <div class="text-xs text-gray-600">桃園巨蛋 ↔ 楊梅火車站</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('5623B')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">5623B 楊梅-中壢</div>
-            <div class="text-xs text-gray-600">楊梅火車站 ↔ 捷運環北站</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('L610')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">L610 楊梅-新屋</div>
-            <div class="text-xs text-gray-600">楊梅火車站 ↔ 新屋區公所</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('L611')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">L611 楊梅-湖口</div>
-            <div class="text-xs text-gray-600">楊梅火車站 ↔ 湖口火車站</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('L612')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">L612 楊梅-富岡</div>
-            <div class="text-xs text-gray-600">楊梅火車站 ↔ 富岡火車站</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('L613')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">L613 楊梅觀光線</div>
-            <div class="text-xs text-gray-600">楊梅後車站 ↔ 楊梅後車站（循環）</div>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="showRoute('722')" class="bus-card hover:bg-green-50 cursor-pointer">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">🚌</span>
-          <div>
-            <div class="font-semibold text-sm">722 楊梅-三重</div>
-            <div class="text-xs text-gray-600">楊梅火車站 ↔ 捷運三重國小站</div>
-          </div>
-        </div>
-      </button>
-    </div>
-  </section>
-
-  <!-- 路線詳情 -->
-  <section id="routeDetails" class="glass-card p-4 shadow-lg" style="display: none;">
-    <div class="flex justify-between items-center mb-3">
-      <h2 id="routeTitle" class="text-lg font-bold">🚌 路線詳情</h2>
-      <button onclick="hideRouteDetails()" class="text-gray-500 hover:text-gray-700 text-sm">✕</button>
-    </div>
-    
-    <!-- 路線圖 -->
-    <div id="routeMap" class="mb-4">
-      <!-- 動態載入路線圖 -->
-    </div>
-    
-    <!-- 時刻表 -->
-    <div id="schedule" class="mb-4">
-      <h3 class="text-base font-semibold mb-2">⏰ 發車時刻表</h3>
-      <div id="scheduleContent" class="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <!-- 動態載入時刻表 -->
-      </div>
-    </div>
-    
-    <!-- 停靠站 -->
-    <div id="stops">
-      <h3 class="text-base font-semibold mb-2">📍 停靠站點</h3>
-      <div id="stopsContent" class="flex flex-wrap gap-2">
-        <!-- 動態載入停靠站 -->
-      </div>
-    </div>
-  </section>
-
-  <!-- 乘車資訊 -->
-  <section class="glass-card p-4 shadow-lg">
-    <h2 class="text-lg font-bold mb-3">💡 乘車資訊</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      <div class="p-3 bg-blue-50 rounded-lg">
-        <div class="text-base font-bold text-blue-600 mb-2">💰 票價資訊</div>
-        <div class="text-xs text-gray-700 space-y-1">
-          <div>• L系列路線：免費搭乘（市民免費公車）</div>
-          <div>• 301路線：15-25元</div>
-          <div>• 5623B路線：15-25元</div>
-          <div>• 722路線：30-60元（跨縣市路線）</div>
-          <div>• 可使用悠遊卡、一卡通</div>
-        </div>
-      </div>
-      
-      <div class="p-3 bg-green-50 rounded-lg">
-        <div class="text-base font-bold text-green-600 mb-2">⏰ 營運時間</div>
-        <div class="text-xs text-gray-700 space-y-1">
-          <div>• L系列路線：平日06:00-21:30，假日07:00-20:30</div>
-          <div>• 301路線：平日05:30-22:00，假日06:00-21:30</div>
-          <div>• 5623B路線：平日05:45-22:15，假日06:15-21:45</div>
-          <div>• 722路線：平日06:00-21:00，假日07:00-20:00</div>
-          <div>• 班距：15-60分鐘不等</div>
-        </div>
-      </div>
-      
-      <div class="p-3 bg-purple-50 rounded-lg">
-        <div class="text-base font-bold text-purple-600 mb-2">📱 查詢方式</div>
-        <div class="text-xs text-gray-700 space-y-1">
-          <div>• <a href="https://play.google.com/store/apps/details?id=com.tybus.app" target="_blank" class="text-purple-600 hover:text-purple-800 underline">桃園公車APP</a>即時查詢</div>
-          <div>• 電話查詢：<a href="tel:03-332-2101" class="text-purple-600 hover:text-purple-800 underline">03-332-2101</a></div>
-          <div>• 官網：<a href="https://www.tybus.com.tw" target="_blank" class="text-purple-600 hover:text-purple-800 underline">www.tybus.com.tw</a></div>
-          <div>• 站牌QR Code掃描查詢</div>
-          <div>• 語音查詢：<a href="tel:1999" class="text-purple-600 hover:text-purple-800 underline">1999</a></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 公車小貼士 -->
-  <section class="glass-card p-4 shadow-lg">
-    <h2 class="text-lg font-bold mb-3">💡 乘車小貼士</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-      <div class="p-3 bg-yellow-50 rounded-lg border-l-4 border-yellow-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-yellow-600">🚌</span>
-          <span>L系列路線為市民免費公車，無需付費</span>
-        </div>
-      </div>
-      <div class="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-blue-600">📱</span>
-          <span>建議下載<a href="https://play.google.com/store/apps/details?id=com.tybus.app" target="_blank" class="text-blue-600 hover:text-blue-800 underline font-medium">桃園公車APP</a>查詢即時動態</span>
-        </div>
-      </div>
-      <div class="p-3 bg-orange-50 rounded-lg border-l-4 border-orange-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-orange-600">⏰</span>
-          <span>班次間距較長，建議提前5-10分鐘到達候車</span>
-        </div>
-      </div>
-      <div class="p-3 bg-red-50 rounded-lg border-l-4 border-red-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-red-600">🚪</span>
-          <span>到站前請按鈴，準備下車</span>
-        </div>
-      </div>
-      <div class="p-3 bg-indigo-50 rounded-lg border-l-4 border-indigo-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-indigo-600">📍</span>
-          <span>金台通運營運L系列路線，桃園客運營運其他路線</span>
-        </div>
-      </div>
-      <div class="p-3 bg-pink-50 rounded-lg border-l-4 border-pink-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-pink-600">🎫</span>
-          <span>持敬老卡、愛心卡可享優惠票價</span>
-        </div>
-      </div>
-      <div class="p-3 bg-teal-50 rounded-lg border-l-4 border-teal-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-teal-600">🚶</span>
-          <span>候車時請站在安全區域，注意來車</span>
-        </div>
-      </div>
-      <div class="p-3 bg-cyan-50 rounded-lg border-l-4 border-cyan-400">
-        <div class="flex items-start space-x-2">
-          <span class="text-cyan-600">🌧️</span>
-          <span>雨天請攜帶雨具，注意站牌濕滑</span>
-        </div>
-      </div>
-    </div>
+<main id="servicePageApp" class="mx-auto max-w-6xl px-4 py-8 sm:py-10" data-service-page="bus">
+  <section class="panel rounded-2xl p-6">
+    <div class="text-sm font-black text-indigo-600">功能頁載入中</div>
+    <h1 class="mt-2 text-2xl font-black">公車動態</h1>
   </section>
 </main>
-
-<script>
-// 主題切換
-document.getElementById('themeToggle').addEventListener('click', () => {
-  document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  document.getElementById('themeToggle').textContent = isDark ? '🌙' : '🌞';
-});
-
-// 公車路線資料（已核對官方資訊）
-const busRoutes = {
-  'L608': {
-    name: 'L608 永寧上田線',
-    description: '老莊路739巷 ↔ 大造加油站',
-    duration: '約50分鐘',
-    operator: '金台通運',
-    stops: [
-      { name: '老莊路739巷', stopId: 'L608-01', location: '老莊路739巷口', address: '楊梅區老莊路739巷' },
-      { name: '老莊路', stopId: 'L608-02', location: '老莊路與永寧路口', address: '楊梅區老莊路' },
-      { name: '永寧站', stopId: 'L608-03', location: '永寧路與老莊路口', address: '楊梅區永寧路' },
-      { name: '永寧路', stopId: 'L608-04', location: '永寧路與上田路口', address: '楊梅區永寧路' },
-      { name: '上田站', stopId: 'L608-05', location: '上田路與永寧路口', address: '楊梅區上田路' },
-      { name: '上田路', stopId: 'L608-06', location: '上田路與校前路口', address: '楊梅區上田路' },
-      { name: '楊梅國中', stopId: 'L608-07', location: '楊梅國中正門前', address: '楊梅區校前路49號' },
-      { name: '校前路', stopId: 'L608-08', location: '校前路與大成路口', address: '楊梅區校前路' },
-      { name: '楊梅國小', stopId: 'L608-09', location: '楊梅國小正門前', address: '楊梅區校前路28號' },
-      { name: '大成路', stopId: 'L608-10', location: '大成路與校前路口', address: '楊梅區大成路' },
-      { name: '楊梅火車站', stopId: 'L608-11', location: '楊梅火車站前廣場', address: '楊梅區大成路208號' },
-      { name: '大造路', stopId: 'L608-12', location: '大造路與大成路口', address: '楊梅區大造路' },
-      { name: '大造加油站', stopId: 'L608-13', location: '大造加油站前', address: '楊梅區大造路' }
-    ],
-    schedule: {
-      '平日': ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30'],
-      '假日': ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30']
-    }
-  },
-  'L609': {
-    name: 'L609 幼獅工業區線',
-    description: '藝術社區 ↔ 高獅路834巷',
-    duration: '約35分鐘',
-    operator: '金台通運',
-    stops: [
-      { name: '藝術社區', stopId: 'L609-01', location: '藝術社區大門前', address: '楊梅區藝術街' },
-      { name: '藝術街', stopId: 'L609-02', location: '藝術街與瑞坪路口', address: '楊梅區藝術街' },
-      { name: '瑞坪路口', stopId: 'L609-03', location: '瑞坪路與文化街口', address: '楊梅區瑞坪路' },
-      { name: '瑞坪路', stopId: 'L609-04', location: '瑞坪路與藝術街口', address: '楊梅區瑞坪路' },
-      { name: '文化街', stopId: 'L609-05', location: '文化街與瑞坪路口', address: '楊梅區文化街' },
-      { name: '瑞塘國小', stopId: 'L609-06', location: '瑞塘國小正門前', address: '楊梅區文化街' },
-      { name: '文化街口', stopId: 'L609-07', location: '文化街與幼獅路口', address: '楊梅區文化街' },
-      { name: '幼獅路', stopId: 'L609-08', location: '幼獅路與文化街口', address: '楊梅區幼獅路' },
-      { name: '幼獅工業區', stopId: 'L609-09', location: '幼獅工業區入口', address: '楊梅區幼獅路' },
-      { name: '高獅路', stopId: 'L609-10', location: '高獅路與幼獅路口', address: '楊梅區高獅路' },
-      { name: '高獅路834巷', stopId: 'L609-11', location: '高獅路834巷口', address: '楊梅區高獅路834巷' }
-    ],
-    schedule: {
-      '平日': ['06:15', '06:45', '07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15', '20:45'],
-      '假日': ['07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15']
-    }
-  },
-  'L615': {
-    name: 'L615 楊梅頭湖線',
-    description: '楊梅後火車站 ↔ 八方園餐廳（揚昇）',
-    duration: '約40分鐘',
-    operator: '金台通運',
-    stops: [
-      { name: '楊梅後火車站', stopId: 'L615-01', location: '楊梅後火車站前', address: '楊梅區大成路' },
-      { name: '楊心國小', stopId: 'L615-02', location: '楊心國小正門前', address: '楊梅區楊心路' },
-      { name: '頭湖', stopId: 'L615-03', location: '頭湖社區入口', address: '楊梅區頭湖路' },
-      { name: '中興', stopId: 'L615-04', location: '中興路與中山路口', address: '楊梅區中興路' },
-      { name: '楊梅國小（中山）', stopId: 'L615-05', location: '楊梅國小中山路側門', address: '楊梅區中山路' },
-      { name: '行政園區', stopId: 'L615-06', location: '楊梅區行政園區前', address: '楊梅區行政園區' },
-      { name: '八方園餐廳（揚昇）', stopId: 'L615-07', location: '八方園餐廳前', address: '楊梅區揚昇路' }
-    ],
-    schedule: {
-      '平日': ['06:30', '07:30', '08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:30', '19:30', '20:30'],
-      '假日': ['07:30', '08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:30', '19:30']
-    }
-  },
-  '301': {
-    name: '301 桃園-楊梅',
-    description: '桃園巨蛋 ↔ 楊梅火車站',
-    duration: '約60分鐘',
-    operator: '桃園客運',
-    stops: [
-      { name: '桃園巨蛋', stopId: '301-01', location: '桃園巨蛋前廣場', address: '桃園區三民路一段' },
-      { name: '三民路', stopId: '301-02', location: '三民路與中正路口', address: '桃園區三民路' },
-      { name: '桃園火車站', stopId: '301-03', location: '桃園火車站前', address: '桃園區中正路' },
-      { name: '中正路', stopId: '301-04', location: '中正路與復興路口', address: '桃園區中正路' },
-      { name: '復興路', stopId: '301-05', location: '復興路與中正路口', address: '桃園區復興路' },
-      { name: '中壢交流道', stopId: '301-06', location: '中壢交流道前', address: '中壢區中正路' },
-      { name: '中壢火車站', stopId: '301-07', location: '中壢火車站前', address: '中壢區中正路' },
-      { name: '中壢高中', stopId: '301-08', location: '中壢高中前', address: '中壢區中央西路' },
-      { name: '楊梅交流道', stopId: '301-09', location: '楊梅交流道前', address: '楊梅區大成路' },
-      { name: '楊梅火車站', stopId: '301-10', location: '楊梅火車站前廣場', address: '楊梅區大成路208號' }
-    ],
-    schedule: {
-      '平日': ['05:30', '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'],
-      '假日': ['06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30']
-    }
-  },
-  '5623B': {
-    name: '5623B 楊梅-中壢',
-    description: '楊梅火車站 ↔ 捷運環北站',
-    duration: '約45分鐘',
-    operator: '桃園客運',
-    stops: [
-      { name: '楊梅火車站', stopId: '5623B-01', location: '楊梅火車站前廣場', address: '楊梅區大成路208號' },
-      { name: '大成路', stopId: '5623B-02', location: '大成路與中山路口', address: '楊梅區大成路' },
-      { name: '中山路', stopId: '5623B-03', location: '中山路與大成路口', address: '楊梅區中山路' },
-      { name: '楊梅交流道', stopId: '5623B-04', location: '楊梅交流道前', address: '楊梅區大成路' },
-      { name: '中壢交流道', stopId: '5623B-05', location: '中壢交流道前', address: '中壢區中正路' },
-      { name: '中壢火車站', stopId: '5623B-06', location: '中壢火車站前', address: '中壢區中正路' },
-      { name: '中正路', stopId: '5623B-07', location: '中正路與中央西路口', address: '中壢區中正路' },
-      { name: '中央西路', stopId: '5623B-08', location: '中央西路與中正路口', address: '中壢區中央西路' },
-      { name: '中壢高中', stopId: '5623B-09', location: '中壢高中正門前', address: '中壢區中央西路' },
-      { name: '環北路', stopId: '5623B-10', location: '環北路與中正路口', address: '中壢區環北路' },
-      { name: '捷運環北站', stopId: '5623B-11', location: '捷運環北站前', address: '中壢區中正路' }
-    ],
-    schedule: {
-      '平日': ['05:45', '06:15', '06:45', '07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15', '20:45', '21:15', '21:45', '22:15'],
-      '假日': ['06:15', '06:45', '07:15', '07:45', '08:15', '08:45', '09:15', '09:45', '10:15', '10:45', '11:15', '11:45', '12:15', '12:45', '13:15', '13:45', '14:15', '14:45', '15:15', '15:45', '16:15', '16:45', '17:15', '17:45', '18:15', '18:45', '19:15', '19:45', '20:15', '20:45', '21:15', '21:45']
-    }
-  },
-  'L610': {
-    name: 'L610 楊梅-新屋',
-    description: '楊梅火車站 ↔ 新屋區公所',
-    duration: '約30分鐘',
-    operator: '金台通運',
-    stops: [
-      { name: '楊梅火車站', stopId: 'L610-01', location: '楊梅火車站前廣場', address: '楊梅區大成路208號' },
-      { name: '大成路', stopId: 'L610-02', location: '大成路與高獅路口', address: '楊梅區大成路' },
-      { name: '高獅路', stopId: 'L610-03', location: '高獅路與大成路口', address: '楊梅區高獅路' },
-      { name: '楊梅高中', stopId: 'L610-04', location: '楊梅高中正門前', address: '楊梅區高獅路' },
-      { name: '高獅路二段', stopId: 'L610-05', location: '高獅路二段', address: '楊梅區高獅路二段' },
-      { name: '富岡街', stopId: 'L610-06', location: '富岡街與高獅路口', address: '楊梅區富岡街' },
-      { name: '富岡火車站', stopId: 'L610-07', location: '富岡火車站前', address: '楊梅區富岡街' },
-      { name: '新屋區界', stopId: 'L610-08', location: '楊梅與新屋區界', address: '新屋區中正路' },
-      { name: '新屋區公所', stopId: 'L610-09', location: '新屋區公所前', address: '新屋區中正路' }
-    ],
-    schedule: {
-      '平日': ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
-      '假日': ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00']
-    }
-  },
-  'L611': {
-    name: 'L611 楊梅-湖口',
-    description: '楊梅火車站 ↔ 湖口火車站',
-    duration: '約25分鐘',
-    operator: '金台通運',
-    stops: [
-      { name: '楊梅火車站', stopId: 'L611-01', location: '楊梅火車站前廣場', address: '楊梅區大成路208號' },
-      { name: '大成路', stopId: 'L611-02', location: '大成路與校前路口', address: '楊梅區大成路' },
-      { name: '校前路', stopId: 'L611-03', location: '校前路與大成路口', address: '楊梅區校前路' },
-      { name: '楊梅國中', stopId: 'L611-04', location: '楊梅國中正門前', address: '楊梅區校前路49號' },
-      { name: '校前路二段', stopId: 'L611-05', location: '校前路二段', address: '楊梅區校前路二段' },
-      { name: '湖口交流道', stopId: 'L611-06', location: '湖口交流道前', address: '新竹縣湖口鄉' },
-      { name: '湖口工業區', stopId: 'L611-07', location: '湖口工業區入口', address: '新竹縣湖口鄉' },
-      { name: '湖口火車站', stopId: 'L611-08', location: '湖口火車站前', address: '新竹縣湖口鄉' }
-    ],
-    schedule: {
-      '平日': ['06:15', '07:15', '08:15', '09:15', '10:15', '11:15', '12:15', '13:15', '14:15', '15:15', '16:15', '17:15', '18:15', '19:15', '20:15'],
-      '假日': ['07:15', '08:15', '09:15', '10:15', '11:15', '12:15', '13:15', '14:15', '15:15', '16:15', '17:15', '18:15', '19:15']
-    }
-  },
-  'L612': {
-    name: 'L612 楊梅-富岡',
-    description: '楊梅火車站 ↔ 富岡火車站',
-    duration: '約20分鐘',
-    operator: '金台通運',
-    stops: [
-      { name: '楊梅火車站', stopId: 'L612-01', location: '楊梅火車站前廣場', address: '楊梅區大成路208號' },
-      { name: '大成路', stopId: 'L612-02', location: '大成路與高獅路口', address: '楊梅區大成路' },
-      { name: '高獅路', stopId: 'L612-03', location: '高獅路與大成路口', address: '楊梅區高獅路' },
-      { name: '楊梅高中', stopId: 'L612-04', location: '楊梅高中正門前', address: '楊梅區高獅路' },
-      { name: '高獅路二段', stopId: 'L612-05', location: '高獅路二段', address: '楊梅區高獅路二段' },
-      { name: '富岡街', stopId: 'L612-06', location: '富岡街與高獅路口', address: '楊梅區富岡街' },
-      { name: '富岡火車站', stopId: 'L612-07', location: '富岡火車站前', address: '楊梅區富岡街' }
-    ],
-    schedule: {
-      '平日': ['06:30', '07:30', '08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:30', '19:30', '20:30'],
-      '假日': ['07:30', '08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30', '18:30', '19:30']
-    }
-  },
-  'L613': {
-    name: 'L613 楊梅觀光線',
-    description: '楊梅後車站 ↔ 楊梅後車站（循環）',
-    duration: '約45分鐘',
-    operator: '金台通運',
-    stops: [
-      { name: '楊梅後車站', stopId: 'L613-01', location: '楊梅後火車站前', address: '楊梅區大成路' },
-      { name: '金德路', stopId: 'L613-02', location: '金德路與大成路口', address: '楊梅區金德路' },
-      { name: '梅高路', stopId: 'L613-03', location: '梅高路與金德路口', address: '楊梅區梅高路' },
-      { name: '楊新路', stopId: 'L613-04', location: '楊新路與梅高路口', address: '楊梅區楊新路' },
-      { name: '大成路', stopId: 'L613-05', location: '大成路與楊新路口', address: '楊梅區大成路' },
-      { name: '中山路', stopId: 'L613-06', location: '中山路與大成路口', address: '楊梅區中山路' },
-      { name: '中山北路', stopId: 'L613-07', location: '中山北路與中山路口', address: '楊梅區中山北路' },
-      { name: '梅獅路', stopId: 'L613-08', location: '梅獅路與中山北路口', address: '楊梅區梅獅路' },
-      { name: '幼獅路一段', stopId: 'L613-09', location: '幼獅路一段與梅獅路口', address: '楊梅區幼獅路一段' },
-      { name: '青年路', stopId: 'L613-10', location: '青年路與幼獅路口', address: '楊梅區青年路' },
-      { name: '幼獅路二、三段', stopId: 'L613-11', location: '幼獅路二、三段', address: '楊梅區幼獅路二、三段' },
-      { name: '楊梅後車站（終點）', stopId: 'L613-12', location: '楊梅後火車站前', address: '楊梅區大成路' }
-    ],
-    schedule: {
-      '平日': ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
-      '假日': ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
-    }
-  },
-  '722': {
-    name: '722 楊梅-三重',
-    description: '楊梅火車站 ↔ 捷運三重國小站',
-    duration: '約90分鐘',
-    operator: '桃園客運',
-    stops: [
-      { name: '楊梅火車站', stopId: '722-01', location: '楊梅火車站前廣場', address: '楊梅區大成路208號' },
-      { name: '楊梅交流道', stopId: '722-02', location: '楊梅交流道前', address: '楊梅區大成路' },
-      { name: '中壢交流道', stopId: '722-03', location: '中壢交流道前', address: '中壢區中正路' },
-      { name: '中壢火車站', stopId: '722-04', location: '中壢火車站前', address: '中壢區中正路' },
-      { name: '桃園交流道', stopId: '722-05', location: '桃園交流道前', address: '桃園區中正路' },
-      { name: '桃園火車站', stopId: '722-06', location: '桃園火車站前', address: '桃園區中正路' },
-      { name: '三重交流道', stopId: '722-07', location: '三重交流道前', address: '新北市三重區' },
-      { name: '捷運三重國小站', stopId: '722-08', location: '捷運三重國小站前', address: '新北市三重區' }
-    ],
-    schedule: {
-      '平日': ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00'],
-      '假日': ['07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00']
-    }
-  }
-};
-
-// 顯示路線詳情
-function showRoute(routeId) {
-  const route = busRoutes[routeId];
-  if (!route) {
-    alert('找不到該路線');
-    return;
-  }
-
-  // 顯示路線詳情區塊
-  const detailsSection = document.getElementById('routeDetails');
-  detailsSection.style.display = 'block';
-
-  // 更新標題
-  document.getElementById('routeTitle').textContent = `🚌 ${route.name}`;
-
-  // 更新路線圖
-  updateRouteMap(route);
-
-  // 更新時刻表
-  updateSchedule(route);
-
-  // 更新停靠站
-  updateStops(route);
-
-  // 滾動到詳情區塊
-  detailsSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-// 隱藏路線詳情
-function hideRouteDetails() {
-  document.getElementById('routeDetails').style.display = 'none';
-}
-
-// 更新路線圖
-function updateRouteMap(route) {
-  const routeMapDiv = document.getElementById('routeMap');
-  routeMapDiv.innerHTML = `
-    <div class="bg-gradient-to-r from-green-400 to-blue-500 rounded-lg p-3 text-white">
-      <div class="text-center mb-3">
-        <div class="text-lg font-bold">${route.name}</div>
-        <div class="text-xs opacity-80">${route.description} • ${route.duration}</div>
-        <div class="text-xs opacity-60 mt-1">營運商：${route.operator || '未指定'}</div>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        ${route.stops.map((stop, index) => {
-          const isFirst = index === 0;
-          const isLast = index === route.stops.length - 1;
-          const stopName = typeof stop === 'string' ? stop : stop.name;
-          return `
-            <div class="flex items-center space-x-1">
-              <div class="w-3 h-3 bg-${isFirst ? 'yellow' : isLast ? 'red' : 'white'}-${isFirst || isLast ? '400' : ''} rounded-full ${isFirst || isLast ? 'animate-pulse' : ''} flex-shrink-0"></div>
-              <span class="text-xs whitespace-nowrap">${stopName}${isFirst ? ' (起點)' : isLast ? ' (終點)' : ''}</span>
-            </div>
-            ${index < route.stops.length - 1 ? '<span class="text-white/60 text-xs">→</span>' : ''}
-          `;
-        }).join('')}
-      </div>
-    </div>
-  `;
-}
-
-// 更新時刻表
-function updateSchedule(route) {
-  const scheduleDiv = document.getElementById('scheduleContent');
-  scheduleDiv.innerHTML = `
-    <div class="space-y-4">
-      <div class="bg-blue-50 p-4 rounded-lg">
-        <h4 class="font-semibold text-blue-600 mb-3 text-sm flex items-center">
-          <span class="mr-2">📅</span>平日時刻表
-        </h4>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-1 text-xs">
-          ${route.schedule['平日'].map(time => `<span class="bg-white p-1.5 rounded text-center border border-blue-200 hover:bg-blue-100 transition-colors text-xs">${time}</span>`).join('')}
-        </div>
-      </div>
-      <div class="bg-green-50 p-4 rounded-lg">
-        <h4 class="font-semibold text-green-600 mb-3 text-sm flex items-center">
-          <span class="mr-2">🎉</span>假日時刻表
-        </h4>
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-1 text-xs">
-          ${route.schedule['假日'].map(time => `<span class="bg-white p-1.5 rounded text-center border border-green-200 hover:bg-green-100 transition-colors text-xs">${time}</span>`).join('')}
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// 更新停靠站
-function updateStops(route) {
-  const stopsDiv = document.getElementById('stopsContent');
-  stopsDiv.innerHTML = `
-    <div class="flex flex-wrap gap-2">
-      ${route.stops.map((stop, index) => {
-        const stopName = typeof stop === 'string' ? stop : stop.name;
-        const stopId = typeof stop === 'string' ? `STOP-${index + 1}` : stop.stopId;
-        const location = typeof stop === 'string' ? '站牌位置' : stop.location;
-        const address = typeof stop === 'string' ? '地址資訊' : stop.address;
-        
-        return `
-          <div class="flex items-center bg-white rounded-lg border-l-4 border-green-400 shadow-sm hover:shadow-md transition-shadow p-3 min-w-0 flex-shrink-0">
-            <span class="text-lg mr-2 flex-shrink-0">${index === 0 ? '🚏' : index === route.stops.length - 1 ? '🏁' : '📍'}</span>
-            <div class="flex flex-col min-w-0">
-              <div class="flex items-center space-x-2 mb-1">
-                <span class="font-semibold text-sm truncate">${stopName}</span>
-                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full flex-shrink-0">${stopId}</span>
-              </div>
-              <div class="text-xs text-gray-600 truncate">
-                <span class="font-medium">📍</span> ${location}
-              </div>
-            </div>
-            <div class="flex flex-col items-end ml-2 flex-shrink-0">
-              <span class="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full mb-1">第${index + 1}站</span>
-              ${index === 0 ? '<span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">起點</span>' : ''}
-              ${index === route.stops.length - 1 ? '<span class="text-xs text-red-600 bg-red-100 px-2 py-1 rounded-full">終點</span>' : ''}
-            </div>
-            ${index < route.stops.length - 1 ? '<span class="text-gray-300 ml-2 flex-shrink-0">→</span>' : ''}
-          </div>
-        `;
-      }).join('')}
-    </div>
-  `;
-}
-
-// 頁面載入完成
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('楊梅公車時刻表已載入完成');
-});
-</script>
-
-<!-- 📍 底部導航 -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
-  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
-    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
-  </button>
-  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
-    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
-  </button>
-  <button onclick="window.location.href='games.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
-    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
-  </button>
-  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
-    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
-  </button>
-  <button onclick="window.location.href='worship.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
-    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
-  </button>
-</nav>
+<script src="assets/js/service-page-data.js"></script>
+<script src="assets/js/service-page.js"></script>
+<script src="assets/js/entertainment-data.js"></script>
+<script src="assets/js/entertainment-widgets.js"></script>
 </body>
 </html>
-

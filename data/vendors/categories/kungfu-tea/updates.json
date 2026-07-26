@@ -1,0 +1,45 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "owner": "商家營運維護",
+  "page": "kungfu-tea.html",
+  "title": "楊梅飲品廠商",
+  "source": "data/vendors/categories/kungfu-tea/vendors.json",
+  "summary": "前台共 1 筆廠商；已核實 1 筆、待核實 0 筆；待補候選 0 筆。",
+  "counts": {
+    "total": 1,
+    "verified": 1,
+    "needsVerification": 0,
+    "missingPhone": 0,
+    "missingAddress": 0,
+    "missingOfficialSource": 0
+  },
+  "candidateCounts": {
+    "total": 0,
+    "needsSource": 0,
+    "needsPhone": 0,
+    "needsAddress": 0
+  },
+  "updateChecklist": [
+    "店名與服務地區",
+    "電話（官方或平台可確認來源）",
+    "地址（官方或地圖可確認來源）",
+    "官方網站 / 地圖 / LINE 連結",
+    "營業時間（有官方來源才可填）",
+    "價格區間與服務標籤",
+    "照片網址（需授權）",
+    "核實狀態與 lastVerifiedAt"
+  ],
+  "vendors": [
+    {
+      "id": "kungfu-tea-1",
+      "name": "功夫茶楊梅四維店",
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "needsVerification": false,
+      "missingFields": [],
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-03T07:18:00+0800"
+    }
+  ],
+  "candidateVendors": []
+}

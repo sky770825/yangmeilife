@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "owner": "商家營運維護",
+  "page": "food-truck.html",
+  "title": "楊梅餐車廠商",
+  "source": "data/vendors/categories/food-truck/vendors.json",
+  "summary": "前台共 0 筆廠商；已核實 0 筆、待核實 0 筆；待補候選 3 筆。",
+  "counts": {
+    "total": 0,
+    "verified": 0,
+    "needsVerification": 0,
+    "missingPhone": 0,
+    "missingAddress": 0,
+    "missingOfficialSource": 0
+  },
+  "candidateCounts": {
+    "total": 3,
+    "needsSource": 3,
+    "needsPhone": 3,
+    "needsAddress": 3
+  },
+  "updateChecklist": [
+    "店名與服務地區",
+    "電話（官方或平台可確認來源）",
+    "地址（官方或地圖可確認來源）",
+    "官方網站 / 地圖 / LINE 連結",
+    "營業時間（有官方來源才可填）",
+    "價格區間與服務標籤",
+    "照片網址（需授權）",
+    "核實狀態與 lastVerifiedAt"
+  ],
+  "vendors": [],
+  "candidateVendors": [
+    {
+      "id": "food-truck-1",
+      "name": "四維路鹽酥雞餐車",
+      "area": "四維商圈",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "food-truck-2",
+      "name": "埔心甜點餐車",
+      "area": "埔心車站",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    },
+    {
+      "id": "food-truck-3",
+      "name": "富岡咖啡行動吧",
+      "area": "富岡老街",
+      "reason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "verificationStatus": "待核實",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ]
+    }
+  ]
+}
