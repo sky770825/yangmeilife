@@ -178,3 +178,15 @@
 - Reviewer：Feynman 判定 `Spec Compliance: Pass`、`Code Quality: Pass`。
 - 非阻擋建議：未來實際使用 duplicate 狀態前，再加入候選 ID 全域唯一與循環引用阻擋。
 - 下一步：A2.5 逐一審查 11 張店家圖片的來源與使用權。
+
+## 2026-07-27 - A2.5 店家圖片權利審查核准
+
+- 狀態：`completed`
+- 版本：`a1484fd..f1a3c16`
+- 審查結果：11 家公開店家中，4 張圖片確認來自已審核的官方頁面，標記為 `official-external`；7 張原本為非店家專屬的 Unsplash 圖片，已清除並標記為 `no-approved-image`。
+- 授權邊界：官方來源不等於已取得重用或熱連授權；目前沒有圖片被標記為已授權的本機素材。
+- 來源防護：外部官方圖片必須回扣到已審核的 `officialUrl`、保留欄位證據，且圖片主機須與官方頁面主機一致，不能用任意可追溯網址繞過。
+- 本機素材：沒有下載、產生或新增圖片檔案；A3 必須為 7 家缺圖店家提供中性且不誤導的版面後備。
+- 測試：112/112 通過；公開店家仍為 11 家，Unsplash 店家圖為 0，本機授權素材為 0。
+- Reviewer：Lovelace 最終判定 `Rights Accuracy: Pass`、`Spec Compliance: Pass`、`Code Quality: Pass`，無剩餘問題。
+- 下一步：A2.6 建立 41 筆完整決策表、執行資料與公開行為閘門，完成 A2 交接。
