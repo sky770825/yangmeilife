@@ -44,8 +44,12 @@ async function withGeneratedSite(callback) {
   }
 }
 
+async function generatedVendorPageScript(repoRoot) {
+  return readFile(path.join(repoRoot, 'assets/js/vendor-page.js'), 'utf8');
+}
+
 async function generatedCategoryScript(repoRoot) {
-  const page = await readFile(path.join(repoRoot, 'assets/js/vendor-page.js'), 'utf8');
+  const page = await generatedVendorPageScript(repoRoot);
   const start = page.indexOf('const vendorCard = (vendor, category) => {');
   const end = page.indexOf('const matchesFilter =', start);
 
@@ -64,6 +68,7 @@ test('generated public vendor cards expose only verified facts and valid phone/m
     const sourceCategories = JSON.parse(
       await readFile(path.join(repoRoot, 'data/vendors/categories/american-chiropractic/vendors.json'), 'utf8'),
     );
+    const pageScript = await generatedVendorPageScript(repoRoot);
     const cardScript = await generatedCategoryScript(repoRoot);
 
     assert.equal(runtimeVendors.length, 11);
@@ -75,6 +80,10 @@ test('generated public vendor cards expose only verified facts and valid phone/m
     assert.ok(runtimeVendors.every((vendor) => /^https:\/\/www\.google\.com\/maps\/search\/\?api=1&query=/.test(vendor.mapUrl)));
     assert.ok(sourceCategories.candidateVendors.every((candidate) => !runtimeVendors.some((vendor) => vendor.id === candidate.id)));
 
+    assert.doesNotMatch(pageScript, /vendor\.rating/);
+    assert.doesNotMatch(pageScript, /state\.sort === 'rating'/);
+    assert.doesNotMatch(pageScript, /value="rating"/);
+    assert.doesNotMatch(pageScript, /評分高到低/);
     assert.doesNotMatch(cardScript, /vendor\.rating/);
     assert.match(cardScript, /const phoneHref = vendor\.phone \? 'tel:' \+ String\(vendor\.phone\)\.replace\(/);
     assert.match(cardScript, /quickLink\('map', '導航', vendor\.mapUrl \|\| null/);

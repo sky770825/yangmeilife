@@ -180,7 +180,6 @@
     let vendors = [...state.vendors];
     if (query) vendors = vendors.filter((vendor) => searchHaystack(vendor).includes(query));
     vendors = vendors.filter(matchesFilter);
-    if (state.sort === 'rating') vendors.sort((a, b) => Number(b.rating) - Number(a.rating));
     if (state.sort === 'price-low') vendors.sort((a, b) => Number(String(a.price).replace(/[^0-9]/g, '') || 0) - Number(String(b.price).replace(/[^0-9]/g, '') || 0));
     if (state.sort === 'price-high') vendors.sort((a, b) => Number(String(b.price).replace(/[^0-9]/g, '') || 0) - Number(String(a.price).replace(/[^0-9]/g, '') || 0));
     if (state.sort === 'area') vendors.sort((a, b) => String(a.area).localeCompare(String(b.area), 'zh-Hant'));
@@ -269,7 +268,6 @@
         </select>
         <select id="vendorSort" class="min-h-11 min-w-0 rounded-xl border border-slate-300 bg-white px-3 font-bold outline-none focus:border-indigo-500" aria-label="排序方式">
           <option value="default">預設排序</option>
-          <option value="rating">評分高到低</option>
           <option value="price-low">價格低到高</option>
           <option value="price-high">價格高到低</option>
           <option value="area">依地區</option>

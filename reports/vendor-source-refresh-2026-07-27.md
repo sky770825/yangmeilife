@@ -74,7 +74,7 @@ git diff --check
 
 Results: both syntax checks passed; validation passed before and after the build with 11 categories and 11 public vendors; the full test suite passed 114 tests; `git diff --check` passed.
 
-Focused public behavior coverage proves that public cards do not render an unverified rating, normalize every visible phone action to `tel:`, use Google Maps search navigation for every visible address, never fall back to the site-wide platform LINE when a store lacks both LINE and official URL, and emit only `published` records to runtime data. Existing publication tests also cover candidate, `hold`, and `retired` runtime exclusion.
+Focused public behavior coverage proves that public cards do not render or offer sorting by an unverified rating, normalize every visible phone action to `tel:`, use Google Maps search navigation for every visible address, never fall back to the site-wide platform LINE when a store lacks both LINE and official URL, and emit only `published` records to runtime data. Existing publication tests also cover candidate, `hold`, and `retired` runtime exclusion.
 
 ## Reviewer Verdict and Handoff
 
