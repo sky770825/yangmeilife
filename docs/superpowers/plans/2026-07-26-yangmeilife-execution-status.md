@@ -152,3 +152,16 @@
 - 測試：22/22 通過，JSON、來源欄位與日期規則通過。
 - Reviewer：Curie 最終判定 `Research Accuracy: Pass`、`Spec Compliance: Pass`、`Data Quality: Pass`。
 - 下一步：A2.3 核對 4 家美甲店。
+
+## 2026-07-27 - A2.3 美甲資料核准
+
+- 狀態：`completed`
+- 版本：`d4f0f9a..fc5875d`
+- YN、八四：官方社群無法完整讀取且沒有發現衝突，保留既有事實與核實日期；八四的泛用 LINE 頁不再用於證明店名、電話或地址。
+- 妮莉莎：官方頁確認店名、電話、四維路 196 號地址與預約 LINE，店名調整為官方顯示的「妮莉莎美學」。
+- Relax：官方頁確認名稱、四維路 133 號、兩支電話與營業時間；名稱移除官方頁未顯示的「四維店」括號字樣，分店由地址辨識。
+- 候選資料：沒有候選店家被提升。
+- 圖片權利：仍為 `permission-pending`，官方圖片可追溯但沒有重用授權。
+- 測試：22/22 通過，JSON、分店來源、電話與地址規則通過。
+- Reviewer：Aristotle 最終判定 `Research Accuracy: Pass`、`Spec Compliance: Pass`、`Data Quality: Pass`。
+- 下一步：A2.4 整理 30 筆未公開候選資料，不直接上架。
