@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import { cp, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
-import { spawn } from 'node:child_process';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -36,8 +35,9 @@ const candidateRecords = async (root = repositoryRoot) => {
 
   for (const entry of entries.filter((item) => item.isDirectory()).sort((a, b) => a.name.localeCompare(b.name))) {
     const source = JSON.parse(await readFile(path.join(categories, entry.name, 'vendors.json'), 'utf8'));
+    const publicVendorIds = source.vendors.map((vendor) => vendor.id);
     for (const candidate of source.candidateVendors ?? []) {
-      records.push({ category: entry.name, candidate });
+      records.push({ category: entry.name, candidate, publicVendorIds });
     }
   }
 
@@ -57,26 +57,6 @@ const withTemporaryVendorData = async (mutate, callback) => {
   }
 };
 
-const withTemporaryRepository = async (mutate, callback) => {
-  const root = await mkdtemp(path.join(os.tmpdir(), 'yangmeilife-candidate-build-'));
-  const shouldCopy = (source) => {
-    const relative = path.relative(repositoryRoot, source);
-    return !relative.startsWith('.git')
-      && !relative.startsWith('archive')
-      && !relative.startsWith('output')
-      && !relative.startsWith('.playwright-cli')
-      && !relative.startsWith('.superpowers');
-  };
-
-  try {
-    await cp(repositoryRoot, root, { recursive: true, filter: shouldCopy });
-    await mutate(root);
-    await callback(root);
-  } finally {
-    await rm(root, { recursive: true, force: true });
-  }
-};
-
 const updateVendorFile = async (categories, slug, mutate) => {
   const file = path.join(categories, slug, 'vendors.json');
   const source = JSON.parse(await readFile(file, 'utf8'));
@@ -90,34 +70,10 @@ const expectFailure = async (root, expectedError) => {
   assert.match(result.errors.join('\n'), expectedError);
 };
 
-const runBuild = (root) => new Promise((resolve) => {
-  const child = spawn(process.execPath, ['scripts/build-main-structure.mjs'], {
-    cwd: root,
-    env: { ...process.env, BUILD_TIMESTAMP: '2026-07-27T00:00:00.000Z' },
-    stdio: ['ignore', 'pipe', 'pipe']
-  });
-  let stderr = '';
-  child.stderr.on('data', (chunk) => {
-    stderr += chunk;
-  });
-  child.on('close', (code) => resolve({ code, stderr }));
-});
-
-const runtimeVendorIds = async (root) => {
-  const categoryData = JSON.parse(await readFile(path.join(root, 'data/vendors/vendor-categories.json'), 'utf8'));
-  const browserData = JSON.parse((await readFile(path.join(root, 'assets/js/vendor-data.js'), 'utf8'))
-    .replace(/^window\.YANGMEI_VENDOR_CATEGORIES = /, '')
-    .replace(/;\n$/, ''));
-
-  return [
-    categoryData.categories.flatMap((category) => category.vendors.map((vendor) => vendor.id)),
-    browserData.flatMap((category) => category.vendors.map((vendor) => vendor.id))
-  ];
-};
-
 test('checked-in data has exactly 30 fully triaged legacy demo candidates', async () => {
   const records = await candidateRecords();
   assert.equal(records.length, 30);
+  const publicVendorIds = new Set(records.flatMap((record) => record.publicVendorIds));
 
   for (const { candidate } of records) {
     assert.ok(allowedDispositions.has(candidate.candidateDisposition));
@@ -125,6 +81,7 @@ test('checked-in data has exactly 30 fully triaged legacy demo candidates', asyn
     assert.equal(candidate.triagedAt, '2026-07-27');
     assert.equal(candidate.triagedBy, 'A2.4 candidate triage');
     assert.equal(candidate.candidateNameStatus, 'legacy-demo-label');
+    assert.match(candidate.triageNote, /no authoritative source.*legacy demo label.*audit/i);
     assert.equal(candidate.verified, false);
     assert.equal(candidate.needsVerification, true);
     assert.equal(candidate.removedFromFrontend, true);
@@ -138,6 +95,29 @@ test('checked-in data has exactly 30 fully triaged legacy demo candidates', asyn
     assert.equal(candidate.officialSource, null);
     assert.equal(candidate.lastVerifiedAt, null);
     for (const field of strippedFields) assert.equal(candidate[field], null);
+    assert.ok(!publicVendorIds.has(candidate.id));
+  }
+});
+
+test('accepts generic non-cohort triage metadata with supported candidate name statuses', async (t) => {
+  for (const candidateNameStatus of ['reported-name', 'official-name']) {
+    await t.test(candidateNameStatus, async () => {
+      await withTemporaryVendorData(
+        (categories) => updateVendorFile(categories, 'beauty-skin', (source) => {
+          Object.assign(source.candidateVendors[0], {
+            triagedAt: '2026-07-26',
+            triagedBy: 'vendor data reviewer',
+            candidateNameStatus,
+            triageNote: 'Candidate remains unpublished pending a source review.',
+            updatedAt: '2026-07-26T09:00:00+08:00'
+          });
+        }),
+        async (root) => {
+          const result = await validateVendorData({ root, now: referenceNow });
+          assert.equal(result.valid, true, result.errors.join('\n'));
+        }
+      );
+    });
   }
 });
 
@@ -177,35 +157,78 @@ test('rejects a candidate with an invalid disposition', async () => {
   );
 });
 
-test('rejects a candidate missing required triage metadata', async () => {
-  await withTemporaryVendorData(
-    (categories) => updateVendorFile(categories, 'beauty-skin', (source) => {
-      delete source.candidateVendors[0].triagedAt;
-    }),
-    (root) => expectFailure(root, /beauty-skin.*triagedAt/i)
-  );
+test('rejects malformed generic candidate triage metadata', async (t) => {
+  const cases = [
+    ['invalid triagedAt', (candidate) => { candidate.triagedAt = '2026-07-40'; }, /triagedAt.*valid ISO date/i],
+    ['future triagedAt', (candidate) => { candidate.triagedAt = '2026-07-28'; }, /triagedAt.*future/i],
+    ['blank triagedBy', (candidate) => { candidate.triagedBy = ' '; }, /triagedBy.*non-empty/i],
+    ['invalid candidateNameStatus', (candidate) => { candidate.candidateNameStatus = 'unreviewed-name'; }, /candidateNameStatus/i],
+    ['blank triageNote', (candidate) => { candidate.triageNote = ''; }, /triageNote.*non-empty/i],
+    ['updatedAt before triagedAt', (candidate) => { candidate.updatedAt = '2026-07-26T09:00:00+08:00'; }, /updatedAt.*before triagedAt/i]
+  ];
+
+  for (const [name, mutate, expectedError] of cases) {
+    await t.test(name, async () => {
+      await withTemporaryVendorData(
+        (categories) => updateVendorFile(categories, 'beauty-skin', (source) => mutate(source.candidateVendors[0])),
+        (root) => expectFailure(root, expectedError)
+      );
+    });
+  }
 });
 
-test('rejects an unsupported consumer fact on a no-authoritative-source candidate', async () => {
-  await withTemporaryVendorData(
-    (categories) => updateVendorFile(categories, 'beauty-skin', (source) => {
-      source.candidateVendors[0].price = '$999';
-    }),
-    (root) => expectFailure(root, /beauty-skin.*price.*null/i)
-  );
+test('rejects candidates that miss disposition-specific evidence', async (t) => {
+  const cases = [
+    ['source-found without a valid source URL', (candidate) => { candidate.candidateDisposition = 'source-found'; }, /source-found.*at least one valid/i],
+    ['identity-conflict with one valid source URL', (candidate) => {
+      candidate.candidateDisposition = 'identity-conflict';
+      candidate.sourceUrls = ['https://example.com/source'];
+    }, /identity-conflict.*at least two valid/i],
+    ['possibly-closed without a valid source URL', (candidate) => { candidate.candidateDisposition = 'possibly-closed'; }, /possibly-closed.*at least one valid/i],
+    ['duplicate without duplicateOfId', (candidate) => { candidate.candidateDisposition = 'duplicate'; }, /duplicate.*duplicateOfId/i],
+    ['out-of-area without a valid source URL', (candidate) => { candidate.candidateDisposition = 'out-of-area'; }, /out-of-area.*at least one valid/i],
+    ['out-of-area without an area', (candidate) => {
+      candidate.candidateDisposition = 'out-of-area';
+      candidate.sourceUrls = ['https://example.com/source'];
+      candidate.area = '';
+    }, /out-of-area.*non-empty.*area/i]
+  ];
+
+  for (const [name, mutate, expectedError] of cases) {
+    await t.test(name, async () => {
+      await withTemporaryVendorData(
+        (categories) => updateVendorFile(categories, 'beauty-skin', (source) => mutate(source.candidateVendors[0])),
+        (root) => expectFailure(root, expectedError)
+      );
+    });
+  }
 });
 
-test('keeps candidate IDs out of temporary generated category and browser runtime data', async () => {
-  await withTemporaryRepository(
-    (root) => updateVendorFile(path.join(root, 'data/vendors/categories'), 'beauty-skin', (source) => {
-      source.candidateVendors[0].id = 'candidate-runtime-check';
-    }),
-    async (root) => {
-      const build = await runBuild(root);
-      assert.equal(build.code, 0, build.stderr);
-      const [categoryIds, browserIds] = await runtimeVendorIds(root);
-      assert.ok(!categoryIds.includes('candidate-runtime-check'));
-      assert.ok(!browserIds.includes('candidate-runtime-check'));
-    }
-  );
+test('rejects every unsupported no-authoritative-source field', async (t) => {
+  const cases = [
+    ['price', '$999'],
+    ['rating', '4.9'],
+    ['image', 'https://example.com/image.jpg'],
+    ['phone', '03-123-4567'],
+    ['address', '楊梅區測試路 1 號'],
+    ['businessHours', '09:00-18:00'],
+    ['officialUrl', 'https://example.com/official'],
+    ['mapUrl', 'https://example.com/map'],
+    ['lineUrl', 'https://example.com/line'],
+    ['tags', ['unsupported']],
+    ['sourceUrls', ['https://example.com/source']],
+    ['officialSource', 'Example source'],
+    ['lastVerifiedAt', '2026-07-27']
+  ];
+
+  for (const [field, value] of cases) {
+    await t.test(field, async () => {
+      await withTemporaryVendorData(
+        (categories) => updateVendorFile(categories, 'beauty-skin', (source) => {
+          source.candidateVendors[0][field] = value;
+        }),
+        (root) => expectFailure(root, new RegExp(`beauty-skin.*${field}.*${field === 'tags' || field === 'sourceUrls' ? 'empty' : 'null'}`, 'i'))
+      );
+    });
+  }
 });

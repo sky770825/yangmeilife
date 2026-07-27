@@ -30,9 +30,7 @@ const CANDIDATE_DISPOSITIONS = new Set([
   'no-authoritative-source',
   'out-of-area'
 ]);
-const CANDIDATE_TRIAGED_AT = '2026-07-27';
-const CANDIDATE_TRIAGED_BY = 'A2.4 candidate triage';
-const CANDIDATE_NAME_STATUS = 'legacy-demo-label';
+const CANDIDATE_NAME_STATUSES = new Set(['legacy-demo-label', 'reported-name', 'official-name']);
 const CANDIDATE_UNSUPPORTED_FIELDS = [
   'price',
   'rating',
@@ -98,19 +96,24 @@ const addTaipeiCalendarDays = (value, days) => {
   return taipeiCalendarDate(date);
 };
 
-const validateCandidateContract = ({ candidate, context, index, relativeFile, errors }) => {
+const validateCandidateContract = ({ candidate, context, index, relativeFile, currentTaipeiDate, errors }) => {
   if (!CANDIDATE_DISPOSITIONS.has(candidate?.candidateDisposition)) {
     errors.push(`${context} Candidate record at candidateVendors[${index}] candidateDisposition must be one of: ${[...CANDIDATE_DISPOSITIONS].join(', ')}.`);
   }
 
-  if (candidate?.triagedAt !== CANDIDATE_TRIAGED_AT) {
-    errors.push(`${context} Candidate triagedAt must be ${CANDIDATE_TRIAGED_AT}.`);
+  if (!isValidCalendarDate(candidate?.triagedAt)) {
+    errors.push(`${context} Candidate triagedAt must be a valid ISO date (YYYY-MM-DD).`);
+  } else if (candidate.triagedAt > currentTaipeiDate) {
+    errors.push(`${context} Candidate triagedAt must not be in the future.`);
   }
-  if (candidate?.triagedBy !== CANDIDATE_TRIAGED_BY) {
-    errors.push(`${context} Candidate triagedBy must be "${CANDIDATE_TRIAGED_BY}".`);
+  if (!isPresent(candidate?.triagedBy)) {
+    errors.push(`${context} Candidate triagedBy must be non-empty.`);
   }
-  if (candidate?.candidateNameStatus !== CANDIDATE_NAME_STATUS) {
-    errors.push(`${context} Candidate candidateNameStatus must be "${CANDIDATE_NAME_STATUS}".`);
+  if (!CANDIDATE_NAME_STATUSES.has(candidate?.candidateNameStatus)) {
+    errors.push(`${context} Candidate candidateNameStatus must be one of: ${[...CANDIDATE_NAME_STATUSES].join(', ')}.`);
+  }
+  if (!isPresent(candidate?.triageNote)) {
+    errors.push(`${context} Candidate triageNote must be non-empty.`);
   }
   if (candidate?.verified === true) {
     errors.push(`${context} Candidate record at candidateVendors[${index}] must not have verified: true.`);
@@ -128,7 +131,7 @@ const validateCandidateContract = ({ candidate, context, index, relativeFile, er
     errors.push(`${context} Candidate publicationStatus must not be "published".`);
   }
 
-  for (const field of ['id', 'name', 'area', 'removalReason', 'removedAt']) {
+  for (const field of ['id', 'name', 'removalReason', 'removedAt']) {
     if (!isPresent(candidate?.[field])) {
       errors.push(`${context} Candidate requires retained ${field}.`);
     }
@@ -136,10 +139,35 @@ const validateCandidateContract = ({ candidate, context, index, relativeFile, er
   if (candidate?.dataSource !== relativeFile) {
     errors.push(`${context} Candidate dataSource must be "${relativeFile}".`);
   }
-  if (!isIsoDateTimeWithTimezone(candidate?.updatedAt)
-    || !candidate.updatedAt.endsWith('+08:00')
-    || taipeiCalendarDate(new Date(candidate.updatedAt)) !== CANDIDATE_TRIAGED_AT) {
-    errors.push(`${context} Candidate updatedAt must be an A2.4 ISO datetime on ${CANDIDATE_TRIAGED_AT} with +08:00 timezone.`);
+  if (!isIsoDateTimeWithTimezone(candidate?.updatedAt)) {
+    errors.push(`${context} Candidate updatedAt must be an ISO datetime with timezone.`);
+  } else if (isValidCalendarDate(candidate?.triagedAt)
+    && taipeiCalendarDate(new Date(candidate.updatedAt)) < candidate.triagedAt) {
+    errors.push(`${context} Candidate updatedAt must not be before triagedAt in Taipei.`);
+  }
+
+  const validSourceUrlCount = Array.isArray(candidate?.sourceUrls)
+    ? candidate.sourceUrls.filter(isHttpUrl).length
+    : 0;
+  if (candidate?.candidateDisposition === 'source-found' && validSourceUrlCount < 1) {
+    errors.push(`${context} Candidate source-found requires at least one valid http(s) source URL.`);
+  }
+  if (candidate?.candidateDisposition === 'identity-conflict' && validSourceUrlCount < 2) {
+    errors.push(`${context} Candidate identity-conflict requires at least two valid http(s) source URLs.`);
+  }
+  if (candidate?.candidateDisposition === 'possibly-closed' && validSourceUrlCount < 1) {
+    errors.push(`${context} Candidate possibly-closed requires at least one valid http(s) source URL.`);
+  }
+  if (candidate?.candidateDisposition === 'duplicate' && !isPresent(candidate?.duplicateOfId)) {
+    errors.push(`${context} Candidate duplicate requires a non-empty duplicateOfId.`);
+  }
+  if (candidate?.candidateDisposition === 'out-of-area') {
+    if (validSourceUrlCount < 1) {
+      errors.push(`${context} Candidate out-of-area requires at least one valid http(s) source URL.`);
+    }
+    if (!isPresent(candidate?.area)) {
+      errors.push(`${context} Candidate out-of-area requires a non-empty area.`);
+    }
   }
 
   if (candidate?.candidateDisposition !== 'no-authoritative-source') return;
@@ -354,6 +382,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
           context: formatContext({ file: relativeFile, slug, vendor: candidate }),
           index,
           relativeFile,
+          currentTaipeiDate,
           errors
         });
       });

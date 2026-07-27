@@ -314,7 +314,8 @@
       "candidateDisposition": "no-authoritative-source",
       "triagedAt": "2026-07-27",
       "triagedBy": "A2.4 candidate triage",
-      "candidateNameStatus": "legacy-demo-label"
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
     },
     {
       "id": "beauty-skin-2",
@@ -353,7 +354,8 @@
       "candidateDisposition": "no-authoritative-source",
       "triagedAt": "2026-07-27",
       "triagedBy": "A2.4 candidate triage",
-      "candidateNameStatus": "legacy-demo-label"
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
     },
     {
       "id": "beauty-skin-3",
@@ -392,7 +394,8 @@
       "candidateDisposition": "no-authoritative-source",
       "triagedAt": "2026-07-27",
       "triagedBy": "A2.4 candidate triage",
-      "candidateNameStatus": "legacy-demo-label"
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
     }
   ],
   "displayTitle": "楊梅美容護膚店家",
