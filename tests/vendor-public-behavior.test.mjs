@@ -52,10 +52,10 @@ async function generatedVendorPageScript(repoRoot) {
 async function generatedCategoryScript(repoRoot) {
   const page = await generatedVendorPageScript(repoRoot);
   const start = page.indexOf('const vendorCard = (vendor, category) => {');
-  const end = page.indexOf('const matchesFilter =', start);
+  const end = page.indexOf('const applyFilters =', start);
 
   assert.notEqual(start, -1, 'generated category page should contain the vendor-card renderer');
-  assert.notEqual(end, -1, 'generated category page should end the vendor-card renderer before filtering');
+  assert.notEqual(end, -1, 'generated category page should end the vendor-card renderer before applying filters');
 
   return page.slice(start, end);
 }
@@ -152,21 +152,81 @@ test('generated public vendor cards expose only verified facts and valid phone/m
     assert.doesNotMatch(pageScript, /state\.sort === 'rating'/);
     assert.doesNotMatch(pageScript, /value="rating"/);
     assert.doesNotMatch(pageScript, /評分高到低/);
+    assert.match(pageScript, /\.vendor-card-media\{[^}]*aspect-ratio:2\/1/);
+    assert.match(pageScript, /\.vendor-card-grid--gallery\{grid-template-columns:minmax\(0,1fr\)/);
+    assert.match(pageScript, /@media \(min-width:768px\)\{[\s\S]*?#vendorPageApp \.vendor-card-grid--gallery\{grid-template-columns:repeat\(2,minmax\(0,1fr\)\)\}/);
+    assert.match(pageScript, /@media \(min-width:1180px\)\{#vendorPageApp \.vendor-card-grid--gallery\{grid-template-columns:repeat\(3,minmax\(0,1fr\)\)\}\}/);
+    assert.doesNotMatch(pageScript, /md:grid-cols-\[/);
     assert.doesNotMatch(cardScript, /vendor\.rating/);
     assert.match(cardScript, /const phoneHref = vendor\.phone \? 'tel:' \+ String\(vendor\.phone\)\.replace\(/);
-    assert.match(cardScript, /quickLink\('map', '導航', vendor\.mapUrl \|\| null/);
+    assert.match(cardScript, /quickAction\('map', '導航', vendor\.mapUrl \|\| null/);
   });
 });
 
-test('generated public vendor cards never route missing store contacts to a generic platform', async () => {
+test('generated public vendor cards consolidate store actions without a generic inquiry row', async () => {
   await withGeneratedSite(async (repoRoot) => {
     const cardScript = await generatedCategoryScript(repoRoot);
+    const pageScript = await generatedVendorPageScript(repoRoot);
 
     assert.match(cardScript, /const officialHref = vendor\.officialUrl \|\| null;/);
-    assert.match(cardScript, /const inquiryHref = vendor\.lineUrl \|\| vendor\.officialUrl \|\| null;/);
-    assert.doesNotMatch(cardScript, /vendor\.lineUrl \|\| vendor\.officialUrl \|\| LINE_URL/);
-    assert.match(cardScript, /inquiryHref\s*\?\s*`<a class="vendor-card-action vendor-card-action--primary"/);
-    assert.match(cardScript, /aria-disabled="true"/);
+    assert.match(cardScript, /const contactHref = vendor\.lineUrl \|\| vendor\.officialUrl \|\| null;/);
+    assert.doesNotMatch(cardScript, /LINE_URL/);
+    assert.doesNotMatch(cardScript, /inquiryHref/);
+    assert.doesNotMatch(cardScript, /洽詢/);
+    assert.doesNotMatch(cardScript, /vendor-card-links/);
+    assert.match(cardScript, /quickAction\('phone', '電話', phoneHref/);
+    assert.match(cardScript, /quickAction\('map', '導航', vendor\.mapUrl \|\| null/);
+    assert.match(cardScript, /quickAction\('message', contactLabel, contactHref/);
+    assert.match(pageScript, /aria-disabled="true"/);
+
+    const cardMarkup = await renderGeneratedCard(repoRoot, {
+      id: 'fixture-actions',
+      name: 'Action fixture',
+      area: 'Yangmei',
+      image: null,
+      tags: ['A', 'B', 'C', 'D'],
+      verified: true,
+      needsVerification: false,
+      publicationStatus: 'published',
+      phone: '03-123-4567',
+      address: 'Yangmei district',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Yangmei',
+      officialUrl: 'https://example.com/store',
+      officialSource: 'Fixture official site',
+      sourceUrls: ['https://example.com/store'],
+      lineUrl: 'https://line.me/R/ti/p/@fixture',
+      missingFields: [],
+    });
+    assert.match(cardMarkup, /href="tel:03-123-4567"/);
+    assert.match(cardMarkup, /href="https:\/\/www\.google\.com\/maps\/search/);
+    assert.match(cardMarkup, /href="https:\/\/line\.me\/R\/ti\/p\/@fixture"/);
+    assert.match(cardMarkup, /aria-label="收藏 Action fixture"/);
+    assert.doesNotMatch(cardMarkup, /洽詢/);
+    const actionCount = [...cardMarkup.matchAll(/class="([^"]*)"/g)]
+      .filter(([, classNames]) => classNames.split(/\s+/).includes('vendor-card-action')).length;
+    assert.equal(actionCount, 4);
+    assert.doesNotMatch(cardMarkup, />D</);
+
+    const noContactMarkup = await renderGeneratedCard(repoRoot, {
+      id: 'fixture-no-contact',
+      name: 'No contact fixture',
+      area: 'Yangmei',
+      image: null,
+      tags: [],
+      verified: true,
+      needsVerification: false,
+      publicationStatus: 'published',
+      phone: '03-123-4567',
+      address: 'Yangmei district',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Yangmei',
+      officialUrl: null,
+      officialSource: null,
+      sourceUrls: [],
+      lineUrl: null,
+      missingFields: [],
+    });
+    assert.doesNotMatch(noContactMarkup, /@931aeinu/);
+    assert.match(noContactMarkup, /aria-disabled="true"/);
   });
 });
 
@@ -195,6 +255,7 @@ test('generated public vendor cards omit image markup when no approved image exi
       const cardMarkup = await renderGeneratedCard(repoRoot, { ...fixtureVendor, image });
       assert.doesNotMatch(cardMarkup, /<img\b/i);
       assert.doesNotMatch(cardMarkup, /src="null"/);
+      assert.match(cardMarkup, /vendor-card-media--fallback/);
     }
 
     const approvedImageMarkup = await renderGeneratedCard(repoRoot, {
@@ -203,5 +264,33 @@ test('generated public vendor cards omit image markup when no approved image exi
     });
     assert.match(approvedImageMarkup, /<img\b/i);
     assert.match(approvedImageMarkup, /src="https:\/\/example\.com\/store\.jpg"/);
+    const onerrorMatch = approvedImageMarkup.match(/onerror="([^"]+)"/);
+    assert.ok(onerrorMatch, 'approved image should have an inline error fallback handler');
+    const fallbackMedia = {
+      classes: [],
+      attributes: new Map(),
+      classList: {
+        add(className) {
+          fallbackMedia.classes.push(className);
+        },
+      },
+      setAttribute(name, value) {
+        this.attributes.set(name, value);
+      },
+    };
+    const failedImage = {
+      alt: 'No approved image',
+      onerror: true,
+      parentElement: fallbackMedia,
+      removed: false,
+      remove() {
+        this.removed = true;
+      },
+    };
+    Function(onerrorMatch[1]).call(failedImage);
+    assert.deepEqual(fallbackMedia.classes, ['vendor-card-media--fallback']);
+    assert.equal(fallbackMedia.attributes.get('role'), 'img');
+    assert.equal(fallbackMedia.attributes.get('aria-label'), 'No approved image：圖片無法載入');
+    assert.equal(failedImage.removed, true);
   });
 });

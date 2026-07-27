@@ -3,12 +3,19 @@
   const app = document.getElementById('vendorPageApp');
   if (!app) return;
 
+  const vendorPageStyleId = 'vendor-page-responsive-styles';
+  if (document.head && !document.getElementById(vendorPageStyleId)) {
+    const style = document.createElement('style');
+    style.id = vendorPageStyleId;
+    style.textContent = "\n#vendorPageApp{min-width:0}\n#vendorPageApp .vendor-directory-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:center;margin-top:20px;padding:10px;border:1px solid #dbe3ed;border-radius:10px;background:#fff}\n#vendorPageApp .vendor-directory-search,#vendorPageApp .vendor-directory-sort{min-width:0;min-height:44px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:0 12px;font:inherit;font-weight:700;color:#0f172a;outline:none}\n#vendorPageApp .vendor-directory-search:focus,#vendorPageApp .vendor-directory-sort:focus,#vendorPageApp .vendor-view-button:focus-visible,#vendorPageApp .vendor-card-action:focus-visible{outline:3px solid #bfdbfe;outline-offset:2px}\n#vendorPageApp .vendor-view-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}\n#vendorPageApp .vendor-view-button{min-width:44px;min-height:44px;border:1px solid transparent;border-radius:8px;background:#f1f5f9;padding:8px;color:#334155;font:inherit;font-weight:800;cursor:pointer}\n#vendorPageApp .vendor-view-button[aria-pressed=\"true\"]{border-color:#1d4ed8;background:#dbeafe;color:#1e3a8a}\n#vendorPageApp .vendor-card-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}\n#vendorPageApp .vendor-card-grid--gallery{grid-template-columns:minmax(0,1fr)}\n#vendorPageApp .vendor-card-grid--single{width:100%;max-width:620px;margin-inline:auto;grid-template-columns:minmax(0,1fr)!important}\n#vendorPageApp .vendor-card{display:flex;min-width:0;align-self:start;flex-direction:column;overflow:hidden;border:1px solid #dbe3ed;border-radius:8px;background:#fff;box-shadow:0 1px 2px rgb(15 23 42 / 8%)}\n#vendorPageApp .vendor-card-media{display:flex;width:100%;aspect-ratio:2/1;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid #e2e8f0;background:#f8fafc;color:#64748b}\n#vendorPageApp .vendor-card-media img{display:block;width:100%;height:100%;object-fit:cover}\n#vendorPageApp .vendor-card-media--fallback svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.6}\n#vendorPageApp .vendor-card-media--fallback::before{content:'店家資訊';font-size:13px;font-weight:800;letter-spacing:0;color:#64748b}\n#vendorPageApp .vendor-card-body{min-width:0;padding:12px}\n#vendorPageApp .vendor-card-heading{min-width:0}\n#vendorPageApp .vendor-card-title{margin:0;overflow-wrap:anywhere;word-break:break-word;font-size:18px;line-height:1.35;font-weight:900;color:#0f172a}\n#vendorPageApp .vendor-card-meta{display:flex;min-width:0;flex-wrap:wrap;gap:8px;margin-top:6px;color:#475569;font-size:14px;line-height:1.45}\n#vendorPageApp .vendor-card-meta span{min-width:0;overflow-wrap:anywhere}\n#vendorPageApp .vendor-card-tags{display:flex;min-width:0;flex-wrap:wrap;gap:8px;margin-top:10px}\n#vendorPageApp .vendor-card-tag{max-width:100%;overflow-wrap:anywhere;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800;line-height:1.3}\n#vendorPageApp .vendor-card-actions{display:grid;grid-template-columns:repeat(4,minmax(44px,1fr));gap:8px;margin-top:12px}\n#vendorPageApp .vendor-card-action{display:inline-flex;min-width:44px;min-height:44px;align-items:center;justify-content:center;gap:6px;overflow:hidden;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:6px;color:#0f172a;font:inherit;font-size:13px;font-weight:800;line-height:1.15;text-decoration:none}\n#vendorPageApp .vendor-card-action svg{width:18px;height:18px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}\n#vendorPageApp .vendor-card-action-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}\n#vendorPageApp .vendor-card-action--disabled{cursor:not-allowed;background:#f8fafc;color:#94a3b8}\n#vendorPageApp .favorite-btn{cursor:pointer}\n@media (min-width:768px){#vendorPageApp .vendor-directory-toolbar{grid-template-columns:minmax(0,1fr) 168px 184px}#vendorPageApp .vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}\n@media (min-width:1024px){#vendorPageApp .vendor-card-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}#vendorPageApp .vendor-card-grid--compact .vendor-card{flex-direction:row}#vendorPageApp .vendor-card-grid--compact .vendor-card-media{width:38%;flex:0 0 38%;align-self:flex-start;border-right:1px solid #e2e8f0;border-bottom:0}#vendorPageApp .vendor-card-grid--compact .vendor-card-body{flex:1}}\n@media (min-width:1180px){#vendorPageApp .vendor-card-grid--gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}\n@media (max-width:430px){#vendorPageApp .vendor-card-action-label{display:none}#vendorPageApp .vendor-card-action{padding:6px}}\n";
+    document.head.appendChild(style);
+  }
+
   const page = app.dataset.vendorPage || location.pathname.split('/').pop();
   const state = {
     vendors: [],
     query: '',
     sort: 'default',
-    filter: 'all',
     view: localStorage.getItem('yangmeiVendorView') || 'compact'
   };
 
@@ -51,11 +58,6 @@
       .replace('僅收錄已核實電話、地址與公開來源的店家。', '方便快速查看電話、地址與公開資訊。')
       .replace(/廠商/g, '店家');
   };
-
-  const hasOfficialSource = (vendor) =>
-    !emptyish(vendor.officialUrl)
-    || !emptyish(vendor.officialSource)
-    || (Array.isArray(vendor.sourceUrls) && vendor.sourceUrls.length > 0);
 
   const normalizeVendor = (vendor) => {
     const missingFields = Array.isArray(vendor.missingFields) ? vendor.missingFields : [];
@@ -112,18 +114,21 @@
       map: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
       link: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L11 4.93"/><path d="M14 11a5 5 0 0 0-7.07 0L4.81 13.12a5 5 0 0 0 7.07 7.07L13 19.07"/></svg>',
       message: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg>',
-      bookmark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21 12 17 5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"/></svg>'
+      bookmark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21 12 17 5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"/></svg>',
+      store: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v10h16V10"/><path d="M3 10 5 4h14l2 6"/><path d="M3 10c.6 1.5 2 2 3.5 2S9.4 11.5 10 10c.6 1.5 2 2 3.5 2s2.9-.5 3.5-2c.6 1.5 2 2 3.5 2S23.4 11.5 24 10"/><path d="M9 20v-5h6v5"/></svg>'
     };
     return icons[name] || icons.link;
   };
 
-  const quickLink = (icon, label, href, options = {}) => {
+  const quickAction = (icon, label, href, options = {}) => {
     const { external = false, title = null, ariaLabel = label } = options;
-    if (emptyish(href)) {
-      return `<span class="vendor-card-link vendor-card-link--disabled" aria-disabled="true" title="${escapeHtml(label)}">${iconSvg(icon)}<span class="vendor-card-link-label">${escapeHtml(label)}</span></span>`;
-    }
+    const iconMarkup = iconSvg(icon);
+    const labelMarkup = `<span class="vendor-card-action-label">${escapeHtml(label)}</span>`;
     const titleAttr = title ? ` title="${escapeHtml(title)}"` : '';
-    return `<a class="vendor-card-link" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}${titleAttr} aria-label="${escapeHtml(ariaLabel)}">${iconSvg(icon)}<span class="vendor-card-link-label">${escapeHtml(label)}</span></a>`;
+    if (emptyish(href)) {
+      return `<span class="vendor-card-action vendor-card-action--disabled" aria-disabled="true"${titleAttr || ` title="${escapeHtml(label)}"`} aria-label="${escapeHtml(ariaLabel)}">${iconMarkup}${labelMarkup}</span>`;
+    }
+    return `<a class="vendor-card-action" href="${escapeHtml(href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''}${titleAttr} aria-label="${escapeHtml(ariaLabel)}">${iconMarkup}${labelMarkup}</a>`;
   };
 
   const vendorCard = (vendor, category) => {
@@ -132,15 +137,20 @@
     const officialLabel = vendor.officialSource || vendor.officialUrl || '';
     const officialHref = vendor.officialUrl || null;
     const officialDisplayLabel = officialSourceShortLabel(vendor);
-    const metaItems = [vendor.area, vendor.price].filter((value) => !emptyish(value));
-    const inquiryHref = vendor.lineUrl || vendor.officialUrl || null;
+    const contactHref = vendor.lineUrl || vendor.officialUrl || null;
+    const contactLabel = vendor.lineUrl ? 'LINE' : officialDisplayLabel;
+    const contactTitle = vendor.lineUrl ? '開啟店家 LINE' : (officialLabel || '店家聯絡方式待補');
+    const contactAriaLabel = vendor.lineUrl
+      ? '開啟店家 LINE：' + vendor.name
+      : (officialHref ? '開啟官方來源：' + officialLabel : '店家聯絡方式待補');
+    const metaItems = [vendor.area].filter((value) => !emptyish(value));
     const phoneHref = vendor.phone ? 'tel:' + String(vendor.phone).replace(/[^0-9+#*,-]/g, '') : null;
     const imageUrl = typeof vendor.img === 'string' && new RegExp('^(?:https?:/{2}|/(?!/)|[.]{1,2}/|assets/)', 'i').test(vendor.img.trim())
       ? vendor.img.trim()
       : null;
     const imageMarkup = imageUrl
-      ? '<img class="vendor-card-image" src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(vendor.name) + '" loading="lazy" decoding="async" width="640" height="360">'
-      : '';
+      ? '<div class="vendor-card-media"><img class="vendor-card-image" src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(vendor.name) + '" loading="lazy" decoding="async" width="640" height="360" onerror="this.onerror=null;this.parentElement.classList.add(\'vendor-card-media--fallback\');this.parentElement.setAttribute(\'role\',\'img\');this.parentElement.setAttribute(\'aria-label\',this.alt+\'：圖片無法載入\');this.remove()"></div>'
+      : '<div class="vendor-card-media vendor-card-media--fallback" role="img" aria-label="' + escapeHtml(vendor.name) + '：暫無核可圖片">' + iconSvg('store') + '</div>';
   return `<article class="vendor-card" data-search="${escapeHtml(searchHaystack(vendor))}">
       ${imageMarkup}
       <div class="vendor-card-body">
@@ -150,42 +160,23 @@
         <div class="vendor-card-meta">
           ${metaItems.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}
         </div>
-        <div class="vendor-card-links">
-          ${quickLink('phone', '撥打', phoneHref, { title: vendor.phone || '電話待補', ariaLabel: vendor.phone ? '撥打電話：' + vendor.phone : '電話待補' })}
-          ${quickLink('map', '導航', vendor.mapUrl || null, { external: Boolean(vendor.mapUrl), title: vendor.address || '地址待補', ariaLabel: vendor.address ? '導航到：' + vendor.address : '地址待補' })}
-          ${hasOfficialSource(vendor)
-            ? quickLink('link', officialDisplayLabel, officialHref, { external: true, title: officialLabel, ariaLabel: '開啟官方來源：' + officialLabel })
-            : quickLink('link', '官方', null, { title: '來源待補', ariaLabel: '官方來源待補' })}
-        </div>
         <div class="vendor-card-tags">
           ${vendor.tags.slice(0, 3).map((tag) => `<span class="vendor-card-tag" style="background:${category.accent}16;color:${category.accent}">${escapeHtml(tag)}</span>`).join('')}
         </div>
         <div class="vendor-card-actions">
-          ${inquiryHref
-            ? `<a class="vendor-card-action vendor-card-action--primary" style="background:${category.accent}" href="${escapeHtml(inquiryHref)}" target="_blank" rel="noopener noreferrer">${iconSvg('message')}<span>洽詢</span></a>`
-            : `<span class="vendor-card-action vendor-card-action--secondary" aria-disabled="true" title="店家聯絡方式待補">${iconSvg('message')}<span>洽詢</span></span>`}
-          <button class="favorite-btn vendor-card-action vendor-card-action--secondary" type="button" data-vendor-id="${escapeHtml(vendor.id)}">${iconSvg('bookmark')}<span>${favored ? '已收藏' : '收藏'}</span></button>
+          ${quickAction('phone', '電話', phoneHref, { title: vendor.phone || '電話待補', ariaLabel: vendor.phone ? '撥打電話：' + vendor.phone : '電話待補' })}
+          ${quickAction('map', '導航', vendor.mapUrl || null, { external: Boolean(vendor.mapUrl), title: vendor.address || '地址待補', ariaLabel: vendor.address ? '導航到：' + vendor.address : '地址待補' })}
+          ${quickAction('message', contactLabel, contactHref, { external: Boolean(contactHref), title: contactTitle, ariaLabel: contactAriaLabel })}
+          <button class="favorite-btn vendor-card-action" type="button" data-vendor-id="${escapeHtml(vendor.id)}" aria-label="收藏 ${escapeHtml(vendor.name)}" title="收藏 ${escapeHtml(vendor.name)}" aria-pressed="${favored}">${iconSvg('bookmark')}<span class="vendor-card-action-label">${favored ? '已收藏' : '收藏'}</span></button>
         </div>
       </div>
     </article>`;
-  };
-
-  const matchesFilter = (vendor) => {
-    if (state.filter === 'all') return true;
-    if (state.filter === 'verified') return vendor.verified;
-    if (state.filter === 'needs-verification') return vendor.needsVerification || !vendor.verified;
-    if (state.filter === 'missing-contact') {
-      return vendor.missingFields.includes('phone') || vendor.missingFields.includes('address');
-    }
-    if (state.filter === 'missing-source') return vendor.missingFields.includes('officialSource');
-    return true;
   };
 
   const applyFilters = (category) => {
     const query = state.query.trim().toLowerCase();
     let vendors = [...state.vendors];
     if (query) vendors = vendors.filter((vendor) => searchHaystack(vendor).includes(query));
-    vendors = vendors.filter(matchesFilter);
     if (state.sort === 'price-low') vendors.sort((a, b) => Number(String(a.price).replace(/[^0-9]/g, '') || 0) - Number(String(b.price).replace(/[^0-9]/g, '') || 0));
     if (state.sort === 'price-high') vendors.sort((a, b) => Number(String(b.price).replace(/[^0-9]/g, '') || 0) - Number(String(a.price).replace(/[^0-9]/g, '') || 0));
     if (state.sort === 'area') vendors.sort((a, b) => String(a.area).localeCompare(String(b.area), 'zh-Hant'));
@@ -210,10 +201,6 @@
     });
     app.querySelector('#vendorSort').addEventListener('change', (event) => {
       state.sort = event.target.value;
-      applyFilters(category);
-    });
-    app.querySelector('#vendorFilter').addEventListener('change', (event) => {
-      state.filter = event.target.value;
       applyFilters(category);
     });
     app.querySelectorAll('[data-view]').forEach((button) => {
@@ -267,20 +254,17 @@
           </div>
         </div>
       </header>
-      <section class="mt-5 grid gap-3 rounded-2xl bg-white/80 p-3 shadow-sm md:grid-cols-[1fr_auto_auto] md:items-center">
-        <input id="vendorSearch" class="min-h-11 min-w-0 rounded-xl border border-slate-300 bg-white px-4 font-bold outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100" type="search" placeholder="搜尋店名、地區、電話或地址">
-        <select id="vendorFilter" class="hidden" aria-label="篩選方式">
-          <option value="all">全部</option>
-        </select>
-        <select id="vendorSort" class="min-h-11 min-w-0 rounded-xl border border-slate-300 bg-white px-3 font-bold outline-none focus:border-indigo-500" aria-label="排序方式">
+      <section class="vendor-directory-toolbar" aria-label="店家瀏覽工具">
+        <input id="vendorSearch" class="vendor-directory-search" type="search" placeholder="搜尋店名、地區、電話或地址" aria-label="搜尋店家">
+        <select id="vendorSort" class="vendor-directory-sort" aria-label="排序方式">
           <option value="default">預設排序</option>
           <option value="price-low">價格低到高</option>
           <option value="price-high">價格高到低</option>
           <option value="area">依地區</option>
         </select>
-        <div class="grid grid-cols-2 rounded-xl bg-slate-100 p-1">
-          <button class="rounded-lg px-3 py-2 text-sm font-black" type="button" data-view="compact" aria-pressed="${state.view === 'compact'}">精簡</button>
-          <button class="rounded-lg px-3 py-2 text-sm font-black" type="button" data-view="gallery" aria-pressed="${state.view === 'gallery'}">大圖</button>
+        <div class="vendor-view-switch" aria-label="檢視方式">
+          <button class="vendor-view-button" type="button" data-view="compact" aria-pressed="${state.view === 'compact'}" aria-label="精簡檢視" title="精簡檢視">精簡</button>
+          <button class="vendor-view-button" type="button" data-view="gallery" aria-pressed="${state.view === 'gallery'}" aria-label="圖庫檢視" title="圖庫檢視">大圖</button>
         </div>
       </section>
       <section id="vendorGrid" class="mt-5"></section>
