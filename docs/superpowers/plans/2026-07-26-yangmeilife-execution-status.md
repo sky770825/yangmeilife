@@ -165,3 +165,16 @@
 - 測試：22/22 通過，JSON、分店來源、電話與地址規則通過。
 - Reviewer：Aristotle 最終判定 `Research Accuracy: Pass`、`Spec Compliance: Pass`、`Data Quality: Pass`。
 - 下一步：A2.4 整理 30 筆未公開候選資料，不直接上架。
+
+## 2026-07-27 - A2.4 候選資料整理核准
+
+- 狀態：`completed`
+- 版本：`f894245..58c924f`
+- 候選資料：30 筆全部標記為 `no-authoritative-source` 與 `legacy-demo-label`，只保留內部稽核用途。
+- 去假化：移除候選資料中的展示價格、評分、圖庫圖片、標籤與未核實聯絡欄位。
+- 發布限制：候選資料維持 `verified: false`、不得 `published`，且沒有任何候選 ID 進入公開店家清單。
+- 驗證器：支援六種候選處理狀態、欄位證據與跨紀錄重複指向檢查，不再把 A2.4 日期或操作者寫死成永久規則。
+- 測試：69/69 通過；公開店家仍為 11 家。
+- Reviewer：Feynman 判定 `Spec Compliance: Pass`、`Code Quality: Pass`。
+- 非阻擋建議：未來實際使用 duplicate 狀態前，再加入候選 ID 全域唯一與循環引用阻擋。
+- 下一步：A2.5 逐一審查 11 張店家圖片的來源與使用權。
