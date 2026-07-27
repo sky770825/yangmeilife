@@ -1,5 +1,4 @@
-import { existsSync } from 'node:fs';
-import { readdir, readFile } from 'node:fs/promises';
+import { lstat, readdir, readFile, realpath, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -66,11 +65,33 @@ const isHttpUrl = (value) => {
 const isIsoDateTimeWithTimezone = (value) => isPresent(value)
   && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)
   && !Number.isNaN(Date.parse(value));
-const isExistingLocalAsset = (root, assetPath) => {
-  if (!isPresent(assetPath)) return false;
-  const resolvedRoot = path.resolve(root);
-  const resolvedAsset = path.resolve(resolvedRoot, assetPath);
-  return resolvedAsset.startsWith(`${resolvedRoot}${path.sep}`) && existsSync(resolvedAsset);
+const isPathWithin = (root, candidate) => candidate.startsWith(`${root}${path.sep}`);
+const localAssetPathError = async (root, assetPath) => {
+  if (!isPresent(assetPath)
+    || path.isAbsolute(assetPath)
+    || assetPath.split(/[\\/]+/).includes('..')) return 'relative';
+
+  let resolvedRoot;
+  let resolvedAsset;
+  try {
+    resolvedRoot = await realpath(root);
+    resolvedAsset = path.resolve(resolvedRoot, assetPath);
+  } catch {
+    return 'regular-file';
+  }
+  if (!isPathWithin(resolvedRoot, resolvedAsset)) return 'relative';
+
+  try {
+    const assetLstat = await lstat(resolvedAsset);
+    if (assetLstat.isSymbolicLink() || !assetLstat.isFile()) return 'regular-file';
+
+    const resolvedAssetRealpath = await realpath(resolvedAsset);
+    if (!isPathWithin(resolvedRoot, resolvedAssetRealpath)) return 'regular-file';
+
+    return (await stat(resolvedAsset)).isFile() ? null : 'regular-file';
+  } catch {
+    return 'regular-file';
+  }
 };
 
 const taipeiCalendarDate = (date) => {
@@ -212,7 +233,7 @@ const validateCandidateContract = ({ candidate, context, index, relativeFile, cu
   }
 };
 
-const validatePublishedContract = ({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, root, now, errors }) => {
+const validatePublishedContract = async ({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, root, now, errors }) => {
   if (vendor?.verified !== true) {
     errors.push(`${context} Published vendor requires verified: true.`);
   }
@@ -313,33 +334,53 @@ const validatePublishedContract = ({ vendor, context, currentTaipeiDate, current
       vendor.imageSourceUrl
     ].filter(isHttpUrl));
 
-    if (media.rightsStatus === 'official-external') {
+    const validateTraceableExternalImage = (rightsStatus) => {
       if (!isHttpUrl(vendor.image)) {
-        errors.push(`${context} official-external requires image to be an external http(s) URL.`);
+        errors.push(`${context} ${rightsStatus} requires image to be an external http(s) URL.`);
       }
       if (vendor.imageSourceType !== 'official') {
-        errors.push(`${context} official-external requires imageSourceType to be "official".`);
+        errors.push(`${context} ${rightsStatus} requires imageSourceType to be "official".`);
       }
       if (!isPresent(vendor.imageSource) || !isHttpUrl(vendor.imageSourceUrl)) {
-        errors.push(`${context} official-external requires non-empty official image source metadata.`);
+        errors.push(`${context} ${rightsStatus} requires non-empty official image source metadata.`);
       }
       if (!isHttpUrl(media.sourceUrl) || !officialPageUrls.has(media.sourceUrl)) {
-        errors.push(`${context} official-external requires media.sourceUrl to be a traceable official page URL.`);
+        errors.push(`${context} ${rightsStatus} requires media.sourceUrl to be a traceable official page URL.`);
       }
+    };
+
+    if (media.rightsStatus === 'official-external') {
+      validateTraceableExternalImage('official-external');
       if (media.assetPath !== null) {
         errors.push(`${context} official-external requires media.assetPath to be null.`);
       }
-      if (media.permissionEvidence !== null) {
-        errors.push(`${context} official-external requires media.permissionEvidence to be null unless explicit evidence exists.`);
+      if (media.permissionEvidence !== null && !isHttpUrl(media.permissionEvidence)) {
+        errors.push(`${context} official-external requires media.permissionEvidence to be null or a valid http(s) evidence URL.`);
       }
     }
 
     if (media.rightsStatus === 'licensed-local') {
-      if (!isPresent(media.assetPath) || !isExistingLocalAsset(root, media.assetPath)) {
-        errors.push(`${context} licensed-local requires media.assetPath to reference an existing file.`);
+      const assetPathError = await localAssetPathError(root, media.assetPath);
+      if (assetPathError === 'relative') {
+        errors.push(`${context} licensed-local requires media.assetPath to be a relative in-repository path.`);
+      } else if (assetPathError === 'regular-file') {
+        errors.push(`${context} licensed-local requires media.assetPath to reference an in-repository regular file.`);
       }
-      if (!isPresent(media.permissionEvidence)) {
-        errors.push(`${context} licensed-local requires non-empty media.permissionEvidence.`);
+      if (!isHttpUrl(media.permissionEvidence)) {
+        errors.push(`${context} licensed-local requires media.permissionEvidence to be a valid http(s) evidence URL.`);
+      }
+    }
+
+    if (media.rightsStatus === 'permission-pending') {
+      validateTraceableExternalImage('permission-pending');
+      if (media.assetPath !== null) {
+        errors.push(`${context} permission-pending requires media.assetPath to be null.`);
+      }
+      if (media.permissionEvidence !== null) {
+        errors.push(`${context} permission-pending requires media.permissionEvidence to be null.`);
+      }
+      if (!isPresent(media.pendingReason)) {
+        errors.push(`${context} permission-pending requires a non-empty media.pendingReason.`);
       }
     }
 
@@ -473,7 +514,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
       });
     }
 
-    source.vendors.forEach((vendor, index) => {
+    for (const [index, vendor] of source.vendors.entries()) {
       const context = formatContext({ file: relativeFile, slug, vendor });
 
       if (!isPresent(vendor?.id)) {
@@ -498,12 +539,12 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
 
       if (!PUBLICATION_STATUSES.has(vendor?.publicationStatus)) {
         errors.push(`${context} Vendor publicationStatus must be published, hold, or retired.`);
-        return;
+        continue;
       }
 
-      if (vendor.publicationStatus !== 'published') return;
+      if (vendor.publicationStatus !== 'published') continue;
       publishedVendors.push({ vendor, slug, relativeFile });
-      validatePublishedContract({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, root, now, errors });
+      await validatePublishedContract({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, root, now, errors });
 
       for (const field of ['phone', 'address', 'officialSource', 'lastVerifiedAt']) {
         if (!isPresent(vendor[field])) {
@@ -528,7 +569,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
           errors.push(`${context} Verified vendor lastVerifiedAt is older than 90 days.`);
         }
       }
-    });
+    }
   }
 
   for (const { candidate, context } of deferredDuplicateCandidates) {
