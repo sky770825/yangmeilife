@@ -166,6 +166,15 @@ test('generated public vendor cards expose only verified facts and valid phone/m
     assert.match(pageScript, /@media \(min-width:768px\)\{[\s\S]*?#vendorPageApp \.vendor-card-grid--gallery\{grid-template-columns:repeat\(2,minmax\(0,1fr\)\)\}/);
     assert.match(pageScript, /@media \(min-width:1180px\)\{#vendorPageApp \.vendor-card-grid--gallery\{grid-template-columns:repeat\(3,minmax\(0,1fr\)\)\}\}/);
     assert.doesNotMatch(pageScript, /md:grid-cols-\[/);
+    assert.match(pageScript, /\.vendor-page-header-layout\{display:grid;grid-template-columns:minmax\(0,1fr\)/);
+    assert.match(pageScript, /\.vendor-page-summary\{width:fit-content;/);
+    assert.match(pageScript, /@media \(min-width:768px\)\{[\s\S]*?\.vendor-page-summary\{width:auto;justify-self:end/);
+    assert.match(pageScript, /\.vendor-page-join-action\{[^}]*min-height:44px[^}]*background:#0f172a/);
+    assert.match(pageScript, /class="vendor-page-header panel"/);
+    assert.match(pageScript, /class="vendor-page-summary"/);
+    assert.match(pageScript, /class="vendor-page-join"/);
+    assert.match(pageScript, /class="vendor-page-join-action"/);
+    assert.doesNotMatch(pageScript, /lg:flex-row/);
     assert.doesNotMatch(cardScript, /vendor\.rating/);
     assert.match(cardScript, /const phoneHref = vendor\.phone \? 'tel:' \+ String\(vendor\.phone\)\.replace\(/);
     assert.match(cardScript, /quickAction\('map', '導航', vendor\.mapUrl \|\| null/);

@@ -796,9 +796,18 @@ ${cards}
 
 const vendorPageCss = `
 #vendorPageApp{min-width:0}
+#vendorPageApp .vendor-page-header{padding:16px}
+#vendorPageApp .vendor-page-header-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
+#vendorPageApp .vendor-page-header-content{min-width:0}
+#vendorPageApp .vendor-page-eyebrow{font-size:14px;font-weight:900}
+#vendorPageApp .vendor-page-title{margin:4px 0 0;overflow-wrap:anywhere;font-size:28px;line-height:1.2;font-weight:900;color:#0f172a}
+#vendorPageApp .vendor-page-intro{margin:8px 0 0;max-width:768px;overflow-wrap:anywhere;color:#475569;line-height:1.55}
+#vendorPageApp .vendor-page-summary{width:fit-content;min-width:112px;justify-self:start;border:1px solid #e2e8f0;border-radius:8px;background:#fff;padding:8px 12px;text-align:center;box-shadow:0 1px 2px rgb(15 23 42 / 6%)}
+#vendorPageApp .vendor-page-summary-count{font-weight:900;color:#0f172a}
+#vendorPageApp .vendor-page-summary-label{margin-top:2px;font-size:12px;color:#64748b}
 #vendorPageApp .vendor-directory-toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:center;margin-top:20px;padding:10px;border:1px solid #dbe3ed;border-radius:10px;background:#fff}
 #vendorPageApp .vendor-directory-search,#vendorPageApp .vendor-directory-sort{min-width:0;min-height:44px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;padding:0 12px;font:inherit;font-weight:700;color:#0f172a;outline:none}
-#vendorPageApp .vendor-directory-search:focus,#vendorPageApp .vendor-directory-sort:focus,#vendorPageApp .vendor-view-button:focus-visible,#vendorPageApp .vendor-card-action:focus-visible{outline:3px solid #bfdbfe;outline-offset:2px}
+#vendorPageApp .vendor-directory-search:focus,#vendorPageApp .vendor-directory-sort:focus,#vendorPageApp .vendor-view-button:focus-visible,#vendorPageApp .vendor-card-action:focus-visible,#vendorPageApp .vendor-page-join-action:focus-visible{outline:3px solid #bfdbfe;outline-offset:2px}
 #vendorPageApp .vendor-view-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 #vendorPageApp .vendor-view-button{min-width:44px;min-height:44px;border:1px solid transparent;border-radius:8px;background:#f1f5f9;padding:8px;color:#334155;font:inherit;font-weight:800;cursor:pointer}
 #vendorPageApp .vendor-view-button[aria-pressed="true"]{border-color:#1d4ed8;background:#dbeafe;color:#1e3a8a}
@@ -823,7 +832,12 @@ const vendorPageCss = `
 #vendorPageApp .vendor-card-action-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #vendorPageApp .vendor-card-action--disabled{cursor:not-allowed;background:#f8fafc;color:#94a3b8}
 #vendorPageApp .favorite-btn{cursor:pointer}
-@media (min-width:768px){#vendorPageApp .vendor-directory-toolbar{grid-template-columns:minmax(0,1fr) 168px 184px}#vendorPageApp .vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+#vendorPageApp .vendor-page-join{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:center;margin-top:20px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;padding:16px}
+#vendorPageApp .vendor-page-join-content{min-width:0}
+#vendorPageApp .vendor-page-join-title{margin:0;font-size:16px;font-weight:900;color:#0f172a}
+#vendorPageApp .vendor-page-join-text{margin:4px 0 0;overflow-wrap:anywhere;color:#475569;font-size:14px;line-height:1.5}
+#vendorPageApp .vendor-page-join-action{display:inline-flex;width:fit-content;min-width:132px;min-height:44px;align-items:center;justify-content:center;border-radius:8px;background:#0f172a;padding:0 16px;color:#fff;font-weight:900;text-decoration:none}
+@media (min-width:768px){#vendorPageApp .vendor-page-header{padding:20px}#vendorPageApp .vendor-page-header-layout{grid-template-columns:minmax(0,1fr) 132px;align-items:end}#vendorPageApp .vendor-page-summary{width:auto;justify-self:end}#vendorPageApp .vendor-directory-toolbar{grid-template-columns:minmax(0,1fr) 168px 184px}#vendorPageApp .vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}#vendorPageApp .vendor-page-join{grid-template-columns:minmax(0,1fr) auto}#vendorPageApp .vendor-page-join-action{justify-self:end}}
 @media (min-width:1024px){#vendorPageApp .vendor-card-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}#vendorPageApp .vendor-card-grid--compact .vendor-card{flex-direction:row}#vendorPageApp .vendor-card-grid--compact .vendor-card-media{width:38%;flex:0 0 38%;align-self:flex-start;border-right:1px solid #e2e8f0;border-bottom:0}#vendorPageApp .vendor-card-grid--compact .vendor-card-body{flex:1}}
 @media (min-width:1180px){#vendorPageApp .vendor-card-grid--gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:430px){#vendorPageApp .vendor-card-action-label{display:none}#vendorPageApp .vendor-card-action{padding:6px}}
@@ -1070,15 +1084,16 @@ const vendorPageJs = `(() => {
         <a class="nav-link bg-white text-indigo-700 shadow-sm" href="pages/index.html">功能分類</a>
         <a class="nav-link bg-slate-900 text-white shadow-sm" href="\${escapeHtml(category.categoryUrl)}">\${escapeHtml(displayCategoryTitle)}</a>
       </nav>
-      <header class="panel rounded-2xl p-6 sm:p-8">
-        <div class="ui-min-w-0 flex min-w-0 flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div class="ui-min-w-0 min-w-0">
-            <div class="text-sm font-black" style="color:\${category.accent}">店家分類</div>
-            <h1 class="mt-2 text-3xl font-black tracking-tight sm:text-4xl">\${escapeHtml(displayTitle)}</h1>
-            <p class="mt-3 max-w-3xl text-slate-600">\${escapeHtml(displayIntro)}</p>
+      <header class="vendor-page-header panel">
+        <div class="vendor-page-header-layout">
+          <div class="vendor-page-header-content">
+            <div class="vendor-page-eyebrow" style="color:\${category.accent}">店家分類</div>
+            <h1 class="vendor-page-title">\${escapeHtml(displayTitle)}</h1>
+            <p class="vendor-page-intro">\${escapeHtml(displayIntro)}</p>
           </div>
-          <div class="ui-min-w-0 grid min-w-0 grid-cols-1 gap-2 text-center text-sm">
-            <div class="ui-min-w-0 min-w-0 rounded-xl bg-white px-3 py-2 shadow-sm"><div id="vendorCount" class="font-black text-slate-950">0 家</div><div class="text-xs text-slate-500">店家</div></div>
+          <div class="vendor-page-summary">
+            <div id="vendorCount" class="vendor-page-summary-count">0 家</div>
+            <div class="vendor-page-summary-label">店家</div>
           </div>
         </div>
       </header>
@@ -1095,12 +1110,12 @@ const vendorPageJs = `(() => {
       </section>
       <section id="vendorGrid" class="mt-5"></section>
       <p id="vendorEmpty" class="mt-5 rounded-xl bg-white p-5 text-center font-bold text-slate-500" hidden>沒有符合的廠商</p>
-      <section class="mt-5 flex flex-col gap-3 rounded-2xl bg-white/80 p-5 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 class="font-black text-slate-950">想讓店家出現在這裡？</h2>
-          <p class="mt-1 text-sm leading-6 text-slate-600">提供店名、地址、電話與官方連結，我們會協助整理成店家卡片。</p>
+      <section class="vendor-page-join">
+        <div class="vendor-page-join-content">
+          <h2 class="vendor-page-join-title">想讓店家出現在這裡？</h2>
+          <p class="vendor-page-join-text">提供店名、地址、電話與官方連結，我們會協助整理成店家卡片。</p>
         </div>
-        <a class="inline-flex min-h-11 items-center justify-center rounded-lg bg-slate-950 px-4 font-black text-white" href="\${LINE_URL}" target="_blank" rel="noopener noreferrer">新增我的店</a>
+        <a class="vendor-page-join-action" href="\${LINE_URL}" target="_blank" rel="noopener noreferrer">新增我的店</a>
       </section>\`;
     app.querySelectorAll('[data-view]').forEach((node) => node.setAttribute('aria-pressed', String(node.dataset.view === state.view)));
     wireControls(category);
