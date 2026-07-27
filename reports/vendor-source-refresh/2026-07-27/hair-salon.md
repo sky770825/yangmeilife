@@ -74,24 +74,24 @@ Scope: the three existing public records in `hair-salon/vendors.json` only. No c
 | [Facebook page](https://www.facebook.com/yiling688/) | HTTP 200, but the live page was a Facebook temporary-block/login shell | No business field was readable. |
 | [Instagram profile](https://www.instagram.com/ylhairsalon/) | Research fetch did not yield readable public content | No field was accepted from the profile. |
 | [YL electronic business card](https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1) | HTTP 200 | Store-controlled electronic card identifies `YL Hair Salon`, lists 03-4789059, 0981-317-219, and 桃園市楊梅區環南路61號, and labels its booking LINE. |
-| [Saved LINE short URL](https://lin.ee/hxk7s94) | Redirect destination could not be safely opened | It did not provide a readable store identity. |
-| [Current booking LINE from electronic card](https://lin.ee/jriwMC6) | Redirects to `line.me/R/ti/p/@396zqkal`; the generic destination could not be safely opened | The electronic card, rather than the generic LINE landing page, is the evidence for the updated booking URL. |
+| [Saved LINE short URL](https://lin.ee/hxk7s94) | Resolves to LINE account `@396zqkal` | Historical store-controlled short-link representation. |
+| [Current booking LINE from electronic card](https://lin.ee/jriwMC6) | Resolves to the same LINE account `@396zqkal` | Current store-controlled short-link representation on the electronic card. |
 
 ### Field decision record
 
 | Field | Old value | Observed value | Accepted source | Decision |
 | --- | --- | --- | --- | --- |
-| name | YL Hair Salon 意翎髮藝 | Electronic card labels YL Hair Salon | Electronic business card | Retained name; evidence narrowed to the readable store-controlled card. |
+| name | YL Hair Salon 意翎髮藝 | Historical Facebook and Instagram sources support the Chinese suffix; electronic card labels YL Hair Salon | Facebook, Instagram, and electronic business card | Retained the full name with field-specific historical and current evidence. |
 | phone | 03-478-9059 | Card lists 03-4789059 and an additional mobile number | Electronic business card | Retained listed primary phone; no unsupported preference change. |
 | address | 楊梅區環南路61號 | Card lists 桃園市楊梅區環南路61號 | Electronic business card | Retained. |
 | businessHours | 星期二至星期日，星期一公休 | No schedule on readable electronic card; social pages unreadable | None | Retained; not freshly claimed. |
 | officialUrl | Facebook page URL | Facebook page unreadable; electronic card links a Facebook destination but it was also throttled | None | Retained without changing the official URL. |
-| lineUrl | https://lin.ee/hxk7s94 | Electronic card labels `https://lin.ee/jriwMC6` as the store booking LINE | Electronic business card | Updated to the currently linked booking URL. |
+| lineUrl | https://lin.ee/hxk7s94 | Both short URLs resolve to `@396zqkal`; electronic card labels `https://lin.ee/jriwMC6` as the store booking LINE | Electronic business card and LINE redirects | Refreshed to the card's store-controlled short-link representation; booking destination/account is unchanged. |
 | image / rating / placeId / coordinates | Unsplash image / null / null / null | No explicit reuse grant or accepted map record | None | Retained; no inferred values. |
 
 ### Publication and rights decision
 
-- Publication: `published` retained. The readable store-controlled card matches the existing primary phone and address; it provides a current booking LINE. No identity, phone, address, relocation, or closure conflict was observed.
+- Publication: `published` retained. The readable store-controlled card matches the existing primary phone and address. The old and current LINE short URLs both resolve to `@396zqkal`, so this is a refreshed short-link representation, not a booking destination/account change. No identity, phone, address, relocation, or closure conflict was observed.
 - Missing fields: freshly confirmed current hours, explicit image-reuse permission, place ID, coordinates, and merchant consent.
 - Media rights remain `permission-pending`; merchant consent remains `not-recorded`.
 - Overall verification and media dates were retained because business hours and the saved social URLs were not fully reverified.

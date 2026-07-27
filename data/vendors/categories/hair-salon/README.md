@@ -21,6 +21,10 @@
 4. 本來源刷新作業不執行完整產生器，也不直接修改 `updates.json` 或前台輸出檔。
 5. 人工核實完成後，更新 `verified`、`verificationStatus`、`verificationLevel` 與 `lastVerifiedAt`。
 
+## YL LINE 短網址註記
+
+- `https://lin.ee/hxk7s94` 與店家電子名片使用的 `https://lin.ee/jriwMC6` 均解析至 LINE 帳號 `@396zqkal`；後者是店家自控的短網址呈現刷新，不代表預約目的地或帳號變更。
+
 ## 重要提醒
 
 - **不可**把展示資料標為已核實（`verified: true`）。

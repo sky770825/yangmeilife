@@ -193,7 +193,7 @@
       "dataSource": "data/vendors/categories/hair-salon/vendors.json",
       "sourceNote": "店名、主電話、地址與預約 LINE 以店家電子名片核實；營業日仍待可讀官方社群複核。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:15:32+0800",
+      "updatedAt": "2026-07-27T10:07:33+08:00",
       "phone": "03-478-9059",
       "address": "楊梅區環南路61號",
       "businessHours": "星期二至星期日，星期一公休",
@@ -214,6 +214,8 @@
       "reviewedBy": "2026-07-03 review migration",
       "fieldSources": {
         "name": [
+          "https://www.facebook.com/yiling688/",
+          "https://www.instagram.com/ylhairsalon/",
           "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
         ],
         "phone": [
