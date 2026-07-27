@@ -57,23 +57,19 @@
       "fieldSources": {
         "name": [
           "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-          "https://www.instagram.com/p/DWQm1L0FK0j/",
-          "https://lin.ee/SJ15p7G"
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
         ],
         "phone": [
           "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-          "https://www.instagram.com/p/DWQm1L0FK0j/",
-          "https://lin.ee/SJ15p7G"
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
         ],
         "address": [
           "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-          "https://www.instagram.com/p/DWQm1L0FK0j/",
-          "https://lin.ee/SJ15p7G"
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
         ],
         "businessHours": [
           "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-          "https://www.instagram.com/p/DWQm1L0FK0j/",
-          "https://lin.ee/SJ15p7G"
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
         ],
         "officialUrl": [
           "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/"
@@ -142,24 +138,16 @@
       "reviewedBy": "2026-07-03 review migration",
       "fieldSources": {
         "name": [
-          "https://www.facebook.com/lin4856968/",
-          "https://www.1111.com.tw/corp/69623666/",
-          "https://www.gomaji.com/store/15289/pid/279869"
+          "https://www.facebook.com/lin4856968/"
         ],
         "phone": [
-          "https://www.facebook.com/lin4856968/",
-          "https://www.1111.com.tw/corp/69623666/",
-          "https://www.gomaji.com/store/15289/pid/279869"
+          "https://www.facebook.com/lin4856968/"
         ],
         "address": [
-          "https://www.facebook.com/lin4856968/",
-          "https://www.1111.com.tw/corp/69623666/",
-          "https://www.gomaji.com/store/15289/pid/279869"
+          "https://www.facebook.com/lin4856968/"
         ],
         "businessHours": [
-          "https://www.facebook.com/lin4856968/",
-          "https://www.1111.com.tw/corp/69623666/",
-          "https://www.gomaji.com/store/15289/pid/279869"
+          "https://www.facebook.com/lin4856968/"
         ],
         "officialUrl": [
           "https://www.facebook.com/lin4856968/"
@@ -203,7 +191,7 @@
       "verificationLevel": "verified",
       "dataReadiness": "已核實資料",
       "dataSource": "data/vendors/categories/hair-salon/vendors.json",
-      "sourceNote": "電話與地址以 YL Hair Salon Facebook、Instagram 與電子名片頁核實。",
+      "sourceNote": "店名、主電話、地址與預約 LINE 以店家電子名片核實；營業日仍待可讀官方社群複核。",
       "lastVerifiedAt": "2026-07-03",
       "updatedAt": "2026-07-03T08:15:32+0800",
       "phone": "03-478-9059",
@@ -211,10 +199,10 @@
       "businessHours": "星期二至星期日，星期一公休",
       "officialUrl": "https://www.facebook.com/yiling688/",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A5%8A%E6%A2%85%E5%8D%80%E7%92%B0%E5%8D%97%E8%B7%AF61%E8%99%9F",
-      "lineUrl": "https://lin.ee/hxk7s94",
-      "contactNote": "公開資料列示 03-4789059 與楊梅區環南路61號。",
+      "lineUrl": "https://lin.ee/jriwMC6",
+      "contactNote": "店家電子名片列示 03-4789059、桃園市楊梅區環南路61號及店預約 LINE。",
       "missingFields": [],
-      "officialSource": "YL Hair Salon Facebook / Instagram / 電子名片",
+      "officialSource": "YL Hair Salon 店家電子名片 / Facebook / Instagram",
       "sourceUrls": [
         "https://www.facebook.com/yiling688/",
         "https://www.instagram.com/ylhairsalon/",
@@ -226,34 +214,23 @@
       "reviewedBy": "2026-07-03 review migration",
       "fieldSources": {
         "name": [
-          "https://www.facebook.com/yiling688/",
-          "https://www.instagram.com/ylhairsalon/",
-          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-          "https://lin.ee/hxk7s94"
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
         ],
         "phone": [
-          "https://www.facebook.com/yiling688/",
-          "https://www.instagram.com/ylhairsalon/",
-          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-          "https://lin.ee/hxk7s94"
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
         ],
         "address": [
-          "https://www.facebook.com/yiling688/",
-          "https://www.instagram.com/ylhairsalon/",
-          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-          "https://lin.ee/hxk7s94"
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
         ],
         "businessHours": [
           "https://www.facebook.com/yiling688/",
-          "https://www.instagram.com/ylhairsalon/",
-          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-          "https://lin.ee/hxk7s94"
+          "https://www.instagram.com/ylhairsalon/"
         ],
         "officialUrl": [
           "https://www.facebook.com/yiling688/"
         ],
         "lineUrl": [
-          "https://lin.ee/hxk7s94"
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
         ],
         "image": []
       },
