@@ -140,3 +140,15 @@
 - 測試：22/22 通過，JSON 與功夫茶單店限制通過。
 - Reviewer：Pascal 最終判定 `Research Accuracy: Pass`、`Spec Compliance: Pass`、`Data Quality: Pass`。
 - 下一步：A2.2 核對 3 家美髮店。
+
+## 2026-07-27 - A2.2 美髮資料核准
+
+- 狀態：`completed`
+- 版本：`c6529d3..5090198`
+- Fashion Hair Salon、Lin 美髮：官方社群在研究環境無法完整讀取，沒有發現店名、電話、地址、搬遷或停業衝突，保留既有核實日期。
+- YL Hair Salon：店家電子名片確認主要電話、地址及 LINE 帳號；更新為店家目前提供的短網址，並確認新舊短網址都指向 `@396zqkal`。
+- 來源精度：中文店名「意翎髮藝」保留先前 Facebook/Instagram 證據，電子名片只用於證明其實際顯示的英文店名與聯絡資料。
+- 候選資料：沒有候選店家被提升。
+- 測試：22/22 通過，JSON、來源欄位與日期規則通過。
+- Reviewer：Curie 最終判定 `Research Accuracy: Pass`、`Spec Compliance: Pass`、`Data Quality: Pass`。
+- 下一步：A2.3 核對 4 家美甲店。
