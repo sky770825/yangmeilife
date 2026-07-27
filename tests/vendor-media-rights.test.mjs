@@ -54,7 +54,6 @@ const expectValid = async (root) => {
 
 const configureOfficialExternal = (vendor) => {
   vendor.media.rightsStatus = 'official-external';
-  vendor.image = 'https://cdn.example.test/official-image.jpg';
   vendor.imageSourceType = 'official';
   vendor.imageSource = 'Official store page';
   vendor.imageSourceUrl = vendor.officialUrl;
@@ -65,7 +64,6 @@ const configureOfficialExternal = (vendor) => {
 
 const configurePermissionPending = (vendor) => {
   vendor.media.rightsStatus = 'permission-pending';
-  vendor.image = 'https://cdn.example.test/pending-store-image.jpg';
   vendor.imageSourceType = 'official';
   vendor.imageSource = 'Official store page';
   vendor.imageSourceUrl = vendor.officialUrl;
@@ -80,6 +78,11 @@ const configureLicensedLocal = (vendor, assetPath) => {
   vendor.media.assetPath = assetPath;
   vendor.media.permissionEvidence = 'https://evidence.example.test/vendor-license';
 };
+
+const externalMediaConfigurations = [
+  ['official-external', configureOfficialExternal],
+  ['permission-pending', configurePermissionPending]
+];
 
 test('checked-in published records have the audited media-rights distribution', async () => {
   const vendors = await publishedVendors();
@@ -105,7 +108,7 @@ for (const [name, mutate, expectedError] of [
   ['requires official image source type', (vendor) => { vendor.imageSourceType = 'stock'; }, /official-external.*imageSourceType.*official/i],
   ['requires non-empty image source metadata', (vendor) => { vendor.imageSource = ''; }, /official-external.*source metadata/i],
   ['requires an HTTP(S) image source URL', (vendor) => { vendor.imageSourceUrl = 'mailto:source@example.test'; }, /official-external.*source metadata/i],
-  ['requires a traceable source page', (vendor) => { vendor.media.sourceUrl = 'https://untracked.example.test/source'; }, /official-external.*traceable official page/i],
+  ['requires the reviewed official source page', (vendor) => { vendor.media.sourceUrl = 'https://untracked.example.test/source'; }, /official-external.*media\.sourceUrl.*officialUrl/i],
   ['requires a null local asset path', (vendor) => { vendor.media.assetPath = 'media/vendor.jpg'; }, /official-external.*assetPath.*null/i],
   ['rejects non-URL permission evidence', (vendor) => { vendor.media.permissionEvidence = 'merchant email'; }, /official-external.*permissionEvidence.*http/i]
 ]) {
@@ -130,12 +133,72 @@ test('permission-pending accepts a known official image pending a documented dec
   );
 });
 
+for (const [rightsStatus, configure] of externalMediaConfigurations) {
+  test(`${rightsStatus} requires imageSourceUrl to equal the reviewed officialUrl`, async () => {
+    await withTemporaryVendorData(
+      (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
+        const vendor = source.vendors[0];
+        configure(vendor);
+        vendor.imageSourceUrl = vendor.sourceUrls[1];
+      }),
+      (root) => expectFailure(root, new RegExp(`${rightsStatus}.*imageSourceUrl.*officialUrl`, 'i'))
+    );
+  });
+
+  test(`${rightsStatus} requires media.sourceUrl to equal the reviewed officialUrl`, async () => {
+    await withTemporaryVendorData(
+      (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
+        const vendor = source.vendors[0];
+        configure(vendor);
+        vendor.media.sourceUrl = vendor.sourceUrls[1];
+      }),
+      (root) => expectFailure(root, new RegExp(`${rightsStatus}.*media\\.sourceUrl.*officialUrl`, 'i'))
+    );
+  });
+
+  test(`${rightsStatus} requires fieldSources.officialUrl to retain the reviewed officialUrl`, async () => {
+    await withTemporaryVendorData(
+      (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
+        const vendor = source.vendors[0];
+        configure(vendor);
+        vendor.fieldSources.officialUrl = [vendor.sourceUrls[1]];
+      }),
+      (root) => expectFailure(root, new RegExp(`${rightsStatus}.*fieldSources\\.officialUrl.*officialUrl`, 'i'))
+    );
+  });
+
+  test(`${rightsStatus} rejects a traceable-but-third-party source bypass`, async () => {
+    await withTemporaryVendorData(
+      (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
+        const vendor = source.vendors[0];
+        const thirdPartyPage = 'https://stock.example.test/vendor-image';
+        configure(vendor);
+        vendor.sourceUrls.push(thirdPartyPage);
+        vendor.imageSourceUrl = thirdPartyPage;
+        vendor.media.sourceUrl = thirdPartyPage;
+      }),
+      (root) => expectFailure(root, new RegExp(`${rightsStatus}.*imageSourceUrl.*officialUrl`, 'i'))
+    );
+  });
+
+  test(`${rightsStatus} requires the image host to equal the reviewed officialUrl host`, async () => {
+    await withTemporaryVendorData(
+      (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
+        const vendor = source.vendors[0];
+        configure(vendor);
+        vendor.image = 'https://cdn.example.test/vendor-image.jpg';
+      }),
+      (root) => expectFailure(root, new RegExp(`${rightsStatus}.*image hostname.*officialUrl hostname`, 'i'))
+    );
+  });
+}
+
 for (const [name, mutate, expectedError] of [
   ['requires an external image URL', (vendor) => { vendor.image = null; }, /permission-pending.*image.*http/i],
   ['requires official image source type', (vendor) => { vendor.imageSourceType = 'stock'; }, /permission-pending.*imageSourceType.*official/i],
   ['requires non-empty image source metadata', (vendor) => { vendor.imageSource = ''; }, /permission-pending.*source metadata/i],
   ['requires an HTTP(S) image source URL', (vendor) => { vendor.imageSourceUrl = 'mailto:source@example.test'; }, /permission-pending.*source metadata/i],
-  ['requires a traceable source page', (vendor) => { vendor.media.sourceUrl = 'https://untracked.example.test/source'; }, /permission-pending.*traceable official page/i],
+  ['requires the reviewed official source page', (vendor) => { vendor.media.sourceUrl = 'https://untracked.example.test/source'; }, /permission-pending.*media\.sourceUrl.*officialUrl/i],
   ['requires a null local asset path', (vendor) => { vendor.media.assetPath = 'media/vendor.jpg'; }, /permission-pending.*assetPath.*null/i],
   ['requires null permission evidence', (vendor) => { vendor.media.permissionEvidence = 'https://evidence.example.test/permission'; }, /permission-pending.*permissionEvidence.*null/i],
   ['requires a pending decision reason', (vendor) => { vendor.media.pendingReason = ' '; }, /permission-pending.*pendingReason/i],

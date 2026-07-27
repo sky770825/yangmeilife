@@ -328,12 +328,6 @@ const validatePublishedContract = async ({ vendor, context, currentTaipeiDate, c
       errors.push(`${context} Published vendor media.checkedAt must not be in the future.`);
     }
 
-    const officialPageUrls = new Set([
-      ...(Array.isArray(vendor.sourceUrls) ? vendor.sourceUrls : []),
-      vendor.officialUrl,
-      vendor.imageSourceUrl
-    ].filter(isHttpUrl));
-
     const validateTraceableExternalImage = (rightsStatus) => {
       if (!isHttpUrl(vendor.image)) {
         errors.push(`${context} ${rightsStatus} requires image to be an external http(s) URL.`);
@@ -344,8 +338,23 @@ const validatePublishedContract = async ({ vendor, context, currentTaipeiDate, c
       if (!isPresent(vendor.imageSource) || !isHttpUrl(vendor.imageSourceUrl)) {
         errors.push(`${context} ${rightsStatus} requires non-empty official image source metadata.`);
       }
-      if (!isHttpUrl(media.sourceUrl) || !officialPageUrls.has(media.sourceUrl)) {
-        errors.push(`${context} ${rightsStatus} requires media.sourceUrl to be a traceable official page URL.`);
+      if (!isHttpUrl(vendor.officialUrl)) {
+        errors.push(`${context} ${rightsStatus} requires vendor.officialUrl to be a valid reviewed http(s) page.`);
+        return;
+      }
+      if (vendor.imageSourceUrl !== vendor.officialUrl) {
+        errors.push(`${context} ${rightsStatus} requires imageSourceUrl to equal vendor.officialUrl.`);
+      }
+      if (media.sourceUrl !== vendor.officialUrl) {
+        errors.push(`${context} ${rightsStatus} requires media.sourceUrl to equal vendor.officialUrl.`);
+      }
+      if (!Array.isArray(vendor?.fieldSources?.officialUrl)
+        || !vendor.fieldSources.officialUrl.includes(vendor.officialUrl)) {
+        errors.push(`${context} ${rightsStatus} requires fieldSources.officialUrl to include vendor.officialUrl.`);
+      }
+      if (isHttpUrl(vendor.image)
+        && new URL(vendor.image).hostname !== new URL(vendor.officialUrl).hostname) {
+        errors.push(`${context} ${rightsStatus} requires image hostname to equal vendor.officialUrl hostname.`);
       }
     };
 
