@@ -33,6 +33,15 @@ const KUNGFU_TEA = {
 const isPresent = (value) => typeof value === 'string' && value.trim().length > 0;
 const isNullableString = (value) => value === null || typeof value === 'string';
 const hasOwn = (value, key) => value !== null && typeof value === 'object' && Object.hasOwn(value, key);
+const isHttpUrl = (value) => {
+  if (!isPresent(value)) return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch {
+    return false;
+  }
+};
 const isIsoDateTimeWithTimezone = (value) => isPresent(value)
   && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)
   && !Number.isNaN(Date.parse(value));
@@ -60,6 +69,13 @@ const isValidCalendarDate = (value) => {
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
 };
 
+const addTaipeiCalendarDays = (value, days) => {
+  if (!isValidCalendarDate(value)) return null;
+  const date = new Date(`${value}T00:00:00+08:00`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return taipeiCalendarDate(date);
+};
+
 const validatePublishedContract = ({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, errors }) => {
   if (vendor?.verified !== true) {
     errors.push(`${context} Published vendor requires verified: true.`);
@@ -81,6 +97,11 @@ const validatePublishedContract = ({ vendor, context, currentTaipeiDate, current
     errors.push(`${context} Published vendor nextReviewAt must be a valid ISO date (YYYY-MM-DD).`);
   } else if (vendor.nextReviewAt < currentTaipeiDate) {
     errors.push(`${context} Published vendor nextReviewAt must not be before the current Taipei calendar date.`);
+  } else {
+    const expectedNextReviewAt = addTaipeiCalendarDays(vendor.lastVerifiedAt, 90);
+    if (expectedNextReviewAt && vendor.nextReviewAt !== expectedNextReviewAt) {
+      errors.push(`${context} Published vendor nextReviewAt must be exactly 90 calendar days after lastVerifiedAt (${expectedNextReviewAt}).`);
+    }
   }
 
   if (!isPresent(vendor?.reviewedBy)) {
@@ -90,12 +111,31 @@ const validatePublishedContract = ({ vendor, context, currentTaipeiDate, current
   if (vendor?.fieldSources === null || typeof vendor?.fieldSources !== 'object' || Array.isArray(vendor.fieldSources)) {
     errors.push(`${context} Published vendor requires fieldSources object.`);
   } else {
+    const allowedSources = new Set([
+      ...(Array.isArray(vendor.sourceUrls) ? vendor.sourceUrls : []),
+      vendor.officialUrl,
+      vendor.imageSourceUrl,
+      vendor.lineUrl
+    ].filter(isPresent));
+
     for (const field of REQUIRED_FIELD_SOURCES) {
       const sources = vendor.fieldSources[field];
-      if (!Array.isArray(sources) || !sources.every(isPresent)) {
+      if (!Array.isArray(sources)) {
         errors.push(`${context} Published vendor fieldSources.${field} must be an array of non-empty source URLs.`);
-      } else if (REQUIRED_PUBLISHED_EVIDENCE.has(field) && sources.length === 0) {
+        continue;
+      }
+      if (!sources.every(isPresent)) {
+        errors.push(`${context} Published vendor fieldSources.${field} must be an array of non-empty source URLs.`);
+      }
+      if (REQUIRED_PUBLISHED_EVIDENCE.has(field) && sources.length === 0) {
         errors.push(`${context} Published vendor fieldSources.${field} must be non-empty.`);
+      }
+      for (const source of sources) {
+        if (!isHttpUrl(source)) {
+          errors.push(`${context} Published vendor fieldSources.${field} entries must be valid http(s) URLs.`);
+        } else if (!allowedSources.has(source)) {
+          errors.push(`${context} Published vendor fieldSources.${field} entries must be traceable to sourceUrls, officialUrl, imageSourceUrl, or lineUrl.`);
+        }
       }
     }
   }

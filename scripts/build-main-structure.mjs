@@ -175,7 +175,6 @@ const readCategoryVendorSource = async (slug, category) => {
   return {
     sourceFile: vendorFilePath,
     vendorFile,
-    sourceVendors: vendorFile.vendors.map((vendor) => normalizeVendorRecord(vendor, category)),
     vendors: vendorFile.vendors
       .filter((vendor) => vendor.publicationStatus === 'published')
       .map((vendor) => normalizeVendorRecord(vendor, category)),
@@ -1498,7 +1497,7 @@ const run = async () => {
     vendorCategory.dataFolder = `data/vendors/categories/${slug}`;
     vendorCategory.dataStatus = vendorCategoryDataStatus(vendorCategory);
 
-    const { vendors, sourceVendors, vendorFile, candidateVendors } = await readCategoryVendorSource(slug, vendorCategory);
+    const { vendors, vendorFile, candidateVendors } = await readCategoryVendorSource(slug, vendorCategory);
     vendorCategory.vendors = vendors;
     vendorCategory.candidateVendors = candidateVendors;
     vendorCategory.vendorCount = vendors.length;
@@ -1511,22 +1510,6 @@ const run = async () => {
     vendorCategory.dataStatus = vendorCategoryDataStatusFromVendors(vendorCategory, vendors);
 
     const dir = vendorCategory.dataFolder;
-    const vendorFilePayload = {
-      ...(vendorFile || {}),
-      generatedAt,
-      page: vendorCategory.page,
-      title: vendorCategory.title,
-      accent: vendorCategory.accent,
-      intro: vendorCategory.intro,
-      categoryId: vendorCategory.categoryId,
-      categoryTitle: vendorCategory.categoryTitle,
-      displayTitle: vendorCategory.displayTitle,
-      displayIntro: vendorCategory.displayIntro,
-      dataStatus: vendorCategory.dataStatus,
-      candidateVendors,
-      vendors: sourceVendors
-    };
-    await writeText(`${dir}/vendors.json`, `${JSON.stringify(vendorFilePayload, null, 2)}\n`);
     await writeText(`${dir}/updates.json`, `${JSON.stringify(buildVendorUpdates(vendorCategory, vendors, candidateVendors), null, 2)}\n`);
     await writeText(`${dir}/README.md`, buildVendorCategoryReadme(vendorCategory, vendors, candidateVendors));
   }

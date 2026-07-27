@@ -115,6 +115,7 @@ test('accepts the current Taipei calendar date during Taiwan early morning', asy
   await withTemporaryVendorData(
     (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
       source.vendors[0].lastVerifiedAt = '2026-07-27';
+      source.vendors[0].nextReviewAt = '2026-10-25';
     }),
     async (root) => {
       const result = await validateVendorData({
