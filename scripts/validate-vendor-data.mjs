@@ -96,7 +96,7 @@ const addTaipeiCalendarDays = (value, days) => {
   return taipeiCalendarDate(date);
 };
 
-const validateCandidateContract = ({ candidate, context, index, relativeFile, currentTaipeiDate, errors }) => {
+const validateCandidateContract = ({ candidate, context, index, relativeFile, currentTaipeiDate, deferredDuplicateCandidates, errors }) => {
   if (!CANDIDATE_DISPOSITIONS.has(candidate?.candidateDisposition)) {
     errors.push(`${context} Candidate record at candidateVendors[${index}] candidateDisposition must be one of: ${[...CANDIDATE_DISPOSITIONS].join(', ')}.`);
   }
@@ -146,20 +146,24 @@ const validateCandidateContract = ({ candidate, context, index, relativeFile, cu
     errors.push(`${context} Candidate updatedAt must not be before triagedAt in Taipei.`);
   }
 
-  const validSourceUrlCount = Array.isArray(candidate?.sourceUrls)
-    ? candidate.sourceUrls.filter(isHttpUrl).length
-    : 0;
+  const validSourceUrlCount = new Set(Array.isArray(candidate?.sourceUrls)
+    ? candidate.sourceUrls.filter(isHttpUrl)
+    : []).size;
   if (candidate?.candidateDisposition === 'source-found' && validSourceUrlCount < 1) {
     errors.push(`${context} Candidate source-found requires at least one valid http(s) source URL.`);
   }
   if (candidate?.candidateDisposition === 'identity-conflict' && validSourceUrlCount < 2) {
-    errors.push(`${context} Candidate identity-conflict requires at least two valid http(s) source URLs.`);
+    errors.push(`${context} Candidate identity-conflict requires at least two distinct valid http(s) source URLs.`);
   }
   if (candidate?.candidateDisposition === 'possibly-closed' && validSourceUrlCount < 1) {
     errors.push(`${context} Candidate possibly-closed requires at least one valid http(s) source URL.`);
   }
-  if (candidate?.candidateDisposition === 'duplicate' && !isPresent(candidate?.duplicateOfId)) {
-    errors.push(`${context} Candidate duplicate requires a non-empty duplicateOfId.`);
+  if (candidate?.candidateDisposition === 'duplicate') {
+    if (!isPresent(candidate?.duplicateOfId)) {
+      errors.push(`${context} Candidate duplicate requires a non-empty duplicateOfId.`);
+    } else {
+      deferredDuplicateCandidates.push({ candidate, context });
+    }
   }
   if (candidate?.candidateDisposition === 'out-of-area') {
     if (validSourceUrlCount < 1) {
@@ -353,6 +357,8 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
   const publishedVendors = [];
   const vendorIds = new Map();
   const sourceBySlug = new Map();
+  const sourceRecordIds = new Set();
+  const deferredDuplicateCandidates = [];
 
   for (const slug of categoryFolders) {
     const relativeFile = `${VENDOR_SOURCE_ROOT}/${slug}/vendors.json`;
@@ -373,6 +379,15 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
       continue;
     }
 
+    source.vendors.forEach((vendor) => {
+      if (isPresent(vendor?.id)) sourceRecordIds.add(vendor.id);
+    });
+    if (Array.isArray(source.candidateVendors)) {
+      source.candidateVendors.forEach((candidate) => {
+        if (isPresent(candidate?.id)) sourceRecordIds.add(candidate.id);
+      });
+    }
+
     if (!Array.isArray(source.candidateVendors)) {
       errors.push(`${formatContext({ file: relativeFile, slug })} Candidate records must be an array in candidateVendors[].`);
     } else {
@@ -383,6 +398,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
           index,
           relativeFile,
           currentTaipeiDate,
+          deferredDuplicateCandidates,
           errors
         });
       });
@@ -444,6 +460,14 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
         }
       }
     });
+  }
+
+  for (const { candidate, context } of deferredDuplicateCandidates) {
+    if (candidate.duplicateOfId === candidate.id) {
+      errors.push(`${context} Candidate duplicate duplicateOfId must not reference itself.`);
+    } else if (!sourceRecordIds.has(candidate.duplicateOfId)) {
+      errors.push(`${context} Candidate duplicate duplicateOfId must reference an existing vendor or candidate record.`);
+    }
   }
 
   if (publishedVendors.length > PUBLIC_VENDOR_COUNT) {

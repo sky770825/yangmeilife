@@ -121,6 +121,47 @@ test('accepts generic non-cohort triage metadata with supported candidate name s
   }
 });
 
+test('accepts candidates that meet disposition-specific contracts', async (t) => {
+  const cases = [
+    ['source-found', (candidate) => {
+      candidate.candidateDisposition = 'source-found';
+      candidate.sourceUrls = ['https://example.com/source'];
+    }],
+    ['identity-conflict with distinct source URLs', (candidate) => {
+      candidate.candidateDisposition = 'identity-conflict';
+      candidate.sourceUrls = ['https://example.com/first-source', 'https://example.com/second-source'];
+    }],
+    ['possibly-closed', (candidate) => {
+      candidate.candidateDisposition = 'possibly-closed';
+      candidate.sourceUrls = ['https://example.com/source'];
+    }],
+    ['duplicate targeting a later-category vendor', (candidate) => {
+      candidate.candidateDisposition = 'duplicate';
+      candidate.duplicateOfId = 'kungfu-tea-1';
+    }],
+    ['duplicate targeting a later-category candidate', (candidate) => {
+      candidate.candidateDisposition = 'duplicate';
+      candidate.duplicateOfId = 'vietnamese-massage-1';
+    }],
+    ['out-of-area', (candidate) => {
+      candidate.candidateDisposition = 'out-of-area';
+      candidate.sourceUrls = ['https://example.com/source'];
+    }]
+  ];
+
+  for (const [name, mutate] of cases) {
+    await t.test(name, async () => {
+      await withTemporaryVendorData(
+        (categories) => updateVendorFile(categories, 'beauty-skin', (source) => mutate(source.candidateVendors[0])),
+        async (root) => {
+          const result = await validateVendorData({ root, now: referenceNow });
+          assert.equal(result.valid, true, result.errors.join('\n'));
+        }
+      );
+    });
+  }
+});
+
 test('rejects a candidate marked verified', async () => {
   await withTemporaryVendorData(
     (categories) => updateVendorFile(categories, 'beauty-skin', (source) => {
@@ -183,7 +224,7 @@ test('rejects candidates that miss disposition-specific evidence', async (t) => 
     ['identity-conflict with one valid source URL', (candidate) => {
       candidate.candidateDisposition = 'identity-conflict';
       candidate.sourceUrls = ['https://example.com/source'];
-    }, /identity-conflict.*at least two valid/i],
+    }, /identity-conflict.*at least two distinct valid/i],
     ['possibly-closed without a valid source URL', (candidate) => { candidate.candidateDisposition = 'possibly-closed'; }, /possibly-closed.*at least one valid/i],
     ['duplicate without duplicateOfId', (candidate) => { candidate.candidateDisposition = 'duplicate'; }, /duplicate.*duplicateOfId/i],
     ['out-of-area without a valid source URL', (candidate) => { candidate.candidateDisposition = 'out-of-area'; }, /out-of-area.*at least one valid/i],
@@ -192,6 +233,32 @@ test('rejects candidates that miss disposition-specific evidence', async (t) => 
       candidate.sourceUrls = ['https://example.com/source'];
       candidate.area = '';
     }, /out-of-area.*non-empty.*area/i]
+  ];
+
+  for (const [name, mutate, expectedError] of cases) {
+    await t.test(name, async () => {
+      await withTemporaryVendorData(
+        (categories) => updateVendorFile(categories, 'beauty-skin', (source) => mutate(source.candidateVendors[0])),
+        (root) => expectFailure(root, expectedError)
+      );
+    });
+  }
+});
+
+test('rejects non-distinct or unresolved duplicate references', async (t) => {
+  const cases = [
+    ['identity-conflict with duplicate source URLs', (candidate) => {
+      candidate.candidateDisposition = 'identity-conflict';
+      candidate.sourceUrls = ['https://example.com/source', 'https://example.com/source'];
+    }, /identity-conflict.*two distinct valid/i],
+    ['duplicate targeting itself', (candidate) => {
+      candidate.candidateDisposition = 'duplicate';
+      candidate.duplicateOfId = candidate.id;
+    }, /duplicate.*duplicateOfId.*itself/i],
+    ['duplicate targeting a missing record', (candidate) => {
+      candidate.candidateDisposition = 'duplicate';
+      candidate.duplicateOfId = 'missing-record-id';
+    }, /duplicate.*duplicateOfId.*existing/i]
   ];
 
   for (const [name, mutate, expectedError] of cases) {
