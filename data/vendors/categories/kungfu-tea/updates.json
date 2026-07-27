@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T09:23:39+0800",
+  "generatedAt": "2026-07-27T00:00:00.000Z",
   "owner": "商家營運維護",
   "page": "kungfu-tea.html",
   "title": "楊梅飲品廠商",
@@ -37,8 +37,8 @@
       "verificationLevel": "verified",
       "needsVerification": false,
       "missingFields": [],
-      "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T07:18:00+0800"
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     }
   ],
   "candidateVendors": []

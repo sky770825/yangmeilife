@@ -7,7 +7,7 @@
 
 | 角色 | 負責人/代理 | 狀態 | 最近回報 | 目前工作 |
 | --- | --- | --- | --- | --- |
-| Coordinator | Codex / M5 Hermes | completed | 2026-07-27 | A1 已核准，準備 A2 |
+| Coordinator | Codex / M5 Hermes | completed | 2026-07-27 | A2 來源刷新與發布閘門完成，準備 A3 |
 | Researcher | Curie / M5 角色 | completed | 2026-07-26 22:52 | 廠商、圖片與來源風險已回報 |
 | Data Engineer | Ohm / Codex | completed | 2026-07-27 | A1 資料驗證與防回生完成 |
 | UI Designer | Newton | completed | 2026-07-26 22:52 | UI、分頁與娛樂架構已回報 |
@@ -24,7 +24,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Batch 0 可回復基準 | completed | Codex / M5 Hermes | Archimedes: APPROVE | 10/10 截圖 | 無 |
 | A1 資料邊界與防回生 | completed | Ohm / Codex | Heisenberg: Pass | 10/10 tests | 無 |
-| A2 最新廠商資料 | in_progress | Poincare / Codex | Raman: A2.0 Pass | 22/22 tests | 無 |
+| A2 最新廠商資料 | completed | Poincare / Codex | A2.1-A2.5 evidence reviewers: Pass | 114/114 tests + data gate | 無 |
 | A3 廠商卡片與手機版 | pending | - | - | - | - |
 | B1 公開功能清單 | pending | - | - | - | - |
 | B2 最新在地資訊 | pending | - | - | - | - |
@@ -190,3 +190,16 @@
 - 測試：112/112 通過；公開店家仍為 11 家，Unsplash 店家圖為 0，本機授權素材為 0。
 - Reviewer：Lovelace 最終判定 `Rights Accuracy: Pass`、`Spec Compliance: Pass`、`Code Quality: Pass`，無剩餘問題。
 - 下一步：A2.6 建立 41 筆完整決策表、執行資料與公開行為閘門，完成 A2 交接。
+
+## 2026-07-27 - A2.6 總表與發布閘門完成
+
+- 狀態：`completed`
+- 修改檔案：`reports/vendor-source-refresh-2026-07-27.md`、公開廠商卡片產生器、公開行為測試與固定時間戳產生輸出。
+- 決策帳本：已建立 41 筆完整表格，包含 11 家公開店家與 30 筆候選資料的來源、欄位異動、缺失/衝突、圖片權利、複查日與判定。
+- 發布結果：公開 runtime 只有 11 筆 `published` 紀錄；30 筆候選資料及任何 `hold` / `retired` 紀錄均排除。飲品仍只有功夫茶楊梅四維店，地址維持 `楊梅區四維路 90 號`。
+- 公開行為：未核實評分不顯示；可見電話使用 `tel:`；可見地址使用 Google Maps navigation；店家缺少 LINE 與官方 URL 時不會導向平台共用聯絡方式。
+- 資料與圖片：4 筆 `official-external`、7 筆 `no-approved-image`；未新增、本機化、下載或產生圖片。
+- 測試：固定 `BUILD_TIMESTAMP=2026-07-27T00:00:00.000Z` 完整產生；產生前後驗證皆為 11 個分類、11 家公開店家；全套 114/114 通過；`git diff --check` 通過。
+- Reviewer 結果：彙整 Pascal、Curie、Aristotle、Feynman、Lovelace 的 A2 evidence verdicts；發布閘門無未解決 critical 或 important failure。
+- 已知限制：7 家缺圖店家仍需 A3 提供中性後備；官方圖片來源不代表重用或 hotlink 授權；候選資料需要新的權威來源與獨立複查才可提升。
+- 下一步：進入 A3，僅處理缺圖的中性、不誤導呈現與手機版卡片體驗。

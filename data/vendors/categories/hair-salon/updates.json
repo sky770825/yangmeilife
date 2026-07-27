@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T09:23:39+0800",
+  "generatedAt": "2026-07-27T00:00:00.000Z",
   "owner": "商家營運維護",
   "page": "hair-salon.html",
   "title": "楊梅美髮造型廠商",
@@ -38,7 +38,7 @@
       "needsVerification": false,
       "missingFields": [],
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:15:32+0800"
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     },
     {
       "id": "hair-salon-real-2",
@@ -48,7 +48,7 @@
       "needsVerification": false,
       "missingFields": [],
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:15:32+0800"
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     },
     {
       "id": "hair-salon-real-3",
@@ -58,7 +58,7 @@
       "needsVerification": false,
       "missingFields": [],
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:15:32+0800"
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     }
   ],
   "candidateVendors": [

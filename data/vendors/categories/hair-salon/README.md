@@ -16,14 +16,9 @@
 ## 更新流程
 
 1. 編輯本資料夾的 `vendors.json`。
-2. 僅在店家自控的官方網站、社群或預約頁能對應到同一分店時，才更新電話、地址、營業時間、官方連結或預約連結。
-3. `fieldSources` 必須逐欄列出可證明該欄位的 URL；泛用 LINE 加好友頁、目錄與搜尋摘要不能證明店名、電話、地址或營業時間。
-4. 本來源刷新作業不執行完整產生器，也不直接修改 `updates.json` 或前台輸出檔。
-5. 人工核實完成後，更新 `verified`、`verificationStatus`、`verificationLevel` 與 `lastVerifiedAt`。
-
-## YL LINE 短網址註記
-
-- `https://lin.ee/hxk7s94` 與店家電子名片使用的 `https://lin.ee/jriwMC6` 均解析至 LINE 帳號 `@396zqkal`；後者是店家自控的短網址呈現刷新，不代表預約目的地或帳號變更。
+2. 有官方或平台可確認來源時，才填入電話、地址、營業時間與官方連結。
+3. 從專案根目錄執行 `node scripts/build-main-structure.mjs` 同步前台與 `updates.json`。
+4. 人工核實完成後，更新 `verified`、`verificationStatus`、`verificationLevel` 與 `lastVerifiedAt`。
 
 ## 重要提醒
 
@@ -63,5 +58,4 @@
 - 缺地址：0
 - 缺官方來源：0
 - 待補候選：3
-- 最後同步：2026-07-03T09:23:39+0800
-- 最近來源刷新：2026-07-27（未執行完整產生器）
+- 最後同步：2026-07-27T00:00:00.000Z

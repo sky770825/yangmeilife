@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T09:23:39+0800",
+  "generatedAt": "2026-07-27T00:00:00.000Z",
   "owner": "商家營運維護",
   "page": "nail-service.html",
   "title": "楊梅美甲服務廠商",
@@ -38,7 +38,7 @@
       "needsVerification": false,
       "missingFields": [],
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800"
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     },
     {
       "id": "nail-service-real-2",
@@ -48,27 +48,27 @@
       "needsVerification": false,
       "missingFields": [],
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800"
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     },
     {
       "id": "nail-service-real-3",
-      "name": "妮莉莎美學 Nelissa Aesthetic",
+      "name": "妮莉莎美學",
       "verificationStatus": "已核實",
       "verificationLevel": "verified",
       "needsVerification": false,
       "missingFields": [],
-      "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800"
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     },
     {
       "id": "nail-service-real-4",
-      "name": "Relax蕾娜絲美甲美睫概念館（四維店）",
+      "name": "Relax蕾娜絲美甲美睫概念館",
       "verificationStatus": "已核實",
       "verificationLevel": "verified",
       "needsVerification": false,
       "missingFields": [],
-      "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800"
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T11:07:03+08:00"
     }
   ],
   "candidateVendors": [

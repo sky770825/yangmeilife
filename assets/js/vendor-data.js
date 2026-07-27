@@ -17,7 +17,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/beauty-skin/vendors.json",
       "sourceNote": "此分類已有店家完成電話、地址與來源核實；未有官方來源的欄位維持空值。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅美容護膚店家",
     "displayIntro": "整理楊梅區美容護膚、皮膚管理與美體服務店家，方便快速查看電話、地址與公開資訊。",
@@ -45,7 +45,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "dataSource": "data/vendors/categories/beauty-skin/vendors.json",
         "sourceNote": "電話、地址、LINE 與營業時間以官方網站及 Freetime 預約頁核實。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:26:15+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "0976-866-869",
         "address": "桃園市楊梅區環東路493號2樓",
         "businessHours": "星期一至星期六 09:00-21:00；星期日休息",
@@ -100,11 +100,11 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "official-external",
           "sourceUrl": "https://www.queenie-spa.com/",
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:26:15+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
@@ -118,7 +118,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "area": "楊梅三民路",
         "price": null,
         "rating": null,
-        "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+        "image": null,
         "tags": [
           "美容美體",
           "舒壓",
@@ -132,7 +132,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "dataSource": "data/vendors/categories/beauty-skin/vendors.json",
         "sourceNote": "店名、電話、地址與營業資訊以 Facebook / Instagram 公開資料及公司登記核實。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:26:15+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "0931-050-370",
         "address": "桃園市楊梅區三民路51號",
         "businessHours": "10:00-12:00 / 14:00-20:00",
@@ -184,17 +184,20 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "no-approved-image",
           "sourceUrl": null,
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:26:15+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
           "recordedAt": null,
           "evidence": null
-        }
+        },
+        "imageSourceType": null,
+        "imageSource": null,
+        "imageSourceUrl": null
       },
       {
         "id": "beauty-skin-real-3",
@@ -202,7 +205,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "area": "楊梅大成路",
         "price": null,
         "rating": null,
-        "image": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+        "image": null,
         "tags": [
           "皮膚管理",
           "體雕",
@@ -216,7 +219,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "dataSource": "data/vendors/categories/beauty-skin/vendors.json",
         "sourceNote": "店名、地址與 LINE 以 Facebook、1111 公司資訊及商工登記核實；公開電話來源有多版本，已於備註標記。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:26:15+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-475-0475",
         "address": "桃園市楊梅區大成路147號",
         "businessHours": null,
@@ -269,17 +272,20 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "no-approved-image",
           "sourceUrl": null,
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:26:15+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
           "recordedAt": null,
           "evidence": null
-        }
+        },
+        "imageSourceType": null,
+        "imageSource": null,
+        "imageSourceUrl": null
       }
     ]
   },
@@ -301,7 +307,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/hair-salon/vendors.json",
       "sourceNote": "此分類已有店家完成電話、地址與來源核實；未有官方來源的欄位維持空值。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅美髮造型店家",
     "displayIntro": "已先收錄 3 家可追溯來源的楊梅美髮店，後續新增店家需先完成官方來源核實。",
@@ -312,7 +318,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "area": "楊梅過嶺 / 新榮路",
         "price": null,
         "rating": null,
-        "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+        "image": null,
         "tags": [
           "美髮",
           "縮毛矯正",
@@ -326,7 +332,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "dataSource": "data/vendors/categories/hair-salon/vendors.json",
         "sourceNote": "電話、地址與 LINE 官方帳號以店家 Facebook / Instagram 公開資訊核實。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:15:32+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-420-1685",
         "address": "桃園市楊梅區新榮路99號",
         "businessHours": "每週一、二公休",
@@ -347,23 +353,19 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "fieldSources": {
           "name": [
             "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-            "https://www.instagram.com/p/DWQm1L0FK0j/",
-            "https://lin.ee/SJ15p7G"
+            "https://www.instagram.com/p/DWQm1L0FK0j/"
           ],
           "phone": [
             "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-            "https://www.instagram.com/p/DWQm1L0FK0j/",
-            "https://lin.ee/SJ15p7G"
+            "https://www.instagram.com/p/DWQm1L0FK0j/"
           ],
           "address": [
             "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-            "https://www.instagram.com/p/DWQm1L0FK0j/",
-            "https://lin.ee/SJ15p7G"
+            "https://www.instagram.com/p/DWQm1L0FK0j/"
           ],
           "businessHours": [
             "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
-            "https://www.instagram.com/p/DWQm1L0FK0j/",
-            "https://lin.ee/SJ15p7G"
+            "https://www.instagram.com/p/DWQm1L0FK0j/"
           ],
           "officialUrl": [
             "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/"
@@ -379,17 +381,20 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "no-approved-image",
           "sourceUrl": null,
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:15:32+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
           "recordedAt": null,
           "evidence": null
-        }
+        },
+        "imageSourceType": null,
+        "imageSource": null,
+        "imageSourceUrl": null
       },
       {
         "id": "hair-salon-real-2",
@@ -397,7 +402,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "area": "楊梅大成路",
         "price": null,
         "rating": null,
-        "image": "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+        "image": null,
         "tags": [
           "美髮沙龍",
           "剪燙染",
@@ -411,7 +416,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "dataSource": "data/vendors/categories/hair-salon/vendors.json",
         "sourceNote": "電話與地址以 Lin 美髮沙龍 Facebook、1111 公司資訊與 Gomaji 店家頁交叉核實。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:15:32+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-488-0733",
         "address": "楊梅區大成路57號",
         "businessHours": "10:00-20:00",
@@ -432,24 +437,16 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "reviewedBy": "2026-07-03 review migration",
         "fieldSources": {
           "name": [
-            "https://www.facebook.com/lin4856968/",
-            "https://www.1111.com.tw/corp/69623666/",
-            "https://www.gomaji.com/store/15289/pid/279869"
+            "https://www.facebook.com/lin4856968/"
           ],
           "phone": [
-            "https://www.facebook.com/lin4856968/",
-            "https://www.1111.com.tw/corp/69623666/",
-            "https://www.gomaji.com/store/15289/pid/279869"
+            "https://www.facebook.com/lin4856968/"
           ],
           "address": [
-            "https://www.facebook.com/lin4856968/",
-            "https://www.1111.com.tw/corp/69623666/",
-            "https://www.gomaji.com/store/15289/pid/279869"
+            "https://www.facebook.com/lin4856968/"
           ],
           "businessHours": [
-            "https://www.facebook.com/lin4856968/",
-            "https://www.1111.com.tw/corp/69623666/",
-            "https://www.gomaji.com/store/15289/pid/279869"
+            "https://www.facebook.com/lin4856968/"
           ],
           "officialUrl": [
             "https://www.facebook.com/lin4856968/"
@@ -463,17 +460,20 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "no-approved-image",
           "sourceUrl": null,
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:15:32+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
           "recordedAt": null,
           "evidence": null
-        }
+        },
+        "imageSourceType": null,
+        "imageSource": null,
+        "imageSourceUrl": null
       },
       {
         "id": "hair-salon-real-3",
@@ -481,7 +481,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "area": "楊梅環南路",
         "price": null,
         "rating": null,
-        "image": "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+        "image": null,
         "tags": [
           "女生髮型",
           "燙髮",
@@ -493,18 +493,18 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "verificationLevel": "verified",
         "dataReadiness": "已核實資料",
         "dataSource": "data/vendors/categories/hair-salon/vendors.json",
-        "sourceNote": "電話與地址以 YL Hair Salon Facebook、Instagram 與電子名片頁核實。",
+        "sourceNote": "店家電子名片核實 YL Hair Salon、主電話、地址與店家自控 LINE 短網址；中文後綴「意翎髮藝」沿用 Facebook / Instagram 歷史來源佐證；營業日仍待可讀官方社群複核。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:15:32+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-478-9059",
         "address": "楊梅區環南路61號",
         "businessHours": "星期二至星期日，星期一公休",
         "officialUrl": "https://www.facebook.com/yiling688/",
         "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A5%8A%E6%A2%85%E5%8D%80%E7%92%B0%E5%8D%97%E8%B7%AF61%E8%99%9F",
-        "lineUrl": "https://lin.ee/hxk7s94",
-        "contactNote": "公開資料列示 03-4789059 與楊梅區環南路61號。",
+        "lineUrl": "https://lin.ee/jriwMC6",
+        "contactNote": "店家電子名片列示 03-4789059、桃園市楊梅區環南路61號及店預約 LINE。",
         "missingFields": [],
-        "officialSource": "YL Hair Salon Facebook / Instagram / 電子名片",
+        "officialSource": "YL Hair Salon 店家電子名片 / Facebook / Instagram",
         "sourceUrls": [
           "https://www.facebook.com/yiling688/",
           "https://www.instagram.com/ylhairsalon/",
@@ -518,32 +518,23 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "name": [
             "https://www.facebook.com/yiling688/",
             "https://www.instagram.com/ylhairsalon/",
-            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-            "https://lin.ee/hxk7s94"
+            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
           ],
           "phone": [
-            "https://www.facebook.com/yiling688/",
-            "https://www.instagram.com/ylhairsalon/",
-            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-            "https://lin.ee/hxk7s94"
+            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
           ],
           "address": [
-            "https://www.facebook.com/yiling688/",
-            "https://www.instagram.com/ylhairsalon/",
-            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-            "https://lin.ee/hxk7s94"
+            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
           ],
           "businessHours": [
             "https://www.facebook.com/yiling688/",
-            "https://www.instagram.com/ylhairsalon/",
-            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
-            "https://lin.ee/hxk7s94"
+            "https://www.instagram.com/ylhairsalon/"
           ],
           "officialUrl": [
             "https://www.facebook.com/yiling688/"
           ],
           "lineUrl": [
-            "https://lin.ee/hxk7s94"
+            "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
           ],
           "image": []
         },
@@ -553,17 +544,20 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "no-approved-image",
           "sourceUrl": null,
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:15:32+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
           "recordedAt": null,
           "evidence": null
-        }
+        },
+        "imageSourceType": null,
+        "imageSource": null,
+        "imageSourceUrl": null
       }
     ]
   },
@@ -585,7 +579,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/eyelash-service/vendors.json",
       "sourceNote": "此分類尚未收錄已核實店家；展示資料已移出前台，待確認官方來源後再上架。",
       "lastVerifiedAt": null,
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅美睫服務店家",
     "displayIntro": "這個分類的店家資料正在整理中，歡迎推薦在地店家。",
@@ -608,8 +602,8 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "needsVerification": false,
       "sourceFile": "data/vendors/categories/nail-service/vendors.json",
       "sourceNote": "此分類已有店家完成電話、地址與來源核實；未有官方來源的欄位維持空值。",
-      "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅美甲服務店家",
     "displayIntro": "整理楊梅區凝膠美甲、手足保養與複合式美學店家，方便快速查看電話、地址與公開資訊。",
@@ -620,7 +614,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "area": "楊梅環東路",
         "price": null,
         "rating": null,
-        "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+        "image": null,
         "tags": [
           "凝膠美甲",
           "美睫",
@@ -634,7 +628,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "dataSource": "data/vendors/categories/nail-service/vendors.json",
         "sourceNote": "店名、電話、地址與營業時間以 Facebook / Instagram 公開資訊核實。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:51:37+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-485-5701",
         "address": "桃園市楊梅區環東路447號1樓",
         "businessHours": "10:00-19:00",
@@ -681,17 +675,20 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "no-approved-image",
           "sourceUrl": null,
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:51:37+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
           "recordedAt": null,
           "evidence": null
-        }
+        },
+        "imageSourceType": null,
+        "imageSource": null,
+        "imageSourceUrl": null
       },
       {
         "id": "nail-service-real-2",
@@ -699,7 +696,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "area": "楊梅中山北路",
         "price": null,
         "rating": null,
-        "image": "https://images.unsplash.com/photo-1604654894611-6973b376cbde?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+        "image": null,
         "tags": [
           "美甲",
           "美睫",
@@ -711,9 +708,9 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "verificationLevel": "verified",
         "dataReadiness": "已核實資料",
         "dataSource": "data/vendors/categories/nail-service/vendors.json",
-        "sourceNote": "楊梅店電話、地址與官方 LINE 以 Facebook / Instagram 公開資訊核實。",
+        "sourceNote": "楊梅店電話與地址以 Facebook / Instagram 公開資訊核實；LINE 目的地待店家自控頁重新確認。",
         "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:51:37+0800",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "0925-296-677",
         "address": "桃園市楊梅區中山北路二段23巷27號",
         "businessHours": null,
@@ -734,26 +731,21 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "fieldSources": {
           "name": [
             "https://www.facebook.com/84NailSalon/",
-            "https://www.instagram.com/84_nail_salon/",
-            "https://line.me/R/ti/p/@396fiuuu"
+            "https://www.instagram.com/84_nail_salon/"
           ],
           "phone": [
             "https://www.facebook.com/84NailSalon/",
-            "https://www.instagram.com/84_nail_salon/",
-            "https://line.me/R/ti/p/@396fiuuu"
+            "https://www.instagram.com/84_nail_salon/"
           ],
           "address": [
             "https://www.facebook.com/84NailSalon/",
-            "https://www.instagram.com/84_nail_salon/",
-            "https://line.me/R/ti/p/@396fiuuu"
+            "https://www.instagram.com/84_nail_salon/"
           ],
           "businessHours": [],
           "officialUrl": [
             "https://www.facebook.com/84NailSalon/"
           ],
-          "lineUrl": [
-            "https://line.me/R/ti/p/@396fiuuu"
-          ],
+          "lineUrl": [],
           "image": []
         },
         "placeId": null,
@@ -762,21 +754,24 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "no-approved-image",
           "sourceUrl": null,
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:51:37+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
           "recordedAt": null,
           "evidence": null
-        }
+        },
+        "imageSourceType": null,
+        "imageSource": null,
+        "imageSourceUrl": null
       },
       {
         "id": "nail-service-real-3",
-        "name": "妮莉莎美學 Nelissa Aesthetic",
+        "name": "妮莉莎美學",
         "area": "楊梅四維路",
         "price": null,
         "rating": null,
@@ -795,16 +790,16 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "verificationLevel": "verified",
         "dataReadiness": "已核實資料",
         "dataSource": "data/vendors/categories/nail-service/vendors.json",
-        "sourceNote": "電話、地址與服務內容以妮莉莎美學官方網站核實。",
-        "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:51:37+0800",
+        "sourceNote": "電話、地址、服務內容與預約 LINE 以妮莉莎美學官方網站核實。",
+        "lastVerifiedAt": "2026-07-27",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-431-2061",
         "address": "326桃園市楊梅區四維路196號",
         "businessHours": null,
         "officialUrl": "https://www.nelissa.com.tw/meijia.html",
         "mapUrl": "https://www.google.com/maps/search/?api=1&query=326%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%9B%9B%E7%B6%AD%E8%B7%AF196%E8%99%9F",
-        "lineUrl": null,
-        "contactNote": "官方網站列示地址 326桃園市楊梅區四維路196號、電話 03-4312061。",
+        "lineUrl": "https://lin.ee/HAYqMVL",
+        "contactNote": "官方網站列示地址 326桃園市楊梅區四維路196號、電話 03-4312061，並提供店家預約 LINE 連結。",
         "missingFields": [],
         "officialSource": "妮莉莎美學官方網站",
         "sourceUrls": [
@@ -812,9 +807,9 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "https://www.nelissa.com.tw/products.html"
         ],
         "publicationStatus": "published",
-        "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
-        "nextReviewAt": "2026-10-01",
-        "reviewedBy": "2026-07-03 review migration",
+        "sourceCheckedAt": "2026-07-27T10:24:18+08:00",
+        "nextReviewAt": "2026-10-25",
+        "reviewedBy": "A2.3 researcher",
         "fieldSources": {
           "name": [
             "https://www.nelissa.com.tw/meijia.html",
@@ -832,7 +827,9 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "officialUrl": [
             "https://www.nelissa.com.tw/meijia.html"
           ],
-          "lineUrl": [],
+          "lineUrl": [
+            "https://www.nelissa.com.tw/meijia.html"
+          ],
           "image": [
             "https://www.nelissa.com.tw/meijia.html"
           ]
@@ -843,11 +840,11 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "official-external",
           "sourceUrl": "https://www.nelissa.com.tw/meijia.html",
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:51:37+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
@@ -857,7 +854,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       },
       {
         "id": "nail-service-real-4",
-        "name": "Relax蕾娜絲美甲美睫概念館（四維店）",
+        "name": "Relax蕾娜絲美甲美睫概念館",
         "area": "楊梅四維路",
         "price": null,
         "rating": null,
@@ -876,42 +873,38 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "verificationLevel": "verified",
         "dataReadiness": "已核實資料",
         "dataSource": "data/vendors/categories/nail-service/vendors.json",
-        "sourceNote": "四維店電話、地址、營業時間與服務內容以官方網站及 Facebook 公開資訊核實。",
-        "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T08:51:37+0800",
+        "sourceNote": "電話、地址、營業時間與服務內容以官方網站核實；四維路133號地址保留作分店辨識。",
+        "lastVerifiedAt": "2026-07-27",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-482-0127",
         "address": "326桃園市楊梅區四維路133號",
         "businessHours": "每週 10:30-19:30",
         "officialUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
         "mapUrl": "https://www.google.com/maps/search/?api=1&query=326%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%9B%9B%E7%B6%AD%E8%B7%AF133%E8%99%9F",
         "lineUrl": null,
-        "contactNote": "官方網站列示四維店地址與電話 03-4820127 / 0922919356；前台主電話採 03-482-0127。",
+        "contactNote": "官方網站列示地址 326桃園市楊梅區四維路133號，並列出電話 03-4820127 / 0922919356；前台顯示維持先列出的市話 03-482-0127。",
         "missingFields": [],
-        "officialSource": "Relax蕾娜絲官方網站 / Facebook 公開資訊",
+        "officialSource": "Relax蕾娜絲官方網站",
         "sourceUrls": [
           "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
           "https://www.facebook.com/relax4820127/"
         ],
         "publicationStatus": "published",
-        "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
-        "nextReviewAt": "2026-10-01",
-        "reviewedBy": "2026-07-03 review migration",
+        "sourceCheckedAt": "2026-07-27T10:24:18+08:00",
+        "nextReviewAt": "2026-10-25",
+        "reviewedBy": "A2.3 researcher",
         "fieldSources": {
           "name": [
-            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-            "https://www.facebook.com/relax4820127/"
+            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
           ],
           "phone": [
-            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-            "https://www.facebook.com/relax4820127/"
+            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
           ],
           "address": [
-            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-            "https://www.facebook.com/relax4820127/"
+            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
           ],
           "businessHours": [
-            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-            "https://www.facebook.com/relax4820127/"
+            "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
           ],
           "officialUrl": [
             "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
@@ -927,11 +920,11 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "official-external",
           "sourceUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T08:51:37+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
@@ -959,7 +952,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/thai-massage/vendors.json",
       "sourceNote": "此分類尚未收錄已核實店家；展示資料已移出前台，待確認官方來源後再上架。",
       "lastVerifiedAt": null,
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅泰式按摩店家",
     "displayIntro": "這個分類的店家資料正在整理中，歡迎推薦在地店家。",
@@ -983,7 +976,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/vietnamese-massage/vendors.json",
       "sourceNote": "此分類尚未收錄已核實店家；展示資料已移出前台，待確認官方來源後再上架。",
       "lastVerifiedAt": null,
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅越式按摩店家",
     "displayIntro": "這個分類的店家資料正在整理中，歡迎推薦在地店家。",
@@ -1007,7 +1000,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/taiwanese-massage/vendors.json",
       "sourceNote": "此分類尚未收錄已核實店家；展示資料已移出前台，待確認官方來源後再上架。",
       "lastVerifiedAt": null,
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅台式按摩店家",
     "displayIntro": "這個分類的店家資料正在整理中，歡迎推薦在地店家。",
@@ -1031,7 +1024,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/american-chiropractic/vendors.json",
       "sourceNote": "此分類尚未收錄已核實店家；展示資料已移出前台，待確認官方來源後再上架。",
       "lastVerifiedAt": null,
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅美式整復店家",
     "displayIntro": "這個分類的店家資料正在整理中，歡迎推薦在地店家。",
@@ -1055,7 +1048,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/food-truck/vendors.json",
       "sourceNote": "此分類尚未收錄已核實店家；展示資料已移出前台，待確認官方來源後再上架。",
       "lastVerifiedAt": null,
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅餐車店家",
     "displayIntro": "這個分類的店家資料正在整理中，歡迎推薦在地店家。",
@@ -1078,8 +1071,8 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "needsVerification": false,
       "sourceFile": "data/vendors/categories/kungfu-tea/vendors.json",
       "sourceNote": "此分類已有店家完成電話、地址與來源核實；未有官方來源的欄位維持空值。",
-      "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅飲品店家",
     "displayIntro": "精選楊梅在地飲品店，快速查看電話、導航與官方資訊。",
@@ -1105,8 +1098,8 @@ window.YANGMEI_VENDOR_CATEGORIES = [
         "dataReadiness": "已核實資料",
         "dataSource": "data/vendors/categories/kungfu-tea/vendors.json",
         "sourceNote": "電話與地址以功夫茶官方據點頁及店家頁核實；營業時間未在本批使用的官方來源中確認。",
-        "lastVerifiedAt": "2026-07-03",
-        "updatedAt": "2026-07-03T07:18:00+0800",
+        "lastVerifiedAt": "2026-07-27",
+        "updatedAt": "2026-07-27T11:07:03+08:00",
         "phone": "03-488-2975",
         "address": "楊梅區四維路 90 號",
         "businessHours": null,
@@ -1122,30 +1115,28 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
         ],
         "publicationStatus": "published",
-        "sourceCheckedAt": "2026-07-03T07:18:00+08:00",
-        "nextReviewAt": "2026-10-01",
-        "reviewedBy": "2026-07-03 review migration",
+        "sourceCheckedAt": "2026-07-27T09:51:41+08:00",
+        "nextReviewAt": "2026-10-25",
+        "reviewedBy": "A2.1 researcher",
         "fieldSources": {
           "name": [
             "https://www.kungfutea.com.tw/location/?page=11",
-            "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
-            "https://line.me/R/ti/p/@359subhu"
+            "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
           ],
           "phone": [
             "https://www.kungfutea.com.tw/location/?page=11",
-            "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
-            "https://line.me/R/ti/p/@359subhu"
+            "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
           ],
           "address": [
             "https://www.kungfutea.com.tw/location/?page=11",
-            "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
-            "https://line.me/R/ti/p/@359subhu"
+            "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
           ],
           "businessHours": [],
           "officialUrl": [
             "https://www.kungfutea.com.tw/location/?page=11"
           ],
           "lineUrl": [
+            "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
             "https://line.me/R/ti/p/@359subhu"
           ],
           "image": [
@@ -1158,11 +1149,11 @@ window.YANGMEI_VENDOR_CATEGORIES = [
           "longitude": null
         },
         "media": {
-          "rightsStatus": "permission-pending",
+          "rightsStatus": "official-external",
           "sourceUrl": "https://www.kungfutea.com.tw/location/?page=11",
           "assetPath": null,
           "permissionEvidence": null,
-          "checkedAt": "2026-07-03T07:18:00+08:00"
+          "checkedAt": "2026-07-27T11:07:03+08:00"
         },
         "merchantConsent": {
           "status": "not-recorded",
@@ -1190,7 +1181,7 @@ window.YANGMEI_VENDOR_CATEGORIES = [
       "sourceFile": "data/vendors/categories/rental-management/vendors.json",
       "sourceNote": "此分類尚未收錄已核實店家；展示資料已移出前台，待確認官方來源後再上架。",
       "lastVerifiedAt": null,
-      "updatedAt": "2026-07-03T09:23:39+0800"
+      "updatedAt": "2026-07-27T00:00:00.000Z"
     },
     "displayTitle": "楊梅包租代管店家",
     "displayIntro": "這個分類的店家資料正在整理中，歡迎推薦在地店家。",

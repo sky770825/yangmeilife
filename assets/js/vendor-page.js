@@ -129,11 +129,11 @@
   const vendorCard = (vendor, category) => {
     const favorites = readFavorites();
     const favored = favorites.some((item) => item.id === vendor.id);
-    const officialLabel = vendor.officialSource || vendor.officialUrl || (vendor.sourceUrls && vendor.sourceUrls[0]) || '';
-    const officialHref = vendor.officialUrl || (vendor.sourceUrls && vendor.sourceUrls[0]) || null;
+    const officialLabel = vendor.officialSource || vendor.officialUrl || '';
+    const officialHref = vendor.officialUrl || null;
     const officialDisplayLabel = officialSourceShortLabel(vendor);
     const metaItems = [vendor.area, vendor.price].filter((value) => !emptyish(value));
-    const inquiryHref = vendor.lineUrl || vendor.officialUrl || LINE_URL;
+    const inquiryHref = vendor.lineUrl || vendor.officialUrl || null;
     const phoneHref = vendor.phone ? 'tel:' + String(vendor.phone).replace(/[^0-9+#*,-]/g, '') : null;
   return `<article class="vendor-card" data-search="${escapeHtml(searchHaystack(vendor))}">
       <img class="vendor-card-image" src="${escapeHtml(vendor.img)}" alt="${escapeHtml(vendor.name)}" loading="lazy" decoding="async" width="640" height="360">
@@ -155,7 +155,9 @@
           ${vendor.tags.slice(0, 3).map((tag) => `<span class="vendor-card-tag" style="background:${category.accent}16;color:${category.accent}">${escapeHtml(tag)}</span>`).join('')}
         </div>
         <div class="vendor-card-actions">
-          <a class="vendor-card-action vendor-card-action--primary" style="background:${category.accent}" href="${escapeHtml(inquiryHref)}" target="_blank" rel="noopener noreferrer">${iconSvg('message')}<span>洽詢</span></a>
+          ${inquiryHref
+            ? `<a class="vendor-card-action vendor-card-action--primary" style="background:${category.accent}" href="${escapeHtml(inquiryHref)}" target="_blank" rel="noopener noreferrer">${iconSvg('message')}<span>洽詢</span></a>`
+            : `<span class="vendor-card-action vendor-card-action--secondary" aria-disabled="true" title="店家聯絡方式待補">${iconSvg('message')}<span>洽詢</span></span>`}
           <button class="favorite-btn vendor-card-action vendor-card-action--secondary" type="button" data-vendor-id="${escapeHtml(vendor.id)}">${iconSvg('bookmark')}<span>${favored ? '已收藏' : '收藏'}</span></button>
         </div>
       </div>
