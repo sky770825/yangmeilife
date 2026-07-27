@@ -194,12 +194,15 @@
 ## 2026-07-27 - A2.6 總表與發布閘門完成
 
 - 狀態：`completed`
+- 版本：`6734c38..d897bdd`
 - 修改檔案：`reports/vendor-source-refresh-2026-07-27.md`、公開廠商卡片產生器、公開行為測試與固定時間戳產生輸出。
 - 決策帳本：已建立 41 筆完整表格，包含 11 家公開店家與 30 筆候選資料的來源、欄位異動、缺失/衝突、圖片權利、複查日與判定。
 - 發布結果：公開 runtime 只有 11 筆 `published` 紀錄；30 筆候選資料及任何 `hold` / `retired` 紀錄均排除。飲品仍只有功夫茶楊梅四維店，地址維持 `楊梅區四維路 90 號`。
 - 公開行為：未核實評分不顯示且不提供評分排序；可見電話使用 `tel:`；可見地址使用 Google Maps navigation；店家缺少 LINE 與官方 URL 時不會導向平台共用聯絡方式；`image: null` 不會產生圖片元素或請求。
 - 資料與圖片：4 筆 `official-external`、7 筆 `no-approved-image`；未新增、本機化、下載或產生圖片。
 - 測試：固定 `BUILD_TIMESTAMP=2026-07-27T00:00:00.000Z` 完整產生；產生前後驗證皆為 11 個分類、11 家公開店家；全套 115/115 通過；`git diff --check` 通過。
-- Reviewer 結果：彙整 Pascal、Curie、Aristotle、Feynman、Lovelace 的 A2 evidence verdicts；發布閘門無未解決 critical 或 important failure。
+- Reviewer 結果：Lovelace 最終 `Research Review: Pass`、`Data Review: Pass`、`QA Review: Pass`；Linnaeus 瀏覽器 QA `Pass`，無未解決 Critical、Important 或 Moderate 問題。
+- 瀏覽器證據：11 個分類頁均無 `src="null"`、`/null` 請求、破圖、console error 或 failed request；電話、導航、店家聯絡與飲品單店限制通過。
 - 已知限制：7 家缺圖店家已不會出現破圖；A3 可再提供中性視覺後備與卡片比例優化；官方圖片來源不代表重用或 hotlink 授權；候選資料需要新的權威來源與獨立複查才可提升。
+- 非阻擋測試待辦：把電話、導航與缺少聯絡方式的檢查由部分程式碼字串比對提升為完整 DOM fixture 斷言。
 - 下一步：進入 A3，僅處理缺圖的中性、不誤導呈現與手機版卡片體驗。
