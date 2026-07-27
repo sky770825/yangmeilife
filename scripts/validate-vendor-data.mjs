@@ -22,6 +22,28 @@ const VENDOR_SOURCE_ROOT = 'data/vendors/categories';
 const PUBLICATION_STATUSES = new Set(['published', 'hold', 'retired']);
 const MEDIA_RIGHTS_STATUSES = new Set(['licensed-local', 'official-external', 'permission-pending', 'no-approved-image']);
 const MERCHANT_CONSENT_STATUSES = new Set(['granted', 'not-required-public-source', 'not-recorded', 'declined']);
+const CANDIDATE_DISPOSITIONS = new Set([
+  'source-found',
+  'identity-conflict',
+  'possibly-closed',
+  'duplicate',
+  'no-authoritative-source',
+  'out-of-area'
+]);
+const CANDIDATE_TRIAGED_AT = '2026-07-27';
+const CANDIDATE_TRIAGED_BY = 'A2.4 candidate triage';
+const CANDIDATE_NAME_STATUS = 'legacy-demo-label';
+const CANDIDATE_UNSUPPORTED_FIELDS = [
+  'price',
+  'rating',
+  'image',
+  'phone',
+  'address',
+  'businessHours',
+  'officialUrl',
+  'mapUrl',
+  'lineUrl'
+];
 const REQUIRED_FIELD_SOURCES = ['name', 'phone', 'address', 'businessHours', 'officialUrl', 'lineUrl', 'image'];
 const REQUIRED_PUBLISHED_EVIDENCE = new Set(['name', 'phone', 'address', 'officialUrl']);
 const KUNGFU_TEA = {
@@ -74,6 +96,81 @@ const addTaipeiCalendarDays = (value, days) => {
   const date = new Date(`${value}T00:00:00+08:00`);
   date.setUTCDate(date.getUTCDate() + days);
   return taipeiCalendarDate(date);
+};
+
+const validateCandidateContract = ({ candidate, context, index, relativeFile, errors }) => {
+  if (!CANDIDATE_DISPOSITIONS.has(candidate?.candidateDisposition)) {
+    errors.push(`${context} Candidate record at candidateVendors[${index}] candidateDisposition must be one of: ${[...CANDIDATE_DISPOSITIONS].join(', ')}.`);
+  }
+
+  if (candidate?.triagedAt !== CANDIDATE_TRIAGED_AT) {
+    errors.push(`${context} Candidate triagedAt must be ${CANDIDATE_TRIAGED_AT}.`);
+  }
+  if (candidate?.triagedBy !== CANDIDATE_TRIAGED_BY) {
+    errors.push(`${context} Candidate triagedBy must be "${CANDIDATE_TRIAGED_BY}".`);
+  }
+  if (candidate?.candidateNameStatus !== CANDIDATE_NAME_STATUS) {
+    errors.push(`${context} Candidate candidateNameStatus must be "${CANDIDATE_NAME_STATUS}".`);
+  }
+  if (candidate?.verified === true) {
+    errors.push(`${context} Candidate record at candidateVendors[${index}] must not have verified: true.`);
+  }
+  if (candidate?.verified !== false) {
+    errors.push(`${context} Candidate verified must be false.`);
+  }
+  if (candidate?.needsVerification !== true) {
+    errors.push(`${context} Candidate needsVerification must be true.`);
+  }
+  if (candidate?.removedFromFrontend !== true) {
+    errors.push(`${context} Candidate removedFromFrontend must be true.`);
+  }
+  if (candidate?.publicationStatus === 'published') {
+    errors.push(`${context} Candidate publicationStatus must not be "published".`);
+  }
+
+  for (const field of ['id', 'name', 'area', 'removalReason', 'removedAt']) {
+    if (!isPresent(candidate?.[field])) {
+      errors.push(`${context} Candidate requires retained ${field}.`);
+    }
+  }
+  if (candidate?.dataSource !== relativeFile) {
+    errors.push(`${context} Candidate dataSource must be "${relativeFile}".`);
+  }
+  if (!isIsoDateTimeWithTimezone(candidate?.updatedAt)
+    || !candidate.updatedAt.endsWith('+08:00')
+    || taipeiCalendarDate(new Date(candidate.updatedAt)) !== CANDIDATE_TRIAGED_AT) {
+    errors.push(`${context} Candidate updatedAt must be an A2.4 ISO datetime on ${CANDIDATE_TRIAGED_AT} with +08:00 timezone.`);
+  }
+
+  if (candidate?.candidateDisposition !== 'no-authoritative-source') return;
+
+  if (candidate?.dataReadiness !== 'internal-candidate') {
+    errors.push(`${context} Candidate no-authoritative-source dataReadiness must be "internal-candidate".`);
+  }
+  if (candidate?.verificationLevel !== 'needs_contact') {
+    errors.push(`${context} Candidate no-authoritative-source verificationLevel must be "needs_contact".`);
+  }
+  if (!isPresent(candidate?.sourceNote)
+    || !/legacy demo label.*retained only for audit.*not a verified business listing/i.test(candidate.sourceNote)) {
+    errors.push(`${context} Candidate no-authoritative-source sourceNote must retain the legacy demo audit decision.`);
+  }
+  for (const field of CANDIDATE_UNSUPPORTED_FIELDS) {
+    if (candidate?.[field] !== null) {
+      errors.push(`${context} Candidate no-authoritative-source ${field} must be null.`);
+    }
+  }
+  if (!Array.isArray(candidate?.tags) || candidate.tags.length !== 0) {
+    errors.push(`${context} Candidate no-authoritative-source tags must be an empty array.`);
+  }
+  if (!Array.isArray(candidate?.sourceUrls) || candidate.sourceUrls.length !== 0) {
+    errors.push(`${context} Candidate no-authoritative-source sourceUrls must be an empty array.`);
+  }
+  if (candidate?.officialSource !== null) {
+    errors.push(`${context} Candidate no-authoritative-source officialSource must be null.`);
+  }
+  if (candidate?.lastVerifiedAt !== null) {
+    errors.push(`${context} Candidate no-authoritative-source lastVerifiedAt must be null.`);
+  }
 };
 
 const validatePublishedContract = ({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, errors }) => {
@@ -252,9 +349,13 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
       errors.push(`${formatContext({ file: relativeFile, slug })} Candidate records must be an array in candidateVendors[].`);
     } else {
       source.candidateVendors.forEach((candidate, index) => {
-        if (candidate?.verified === true) {
-          errors.push(`${formatContext({ file: relativeFile, slug, vendor: candidate })} Candidate record at candidateVendors[${index}] must not have verified: true.`);
-        }
+        validateCandidateContract({
+          candidate,
+          context: formatContext({ file: relativeFile, slug, vendor: candidate }),
+          index,
+          relativeFile,
+          errors
+        });
       });
     }
 
