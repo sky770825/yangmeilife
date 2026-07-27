@@ -81,7 +81,6 @@
   const searchHaystack = (vendor) => [
     vendor.name,
     vendor.area,
-    vendor.price,
     vendor.phone,
     vendor.address,
     vendor.contactNote,
@@ -177,8 +176,6 @@
     const query = state.query.trim().toLowerCase();
     let vendors = [...state.vendors];
     if (query) vendors = vendors.filter((vendor) => searchHaystack(vendor).includes(query));
-    if (state.sort === 'price-low') vendors.sort((a, b) => Number(String(a.price).replace(/[^0-9]/g, '') || 0) - Number(String(b.price).replace(/[^0-9]/g, '') || 0));
-    if (state.sort === 'price-high') vendors.sort((a, b) => Number(String(b.price).replace(/[^0-9]/g, '') || 0) - Number(String(a.price).replace(/[^0-9]/g, '') || 0));
     if (state.sort === 'area') vendors.sort((a, b) => String(a.area).localeCompare(String(b.area), 'zh-Hant'));
 
     const grid = app.querySelector('#vendorGrid');
@@ -258,8 +255,6 @@
         <input id="vendorSearch" class="vendor-directory-search" type="search" placeholder="搜尋店名、地區、電話或地址" aria-label="搜尋店家">
         <select id="vendorSort" class="vendor-directory-sort" aria-label="排序方式">
           <option value="default">預設排序</option>
-          <option value="price-low">價格低到高</option>
-          <option value="price-high">價格高到低</option>
           <option value="area">依地區</option>
         </select>
         <div class="vendor-view-switch" aria-label="檢視方式">

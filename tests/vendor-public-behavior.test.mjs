@@ -152,6 +152,15 @@ test('generated public vendor cards expose only verified facts and valid phone/m
     assert.doesNotMatch(pageScript, /state\.sort === 'rating'/);
     assert.doesNotMatch(pageScript, /value="rating"/);
     assert.doesNotMatch(pageScript, /評分高到低/);
+    assert.doesNotMatch(pageScript, /vendor\.price/);
+    assert.doesNotMatch(pageScript, /state\.sort === 'price-low'/);
+    assert.doesNotMatch(pageScript, /state\.sort === 'price-high'/);
+    assert.doesNotMatch(pageScript, /value="price-low"/);
+    assert.doesNotMatch(pageScript, /value="price-high"/);
+    assert.doesNotMatch(pageScript, /價格低到高/);
+    assert.doesNotMatch(pageScript, /價格高到低/);
+    assert.match(pageScript, /state\.sort === 'area'/);
+    assert.match(pageScript, /value="area"/);
     assert.match(pageScript, /\.vendor-card-media\{[^}]*aspect-ratio:2\/1/);
     assert.match(pageScript, /\.vendor-card-grid--gallery\{grid-template-columns:minmax\(0,1fr\)/);
     assert.match(pageScript, /@media \(min-width:768px\)\{[\s\S]*?#vendorPageApp \.vendor-card-grid--gallery\{grid-template-columns:repeat\(2,minmax\(0,1fr\)\)\}/);
