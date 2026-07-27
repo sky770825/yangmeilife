@@ -60,8 +60,9 @@ async function generatedCategoryScript(repoRoot) {
   return page.slice(start, end);
 }
 
-async function renderGeneratedCard(repoRoot, vendor) {
+async function renderGeneratedCard(repoRoot, vendor, { captureListeners = false } = {}) {
   const grid = { className: '', innerHTML: '' };
+  const listeners = [];
   const nodes = new Map([
     ['#vendorGrid', grid],
     ['#vendorCount', { textContent: '' }],
@@ -72,7 +73,9 @@ async function renderGeneratedCard(repoRoot, vendor) {
   ]);
   const app = {
     dataset: { vendorPage: 'fixture.html' },
-    addEventListener() {},
+    addEventListener(type, listener, options) {
+      listeners.push({ type, listener, capture: options === true });
+    },
     querySelector(selector) {
       return nodes.get(selector);
     },
@@ -124,7 +127,7 @@ async function renderGeneratedCard(repoRoot, vendor) {
 
   vm.runInNewContext(await generatedVendorPageScript(repoRoot), context);
   await new Promise((resolve) => setImmediate(resolve));
-  return grid.innerHTML;
+  return captureListeners ? { markup: grid.innerHTML, listeners } : grid.innerHTML;
 }
 
 test('generated public vendor cards expose only verified facts and valid phone/map actions', async () => {
@@ -276,39 +279,62 @@ test('generated public vendor cards omit image markup when no approved image exi
       assert.match(cardMarkup, /vendor-card-media--fallback/);
     }
 
-    const approvedImageMarkup = await renderGeneratedCard(repoRoot, {
+    const directFallbackMarkup = await renderGeneratedCard(repoRoot, fixtureVendor);
+    const directStoreSvg = directFallbackMarkup.match(/<svg[^>]*><path d="M4 10v10h16V10"[\s\S]*?<\/svg>/)?.[0];
+    assert.ok(directStoreSvg, 'direct no-image fallback should contain the store icon');
+
+    const approvedImageResult = await renderGeneratedCard(repoRoot, {
       ...fixtureVendor,
       image: 'https://example.com/store.jpg',
-    });
+    }, { captureListeners: true });
+    const { markup: approvedImageMarkup, listeners } = approvedImageResult;
     assert.match(approvedImageMarkup, /<img\b/i);
     assert.match(approvedImageMarkup, /src="https:\/\/example\.com\/store\.jpg"/);
-    const onerrorMatch = approvedImageMarkup.match(/onerror="([^"]+)"/);
-    assert.ok(onerrorMatch, 'approved image should have an inline error fallback handler');
+    assert.doesNotMatch(approvedImageMarkup, /\sonerror=/i);
+    const errorListener = listeners.find((entry) => entry.type === 'error' && entry.capture);
+    assert.ok(errorListener, 'image failures should use an app-scoped capturing error listener');
+
     const fallbackMedia = {
-      classes: [],
+      classes: new Set(['vendor-card-media']),
       attributes: new Map(),
+      dataset: { vendorName: 'No approved image' },
+      innerHTML: '<img class="vendor-card-image">',
       classList: {
         add(className) {
-          fallbackMedia.classes.push(className);
+          fallbackMedia.classes.add(className);
+        },
+        contains(className) {
+          return fallbackMedia.classes.has(className);
         },
       },
       setAttribute(name, value) {
         this.attributes.set(name, value);
       },
+      removeAttribute(name) {
+        this.attributes.delete(name);
+        delete this.dataset.vendorName;
+      },
     };
     const failedImage = {
       alt: 'No approved image',
-      onerror: true,
       parentElement: fallbackMedia,
+      classList: {
+        contains(className) {
+          return className === 'vendor-card-image';
+        },
+      },
       removed: false,
       remove() {
         this.removed = true;
       },
     };
-    Function(onerrorMatch[1]).call(failedImage);
-    assert.deepEqual(fallbackMedia.classes, ['vendor-card-media--fallback']);
+    errorListener.listener({ target: failedImage });
+    assert.equal(fallbackMedia.classes.has('vendor-card-media--fallback'), true);
     assert.equal(fallbackMedia.attributes.get('role'), 'img');
-    assert.equal(fallbackMedia.attributes.get('aria-label'), 'No approved image：圖片無法載入');
+    assert.equal(fallbackMedia.attributes.get('aria-label'), 'No approved image：暫無核可圖片');
+    assert.equal(fallbackMedia.dataset.vendorName, undefined);
     assert.equal(failedImage.removed, true);
+    assert.equal(fallbackMedia.innerHTML, directStoreSvg);
+    assert.doesNotMatch(fallbackMedia.innerHTML, /<img\b/i);
   });
 });

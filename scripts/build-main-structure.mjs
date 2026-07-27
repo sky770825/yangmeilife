@@ -964,6 +964,27 @@ const vendorPageJs = `(() => {
     return icons[name] || icons.link;
   };
 
+  const mediaFallbackMarkup = (name) =>
+    '<div class="vendor-card-media vendor-card-media--fallback" role="img" aria-label="' + escapeHtml(name) + '：暫無核可圖片">' + iconSvg('store') + '</div>';
+
+  const showMediaFallback = (media, name) => {
+    media.classList.add('vendor-card-media--fallback');
+    media.setAttribute('role', 'img');
+    media.setAttribute('aria-label', name + '：暫無核可圖片');
+    media.removeAttribute('data-vendor-name');
+    media.innerHTML = iconSvg('store');
+  };
+
+  app.addEventListener('error', (event) => {
+    const image = event.target;
+    if (!image || !image.classList || !image.classList.contains('vendor-card-image')) return;
+    const media = image.parentElement;
+    if (!media || !media.classList || !media.classList.contains('vendor-card-media')) return;
+    const name = image.alt || media.dataset.vendorName || '店家';
+    image.remove();
+    showMediaFallback(media, name);
+  }, true);
+
   const quickAction = (icon, label, href, options = {}) => {
     const { external = false, title = null, ariaLabel = label } = options;
     const iconMarkup = iconSvg(icon);
@@ -993,8 +1014,8 @@ const vendorPageJs = `(() => {
       ? vendor.img.trim()
       : null;
     const imageMarkup = imageUrl
-      ? '<div class="vendor-card-media"><img class="vendor-card-image" src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(vendor.name) + '" loading="lazy" decoding="async" width="640" height="360" onerror="this.onerror=null;this.parentElement.classList.add(\\'vendor-card-media--fallback\\');this.parentElement.setAttribute(\\'role\\',\\'img\\');this.parentElement.setAttribute(\\'aria-label\\',this.alt+\\'：圖片無法載入\\');this.remove()"></div>'
-      : '<div class="vendor-card-media vendor-card-media--fallback" role="img" aria-label="' + escapeHtml(vendor.name) + '：暫無核可圖片">' + iconSvg('store') + '</div>';
+      ? '<div class="vendor-card-media" data-vendor-name="' + escapeHtml(vendor.name) + '"><img class="vendor-card-image" src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(vendor.name) + '" loading="lazy" decoding="async" width="640" height="360"></div>'
+      : mediaFallbackMarkup(vendor.name);
   return \`<article class="vendor-card" data-search="\${escapeHtml(searchHaystack(vendor))}">
       \${imageMarkup}
       <div class="vendor-card-body">
