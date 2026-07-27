@@ -37,7 +37,7 @@
       "dataReadiness": "已核實資料",
       "dataSource": "data/vendors/categories/kungfu-tea/vendors.json",
       "sourceNote": "電話與地址以功夫茶官方據點頁及店家頁核實；營業時間未在本批使用的官方來源中確認。",
-      "lastVerifiedAt": "2026-07-03",
+      "lastVerifiedAt": "2026-07-27",
       "updatedAt": "2026-07-03T07:18:00+0800",
       "phone": "03-488-2975",
       "address": "楊梅區四維路 90 號",
@@ -54,9 +54,9 @@
         "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
       ],
       "publicationStatus": "published",
-      "sourceCheckedAt": "2026-07-03T07:18:00+08:00",
-      "nextReviewAt": "2026-10-01",
-      "reviewedBy": "2026-07-03 review migration",
+      "sourceCheckedAt": "2026-07-27T09:51:41+08:00",
+      "nextReviewAt": "2026-10-25",
+      "reviewedBy": "A2.1 researcher",
       "fieldSources": {
         "name": [
           "https://www.kungfutea.com.tw/location/?page=11",
@@ -94,7 +94,7 @@
         "sourceUrl": "https://www.kungfutea.com.tw/location/?page=11",
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T07:18:00+08:00"
+        "checkedAt": "2026-07-27T09:51:41+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
