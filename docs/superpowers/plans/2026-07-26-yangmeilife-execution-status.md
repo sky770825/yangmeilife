@@ -10,8 +10,8 @@
 | Coordinator | Codex / M5 Hermes | completed | 2026-07-27 | A2 來源刷新與發布閘門完成，準備 A3 |
 | Researcher | Curie / M5 角色 | completed | 2026-07-26 22:52 | 廠商、圖片與來源風險已回報 |
 | Data Engineer | Ohm / Codex | completed | 2026-07-27 | A1 資料驗證與防回生完成 |
-| UI Designer | Newton | completed | 2026-07-26 22:52 | UI、分頁與娛樂架構已回報 |
-| Frontend Engineer | 待 M5 指派 | pending | - | 等待 A3 |
+| UI Designer | Newton / Lovelace | completed | 2026-07-27 | A3 廠商卡片 UI 審查 Pass |
+| Frontend Engineer | Carson / Codex | completed | 2026-07-27 | A3 響應式廠商卡片完成 |
 | Game Engineer | 待 M5 指派 | pending | - | 等待 Batch D |
 | Reviewer | Galileo / Archimedes / Heisenberg | completed | 2026-07-27 | A1 規格與品質複查 Pass |
 | Security Reviewer | Sagan | completed | 2026-07-26 22:52 | XSS、CSP、權限與發布阻擋已回報 |
@@ -25,7 +25,7 @@
 | Batch 0 可回復基準 | completed | Codex / M5 Hermes | Archimedes: APPROVE | 10/10 截圖 | 無 |
 | A1 資料邊界與防回生 | completed | Ohm / Codex | Heisenberg: Pass | 10/10 tests | 無 |
 | A2 最新廠商資料 | completed | Poincare / Codex | A2.1-A2.5 evidence reviewers: Pass | 114/114 tests + data gate | 無 |
-| A3 廠商卡片與手機版 | pending | - | - | - | - |
+| A3 廠商卡片與手機版 | completed | Carson / Codex | Lovelace: Pass | Linnaeus: Pass, 115/115 tests | 無 |
 | B1 公開功能清單 | pending | - | - | - | - |
 | B2 最新在地資訊 | pending | - | - | - | - |
 | C1 全站設計基礎 | pending | - | - | - | - |
@@ -206,3 +206,19 @@
 - 已知限制：7 家缺圖店家已不會出現破圖；A3 可再提供中性視覺後備與卡片比例優化；官方圖片來源不代表重用或 hotlink 授權；候選資料需要新的權威來源與獨立複查才可提升。
 - 非阻擋測試待辦：把電話、導航與缺少聯絡方式的檢查由部分程式碼字串比對提升為完整 DOM fixture 斷言。
 - 下一步：進入 A3，僅處理缺圖的中性、不誤導呈現與手機版卡片體驗。
+
+## 2026-07-27 - A3 廠商卡片與手機版核准
+
+- 狀態：`completed`
+- 規劃版本：`d53f1fa`
+- 實作版本：`6301975..64dcca8`
+- QA 報告：`reports/vendor-card-responsive-qa-2026-07-27.md`
+- 介面：手機單欄、平板圖庫雙欄、寬桌機最多三欄；單店頁置中且最大寬度 620px。
+- 卡片：只保留店名、地區、最多三個標籤及電話、導航、店家 LINE/官方、收藏四個動作；最小觸控範圍 44px。
+- 圖片：4 張已審核官方來源圖片維持 2:1；7 家缺圖與遠端載入失敗使用相同的中性店家圖示，不會產生第二次圖片請求。
+- 比例修正：移除無資料的評分/價格排序；桌機工具列、店家數摘要與加入店家按鈕改用明確 CSS，不再依賴未編入的 Tailwind 類別。
+- 驗證：115/115 tests；11 個分類、11 家公開店家；7 張指定尺寸截圖皆無水平溢位、破圖、console/page error 或非預期 request failure。
+- Reviewer：Lovelace `UI Quality / Accessibility / Spec Compliance / Code Quality: Pass`；Linnaeus 瀏覽器 QA `Pass`。
+- 證據：`reports/screenshots/a3-2026-07-27/` 共 7 張 PNG，已納入版本控制。
+- 已知邊界：官方來源不等於重用或 hotlink 授權；未取得權利證據前不得用照片替換中性後備。
+- 下一步：執行 B1 公開功能清單，先把後臺、測試與未完成入口從消費者導覽移除。
