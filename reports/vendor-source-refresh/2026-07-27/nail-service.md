@@ -74,7 +74,7 @@ Branch decision: the supplemental directory distinguishes the Yangmei and Zhongl
 
 Branch decision: the official service page names the business and exact 四維路 196 號 location, so the stored Yangmei record is the same branch. `publicationStatus: "published"` remains appropriate. This record was fully rechecked with `lastVerifiedAt: 2026-07-27`, `nextReviewAt: 2026-10-25`, reviewer `A2.3 researcher`, and actual source/media check timestamps. Missing: business hours, explicit image-reuse permission, place ID, coordinates, and merchant consent. Media rights remain `permission-pending`; consent remains `not-recorded`. No candidate was promoted.
 
-## nail-service-real-4 - Relax蕾娜絲美甲美睫概念館（四維店）
+## nail-service-real-4 - Relax蕾娜絲美甲美睫概念館
 
 ### Checked URLs
 
@@ -86,15 +86,15 @@ Branch decision: the official service page names the business and exact 四維�
 
 | Field | Old value | Observed / accepted source | Decision |
 | --- | --- | --- | --- |
-| name | Relax蕾娜絲美甲美睫概念館（四維店） | Official site names Relax蕾娜絲美甲美睫概念館 at 四維路 133 號 | Retained; the parenthetical branch label is supported by the exact branch address. |
-| phone | 03-482-0127 | Official site shows 03-4820127 plus 0922919356 | Retained primary number; `tel:034820127` is valid. |
+| name | Relax蕾娜絲美甲美睫概念館（四維店） | Official site names Relax蕾娜絲美甲美睫概念館 at 四維路 133 號 | Updated to the exact official-source name; the address remains the branch discriminator. |
+| phone | 03-482-0127 | Official site shows 03-4820127 plus 0922919356 | Stored display contact remains the first-listed landline; no priority is asserted. `tel:034820127` is valid. |
 | address | 326桃園市楊梅區四維路133號 | Official site shows the same address | Retained; existing Google Maps navigation URL is non-empty and address-derived. |
 | businessHours | 每週 10:30-19:30 | Official site shows 每週 10:30 ~ 19:30 | Retained normalized formatting. |
 | officialUrl | Official site | HTTP 200 and first-party | Retained. |
 | lineUrl | null | No store-controlled LINE link on the checked official site | Retained null. |
 | image | Official hero image URL | Exact image returns HTTP 200 | Retained; rights are still pending. |
 
-Branch decision: the first-party site directly ties the Relax identity to the exact 四維路 133 號 address, distinguishing it from other branch locations. `publicationStatus: "published"` remains appropriate. This record was fully rechecked with `lastVerifiedAt: 2026-07-27`, `nextReviewAt: 2026-10-25`, reviewer `A2.3 researcher`, and actual source/media check timestamps. Missing: store-controlled LINE, explicit image-reuse permission, place ID, coordinates, and merchant consent. Media rights remain `permission-pending`; consent remains `not-recorded`. No candidate was promoted.
+Branch decision: the first-party site directly ties the Relax identity to the exact 四維路 133 號 address, which distinguishes this record from other locations without asserting that the source uses a branch name. `publicationStatus: "published"` remains appropriate. This record was fully rechecked with `lastVerifiedAt: 2026-07-27`, `nextReviewAt: 2026-10-25`, reviewer `A2.3 researcher`, and actual source/media check timestamps. Missing: store-controlled LINE, explicit image-reuse permission, place ID, coordinates, and merchant consent. Media rights remain `permission-pending`; consent remains `not-recorded`. No candidate was promoted.
 
 ## Self-Review
 

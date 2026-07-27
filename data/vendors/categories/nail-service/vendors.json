@@ -256,7 +256,7 @@
     },
     {
       "id": "nail-service-real-4",
-      "name": "Relax蕾娜絲美甲美睫概念館（四維店）",
+      "name": "Relax蕾娜絲美甲美睫概念館",
       "area": "楊梅四維路",
       "price": null,
       "rating": null,
@@ -275,7 +275,7 @@
       "verificationLevel": "verified",
       "dataReadiness": "已核實資料",
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
-      "sourceNote": "四維店電話、地址、營業時間與服務內容以官方網站核實。",
+      "sourceNote": "電話、地址、營業時間與服務內容以官方網站核實；四維路133號地址保留作分店辨識。",
       "lastVerifiedAt": "2026-07-27",
       "updatedAt": "2026-07-27T10:24:18+08:00",
       "phone": "03-482-0127",
@@ -284,7 +284,7 @@
       "officialUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=326%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%9B%9B%E7%B6%AD%E8%B7%AF133%E8%99%9F",
       "lineUrl": null,
-      "contactNote": "官方網站列示四維店地址與電話 03-4820127 / 0922919356；前台主電話採 03-482-0127。",
+      "contactNote": "官方網站列示地址 326桃園市楊梅區四維路133號，並列出電話 03-4820127 / 0922919356；前台顯示維持先列出的市話 03-482-0127。",
       "missingFields": [],
       "officialSource": "Relax蕾娜絲官方網站",
       "sourceUrls": [
