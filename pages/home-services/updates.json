@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "home-services",
+    "title": "居家修繕與工程服務",
+    "owner": "居家服務維護",
+    "folder": "pages/home-services/"
+  },
+  "files": {
+    "index": "pages/home-services/index.html",
+    "updatesPage": "pages/home-services/updates.html",
+    "updatesData": "pages/home-services/updates.json"
+  },
+  "functions": [
+    {
+      "id": "renovation",
+      "title": "裝潢設計",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "renovation.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "renovation.html",
+      "currentUrl": "renovation.html",
+      "archivePath": "archive/cursor-history/latest/renovation.html",
+      "updateType": "content",
+      "tags": [
+        "裝潢",
+        "設計"
+      ]
+    },
+    {
+      "id": "decor-calc",
+      "title": "裝潢估算",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "decor-calc.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "decor-calc.html",
+      "currentUrl": "decor-calc.html",
+      "archivePath": "archive/cursor-history/latest/decor-calc.html",
+      "updateType": "content",
+      "tags": [
+        "裝潢",
+        "估算"
+      ]
+    },
+    {
+      "id": "water-electric",
+      "title": "水電修繕",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "water-electric.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "water-electric.html",
+      "currentUrl": "water-electric.html",
+      "archivePath": "archive/cursor-history/latest/water-electric.html",
+      "updateType": "content",
+      "tags": [
+        "水電",
+        "維修"
+      ]
+    },
+    {
+      "id": "inspection-company",
+      "title": "驗屋公司",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "inspection-company.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "inspection-company.html",
+      "currentUrl": "inspection-company.html",
+      "archivePath": "archive/cursor-history/latest/inspection-company.html",
+      "updateType": "content",
+      "tags": [
+        "驗屋",
+        "廠商"
+      ]
+    },
+    {
+      "id": "inspection",
+      "title": "驗屋檢查工具",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "inspection.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "inspection.html",
+      "currentUrl": "inspection.html",
+      "archivePath": "archive/cursor-history/latest/inspection.html",
+      "updateType": "content",
+      "tags": [
+        "驗屋",
+        "工具"
+      ]
+    },
+    {
+      "id": "anti-dust-screen",
+      "title": "防霾紗網",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "anti-dust-screen.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "anti-dust-screen.html",
+      "currentUrl": "anti-dust-screen.html",
+      "archivePath": "archive/cursor-history/latest/anti-dust-screen.html",
+      "updateType": "content",
+      "tags": [
+        "防霾",
+        "紗網"
+      ]
+    },
+    {
+      "id": "paint-service",
+      "title": "油漆工程",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "paint-service.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "paint-service.html",
+      "currentUrl": "paint-service.html",
+      "archivePath": "archive/cursor-history/latest/paint-service.html",
+      "updateType": "content",
+      "tags": [
+        "油漆",
+        "工程"
+      ]
+    },
+    {
+      "id": "pest-control",
+      "title": "病媒防治",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "pest-control.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "pest-control.html",
+      "currentUrl": "pest-control.html",
+      "archivePath": "archive/cursor-history/latest/pest-control.html",
+      "updateType": "content",
+      "tags": [
+        "除蟲",
+        "病媒"
+      ]
+    },
+    {
+      "id": "moving-company",
+      "title": "搬家公司",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "moving-company.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "moving-company.html",
+      "currentUrl": "moving-company.html",
+      "archivePath": "archive/cursor-history/latest/moving-company.html",
+      "updateType": "content",
+      "tags": [
+        "搬家"
+      ]
+    },
+    {
+      "id": "air-conditioning",
+      "title": "冷氣服務",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "air-conditioning.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "air-conditioning.html",
+      "currentUrl": "air-conditioning.html",
+      "archivePath": "archive/cursor-history/latest/air-conditioning.html",
+      "updateType": "content",
+      "tags": [
+        "冷氣",
+        "清洗"
+      ]
+    },
+    {
+      "id": "item-storage",
+      "title": "收納倉儲",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "item-storage.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "item-storage.html",
+      "currentUrl": "item-storage.html",
+      "archivePath": "archive/cursor-history/latest/item-storage.html",
+      "updateType": "content",
+      "tags": [
+        "收納",
+        "倉儲"
+      ]
+    }
+  ]
+}

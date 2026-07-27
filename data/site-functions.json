@@ -1,0 +1,1538 @@
+{
+  "generatedAt": "2026-07-02T13:25:00+08:00",
+  "categories": [
+    {
+      "id": "site-core",
+      "title": "網站核心與導覽",
+      "icon": "◎",
+      "description": "首頁、搜尋、分享、通知與整站入口，負責把使用者導到各功能頁。",
+      "updateOwner": "網站管理者"
+    },
+    {
+      "id": "real-estate",
+      "title": "房產金融與物件",
+      "icon": "屋",
+      "description": "房屋估價、房貸、物件、新案、投資與稅費試算等房產相關功能。",
+      "updateOwner": "房產內容管理"
+    },
+    {
+      "id": "daily-info",
+      "title": "在地生活與交通資訊",
+      "icon": "訊",
+      "description": "天氣、垃圾車、公車、停車、匯率、計程車與日常查詢。",
+      "updateOwner": "生活資訊維護"
+    },
+    {
+      "id": "home-services",
+      "title": "居家修繕與工程服務",
+      "icon": "修",
+      "description": "水電、油漆、防蟲、驗屋、冷氣、搬家、收納與裝潢維修。",
+      "updateOwner": "居家服務維護"
+    },
+    {
+      "id": "food-drink",
+      "title": "美食餐飲與行動攤商",
+      "icon": "食",
+      "description": "飲品、餐車、在地美食與餐飲合作店家。",
+      "updateOwner": "餐飲資料維護"
+    },
+    {
+      "id": "beauty-wellness",
+      "title": "美容美體與按摩舒壓",
+      "icon": "美",
+      "description": "美容、美髮、美睫、美甲、按摩與整復服務。",
+      "updateOwner": "美容舒壓資料維護"
+    },
+    {
+      "id": "personal-tools",
+      "title": "個人紀錄與生活工具",
+      "icon": "記",
+      "description": "記帳、待辦、比價、健康、水電費、保養與個人管理工具。",
+      "updateOwner": "工具功能維護"
+    },
+    {
+      "id": "community-content",
+      "title": "社群互動與地方內容",
+      "icon": "社",
+      "description": "社區公告、聊天、評論、在地生活內容、拜拜文化與分享功能。",
+      "updateOwner": "地方內容維護"
+    },
+    {
+      "id": "leisure",
+      "title": "輕鬆時光與互動娛樂",
+      "icon": "樂",
+      "description": "遊戲、運勢、MBTI、每日金句等提升黏著度的互動內容。",
+      "updateOwner": "互動內容維護"
+    },
+    {
+      "id": "vendors-admin",
+      "title": "店家合作與資料管理",
+      "icon": "商",
+      "description": "店家登錄、圖片上傳、預約與合作資料整理。",
+      "updateOwner": "商家營運維護"
+    },
+    {
+      "id": "health-care",
+      "title": "醫療照護與健康服務",
+      "icon": "護",
+      "description": "居家照護、診所資訊、健康紀錄與照護服務入口。",
+      "updateOwner": "健康照護資料維護"
+    }
+  ],
+  "functions": [
+    {
+      "id": "home",
+      "title": "首頁",
+      "category": "site-core",
+      "description": "新版主入口，承載所有功能卡片與搜尋入口。",
+      "currentUrl": "index.html",
+      "page": "index.html",
+      "external": false,
+      "status": "current-page",
+      "implementationStatus": "current-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "首頁",
+        "導覽"
+      ],
+      "archivePath": "archive/cursor-history/latest/index.html",
+      "archiveTimestamp": "2026-01-29T08:33:09.327Z",
+      "archiveSize": 141806
+    },
+    {
+      "id": "search",
+      "title": "搜尋服務",
+      "category": "site-core",
+      "description": "站內功能搜尋與常用服務索引。",
+      "currentUrl": "search.html",
+      "page": "search.html",
+      "external": false,
+      "status": "current-page",
+      "implementationStatus": "current-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "搜尋",
+        "索引"
+      ],
+      "archivePath": "archive/cursor-history/latest/search.html",
+      "archiveTimestamp": "2026-01-07T04:02:22.239Z",
+      "archiveSize": 20992
+    },
+    {
+      "id": "dashboard",
+      "title": "生活助手儀表板",
+      "category": "site-core",
+      "description": "生活助手與常用工具集中入口。",
+      "currentUrl": "dashboard.html",
+      "page": "dashboard.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "生活助手",
+        "入口"
+      ],
+      "archivePath": "archive/cursor-history/latest/dashboard.html",
+      "archiveTimestamp": "2026-01-07T01:14:07.513Z",
+      "archiveSize": 15125
+    },
+    {
+      "id": "share",
+      "title": "分享頁",
+      "category": "site-core",
+      "description": "網站分享與轉傳入口。",
+      "currentUrl": "share.html",
+      "page": "share.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "分享"
+      ],
+      "archivePath": "archive/cursor-history/latest/share.html",
+      "archiveTimestamp": "2026-01-07T01:02:01.635Z",
+      "archiveSize": 22065
+    },
+    {
+      "id": "notifications",
+      "title": "通知中心",
+      "category": "site-core",
+      "description": "通知與提醒內容頁。",
+      "currentUrl": "notifications.html",
+      "page": "notifications.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "通知"
+      ],
+      "archivePath": "archive/cursor-history/latest/notifications.html",
+      "archiveTimestamp": "2026-01-07T01:02:18.317Z",
+      "archiveSize": 18729
+    },
+    {
+      "id": "property-valuation",
+      "title": "房屋估價",
+      "category": "real-estate",
+      "description": "透過 LINE 客服進行房屋估價或初步諮詢。",
+      "currentUrl": "https://lin.ee/Ij6z94H",
+      "page": null,
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://lin.ee/Ij6z94H",
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "房屋",
+        "估價",
+        "LINE"
+      ]
+    },
+    {
+      "id": "loan-calc-external",
+      "title": "房貸試算",
+      "category": "real-estate",
+      "description": "房貸與付款能力估算入口。",
+      "currentUrl": "https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2",
+      "page": "loan-calc.html",
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "service-page",
+      "targetType": "dual-entry",
+      "externalUrl": "https://housepice.pages.dev/%E4%B8%89%E5%90%88%E4%B8%80%E6%88%BF%E5%83%B9%E6%99%AE%E7%89%B9%E7%B5%B2",
+      "primaryTarget": "external-link",
+      "secondaryTargetType": "local-page",
+      "secondaryTargetUrl": "loan-calc.html",
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "房貸",
+        "試算"
+      ],
+      "archivePath": "archive/cursor-history/latest/loan-calc.html",
+      "archiveTimestamp": "2026-01-07T01:03:55.095Z",
+      "archiveSize": 8165
+    },
+    {
+      "id": "featured-properties",
+      "title": "精選物件",
+      "category": "real-estate",
+      "description": "楊梅房訊與精選物件入口。",
+      "currentUrl": "https://flyjung168.pages.dev/",
+      "page": null,
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://flyjung168.pages.dev/",
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "房訊",
+        "物件"
+      ]
+    },
+    {
+      "id": "pre-sale",
+      "title": "新案預售",
+      "category": "real-estate",
+      "description": "新案預售與房產名單活動入口。",
+      "currentUrl": "https://salersteam.pages.dev/junyang",
+      "page": null,
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://salersteam.pages.dev/junyang",
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "新案",
+        "預售"
+      ]
+    },
+    {
+      "id": "investor",
+      "title": "投資人工具",
+      "category": "real-estate",
+      "description": "房產投資估算與管理入口。",
+      "currentUrl": "investor.html",
+      "page": "investor.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "投資",
+        "房產"
+      ],
+      "archivePath": "archive/cursor-history/latest/investor.html",
+      "archiveTimestamp": "2026-01-07T01:18:10.385Z",
+      "archiveSize": 15245
+    },
+    {
+      "id": "tax-calc",
+      "title": "稅費試算",
+      "category": "real-estate",
+      "description": "買賣與持有相關稅費試算工具。",
+      "currentUrl": "tax-calc.html",
+      "page": "tax-calc.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "稅費",
+        "試算"
+      ],
+      "archivePath": "archive/cursor-history/latest/tax-calc.html",
+      "archiveTimestamp": "2026-01-07T01:03:44.794Z",
+      "archiveSize": 31121
+    },
+    {
+      "id": "rental-management",
+      "title": "包租代管",
+      "category": "real-estate",
+      "description": "租賃管理、屋主服務與包租代管廠商。",
+      "currentUrl": null,
+      "page": "rental-management.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "租賃",
+        "包租代管",
+        "廠商"
+      ],
+      "archivePath": "archive/cursor-history/latest/rental-management.html",
+      "archiveTimestamp": "2026-01-07T01:17:24.984Z",
+      "archiveSize": 5990,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅包租代管廠商"
+      }
+    },
+    {
+      "id": "rental-mgmt",
+      "title": "租賃管理工具",
+      "category": "real-estate",
+      "description": "租屋管理與租務紀錄功能。",
+      "currentUrl": "rental-mgmt.html",
+      "page": "rental-mgmt.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "租屋",
+        "管理"
+      ],
+      "archivePath": "archive/cursor-history/latest/rental-mgmt.html",
+      "archiveTimestamp": "2026-01-07T01:18:32.634Z",
+      "archiveSize": 17291
+    },
+    {
+      "id": "weather",
+      "title": "天氣查詢",
+      "category": "daily-info",
+      "description": "楊梅在地天氣資訊入口。",
+      "currentUrl": null,
+      "page": "weather.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "天氣"
+      ],
+      "archivePath": "archive/cursor-history/latest/weather.html",
+      "archiveTimestamp": "2026-01-07T07:34:32.998Z",
+      "archiveSize": 47251
+    },
+    {
+      "id": "garbage",
+      "title": "垃圾車時間",
+      "category": "daily-info",
+      "description": "垃圾車清運資訊與時間查詢。",
+      "currentUrl": null,
+      "page": "garbage.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "垃圾車",
+        "清運"
+      ],
+      "archivePath": "archive/cursor-history/latest/garbage.html",
+      "archiveTimestamp": "2026-01-07T01:03:24.641Z",
+      "archiveSize": 27098
+    },
+    {
+      "id": "bus",
+      "title": "公車動態",
+      "category": "daily-info",
+      "description": "公車路線與動態查詢。",
+      "currentUrl": null,
+      "page": "bus.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "公車",
+        "交通"
+      ],
+      "archivePath": "archive/cursor-history/latest/bus.html",
+      "archiveTimestamp": "2026-01-07T01:03:29.980Z",
+      "archiveSize": 38444
+    },
+    {
+      "id": "parking",
+      "title": "停車資訊",
+      "category": "daily-info",
+      "description": "停車位置與在地停車資訊。",
+      "currentUrl": null,
+      "page": "parking.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "停車"
+      ],
+      "archivePath": "archive/cursor-history/latest/parking.html",
+      "archiveTimestamp": "2026-01-29T13:00:12.196Z",
+      "archiveSize": 25702
+    },
+    {
+      "id": "taxi",
+      "title": "計程車行",
+      "category": "daily-info",
+      "description": "在地叫車與計程車資訊。",
+      "currentUrl": null,
+      "page": "taxi.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "計程車",
+        "叫車"
+      ],
+      "archivePath": "archive/cursor-history/latest/taxi.html",
+      "archiveTimestamp": "2026-01-29T10:22:01.889Z",
+      "archiveSize": 11643
+    },
+    {
+      "id": "rate",
+      "title": "匯率查詢",
+      "category": "daily-info",
+      "description": "匯率或費率查詢工具。",
+      "currentUrl": null,
+      "page": "rate.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "匯率",
+        "查詢"
+      ],
+      "archivePath": "archive/cursor-history/latest/rate.html",
+      "archiveTimestamp": "2026-01-07T01:04:06.082Z",
+      "archiveSize": 17121
+    },
+    {
+      "id": "local-life",
+      "title": "在地生活",
+      "category": "daily-info",
+      "description": "在地生活資訊總覽。",
+      "currentUrl": null,
+      "page": "local-life.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "在地",
+        "生活"
+      ],
+      "archivePath": "archive/cursor-history/latest/local-life.html",
+      "archiveTimestamp": "2026-01-07T01:02:36.227Z",
+      "archiveSize": 44715
+    },
+    {
+      "id": "renovation",
+      "title": "裝潢設計",
+      "category": "home-services",
+      "description": "裝潢、室內設計與工程服務入口。",
+      "currentUrl": null,
+      "page": "renovation.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "裝潢",
+        "設計"
+      ],
+      "archivePath": "archive/cursor-history/latest/renovation.html",
+      "archiveTimestamp": "2026-01-29T08:33:09.335Z",
+      "archiveSize": 33616
+    },
+    {
+      "id": "decor-calc",
+      "title": "裝潢估算",
+      "category": "home-services",
+      "description": "裝潢費用與項目估算。",
+      "currentUrl": null,
+      "page": "decor-calc.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "裝潢",
+        "估算"
+      ],
+      "archivePath": "archive/cursor-history/latest/decor-calc.html",
+      "archiveTimestamp": "2026-01-07T01:03:47.487Z",
+      "archiveSize": 12619
+    },
+    {
+      "id": "water-electric",
+      "title": "水電修繕",
+      "category": "home-services",
+      "description": "水電維修與服務廠商入口。",
+      "currentUrl": null,
+      "page": "water-electric.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "水電",
+        "維修"
+      ],
+      "archivePath": "archive/cursor-history/latest/water-electric.html",
+      "archiveTimestamp": "2026-01-29T13:00:12.200Z",
+      "archiveSize": 12290
+    },
+    {
+      "id": "inspection-company",
+      "title": "驗屋公司",
+      "category": "home-services",
+      "description": "驗屋公司與專業檢查服務。",
+      "currentUrl": null,
+      "page": "inspection-company.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "驗屋",
+        "廠商"
+      ],
+      "archivePath": "archive/cursor-history/latest/inspection-company.html",
+      "archiveTimestamp": "2026-01-07T01:17:40.571Z",
+      "archiveSize": 21548
+    },
+    {
+      "id": "inspection",
+      "title": "驗屋檢查工具",
+      "category": "home-services",
+      "description": "驗屋紀錄、檢查表與相關工具。",
+      "currentUrl": null,
+      "page": "inspection.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "驗屋",
+        "工具"
+      ],
+      "archivePath": "archive/cursor-history/latest/inspection.html",
+      "archiveTimestamp": "2026-01-07T07:21:51.856Z",
+      "archiveSize": 65692
+    },
+    {
+      "id": "anti-dust-screen",
+      "title": "防霾紗網",
+      "category": "home-services",
+      "description": "防霾紗網與空氣改善相關服務。",
+      "currentUrl": null,
+      "page": "anti-dust-screen.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "防霾",
+        "紗網"
+      ],
+      "archivePath": "archive/cursor-history/latest/anti-dust-screen.html",
+      "archiveTimestamp": "2026-01-07T01:31:18.359Z",
+      "archiveSize": 27022
+    },
+    {
+      "id": "paint-service",
+      "title": "油漆工程",
+      "category": "home-services",
+      "description": "油漆、粉刷、批土與修繕服務。",
+      "currentUrl": null,
+      "page": "paint-service.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "油漆",
+        "工程"
+      ],
+      "archivePath": "archive/cursor-history/latest/paint-service.html",
+      "archiveTimestamp": "2026-01-29T10:22:01.889Z",
+      "archiveSize": 11570
+    },
+    {
+      "id": "pest-control",
+      "title": "病媒防治",
+      "category": "home-services",
+      "description": "白蟻、除蟲與環境防治服務。",
+      "currentUrl": null,
+      "page": "pest-control.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "除蟲",
+        "病媒"
+      ],
+      "archivePath": "archive/cursor-history/latest/pest-control.html",
+      "archiveTimestamp": "2026-01-29T13:00:12.209Z",
+      "archiveSize": 16890
+    },
+    {
+      "id": "moving-company",
+      "title": "搬家公司",
+      "category": "home-services",
+      "description": "搬家與運送服務入口。",
+      "currentUrl": null,
+      "page": "moving-company.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "搬家"
+      ],
+      "archivePath": "archive/cursor-history/latest/moving-company.html",
+      "archiveTimestamp": "2026-01-29T08:41:11.884Z",
+      "archiveSize": 23588
+    },
+    {
+      "id": "air-conditioning",
+      "title": "冷氣服務",
+      "category": "home-services",
+      "description": "冷氣清洗、維修與安裝服務。",
+      "currentUrl": null,
+      "page": "air-conditioning.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "冷氣",
+        "清洗"
+      ],
+      "archivePath": "archive/cursor-history/latest/air-conditioning.html",
+      "archiveTimestamp": "2026-01-29T10:22:01.889Z",
+      "archiveSize": 14402
+    },
+    {
+      "id": "item-storage",
+      "title": "收納倉儲",
+      "category": "home-services",
+      "description": "物品收納、倉儲與整理服務。",
+      "currentUrl": null,
+      "page": "item-storage.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "收納",
+        "倉儲"
+      ],
+      "archivePath": "archive/cursor-history/latest/item-storage.html",
+      "archiveTimestamp": "2026-01-29T00:12:13.432Z",
+      "archiveSize": 34091
+    },
+    {
+      "id": "kungfu-tea-live",
+      "title": "功夫茶楊梅店",
+      "category": "food-drink",
+      "description": "功夫茶楊梅店飲品資訊與菜單入口。",
+      "currentUrl": "https://kungfuteahtml.pages.dev/",
+      "page": "kungfu-tea.html",
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "vendor-page",
+      "targetType": "dual-entry",
+      "externalUrl": "https://kungfuteahtml.pages.dev/",
+      "primaryTarget": "local-page",
+      "secondaryTargetType": "external-link",
+      "secondaryTargetUrl": "https://kungfuteahtml.pages.dev/",
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "飲品",
+        "功夫茶"
+      ],
+      "archivePath": "archive/cursor-history/latest/kungfu-tea.html",
+      "archiveTimestamp": "2026-01-07T01:02:11.286Z",
+      "archiveSize": 7215,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅飲品廠商"
+      }
+    },
+    {
+      "id": "food-truck-live",
+      "title": "餐車位置追蹤",
+      "category": "food-drink",
+      "description": "四維商圈或餐車位置與活動資訊入口。",
+      "currentUrl": "https://siwei.pages.dev/",
+      "page": "food-truck.html",
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "vendor-page",
+      "targetType": "dual-entry",
+      "externalUrl": "https://siwei.pages.dev/",
+      "primaryTarget": "local-page",
+      "secondaryTargetType": "external-link",
+      "secondaryTargetUrl": "https://siwei.pages.dev/",
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "餐車",
+        "美食"
+      ],
+      "archivePath": "archive/cursor-history/latest/food-truck.html",
+      "archiveTimestamp": "2026-01-07T01:02:08.830Z",
+      "archiveSize": 7501,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅餐車廠商"
+      }
+    },
+    {
+      "id": "beauty-skin",
+      "title": "美容護膚",
+      "category": "beauty-wellness",
+      "description": "美容護膚廠商與服務列表。",
+      "currentUrl": null,
+      "page": "beauty-skin.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "美容",
+        "護膚",
+        "廠商"
+      ],
+      "archivePath": "archive/cursor-history/latest/beauty-skin.html",
+      "archiveTimestamp": "2026-01-07T01:19:48.039Z",
+      "archiveSize": 8870,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅美容護膚廠商"
+      }
+    },
+    {
+      "id": "hair-salon",
+      "title": "美髮造型",
+      "category": "beauty-wellness",
+      "description": "美髮造型廠商與服務列表。",
+      "currentUrl": null,
+      "page": "hair-salon.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "美髮",
+        "廠商"
+      ],
+      "archivePath": "archive/cursor-history/latest/hair-salon.html",
+      "archiveTimestamp": "2026-01-07T01:20:20.268Z",
+      "archiveSize": 8885,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅美髮造型廠商"
+      }
+    },
+    {
+      "id": "eyelash-service",
+      "title": "美睫服務",
+      "category": "beauty-wellness",
+      "description": "美睫服務廠商與服務列表。",
+      "currentUrl": null,
+      "page": "eyelash-service.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "美睫",
+        "廠商"
+      ],
+      "archivePath": "archive/cursor-history/latest/eyelash-service.html",
+      "archiveTimestamp": "2026-01-29T00:43:59.114Z",
+      "archiveSize": 13409,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅美睫服務廠商"
+      }
+    },
+    {
+      "id": "nail-service",
+      "title": "美甲服務",
+      "category": "beauty-wellness",
+      "description": "美甲服務廠商與服務列表。",
+      "currentUrl": null,
+      "page": "nail-service.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "美甲",
+        "廠商"
+      ],
+      "archivePath": "archive/cursor-history/latest/nail-service.html",
+      "archiveTimestamp": "2026-01-29T08:33:09.327Z",
+      "archiveSize": 13006,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅美甲服務廠商"
+      }
+    },
+    {
+      "id": "thai-massage",
+      "title": "泰式按摩",
+      "category": "beauty-wellness",
+      "description": "泰式按摩與舒壓服務。",
+      "currentUrl": null,
+      "page": "thai-massage.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "按摩",
+        "泰式"
+      ],
+      "archivePath": "archive/cursor-history/latest/thai-massage.html",
+      "archiveTimestamp": "2026-01-07T01:21:04.639Z",
+      "archiveSize": 19447,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅泰式按摩廠商"
+      }
+    },
+    {
+      "id": "vietnamese-massage",
+      "title": "越式按摩",
+      "category": "beauty-wellness",
+      "description": "越式按摩與足體服務。",
+      "currentUrl": null,
+      "page": "vietnamese-massage.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "按摩",
+        "越式"
+      ],
+      "archivePath": "archive/cursor-history/latest/vietnamese-massage.html",
+      "archiveTimestamp": "2026-01-07T01:21:20.667Z",
+      "archiveSize": 11410,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅越式按摩廠商"
+      }
+    },
+    {
+      "id": "taiwanese-massage",
+      "title": "台式按摩",
+      "category": "beauty-wellness",
+      "description": "台式按摩與傳統舒壓服務。",
+      "currentUrl": null,
+      "page": "taiwanese-massage.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "按摩",
+        "台式"
+      ],
+      "archivePath": "archive/cursor-history/latest/taiwanese-massage.html",
+      "archiveTimestamp": "2026-01-07T01:20:49.990Z",
+      "archiveSize": 8885,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅台式按摩廠商"
+      }
+    },
+    {
+      "id": "american-chiropractic",
+      "title": "美式整復",
+      "category": "beauty-wellness",
+      "description": "美式整復、脊椎調整與動作修復。",
+      "currentUrl": null,
+      "page": "american-chiropractic.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "vendor-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "vendor-list",
+      "tags": [
+        "整復",
+        "舒壓"
+      ],
+      "archivePath": "archive/cursor-history/latest/american-chiropractic.html",
+      "archiveTimestamp": "2026-01-07T01:19:21.587Z",
+      "archiveSize": 8857,
+      "vendorData": {
+        "vendorCount": 3,
+        "title": "楊梅美式整復廠商"
+      }
+    },
+    {
+      "id": "receipt",
+      "title": "發票對獎",
+      "category": "personal-tools",
+      "description": "統一發票對獎與記帳相關入口。",
+      "currentUrl": null,
+      "page": "receipt.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "發票",
+        "記帳"
+      ],
+      "archivePath": "archive/cursor-history/latest/receipt.html",
+      "archiveTimestamp": "2026-01-07T01:16:05.287Z",
+      "archiveSize": 121685
+    },
+    {
+      "id": "expense-tracker",
+      "title": "每日記帳",
+      "category": "personal-tools",
+      "description": "日常記帳與支出紀錄。",
+      "currentUrl": null,
+      "page": "expense-tracker.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "記帳"
+      ],
+      "archivePath": "archive/cursor-history/latest/expense-tracker.html",
+      "archiveTimestamp": "2026-01-07T01:06:52.376Z",
+      "archiveSize": 61702
+    },
+    {
+      "id": "todo-list",
+      "title": "待辦清單",
+      "category": "personal-tools",
+      "description": "個人待辦事項管理。",
+      "currentUrl": null,
+      "page": "todo-list.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "待辦"
+      ],
+      "archivePath": "archive/cursor-history/latest/todo-list.html",
+      "archiveTimestamp": "2026-01-03T11:00:07.158Z",
+      "archiveSize": 39634
+    },
+    {
+      "id": "price-comparison",
+      "title": "比價工具",
+      "category": "personal-tools",
+      "description": "日常採購或服務比價工具。",
+      "currentUrl": null,
+      "page": "price-comparison.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "比價"
+      ],
+      "archivePath": "archive/cursor-history/latest/price-comparison.html",
+      "archiveTimestamp": "2026-01-07T07:32:25.088Z",
+      "archiveSize": 33534
+    },
+    {
+      "id": "health-record",
+      "title": "健康紀錄",
+      "category": "personal-tools",
+      "description": "個人健康資料與生活紀錄。",
+      "currentUrl": null,
+      "page": "health-record.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "健康",
+        "紀錄"
+      ],
+      "archivePath": "archive/cursor-history/latest/health-record.html",
+      "archiveTimestamp": "2026-01-07T02:41:36.039Z",
+      "archiveSize": 48480
+    },
+    {
+      "id": "utility-tracking",
+      "title": "水電費追蹤",
+      "category": "personal-tools",
+      "description": "水電瓦斯等帳務追蹤。",
+      "currentUrl": null,
+      "page": "utility-tracking.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "水電費",
+        "帳務"
+      ],
+      "archivePath": "archive/cursor-history/latest/utility-tracking.html",
+      "archiveTimestamp": "2026-01-03T10:10:19.855Z",
+      "archiveSize": 27141
+    },
+    {
+      "id": "maintenance-record",
+      "title": "保養維修紀錄",
+      "category": "personal-tools",
+      "description": "家電、車輛或生活設備維修紀錄。",
+      "currentUrl": null,
+      "page": "maintenance-record.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "維修",
+        "紀錄"
+      ],
+      "archivePath": "archive/cursor-history/latest/maintenance-record.html",
+      "archiveTimestamp": "2026-01-03T10:15:11.766Z",
+      "archiveSize": 21584
+    },
+    {
+      "id": "motorcycle-maintenance",
+      "title": "機車保養",
+      "category": "personal-tools",
+      "description": "機車保養與維修紀錄工具。",
+      "currentUrl": null,
+      "page": "motorcycle-maintenance.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "機車",
+        "保養"
+      ],
+      "archivePath": "archive/cursor-history/latest/motorcycle-maintenance.html",
+      "archiveTimestamp": "2026-01-29T13:00:12.200Z",
+      "archiveSize": 30218
+    },
+    {
+      "id": "community-board",
+      "title": "社區公告",
+      "category": "community-content",
+      "description": "社區公告與地方資訊發布。",
+      "currentUrl": null,
+      "page": "community-board.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "社區",
+        "公告"
+      ],
+      "archivePath": "archive/cursor-history/latest/community-board.html",
+      "archiveTimestamp": "2026-01-03T10:14:23.830Z",
+      "archiveSize": 21577
+    },
+    {
+      "id": "community-chat",
+      "title": "社區聊天",
+      "category": "community-content",
+      "description": "社區互動與聊天功能。",
+      "currentUrl": null,
+      "page": "community-chat.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "社群",
+        "聊天"
+      ],
+      "archivePath": "archive/cursor-history/latest/community-chat.html",
+      "archiveTimestamp": "2026-01-07T01:14:48.535Z",
+      "archiveSize": 18986
+    },
+    {
+      "id": "reviews",
+      "title": "評論與評價",
+      "category": "community-content",
+      "description": "服務評論、評價與回饋。",
+      "currentUrl": null,
+      "page": "reviews.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "評論"
+      ],
+      "archivePath": "archive/cursor-history/latest/reviews.html",
+      "archiveTimestamp": "2026-01-07T01:01:58.628Z",
+      "archiveSize": 18209
+    },
+    {
+      "id": "worship",
+      "title": "拜拜專區",
+      "category": "community-content",
+      "description": "在地信仰、廟宇與拜拜資訊。",
+      "currentUrl": null,
+      "page": "worship.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "拜拜",
+        "文化"
+      ],
+      "archivePath": "archive/cursor-history/latest/worship.html",
+      "archiveTimestamp": "2026-01-07T01:13:51.393Z",
+      "archiveSize": 48432
+    },
+    {
+      "id": "second-hand",
+      "title": "二手交易",
+      "category": "community-content",
+      "description": "二手物品刊登、照片與聯絡資訊。",
+      "currentUrl": null,
+      "page": "second-hand.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "二手",
+        "交易"
+      ],
+      "archivePath": "archive/cursor-history/latest/second-hand.html",
+      "archiveTimestamp": "2026-01-28T22:32:52.080Z",
+      "archiveSize": 88561
+    },
+    {
+      "id": "subsidy",
+      "title": "補助優惠",
+      "category": "community-content",
+      "description": "政府補助、優惠資訊與活動整理。",
+      "currentUrl": null,
+      "page": "subsidy.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "補助",
+        "優惠"
+      ],
+      "archivePath": "archive/cursor-history/latest/subsidy.html",
+      "archiveTimestamp": "2026-01-07T01:12:09.238Z",
+      "archiveSize": 62471
+    },
+    {
+      "id": "games",
+      "title": "遊戲大廳",
+      "category": "leisure",
+      "description": "輕鬆時光小遊戲入口。",
+      "currentUrl": "games.html",
+      "page": "games.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "遊戲"
+      ],
+      "archivePath": "archive/cursor-history/latest/games.html",
+      "archiveTimestamp": "2026-01-07T01:21:36.892Z",
+      "archiveSize": 46054
+    },
+    {
+      "id": "fortune",
+      "title": "每日運勢",
+      "category": "leisure",
+      "description": "每日運勢與星座內容。",
+      "currentUrl": "fortune.html",
+      "page": "fortune.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "運勢"
+      ],
+      "archivePath": "archive/cursor-history/latest/fortune.html",
+      "archiveTimestamp": "2026-01-07T10:18:32.687Z",
+      "archiveSize": 116760
+    },
+    {
+      "id": "mbti",
+      "title": "MBTI 測驗",
+      "category": "leisure",
+      "description": "性格測驗與互動內容。",
+      "currentUrl": "mbti.html",
+      "page": "mbti.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "MBTI"
+      ],
+      "archivePath": "archive/cursor-history/latest/mbti.html",
+      "archiveTimestamp": "2026-01-07T01:16:54.159Z",
+      "archiveSize": 67112
+    },
+    {
+      "id": "daily-quote",
+      "title": "每日金句",
+      "category": "leisure",
+      "description": "每日語錄、金句與分享內容。",
+      "currentUrl": "daily-quote.html",
+      "page": "daily-quote.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "金句"
+      ],
+      "archivePath": "archive/cursor-history/latest/daily-quote.html",
+      "archiveTimestamp": "2026-01-07T01:16:21.767Z",
+      "archiveSize": 27642
+    },
+    {
+      "id": "vendor-join",
+      "title": "店家登錄",
+      "category": "vendors-admin",
+      "description": "店家曝光與合作洽詢入口。",
+      "currentUrl": "https://lin.ee/Ij6z94H",
+      "page": null,
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://lin.ee/Ij6z94H",
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "店家",
+        "合作"
+      ]
+    },
+    {
+      "id": "vendor-admin",
+      "title": "店家資料管理",
+      "category": "vendors-admin",
+      "description": "店家基本資料、服務內容與圖片整理。",
+      "currentUrl": "vendor-admin.html",
+      "page": "vendor-admin.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "店家",
+        "資料"
+      ],
+      "archivePath": "archive/cursor-history/latest/vendor-admin.html",
+      "archiveTimestamp": "2026-01-29T13:45:11.301Z",
+      "archiveSize": 44627
+    },
+    {
+      "id": "test-image-upload",
+      "title": "圖片上傳",
+      "category": "vendors-admin",
+      "description": "店家圖片上傳與素材整理入口。",
+      "currentUrl": "test-image-upload.html",
+      "page": "test-image-upload.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "圖片",
+        "上傳"
+      ],
+      "archivePath": "archive/cursor-history/latest/test-image-upload.html",
+      "archiveTimestamp": "2026-01-03T20:05:31.716Z",
+      "archiveSize": 4957
+    },
+    {
+      "id": "booking",
+      "title": "預約服務",
+      "category": "vendors-admin",
+      "description": "預約服務、店家合作與需求填寫入口。",
+      "currentUrl": "booking.html",
+      "page": "booking.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "預約"
+      ]
+    },
+    {
+      "id": "crown-care",
+      "title": "冠冕居服",
+      "category": "health-care",
+      "description": "長照、居家照護與相關服務資訊。",
+      "currentUrl": "https://www.crowncare.tw/",
+      "page": null,
+      "external": true,
+      "status": "external-active",
+      "implementationStatus": "none",
+      "targetType": "external-link",
+      "externalUrl": "https://www.crowncare.tw/",
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "長照",
+        "居服"
+      ]
+    },
+    {
+      "id": "hospital-clinic",
+      "title": "醫院診所",
+      "category": "health-care",
+      "description": "在地診所、醫療與健康資源。",
+      "currentUrl": "hospital-clinic.html",
+      "page": "hospital-clinic.html",
+      "external": false,
+      "status": "archive-source",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "source": "manual",
+      "updateType": "content",
+      "tags": [
+        "醫療",
+        "診所"
+      ],
+      "archivePath": "archive/cursor-history/latest/hospital-clinic.html",
+      "archiveTimestamp": "2026-01-07T01:14:34.863Z",
+      "archiveSize": 24600
+    }
+  ]
+}

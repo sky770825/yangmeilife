@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-02T13:25:00+08:00",
+  "categories": [
+    {
+      "id": "site-core",
+      "title": "網站核心與導覽",
+      "icon": "◎",
+      "description": "首頁、搜尋、分享、通知與整站入口，負責把使用者導到各功能頁。",
+      "updateOwner": "網站管理者"
+    },
+    {
+      "id": "real-estate",
+      "title": "房產金融與物件",
+      "icon": "屋",
+      "description": "房屋估價、房貸、物件、新案、投資與稅費試算等房產相關功能。",
+      "updateOwner": "房產內容管理"
+    },
+    {
+      "id": "daily-info",
+      "title": "在地生活與交通資訊",
+      "icon": "訊",
+      "description": "天氣、垃圾車、公車、停車、匯率、計程車與日常查詢。",
+      "updateOwner": "生活資訊維護"
+    },
+    {
+      "id": "home-services",
+      "title": "居家修繕與工程服務",
+      "icon": "修",
+      "description": "水電、油漆、防蟲、驗屋、冷氣、搬家、收納與裝潢維修。",
+      "updateOwner": "居家服務維護"
+    },
+    {
+      "id": "food-drink",
+      "title": "美食餐飲與行動攤商",
+      "icon": "食",
+      "description": "飲品、餐車、在地美食與餐飲合作店家。",
+      "updateOwner": "餐飲資料維護"
+    },
+    {
+      "id": "beauty-wellness",
+      "title": "美容美體與按摩舒壓",
+      "icon": "美",
+      "description": "美容、美髮、美睫、美甲、按摩與整復服務。",
+      "updateOwner": "美容舒壓資料維護"
+    },
+    {
+      "id": "personal-tools",
+      "title": "個人紀錄與生活工具",
+      "icon": "記",
+      "description": "記帳、待辦、比價、健康、水電費、保養與個人管理工具。",
+      "updateOwner": "工具功能維護"
+    },
+    {
+      "id": "community-content",
+      "title": "社群互動與地方內容",
+      "icon": "社",
+      "description": "社區公告、聊天、評論、在地生活內容、拜拜文化與分享功能。",
+      "updateOwner": "地方內容維護"
+    },
+    {
+      "id": "leisure",
+      "title": "輕鬆時光與互動娛樂",
+      "icon": "樂",
+      "description": "遊戲、運勢、MBTI、每日金句等提升黏著度的互動內容。",
+      "updateOwner": "互動內容維護"
+    },
+    {
+      "id": "vendors-admin",
+      "title": "店家合作與資料管理",
+      "icon": "商",
+      "description": "店家登錄、圖片上傳、預約與合作資料整理。",
+      "updateOwner": "商家營運維護"
+    },
+    {
+      "id": "health-care",
+      "title": "醫療照護與健康服務",
+      "icon": "護",
+      "description": "居家照護、診所資訊、健康紀錄與照護服務入口。",
+      "updateOwner": "健康照護資料維護"
+    }
+  ]
+}

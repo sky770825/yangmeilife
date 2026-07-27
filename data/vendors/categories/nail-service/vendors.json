@@ -1,0 +1,468 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "page": "nail-service.html",
+  "title": "楊梅美甲服務廠商",
+  "accent": "#ef4444",
+  "intro": "整理楊梅區凝膠美甲、手足保養與複合式美學店家，僅收錄已核實電話、地址與公開來源的店家。",
+  "categoryId": "beauty-wellness",
+  "categoryTitle": "美容美體與按摩舒壓",
+  "dataStatus": {
+    "dataReadiness": "已核實資料",
+    "verificationStatus": "已核實",
+    "needsVerification": false,
+    "sourceFile": "data/vendors/categories/nail-service/vendors.json",
+    "sourceNote": "此分類已有店家完成電話、地址與來源核實；未有官方來源的欄位維持空值。",
+    "lastVerifiedAt": "2026-07-03",
+    "updatedAt": "2026-07-03T09:23:39+0800"
+  },
+  "vendors": [
+    {
+      "id": "nail-service-real-1",
+      "name": "嶼你YN美甲美學殿",
+      "area": "楊梅環東路",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [
+        "凝膠美甲",
+        "美睫",
+        "足部光療"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/nail-service/vendors.json",
+      "sourceNote": "店名、電話、地址與營業時間以 Facebook / Instagram 公開資訊核實。",
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
+      "phone": "03-485-5701",
+      "address": "桃園市楊梅區環東路447號1樓",
+      "businessHours": "10:00-19:00",
+      "officialUrl": "https://www.facebook.com/YNnewnails/",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E7%92%B0%E6%9D%B1%E8%B7%AF447%E8%99%9F1%E6%A8%93",
+      "lineUrl": null,
+      "contactNote": "公開店家資料列示電話 03-4855701、地址桃園市楊梅區環東路447號1樓。",
+      "missingFields": [],
+      "officialSource": "嶼你YN美甲美學殿 Facebook / Instagram 公開資訊",
+      "sourceUrls": [
+        "https://www.facebook.com/YNnewnails/",
+        "https://www.instagram.com/yn_newnails/"
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "phone": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "address": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/YNnewnails/"
+        ],
+        "lineUrl": [],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "no-approved-image",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-27T11:07:03+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
+    },
+    {
+      "id": "nail-service-real-2",
+      "name": "八四時髦指感空間",
+      "area": "楊梅中山北路",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [
+        "美甲",
+        "美睫",
+        "熱蠟除毛"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/nail-service/vendors.json",
+      "sourceNote": "楊梅店電話與地址以 Facebook / Instagram 公開資訊核實；LINE 目的地待店家自控頁重新確認。",
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
+      "phone": "0925-296-677",
+      "address": "桃園市楊梅區中山北路二段23巷27號",
+      "businessHours": null,
+      "officialUrl": "https://www.facebook.com/84NailSalon/",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E4%B8%AD%E5%B1%B1%E5%8C%97%E8%B7%AF%E4%BA%8C%E6%AE%B523%E5%B7%B727%E8%99%9F",
+      "lineUrl": "https://line.me/R/ti/p/@396fiuuu",
+      "contactNote": "僅收錄楊梅店資料；公開資訊另列中壢店，本頁未納入中壢店。",
+      "missingFields": [],
+      "officialSource": "八四時髦指感空間 Facebook / Instagram 公開資訊",
+      "sourceUrls": [
+        "https://www.facebook.com/84NailSalon/",
+        "https://www.instagram.com/84_nail_salon/"
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/84NailSalon/",
+          "https://www.instagram.com/84_nail_salon/"
+        ],
+        "phone": [
+          "https://www.facebook.com/84NailSalon/",
+          "https://www.instagram.com/84_nail_salon/"
+        ],
+        "address": [
+          "https://www.facebook.com/84NailSalon/",
+          "https://www.instagram.com/84_nail_salon/"
+        ],
+        "businessHours": [],
+        "officialUrl": [
+          "https://www.facebook.com/84NailSalon/"
+        ],
+        "lineUrl": [],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "no-approved-image",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-27T11:07:03+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
+    },
+    {
+      "id": "nail-service-real-3",
+      "name": "妮莉莎美學",
+      "area": "楊梅四維路",
+      "price": null,
+      "rating": null,
+      "image": "https://www.nelissa.com.tw/uploads/use/20260303165637d275.jpg",
+      "imageSourceType": "official",
+      "imageSource": "妮莉莎美學官方網站 og:image",
+      "imageSourceUrl": "https://www.nelissa.com.tw/meijia.html",
+      "tags": [
+        "凝膠美甲",
+        "美睫",
+        "紋繡"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/nail-service/vendors.json",
+      "sourceNote": "電話、地址、服務內容與預約 LINE 以妮莉莎美學官方網站核實。",
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
+      "phone": "03-431-2061",
+      "address": "326桃園市楊梅區四維路196號",
+      "businessHours": null,
+      "officialUrl": "https://www.nelissa.com.tw/meijia.html",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=326%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%9B%9B%E7%B6%AD%E8%B7%AF196%E8%99%9F",
+      "lineUrl": "https://lin.ee/HAYqMVL",
+      "contactNote": "官方網站列示地址 326桃園市楊梅區四維路196號、電話 03-4312061，並提供店家預約 LINE 連結。",
+      "missingFields": [],
+      "officialSource": "妮莉莎美學官方網站",
+      "sourceUrls": [
+        "https://www.nelissa.com.tw/meijia.html",
+        "https://www.nelissa.com.tw/products.html"
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-27T10:24:18+08:00",
+      "nextReviewAt": "2026-10-25",
+      "reviewedBy": "A2.3 researcher",
+      "fieldSources": {
+        "name": [
+          "https://www.nelissa.com.tw/meijia.html",
+          "https://www.nelissa.com.tw/products.html"
+        ],
+        "phone": [
+          "https://www.nelissa.com.tw/meijia.html",
+          "https://www.nelissa.com.tw/products.html"
+        ],
+        "address": [
+          "https://www.nelissa.com.tw/meijia.html",
+          "https://www.nelissa.com.tw/products.html"
+        ],
+        "businessHours": [],
+        "officialUrl": [
+          "https://www.nelissa.com.tw/meijia.html"
+        ],
+        "lineUrl": [
+          "https://www.nelissa.com.tw/meijia.html"
+        ],
+        "image": [
+          "https://www.nelissa.com.tw/meijia.html"
+        ]
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "official-external",
+        "sourceUrl": "https://www.nelissa.com.tw/meijia.html",
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-27T11:07:03+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
+    },
+    {
+      "id": "nail-service-real-4",
+      "name": "Relax蕾娜絲美甲美睫概念館",
+      "area": "楊梅四維路",
+      "price": null,
+      "rating": null,
+      "image": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/assets/images/hero/hero-right.jpg",
+      "imageSourceType": "official",
+      "imageSource": "Relax蕾娜絲官方網站 hero 圖",
+      "imageSourceUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+      "tags": [
+        "藝術美甲",
+        "手足保養",
+        "美睫"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/nail-service/vendors.json",
+      "sourceNote": "電話、地址、營業時間與服務內容以官方網站核實；四維路133號地址保留作分店辨識。",
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
+      "phone": "03-482-0127",
+      "address": "326桃園市楊梅區四維路133號",
+      "businessHours": "每週 10:30-19:30",
+      "officialUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=326%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%9B%9B%E7%B6%AD%E8%B7%AF133%E8%99%9F",
+      "lineUrl": null,
+      "contactNote": "官方網站列示地址 326桃園市楊梅區四維路133號，並列出電話 03-4820127 / 0922919356；前台顯示維持先列出的市話 03-482-0127。",
+      "missingFields": [],
+      "officialSource": "Relax蕾娜絲官方網站",
+      "sourceUrls": [
+        "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+        "https://www.facebook.com/relax4820127/"
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-27T10:24:18+08:00",
+      "nextReviewAt": "2026-10-25",
+      "reviewedBy": "A2.3 researcher",
+      "fieldSources": {
+        "name": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ],
+        "phone": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ],
+        "address": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ],
+        "businessHours": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ],
+        "officialUrl": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ],
+        "lineUrl": [],
+        "image": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ]
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "official-external",
+        "sourceUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-27T11:07:03+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
+    }
+  ],
+  "candidateVendors": [
+    {
+      "id": "nail-service-1",
+      "name": "楊梅指尖美學",
+      "area": "楊梅市區",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [],
+      "verified": false,
+      "needsVerification": true,
+      "verificationStatus": "待核實",
+      "dataReadiness": "internal-candidate",
+      "dataSource": "data/vendors/categories/nail-service/vendors.json",
+      "sourceNote": "This legacy demo label is retained only for audit and is not a verified business listing.",
+      "lastVerifiedAt": null,
+      "updatedAt": "2026-07-27T10:43:32+08:00",
+      "phone": null,
+      "address": null,
+      "businessHours": null,
+      "officialUrl": null,
+      "mapUrl": null,
+      "lineUrl": null,
+      "contactNote": "待補官方聯絡資料",
+      "verificationLevel": "needs_contact",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ],
+      "officialSource": null,
+      "sourceUrls": [],
+      "removedFromFrontend": true,
+      "removalReason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "removedAt": "2026-07-03T07:55:32+0800",
+      "candidateDisposition": "no-authoritative-source",
+      "triagedAt": "2026-07-27",
+      "triagedBy": "A2.4 candidate triage",
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
+    },
+    {
+      "id": "nail-service-2",
+      "name": "埔心日系美甲室",
+      "area": "埔心商圈",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [],
+      "verified": false,
+      "needsVerification": true,
+      "verificationStatus": "待核實",
+      "dataReadiness": "internal-candidate",
+      "dataSource": "data/vendors/categories/nail-service/vendors.json",
+      "sourceNote": "This legacy demo label is retained only for audit and is not a verified business listing.",
+      "lastVerifiedAt": null,
+      "updatedAt": "2026-07-27T10:43:32+08:00",
+      "phone": null,
+      "address": null,
+      "businessHours": null,
+      "officialUrl": null,
+      "mapUrl": null,
+      "lineUrl": null,
+      "contactNote": "待補官方聯絡資料",
+      "verificationLevel": "needs_contact",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ],
+      "officialSource": null,
+      "sourceUrls": [],
+      "removedFromFrontend": true,
+      "removalReason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "removedAt": "2026-07-03T07:55:32+0800",
+      "candidateDisposition": "no-authoritative-source",
+      "triagedAt": "2026-07-27",
+      "triagedBy": "A2.4 candidate triage",
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
+    },
+    {
+      "id": "nail-service-3",
+      "name": "富岡手足護理",
+      "area": "富岡車站",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [],
+      "verified": false,
+      "needsVerification": true,
+      "verificationStatus": "待核實",
+      "dataReadiness": "internal-candidate",
+      "dataSource": "data/vendors/categories/nail-service/vendors.json",
+      "sourceNote": "This legacy demo label is retained only for audit and is not a verified business listing.",
+      "lastVerifiedAt": null,
+      "updatedAt": "2026-07-27T10:43:32+08:00",
+      "phone": null,
+      "address": null,
+      "businessHours": null,
+      "officialUrl": null,
+      "mapUrl": null,
+      "lineUrl": null,
+      "contactNote": "待補官方聯絡資料",
+      "verificationLevel": "needs_contact",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ],
+      "officialSource": null,
+      "sourceUrls": [],
+      "removedFromFrontend": true,
+      "removalReason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "removedAt": "2026-07-03T07:55:32+0800",
+      "candidateDisposition": "no-authoritative-source",
+      "triagedAt": "2026-07-27",
+      "triagedBy": "A2.4 candidate triage",
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
+    }
+  ],
+  "displayTitle": "楊梅美甲服務店家",
+  "displayIntro": "整理楊梅區凝膠美甲、手足保養與複合式美學店家，方便快速查看電話、地址與公開資訊。"
+}

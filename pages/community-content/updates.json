@@ -1,0 +1,135 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "community-content",
+    "title": "社群互動與地方內容",
+    "owner": "地方內容維護",
+    "folder": "pages/community-content/"
+  },
+  "files": {
+    "index": "pages/community-content/index.html",
+    "updatesPage": "pages/community-content/updates.html",
+    "updatesData": "pages/community-content/updates.json"
+  },
+  "functions": [
+    {
+      "id": "community-board",
+      "title": "社區公告",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "community-board.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "community-board.html",
+      "currentUrl": "community-board.html",
+      "archivePath": "archive/cursor-history/latest/community-board.html",
+      "updateType": "content",
+      "tags": [
+        "社區",
+        "公告"
+      ]
+    },
+    {
+      "id": "community-chat",
+      "title": "社區聊天",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "community-chat.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "community-chat.html",
+      "currentUrl": "community-chat.html",
+      "archivePath": "archive/cursor-history/latest/community-chat.html",
+      "updateType": "content",
+      "tags": [
+        "社群",
+        "聊天"
+      ]
+    },
+    {
+      "id": "reviews",
+      "title": "評論與評價",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "reviews.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "reviews.html",
+      "currentUrl": "reviews.html",
+      "archivePath": "archive/cursor-history/latest/reviews.html",
+      "updateType": "content",
+      "tags": [
+        "評論"
+      ]
+    },
+    {
+      "id": "worship",
+      "title": "拜拜專區",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "worship.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "worship.html",
+      "currentUrl": "worship.html",
+      "archivePath": "archive/cursor-history/latest/worship.html",
+      "updateType": "content",
+      "tags": [
+        "拜拜",
+        "文化"
+      ]
+    },
+    {
+      "id": "second-hand",
+      "title": "二手交易",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "second-hand.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "second-hand.html",
+      "currentUrl": "second-hand.html",
+      "archivePath": "archive/cursor-history/latest/second-hand.html",
+      "updateType": "content",
+      "tags": [
+        "二手",
+        "交易"
+      ]
+    },
+    {
+      "id": "subsidy",
+      "title": "補助優惠",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "subsidy.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "subsidy.html",
+      "currentUrl": "subsidy.html",
+      "archivePath": "archive/cursor-history/latest/subsidy.html",
+      "updateType": "content",
+      "tags": [
+        "補助",
+        "優惠"
+      ]
+    }
+  ]
+}

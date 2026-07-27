@@ -1,0 +1,391 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "page": "hair-salon.html",
+  "title": "楊梅美髮造型廠商",
+  "accent": "#8b5cf6",
+  "intro": "已先收錄 3 家可追溯來源的楊梅美髮店，後續新增店家需先完成官方來源核實。",
+  "categoryId": "beauty-wellness",
+  "categoryTitle": "美容美體與按摩舒壓",
+  "dataStatus": {
+    "dataReadiness": "已核實資料",
+    "verificationStatus": "已核實",
+    "needsVerification": false,
+    "sourceFile": "data/vendors/categories/hair-salon/vendors.json",
+    "sourceNote": "此分類已有店家完成電話、地址與來源核實；未有官方來源的欄位維持空值。",
+    "lastVerifiedAt": "2026-07-03",
+    "updatedAt": "2026-07-03T09:23:39+0800"
+  },
+  "vendors": [
+    {
+      "id": "hair-salon-real-1",
+      "name": "Fashion Hair Salon",
+      "area": "楊梅過嶺 / 新榮路",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [
+        "美髮",
+        "縮毛矯正",
+        "燙染"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/hair-salon/vendors.json",
+      "sourceNote": "電話、地址與 LINE 官方帳號以店家 Facebook / Instagram 公開資訊核實。",
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
+      "phone": "03-420-1685",
+      "address": "桃園市楊梅區新榮路99號",
+      "businessHours": "每週一、二公休",
+      "officialUrl": "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E6%96%B0%E6%A6%AE%E8%B7%AF99%E8%99%9F",
+      "lineUrl": "https://lin.ee/SJ15p7G",
+      "contactNote": "店家公開資訊列示電話 03-4201685、地址桃園市楊梅區新榮路99號。",
+      "missingFields": [],
+      "officialSource": "Fashion Hair Salon Facebook / Instagram 公開資訊",
+      "sourceUrls": [
+        "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+        "https://www.instagram.com/p/DWQm1L0FK0j/"
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
+        ],
+        "phone": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
+        ],
+        "address": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/"
+        ],
+        "lineUrl": [
+          "https://lin.ee/SJ15p7G"
+        ],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "no-approved-image",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-27T11:07:03+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
+    },
+    {
+      "id": "hair-salon-real-2",
+      "name": "Lin美髮沙龍楊梅旗艦店",
+      "area": "楊梅大成路",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [
+        "美髮沙龍",
+        "剪燙染",
+        "楊梅旗艦店"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/hair-salon/vendors.json",
+      "sourceNote": "電話與地址以 Lin 美髮沙龍 Facebook、1111 公司資訊與 Gomaji 店家頁交叉核實。",
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
+      "phone": "03-488-0733",
+      "address": "楊梅區大成路57號",
+      "businessHours": "10:00-20:00",
+      "officialUrl": "https://www.facebook.com/lin4856968/",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A5%8A%E6%A2%85%E5%8D%80%E5%A4%A7%E6%88%90%E8%B7%AF57%E8%99%9F",
+      "lineUrl": null,
+      "contactNote": "公開資料列示楊梅區大成路57號與 03-4880733。",
+      "missingFields": [],
+      "officialSource": "Lin美髮沙龍楊梅1-2店 Facebook / 1111公司資訊 / Gomaji店家頁",
+      "sourceUrls": [
+        "https://www.facebook.com/lin4856968/",
+        "https://www.1111.com.tw/corp/69623666/",
+        "https://www.gomaji.com/store/15289/pid/279869"
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/lin4856968/"
+        ],
+        "phone": [
+          "https://www.facebook.com/lin4856968/"
+        ],
+        "address": [
+          "https://www.facebook.com/lin4856968/"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/lin4856968/"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/lin4856968/"
+        ],
+        "lineUrl": [],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "no-approved-image",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-27T11:07:03+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
+    },
+    {
+      "id": "hair-salon-real-3",
+      "name": "YL Hair Salon 意翎髮藝",
+      "area": "楊梅環南路",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [
+        "女生髮型",
+        "燙髮",
+        "預約諮詢"
+      ],
+      "verified": true,
+      "needsVerification": false,
+      "verificationStatus": "已核實",
+      "verificationLevel": "verified",
+      "dataReadiness": "已核實資料",
+      "dataSource": "data/vendors/categories/hair-salon/vendors.json",
+      "sourceNote": "店家電子名片核實 YL Hair Salon、主電話、地址與店家自控 LINE 短網址；中文後綴「意翎髮藝」沿用 Facebook / Instagram 歷史來源佐證；營業日仍待可讀官方社群複核。",
+      "lastVerifiedAt": "2026-07-03",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
+      "phone": "03-478-9059",
+      "address": "楊梅區環南路61號",
+      "businessHours": "星期二至星期日，星期一公休",
+      "officialUrl": "https://www.facebook.com/yiling688/",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=%E6%A5%8A%E6%A2%85%E5%8D%80%E7%92%B0%E5%8D%97%E8%B7%AF61%E8%99%9F",
+      "lineUrl": "https://lin.ee/jriwMC6",
+      "contactNote": "店家電子名片列示 03-4789059、桃園市楊梅區環南路61號及店預約 LINE。",
+      "missingFields": [],
+      "officialSource": "YL Hair Salon 店家電子名片 / Facebook / Instagram",
+      "sourceUrls": [
+        "https://www.facebook.com/yiling688/",
+        "https://www.instagram.com/ylhairsalon/",
+        "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/yiling688/",
+          "https://www.instagram.com/ylhairsalon/",
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
+        ],
+        "phone": [
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
+        ],
+        "address": [
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/yiling688/",
+          "https://www.instagram.com/ylhairsalon/"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/yiling688/"
+        ],
+        "lineUrl": [
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
+        ],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "no-approved-image",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-27T11:07:03+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
+    }
+  ],
+  "candidateVendors": [
+    {
+      "id": "hair-salon-1",
+      "name": "楊梅剪染研究室",
+      "area": "楊梅火車站",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [],
+      "verified": false,
+      "needsVerification": true,
+      "verificationStatus": "待核實",
+      "dataReadiness": "internal-candidate",
+      "dataSource": "data/vendors/categories/hair-salon/vendors.json",
+      "sourceNote": "This legacy demo label is retained only for audit and is not a verified business listing.",
+      "lastVerifiedAt": null,
+      "updatedAt": "2026-07-27T10:43:32+08:00",
+      "phone": null,
+      "address": null,
+      "businessHours": null,
+      "officialUrl": null,
+      "mapUrl": null,
+      "lineUrl": null,
+      "contactNote": "待補官方聯絡資料",
+      "verificationLevel": "needs_contact",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ],
+      "officialSource": null,
+      "sourceUrls": [],
+      "removedFromFrontend": true,
+      "removalReason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "removedAt": "2026-07-03T07:55:32+0800",
+      "candidateDisposition": "no-authoritative-source",
+      "triagedAt": "2026-07-27",
+      "triagedBy": "A2.4 candidate triage",
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
+    },
+    {
+      "id": "hair-salon-2",
+      "name": "埔心髮型工作室",
+      "area": "埔心商圈",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [],
+      "verified": false,
+      "needsVerification": true,
+      "verificationStatus": "待核實",
+      "dataReadiness": "internal-candidate",
+      "dataSource": "data/vendors/categories/hair-salon/vendors.json",
+      "sourceNote": "This legacy demo label is retained only for audit and is not a verified business listing.",
+      "lastVerifiedAt": null,
+      "updatedAt": "2026-07-27T10:43:32+08:00",
+      "phone": null,
+      "address": null,
+      "businessHours": null,
+      "officialUrl": null,
+      "mapUrl": null,
+      "lineUrl": null,
+      "contactNote": "待補官方聯絡資料",
+      "verificationLevel": "needs_contact",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ],
+      "officialSource": null,
+      "sourceUrls": [],
+      "removedFromFrontend": true,
+      "removalReason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "removedAt": "2026-07-03T07:55:32+0800",
+      "candidateDisposition": "no-authoritative-source",
+      "triagedAt": "2026-07-27",
+      "triagedBy": "A2.4 candidate triage",
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
+    },
+    {
+      "id": "hair-salon-3",
+      "name": "富岡男士理髮",
+      "area": "富岡車站",
+      "price": null,
+      "rating": null,
+      "image": null,
+      "tags": [],
+      "verified": false,
+      "needsVerification": true,
+      "verificationStatus": "待核實",
+      "dataReadiness": "internal-candidate",
+      "dataSource": "data/vendors/categories/hair-salon/vendors.json",
+      "sourceNote": "This legacy demo label is retained only for audit and is not a verified business listing.",
+      "lastVerifiedAt": null,
+      "updatedAt": "2026-07-27T10:43:32+08:00",
+      "phone": null,
+      "address": null,
+      "businessHours": null,
+      "officialUrl": null,
+      "mapUrl": null,
+      "lineUrl": null,
+      "contactNote": "待補官方聯絡資料",
+      "verificationLevel": "needs_contact",
+      "missingFields": [
+        "phone",
+        "address",
+        "officialSource"
+      ],
+      "officialSource": null,
+      "sourceUrls": [],
+      "removedFromFrontend": true,
+      "removalReason": "展示資料未核實，依全站去假化規則移出前台廠商卡片。",
+      "removedAt": "2026-07-03T07:55:32+0800",
+      "candidateDisposition": "no-authoritative-source",
+      "triagedAt": "2026-07-27",
+      "triagedBy": "A2.4 candidate triage",
+      "candidateNameStatus": "legacy-demo-label",
+      "triageNote": "No authoritative source is recorded for this legacy demo label; retained only for audit."
+    }
+  ],
+  "displayTitle": "楊梅美髮造型店家",
+  "displayIntro": "已先收錄 3 家可追溯來源的楊梅美髮店，後續新增店家需先完成官方來源核實。"
+}

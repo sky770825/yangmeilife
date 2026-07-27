@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "food-drink",
+    "title": "美食餐飲與行動攤商",
+    "owner": "餐飲資料維護",
+    "folder": "pages/food-drink/"
+  },
+  "files": {
+    "index": "pages/food-drink/index.html",
+    "updatesPage": "pages/food-drink/updates.html",
+    "updatesData": "pages/food-drink/updates.json"
+  },
+  "functions": [
+    {
+      "id": "kungfu-tea-live",
+      "title": "功夫茶楊梅店",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "dual-entry",
+      "externalUrl": "https://kungfuteahtml.pages.dev/",
+      "primaryTarget": "local-page",
+      "primaryTargetUrl": "kungfu-tea.html",
+      "secondaryTargetType": "external-link",
+      "secondaryTargetUrl": "https://kungfuteahtml.pages.dev/",
+      "page": "kungfu-tea.html",
+      "currentUrl": "kungfu-tea.html",
+      "archivePath": "archive/cursor-history/latest/kungfu-tea.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "飲品",
+        "功夫茶"
+      ]
+    },
+    {
+      "id": "food-truck-live",
+      "title": "餐車位置追蹤",
+      "status": "店家資訊",
+      "implementationStatus": "vendor-page",
+      "targetType": "dual-entry",
+      "externalUrl": "https://siwei.pages.dev/",
+      "primaryTarget": "local-page",
+      "primaryTargetUrl": "food-truck.html",
+      "secondaryTargetType": "external-link",
+      "secondaryTargetUrl": "https://siwei.pages.dev/",
+      "page": "food-truck.html",
+      "currentUrl": "food-truck.html",
+      "archivePath": "archive/cursor-history/latest/food-truck.html",
+      "updateType": "vendor-list",
+      "tags": [
+        "餐車",
+        "美食"
+      ]
+    }
+  ]
+}

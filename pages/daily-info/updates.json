@@ -1,0 +1,154 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "daily-info",
+    "title": "在地生活與交通資訊",
+    "owner": "生活資訊維護",
+    "folder": "pages/daily-info/"
+  },
+  "files": {
+    "index": "pages/daily-info/index.html",
+    "updatesPage": "pages/daily-info/updates.html",
+    "updatesData": "pages/daily-info/updates.json"
+  },
+  "functions": [
+    {
+      "id": "weather",
+      "title": "天氣查詢",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "weather.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "weather.html",
+      "currentUrl": "weather.html",
+      "archivePath": "archive/cursor-history/latest/weather.html",
+      "updateType": "content",
+      "tags": [
+        "天氣"
+      ]
+    },
+    {
+      "id": "garbage",
+      "title": "垃圾車時間",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "garbage.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "garbage.html",
+      "currentUrl": "garbage.html",
+      "archivePath": "archive/cursor-history/latest/garbage.html",
+      "updateType": "content",
+      "tags": [
+        "垃圾車",
+        "清運"
+      ]
+    },
+    {
+      "id": "bus",
+      "title": "公車動態",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "bus.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "bus.html",
+      "currentUrl": "bus.html",
+      "archivePath": "archive/cursor-history/latest/bus.html",
+      "updateType": "content",
+      "tags": [
+        "公車",
+        "交通"
+      ]
+    },
+    {
+      "id": "parking",
+      "title": "停車資訊",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "parking.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "parking.html",
+      "currentUrl": "parking.html",
+      "archivePath": "archive/cursor-history/latest/parking.html",
+      "updateType": "content",
+      "tags": [
+        "停車"
+      ]
+    },
+    {
+      "id": "taxi",
+      "title": "計程車行",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "taxi.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "taxi.html",
+      "currentUrl": "taxi.html",
+      "archivePath": "archive/cursor-history/latest/taxi.html",
+      "updateType": "content",
+      "tags": [
+        "計程車",
+        "叫車"
+      ]
+    },
+    {
+      "id": "rate",
+      "title": "匯率查詢",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "rate.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "rate.html",
+      "currentUrl": "rate.html",
+      "archivePath": "archive/cursor-history/latest/rate.html",
+      "updateType": "content",
+      "tags": [
+        "匯率",
+        "查詢"
+      ]
+    },
+    {
+      "id": "local-life",
+      "title": "在地生活",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "local-life.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "local-life.html",
+      "currentUrl": "local-life.html",
+      "archivePath": "archive/cursor-history/latest/local-life.html",
+      "updateType": "content",
+      "tags": [
+        "在地",
+        "生活"
+      ]
+    }
+  ]
+}

@@ -2,442 +2,100 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="楊梅冷氣清洗維修服務 - 專業冷氣維修、清洗、保養服務">
-<meta name="keywords" content="冷氣維修,冷氣清洗,冷氣保養,楊梅冷氣,中壢冷氣">
-<meta name="author" content="楊梅人在地生活集">
-<title>冷氣清洗維修服務 - 楊梅人在地生活集</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>冷氣服務 - 楊梅人在地生活集</title>
+<meta name="description" content="冷氣服務頁整理清洗、維修、安裝與季節性保養資訊。">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/css/tailwind.min.css">
 <style>
-:root{
-  --grad:linear-gradient(135deg,#6366f1,#8b5cf6);
-  --grad-secondary:linear-gradient(135deg,#f59e0b,#ef4444);
-  --grad-success:linear-gradient(135deg,#10b981,#059669);
-  --grad-warning:linear-gradient(135deg,#f59e0b,#d97706);
-  --grad-info:linear-gradient(135deg,#3b82f6,#1d4ed8);
-  --glass-bg:rgba(255,255,255,0.7);
-  --glass-dark:rgba(30,30,30,0.7);
-  --shadow-light:0 4px 20px rgba(0,0,0,.08);
-  --shadow-hover:0 8px 30px rgba(0,0,0,.12);
-  --border-radius:1.25rem;
-  --transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  --backdrop-blur:blur(20px);
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-height:100vh;background:linear-gradient(135deg,#f8fafc 0%,#eef2ff 46%,#fff7ed 100%);color:#0f172a;overscroll-behavior-x:none}
+main,section,article,header,footer,nav{max-width:100%;min-width:0}
+img,svg,video,canvas{max-width:100%;height:auto}
+.panel{background:rgba(255,255,255,.88);border:1px solid rgba(148,163,184,.24);box-shadow:0 18px 50px rgba(15,23,42,.08)}
+.card{background:rgba(255,255,255,.94);border:1px solid rgba(148,163,184,.24);box-shadow:0 8px 24px rgba(15,23,42,.06)}
+.result-card{background:rgba(255,255,255,.96);border:1px solid rgba(148,163,184,.24);box-shadow:0 6px 18px rgba(15,23,42,.055)}
+.nav-link{min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:.7rem;padding:0 .85rem;font-weight:800;text-decoration:none}
+.nav-link.bg-white{background:#fff;color:#4338ca}
+.nav-link.bg-slate-900{background:#0f172a;color:#fff}
+.nav-link:hover{filter:brightness(.98)}
+.ui-break-anywhere{overflow-wrap:anywhere;word-break:break-word}
+.ui-table-fixed{width:100%;table-layout:fixed}
+.ui-min-w-0{min-width:0}
+.compact-desc{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+.compact-desc--2{-webkit-line-clamp:2}
+.compact-desc--3{-webkit-line-clamp:3}
+.compact-title{overflow-wrap:anywhere}
+.compact-count-badge{display:inline-flex;min-width:2.55rem;min-height:28px;align-items:center;justify-content:center;text-align:center;line-height:1.05}
+.compact-stat{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.search-hero-grid,.search-form{display:grid;gap:.5rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.panel,.card,.result-card{min-width:0;overflow-wrap:anywhere}
+.vendor-card-grid{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+.vendor-card-grid--single{max-width:560px;margin-inline:auto;grid-template-columns:minmax(0,1fr)!important}
+.vendor-card{display:flex;min-width:0;overflow:hidden;flex-direction:column;border:1px solid rgba(148,163,184,.28);border-radius:10px;background:#fff;box-shadow:0 8px 18px rgba(15,23,42,.055)}
+.vendor-card-image{display:block;width:100%;aspect-ratio:2/1;height:auto;object-fit:cover;background:#e2e8f0}
+.vendor-card-body{display:flex;min-width:0;flex:1;flex-direction:column;padding:12px}
+.vendor-card-heading{display:flex;min-width:0;align-items:flex-start;justify-content:space-between;gap:8px}
+.vendor-card-title{min-width:0;font-size:17px;line-height:1.28;font-weight:900;color:#020617;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vendor-card-status{flex-shrink:0;border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-status--verified{background:#ecfdf5;color:#047857}
+.vendor-card-status--pending{background:#fff1f2;color:#be123c}
+.vendor-card-meta{margin-top:5px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px;line-height:1.25;font-weight:800;color:#475569}
+.vendor-card-links{margin-top:9px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.vendor-card-link{display:flex;min-height:44px;min-width:0;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(203,213,225,.95);border-radius:9px;background:#f8fafc;padding:0 7px;color:#334155;font-size:12px;font-weight:900;line-height:1;text-decoration:none;touch-action:manipulation}
+.vendor-card-link:hover{border-color:rgba(99,102,241,.45);background:#eef2ff;color:#3730a3}
+.vendor-card-link:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+.vendor-card-link svg,.vendor-card-action svg{display:block;width:15px;height:15px;flex:0 0 15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vendor-card-link-label{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vendor-card-link--disabled{border-color:#e2e8f0;background:#f8fafc;color:#94a3b8}
+.vendor-card-tags{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.vendor-card-tag{border-radius:9999px;padding:4px 7px;font-size:11px;line-height:1;font-weight:900}
+.vendor-card-actions{margin-top:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:10px}
+.vendor-card-action{display:flex;min-height:44px;align-items:center;justify-content:center;gap:6px;border-radius:8px;padding:0 10px;font-size:13px;font-weight:900;line-height:1.2;text-align:center;touch-action:manipulation}
+.vendor-card-action--primary{color:#fff}
+.vendor-card-action--secondary{background:#f1f5f9;color:#334155}
+.vendor-card-action:focus-visible{outline:3px solid rgba(99,102,241,.35);outline-offset:2px}
+@media (min-width:640px){.vendor-card-grid--gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:900px){.search-hero-grid{grid-template-columns:minmax(0,1fr) minmax(420px,520px);align-items:end}.search-form{grid-template-columns:minmax(0,1fr) 160px 96px}}
+@media (min-width:1024px){.vendor-card-grid--compact{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1180px){.category-card-grid,#serviceGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1280px){.vendor-card-grid--gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){
+main{padding-inline:16px!important;padding-top:24px!important;padding-bottom:28px!important}
+.panel{border-radius:16px!important;box-shadow:0 12px 30px rgba(15,23,42,.07)}
+.card,.result-card{border-radius:14px!important;box-shadow:0 6px 16px rgba(15,23,42,.055)}
+.entry-hero{padding:20px!important}
+.entry-hero-title{font-size:1.75rem!important;line-height:1.1!important;letter-spacing:0!important}
+.entry-hero-text{margin-top:.65rem!important;font-size:.95rem!important;line-height:1.55!important}
+.entry-pill-row{margin-top:.9rem!important;gap:.4rem!important}
+.entry-pill{padding:.42rem .65rem!important;font-size:.8rem!important;line-height:1.1!important}
+.category-card-grid{margin-top:1rem!important;gap:.75rem!important}
+.category-overview-card,.category-function-card,.result-card,.service-card{padding:14px!important}
+.category-card-icon{font-size:1.5rem!important;line-height:1!important}
+.category-card-title{margin-top:.45rem!important;font-size:1.08rem!important;line-height:1.25!important}
+.compact-desc{margin-top:.45rem!important;line-height:1.45!important}
+.compact-count-badge{min-width:34px;min-height:26px;padding-inline:7px!important}
+.compact-stat{padding:.45rem .5rem!important}
+.service-card{padding:12px!important}
+.service-card .compact-desc{margin-top:.35rem!important;-webkit-line-clamp:2!important}
+.service-card-tags{margin-top:.5rem!important;gap:.25rem!important}
+.search-shell{border-radius:14px!important;padding:12px!important}
 }
-
-body{
-  background:linear-gradient(135deg,#f0f4ff 0%,#e0e7ff 50%,#fff 100%);
-  background-attachment:fixed;
-  transition:var(--transition);
-  font-family:system-ui,-apple-system,sans-serif;
-  line-height:1.6;
-}
-
-body.dark{
-  background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#334155 100%);
-  color:#e2e8f0;
-}
-
-.glass-card{
-  background:var(--glass-bg);
-  backdrop-filter:var(--backdrop-blur);
-  -webkit-backdrop-filter:var(--backdrop-blur);
-  border-radius:var(--border-radius);
-  border:1px solid rgba(255,255,255,0.3);
-  box-shadow:var(--shadow-light);
-  transition:var(--transition);
-}
-
-body.dark .glass-card{
-  background:var(--glass-dark);
-  border:1px solid rgba(255,255,255,0.15);
-}
-
-.glass-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow-hover);
-}
-
-.service-card{
-  background: white;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-body.dark .service-card{
-  background: #1f2937;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.service-card:hover{
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.image-gallery{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.gallery-item{
-  aspect-ratio: 1;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  position: relative;
-}
-
-.gallery-item:hover{
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-}
-
-.gallery-item::after{
-  content: '🔍';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.6);
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.gallery-item:hover::after{
-  opacity: 1;
-}
-
-.gallery-item img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-@media (max-width: 640px) {
-  .image-gallery{
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-  }
-  
-  .gallery-item::after{
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-  }
-}
+@media (max-width:480px){.vendor-card-body{padding:12px}.vendor-card-title{font-size:16px}.vendor-card-links{gap:6px}.vendor-card-link{padding:0 6px;font-size:12px}.vendor-card-actions{padding-top:10px}}
+@media (max-width:380px){.entry-hero-title{font-size:1.62rem!important}.nav-link{padding:0 .7rem}.entry-pill{font-size:.76rem!important}.compact-count-badge{min-width:32px}}
 </style>
 </head>
 <body>
-
-<!-- 頁面標題 -->
-<header class="text-white text-center py-8 shadow-lg relative overflow-hidden" style="background:linear-gradient(135deg, #0ea5e9, #3b82f6, #6366f1);">
-  <div class="absolute inset-0 opacity-30">
-    <div class="absolute top-4 left-4 text-4xl animate-pulse">❄️</div>
-    <div class="absolute top-8 right-8 text-3xl animate-bounce" style="animation-delay: 0.5s;">🔧</div>
-    <div class="absolute bottom-6 left-12 text-2xl animate-pulse" style="animation-delay: 1s;">✨</div>
-    <div class="absolute bottom-4 right-4 text-3xl animate-pulse" style="animation-delay: 1.5s;">🏠</div>
-  </div>
-  
-  <div class="relative z-10">
-    <h1 class="text-4xl font-bold mb-2">冷氣服務</h1>
-    <p class="text-lg opacity-90 mb-4">專業技術｜合理價格｜在地服務</p>
-
-<!-- 返回按鈕 -->
-    <div class="mt-6">
-      <button onclick="goBack()" class="bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-full hover:bg-white/30 transition-all duration-300">
-        ← 返回首頁
-</button>
-    </div>
-  </div>
-</header>
-
-<main class="px-4 py-6 pb-16 space-y-6">
-
-<!-- 推薦服務商 -->
-<section class="glass-card p-6">
-  <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-3">
-      <span class="text-3xl">⭐</span>
-      <span>推薦服務商</span>
-    </h2>
-    <span class="text-sm bg-blue-500 text-white px-3 py-1 rounded-full">推薦</span>
-  </div>
-  
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-  <div class="service-card h-full">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-xl font-bold text-gray-800 dark:text-white">WASH KOOL 冷氣服務</h3>
-      <div class="flex gap-2">
-        <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">專業</span>
-        <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">在地</span>
-      </div>
-    </div>
-    
-    <!-- 服務展示縮圖 -->
-    <div class="mb-4">
-      <h5 class="text-xs font-medium text-gray-800 dark:text-gray-200 mb-2">服務展示</h5>
-      <div class="flex gap-2">
-        <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer hover:scale-110 transition-transform duration-200 overflow-hidden" onclick="showImageModal('https://i.postimg.cc/ncKKJSyV/S-25010188-0.jpg')">
-          <img src="https://i.postimg.cc/ncKKJSyV/S-25010188-0.jpg" alt="服務照片1" class="w-full h-full object-cover">
-        </div>
-        <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer hover:scale-110 transition-transform duration-200 overflow-hidden" onclick="showImageModal('https://i.postimg.cc/x10vTyQG/S-25010189-0.jpg')">
-          <img src="https://i.postimg.cc/x10vTyQG/S-25010189-0.jpg" alt="服務照片2" class="w-full h-full object-cover">
-        </div>
-        <div class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer hover:scale-110 transition-transform duration-200 overflow-hidden" onclick="showImageModal('https://i.postimg.cc/htp9Jz4T/S-25010190-0.jpg')">
-          <img src="https://i.postimg.cc/htp9Jz4T/S-25010190-0.jpg" alt="服務照片3" class="w-full h-full object-cover">
-        </div>
-      </div>
-    </div>
-
-    <!-- 聯絡資訊 -->
-    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3 mb-4">
-      <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center gap-2 text-sm">
-        <span>📞</span>
-        <span>聯絡資訊</span>
-      </h4>
-      <div class="space-y-2 text-xs">
-        <div class="flex justify-between">
-          <span class="text-gray-600 dark:text-gray-300">聯絡人</span>
-          <span class="font-medium text-gray-800 dark:text-white">康先生</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-gray-600 dark:text-gray-300">電話</span>
-          <a href="tel:0930731165" class="font-medium text-blue-600 dark:text-blue-400 hover:underline">0930731165</a>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-gray-600 dark:text-gray-300">營業時間</span>
-          <span class="font-medium text-gray-800 dark:text-white">9:00-18:00</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-gray-600 dark:text-gray-300">地址</span>
-          <span class="font-medium text-gray-800 dark:text-white text-right">中壢區華勛街141巷1號</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 社交媒體連結 -->
-    <div class="mb-4">
-      <h4 class="font-semibold text-gray-800 dark:text-white mb-2 flex items-center gap-2 text-sm">
-        <span>🔗</span>
-        <span>更多資訊</span>
-      </h4>
-      <div class="flex gap-2">
-        <a href="https://g.co/kgs/Jbr2rm" target="_blank" rel="noopener noreferrer" class="flex-1 bg-red-500 hover:bg-red-600 text-white rounded-lg px-2 py-2 text-center transition-colors duration-200 flex items-center justify-center gap-1">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyLjU2IDEyLjI1QzIyLjU2IDExLjQ3IDIyLjQ5IDEwLjcyIDIyLjM3IDEwSDEyVjE0LjI1SDE3Ljg0QzE3LjU1IDE1LjcyIDE2LjY0IDE2Ljk4IDE1LjI4IDE3Ljg1VjIwLjE0SDE5LjQ0QzIxLjA3IDE4LjY2IDIyLjU2IDE1LjY3IDIyLjU2IDEyLjI1WiIgZmlsbD0iIzQyODVGNCIvPgo8cGF0aCBkPSJNMTIgMjNDMTQuOTcgMjMgMTcuNjggMjEuOTIgMTkuNDQgMjAuMTRMMTUuMjggMTcuODVDMTQuMjQgMTguNDUgMTIuOTMgMTguNzUgMTEuNSAxOC43NUM4LjQyIDE4Ljc1IDUuNzMgMTYuOTcgNC45MSAxNC4yNUgyLjU2VjE2LjY2QzQuMzcgMjAuMjMgOC4wOSAyMyAxMiAyM1oiIGZpbGw9IiMzNEE4NTMiLz4KPHBhdGggZD0iTTQuOTEgMTQuMjVDNC43MSAxMy42NSA0LjYyIDEzLjA0IDQuNjIgMTIuMjVDNC42MiAxMS40NiA0LjcxIDEwLjg1IDQuOTEgMTAuMjVWOC4zNEgyLjU2QzEuOTYgOS42NyAxLjY2IDExLjE0IDEuNjYgMTIuNzVDMS42NiAxNC4zNiAxLjk2IDE1LjgzIDIuNTYgMTcuMTZMNCA5MSAxNC4yNVoiIGZpbGw9IiNGRkI5MDAiLz4KPHBhdGggZD0iTTEyIDQuNzVDMTMuOTMgNC43NSAxNS42OSA1LjQ5IDE2Ljk2IDYuNzNMMTkuNDQgNC4yNUMxNy42OCAyLjA3IDE0Ljk3IDEgMTIgMUM4LjA5IDEgNC4zNyAzLjc3IDIuNTYgNy4zNEw0LjkxIDkuNzVDNS43MyA2Ljk3IDguNDIgNS4yNSAxMS41IDUuMjVDMTIuOTMgNS4yNSAxNC4yNCA1LjU1IDE1LjI4IDYuMTVMMTkuNDQgMy44NkMxNy42OCAyLjA3IDE0Ljk3IDEgMTIgMVoiIGZpbGw9IiNFQTQzMzUiLz4KPC9zdmc+" alt="Google" class="w-3 h-3">
-          <span class="text-xs font-medium">Google</span>
-        </a>
-        <a href="https://www.facebook.com/profile.php?id=100083766573412&mibextid=ZbWKwL" target="_blank" rel="noopener noreferrer" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-2 py-2 text-center transition-colors duration-200 flex items-center justify-center gap-1">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTI0IDEyLjA3M0MyNCA1LjQwNjY3IDE4LjU5MzMgMCAxMiAwUzAgNS40MDY2NyAwIDEyLjA3M0MwIDE4LjA5MzMgNC4zODQgMjMuMDggMTAuMTI1IDI0VjE1LjU2MjVINy4wNzgxMlYxMi4wNzNIMTAuMTI1VjkuNDEzMzNDMTAuMTI1IDYuMzg3NSAxMS45MTU2IDQuNzUgMTQuNjU2MiA0Ljc1QzE1Ljk1NjIgNC43NSAxNy4zMTI1IDUuMDMxMjUgMTcuMzEyNSA1LjAzMTI1VjguMTI1SDE1Ljg0MzhDMTQuMzUgOC4xMjUgMTMuODc1IDguOTIxODggMTMuODc1IDEwLjA2MjVWMTIuMDczSDE3LjEwNjJMMTYuNjU2MiAxNS41NjI1SDEzLjg3NVYyNEMxOS42MTYgMjMuMDggMjQgMTguMDkzMyAyNCAxMi4wNzNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4=" alt="Facebook" class="w-3 h-3">
-          <span class="text-xs font-medium">FB</span>
-        </a>
-        <a href="https://lin.ee/6pCT98u" target="_blank" rel="noopener noreferrer" class="flex-1 bg-green-500 hover:bg-green-600 text-white rounded-lg px-2 py-2 text-center transition-colors duration-200 flex items-center justify-center gap-1">
-          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE5LjM2NSA5Ljg2M0MxOS4zNjUgNS45NjUgMTYuMTk4IDMgMTIuMzY1IDNTNS4zNjUgNS45NjUgNS4zNjUgOS44NjNDNS4zNjUgMTMuNzYgOC41MzIgMTYuNzI1IDEyLjM2NSAxNi43MjVTMTkuMzY1IDEzLjc2IDE5LjM2NSA5Ljg2M1oiIGZpbGw9IiMwMEQzMDAiLz4KPHBhdGggZD0iTTEyLjM2NSAxOC4yMjVDMTcuMTk4IDE4LjIyNSAyMS4zNjUgMTQuMDU4IDIxLjM2NSA5LjIyNUMyMS4zNjUgNC4zOTIgMTcuMTk4IDAuMjI1IDEyLjM2NSAuMjI1UzMuMzY1IDQuMzkyIDMuMzY1IDkuMjI1QzMuMzY1IDE0LjA1OCA3LjUzMiAxOC4yMjUgMTIuMzY1IDE4LjIyNVoiIGZpbGw9IiMwMEQzMDAiLz4KPC9zdmc+" alt="LINE" class="w-3 h-3">
-          <span class="text-xs font-medium">LINE</span>
-        </a>
-      </div>
-    </div>
-
-    
-
-    <div id="serviceDetails">
-    
-    <!-- 服務項目（手機預設收合） -->
-    <div class="mb-4">
-      <div class="flex items-center justify-between mb-3">
-        <h4 class="font-semibold text-gray-800 dark:text-white flex items-center gap-2">
-          <span>🛠️</span>
-          <span>服務項目</span>
-        </h4>
-        <!-- 僅手機顯示切換按鈕 -->
-        <button id="toggleServiceItemsBtn" class="md:hidden text-xs text-blue-600 dark:text-blue-400 px-2 py-1 rounded hover:underline" onclick="toggleServiceItems()">展開</button>
-      </div>
-      <div id="serviceItems" class="hidden md:grid grid-cols-2 md:grid-cols-4 gap-2">
-        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-2 text-center text-sm">
-          <div class="text-lg mb-1">🧽</div>
-          <div>冷氣清洗</div>
-        </div>
-        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-2 text-center text-sm">
-          <div class="text-lg mb-1">🔧</div>
-          <div>故障維修</div>
-        </div>
-        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-2 text-center text-sm">
-          <div class="text-lg mb-1">🛡️</div>
-          <div>定期保養</div>
-        </div>
-        <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-2 text-center text-sm">
-          <div class="text-lg mb-1">⚡</div>
-          <div>緊急服務</div>
-        </div>
-      </div>
-    </div>
-    
-    
-    </div>
-  </div>
-  </div>
-</section>
-
- 
-
+<main id="servicePageApp" class="mx-auto max-w-6xl px-4 py-8 sm:py-10" data-service-page="air-conditioning">
+  <section class="panel rounded-2xl p-6">
+    <div class="text-sm font-black text-indigo-600">功能頁載入中</div>
+    <h1 class="mt-2 text-2xl font-black">冷氣服務</h1>
+  </section>
 </main>
-
-<!-- 圖片放大模態框 -->
-<div id="imageModal" class="fixed inset-0 bg-black/70 sm:bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-  <div class="relative max-w-4xl max-h-[90vh] w-full">
-    <button onclick="closeImageModal()" class="absolute top-4 right-4 z-10 bg-white/80 text-gray-900 hover:bg-white shadow-md sm:bg-black/50 sm:text-white sm:hover:bg-black/70 rounded-full p-2 transition-colors duration-200">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
-    <!-- 左右切換按鈕 -->
-    <button onclick="prevImage()" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 text-gray-900 hover:bg-white shadow-md sm:bg-black/50 sm:text-white sm:hover:bg-black/70 rounded-full p-2 transition-colors duration-200">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
-    <button onclick="nextImage()" class="absolute right-12 top-1/2 -translate-y-1/2 z-10 bg-white/80 text-gray-900 hover:bg-white shadow-md sm:bg-black/50 sm:text-white sm:hover:bg-black/70 rounded-full p-2 transition-colors duration-200">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
-    </button>
-    <img id="modalImage" src="" alt="放大圖片" class="w-full h-full object-contain rounded-lg">
-  </div>
-</div>
-
-<!-- 📍 底部導航 -->
-<nav class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 flex justify-around py-2 bottom-nav" role="navigation" aria-label="主要導航">
-  <button onclick="window.location.href='index.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="回到首頁">
-    <span class="text-2xl mb-0.5">🏠</span><span>首頁</span>
-  </button>
-  <button onclick="window.location.href='expense-tracker.html'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="記帳">
-    <span class="text-2xl mb-0.5">📝</span><span>記帳</span>
-  </button>
-  <button onclick="openTool('games.html')" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="遊戲大廳">
-    <span class="text-2xl mb-0.5">🎮</span><span>遊戲</span>
-  </button>
-  <button onclick="window.location.href='https://flyjung168.pages.dev/'" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="房訊">
-    <span class="text-2xl mb-0.5">🏢</span><span>房訊</span>
-  </button>
-  <button onclick="openTool('worship.html')" class="flex flex-col items-center text-gray-600 text-sm hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg px-2 py-1" aria-label="拜拜專區">
-    <span class="text-2xl mb-0.5">🙏</span><span>拜拜</span>
-  </button>
-</nav>
-
-<script>
-// 返回首頁
-function goBack() {
-  window.location.href = 'index.html';
-}
-
-// 圖片放大模態框功能
-// 圖片資料（依出現順序）
-const galleryImages = [
-  'https://i.postimg.cc/ncKKJSyV/S-25010188-0.jpg',
-  'https://i.postimg.cc/x10vTyQG/S-25010189-0.jpg',
-  'https://i.postimg.cc/htp9Jz4T/S-25010190-0.jpg'
-];
-let currentImageIndex = 0;
-
-function showImageModal(imageSrc) {
-  const modal = document.getElementById('imageModal');
-  const modalImage = document.getElementById('modalImage');
-  if (modal && modalImage) {
-    modalImage.src = imageSrc;
-    // 同步目前索引
-    const idx = galleryImages.indexOf(imageSrc);
-    currentImageIndex = idx >= 0 ? idx : 0;
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
-}
-
-function closeImageModal() {
-  const modal = document.getElementById('imageModal');
-  if (modal) {
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-  }
-}
-
-// 左右切換
-function showImageByIndex(idx) {
-  if (idx < 0) idx = galleryImages.length - 1;
-  if (idx >= galleryImages.length) idx = 0;
-  currentImageIndex = idx;
-  const modalImage = document.getElementById('modalImage');
-  if (modalImage) {
-    modalImage.src = galleryImages[currentImageIndex];
-  }
-}
-
-function prevImage() {
-  showImageByIndex(currentImageIndex - 1);
-}
-
-function nextImage() {
-  showImageByIndex(currentImageIndex + 1);
-}
-
-// ESC鍵關閉模態框
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeImageModal();
-    return;
-  }
-  // 左右鍵切換
-  if (e.key === 'ArrowLeft') {
-    prevImage();
-  } else if (e.key === 'ArrowRight') {
-    nextImage();
-  }
-});
-
-// 點擊背景關閉模態框
-document.getElementById('imageModal').addEventListener('click', (e) => {
-  if (e.target === e.currentTarget) {
-    closeImageModal();
-  }
-});
-
-// 詳情區塊固定顯示（移除切換功能）
-
-// 手機：切換服務項目
-function toggleServiceItems() {
-  const items = document.getElementById('serviceItems');
-  const btn = document.getElementById('toggleServiceItemsBtn');
-  if (!items || !btn) return;
-  const isHidden = items.classList.contains('hidden');
-  if (isHidden) {
-    items.classList.remove('hidden');
-    btn.textContent = '收合';
-  } else {
-    items.classList.add('hidden');
-    btn.textContent = '展開';
-  }
-}
-
-// 工具開啟功能
-function openTool(url) {
-  if (url.startsWith('http')) {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  } else {
-    window.location.href = url;
-  }
-}
-</script>
+<script src="assets/js/service-page-data.js"></script>
+<script src="assets/js/service-page.js"></script>
+<script src="assets/js/entertainment-data.js"></script>
+<script src="assets/js/entertainment-widgets.js"></script>
 </body>
 </html>

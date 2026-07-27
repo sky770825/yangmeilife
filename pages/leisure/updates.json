@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-07-03T09:23:39+0800",
+  "category": {
+    "id": "leisure",
+    "title": "輕鬆時光與互動娛樂",
+    "owner": "互動內容維護",
+    "folder": "pages/leisure/"
+  },
+  "files": {
+    "index": "pages/leisure/index.html",
+    "updatesPage": "pages/leisure/updates.html",
+    "updatesData": "pages/leisure/updates.json"
+  },
+  "functions": [
+    {
+      "id": "games",
+      "title": "遊戲大廳",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "games.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "games.html",
+      "currentUrl": "games.html",
+      "archivePath": "archive/cursor-history/latest/games.html",
+      "updateType": "content",
+      "tags": [
+        "遊戲"
+      ]
+    },
+    {
+      "id": "fortune",
+      "title": "每日運勢",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "fortune.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "fortune.html",
+      "currentUrl": "fortune.html",
+      "archivePath": "archive/cursor-history/latest/fortune.html",
+      "updateType": "content",
+      "tags": [
+        "運勢"
+      ]
+    },
+    {
+      "id": "mbti",
+      "title": "MBTI 測驗",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "mbti.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "mbti.html",
+      "currentUrl": "mbti.html",
+      "archivePath": "archive/cursor-history/latest/mbti.html",
+      "updateType": "content",
+      "tags": [
+        "MBTI"
+      ]
+    },
+    {
+      "id": "daily-quote",
+      "title": "每日金句",
+      "status": "可使用",
+      "implementationStatus": "service-page",
+      "targetType": "local-page",
+      "externalUrl": null,
+      "primaryTarget": null,
+      "primaryTargetUrl": "daily-quote.html",
+      "secondaryTargetType": null,
+      "secondaryTargetUrl": null,
+      "page": "daily-quote.html",
+      "currentUrl": "daily-quote.html",
+      "archivePath": "archive/cursor-history/latest/daily-quote.html",
+      "updateType": "content",
+      "tags": [
+        "金句"
+      ]
+    }
+  ]
+}

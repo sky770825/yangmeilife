@@ -1,0 +1,138 @@
+{
+  "source": "data/vendors/categories/*/vendors.json",
+  "generatedAt": "2026-07-27T00:00:00.000Z",
+  "categoryCount": 11,
+  "vendorCount": 11,
+  "candidateVendorCount": 30,
+  "verification": {
+    "total": 11,
+    "verified": 11,
+    "needsVerification": 0,
+    "missingPhone": 0,
+    "missingAddress": 0,
+    "missingOfficialSource": 0
+  },
+  "categories": [
+    {
+      "page": "beauty-skin.html",
+      "title": "楊梅美容護膚廠商",
+      "vendorCount": 3,
+      "total": 3,
+      "verified": 3,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "hair-salon.html",
+      "title": "楊梅美髮造型廠商",
+      "vendorCount": 3,
+      "total": 3,
+      "verified": 3,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "eyelash-service.html",
+      "title": "楊梅美睫服務廠商",
+      "vendorCount": 0,
+      "total": 0,
+      "verified": 0,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "nail-service.html",
+      "title": "楊梅美甲服務廠商",
+      "vendorCount": 4,
+      "total": 4,
+      "verified": 4,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "thai-massage.html",
+      "title": "楊梅泰式按摩廠商",
+      "vendorCount": 0,
+      "total": 0,
+      "verified": 0,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "vietnamese-massage.html",
+      "title": "楊梅越式按摩廠商",
+      "vendorCount": 0,
+      "total": 0,
+      "verified": 0,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "taiwanese-massage.html",
+      "title": "楊梅台式按摩廠商",
+      "vendorCount": 0,
+      "total": 0,
+      "verified": 0,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "american-chiropractic.html",
+      "title": "楊梅美式整復廠商",
+      "vendorCount": 0,
+      "total": 0,
+      "verified": 0,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "food-truck.html",
+      "title": "楊梅餐車廠商",
+      "vendorCount": 0,
+      "total": 0,
+      "verified": 0,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "kungfu-tea.html",
+      "title": "楊梅飲品廠商",
+      "vendorCount": 1,
+      "total": 1,
+      "verified": 1,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    },
+    {
+      "page": "rental-management.html",
+      "title": "楊梅包租代管廠商",
+      "vendorCount": 0,
+      "total": 0,
+      "verified": 0,
+      "needsVerification": 0,
+      "missingPhone": 0,
+      "missingAddress": 0,
+      "missingOfficialSource": 0
+    }
+  ]
+}

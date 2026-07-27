@@ -1,0 +1,29 @@
+{
+  "updatedAt": "2026-07-02T17:42:30+08:00",
+  "sourceNote": "金句內容目前為站內展示文案。若加入外部名言，需先核實作者與授權狀態。",
+  "storageKey": "yangmei_quote_favorites_v2",
+  "categories": {
+    "all": "全部",
+    "success": "成功",
+    "motivation": "勵志",
+    "wisdom": "智慧",
+    "life": "生活",
+    "work": "工作",
+    "health": "健康",
+    "friendship": "友情"
+  },
+  "quotes": [
+    { "category": "success", "text": "成功不是一次衝刺，而是每天把方向校正回來。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "success", "text": "把能做的事做穩，機會會比較容易被看見。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "motivation", "text": "今天先前進一小步，明天就少一點重量。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "motivation", "text": "低潮不是結論，只是提醒你需要換一個節奏。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "wisdom", "text": "真正的效率，是知道什麼事情現在不用做。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "wisdom", "text": "資訊越多，越要保留判斷的安靜。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "life", "text": "生活不需要每一刻都完美，但需要偶爾被好好整理。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "life", "text": "把日子過穩，也是一種很深的能力。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "work", "text": "好的工作流程，會讓人少一點消耗，多一點完成。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "work", "text": "先把問題說清楚，解法才會開始變簡單。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "health", "text": "身體的提醒通常很小聲，但不能一直忽略。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" },
+    { "category": "friendship", "text": "舒服的關係，是彼此都不用過度證明。", "author": "楊梅生活集", "sourceStatus": "站內展示文案" }
+  ]
+}
