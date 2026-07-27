@@ -8,7 +8,7 @@ import { validateVendorData } from '../scripts/validate-vendor-data.mjs';
 
 const repositoryRoot = path.resolve(import.meta.dirname, '..');
 const sourceCategories = path.join(repositoryRoot, 'data/vendors/categories');
-const referenceNow = new Date('2026-07-27T00:00:00.000Z');
+const referenceNow = new Date('2026-07-27T12:00:00+08:00');
 
 const withTemporaryVendorData = async (mutate, callback) => {
   const root = await mkdtemp(path.join(os.tmpdir(), 'yangmeilife-vendors-'));
@@ -113,10 +113,19 @@ test('rejects a verified vendor with a future verification date', async () => {
 
 test('accepts the current Taipei calendar date during Taiwan early morning', async () => {
   await withTemporaryVendorData(
-    (categories) => updateVendorFile(categories, 'kungfu-tea', (source) => {
-      source.vendors[0].lastVerifiedAt = '2026-07-27';
-      source.vendors[0].nextReviewAt = '2026-10-25';
-    }),
+    async (categories) => {
+      for (const slug of ['beauty-skin', 'hair-salon', 'kungfu-tea', 'nail-service']) {
+        await updateVendorFile(categories, slug, (source) => {
+          source.vendors.forEach((vendor) => {
+            vendor.media.checkedAt = '2026-07-27T00:00:00+08:00';
+          });
+          if (slug === 'kungfu-tea') {
+            source.vendors[0].lastVerifiedAt = '2026-07-27';
+            source.vendors[0].nextReviewAt = '2026-10-25';
+          }
+        });
+      }
+    },
     async (root) => {
       const result = await validateVendorData({
         root,

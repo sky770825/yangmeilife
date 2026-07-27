@@ -22,7 +22,7 @@
       "area": "楊梅過嶺 / 新榮路",
       "price": null,
       "rating": null,
-      "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+      "image": null,
       "tags": [
         "美髮",
         "縮毛矯正",
@@ -36,7 +36,7 @@
       "dataSource": "data/vendors/categories/hair-salon/vendors.json",
       "sourceNote": "電話、地址與 LINE 官方帳號以店家 Facebook / Instagram 公開資訊核實。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:15:32+0800",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "03-420-1685",
       "address": "桃園市楊梅區新榮路99號",
       "businessHours": "每週一、二公休",
@@ -85,17 +85,20 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "no-approved-image",
         "sourceUrl": null,
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:15:32+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
         "recordedAt": null,
         "evidence": null
-      }
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
     },
     {
       "id": "hair-salon-real-2",
@@ -103,7 +106,7 @@
       "area": "楊梅大成路",
       "price": null,
       "rating": null,
-      "image": "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+      "image": null,
       "tags": [
         "美髮沙龍",
         "剪燙染",
@@ -117,7 +120,7 @@
       "dataSource": "data/vendors/categories/hair-salon/vendors.json",
       "sourceNote": "電話與地址以 Lin 美髮沙龍 Facebook、1111 公司資訊與 Gomaji 店家頁交叉核實。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:15:32+0800",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "03-488-0733",
       "address": "楊梅區大成路57號",
       "businessHours": "10:00-20:00",
@@ -161,17 +164,20 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "no-approved-image",
         "sourceUrl": null,
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:15:32+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
         "recordedAt": null,
         "evidence": null
-      }
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
     },
     {
       "id": "hair-salon-real-3",
@@ -179,7 +185,7 @@
       "area": "楊梅環南路",
       "price": null,
       "rating": null,
-      "image": "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+      "image": null,
       "tags": [
         "女生髮型",
         "燙髮",
@@ -193,7 +199,7 @@
       "dataSource": "data/vendors/categories/hair-salon/vendors.json",
       "sourceNote": "店家電子名片核實 YL Hair Salon、主電話、地址與店家自控 LINE 短網址；中文後綴「意翎髮藝」沿用 Facebook / Instagram 歷史來源佐證；營業日仍待可讀官方社群複核。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-27T10:07:33+08:00",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "03-478-9059",
       "address": "楊梅區環南路61號",
       "businessHours": "星期二至星期日，星期一公休",
@@ -242,17 +248,20 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "no-approved-image",
         "sourceUrl": null,
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:15:32+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
         "recordedAt": null,
         "evidence": null
-      }
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
     }
   ],
   "candidateVendors": [

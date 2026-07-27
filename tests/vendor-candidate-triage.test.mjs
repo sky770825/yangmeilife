@@ -7,7 +7,7 @@ import { validateVendorData } from '../scripts/validate-vendor-data.mjs';
 
 const repositoryRoot = path.resolve(import.meta.dirname, '..');
 const sourceCategories = path.join(repositoryRoot, 'data/vendors/categories');
-const referenceNow = new Date('2026-07-27T00:00:00.000Z');
+const referenceNow = new Date('2026-07-27T12:00:00+08:00');
 const allowedDispositions = new Set([
   'source-found',
   'identity-conflict',

@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -65,6 +66,12 @@ const isHttpUrl = (value) => {
 const isIsoDateTimeWithTimezone = (value) => isPresent(value)
   && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)
   && !Number.isNaN(Date.parse(value));
+const isExistingLocalAsset = (root, assetPath) => {
+  if (!isPresent(assetPath)) return false;
+  const resolvedRoot = path.resolve(root);
+  const resolvedAsset = path.resolve(resolvedRoot, assetPath);
+  return resolvedAsset.startsWith(`${resolvedRoot}${path.sep}`) && existsSync(resolvedAsset);
+};
 
 const taipeiCalendarDate = (date) => {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -205,7 +212,7 @@ const validateCandidateContract = ({ candidate, context, index, relativeFile, cu
   }
 };
 
-const validatePublishedContract = ({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, errors }) => {
+const validatePublishedContract = ({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, root, now, errors }) => {
   if (vendor?.verified !== true) {
     errors.push(`${context} Published vendor requires verified: true.`);
   }
@@ -296,6 +303,68 @@ const validatePublishedContract = ({ vendor, context, currentTaipeiDate, current
     }
     if (!isIsoDateTimeWithTimezone(media.checkedAt)) {
       errors.push(`${context} Published vendor media.checkedAt must be an ISO datetime with timezone.`);
+    } else if (Date.parse(media.checkedAt) > now.getTime()) {
+      errors.push(`${context} Published vendor media.checkedAt must not be in the future.`);
+    }
+
+    const officialPageUrls = new Set([
+      ...(Array.isArray(vendor.sourceUrls) ? vendor.sourceUrls : []),
+      vendor.officialUrl,
+      vendor.imageSourceUrl
+    ].filter(isHttpUrl));
+
+    if (media.rightsStatus === 'official-external') {
+      if (!isHttpUrl(vendor.image)) {
+        errors.push(`${context} official-external requires image to be an external http(s) URL.`);
+      }
+      if (vendor.imageSourceType !== 'official') {
+        errors.push(`${context} official-external requires imageSourceType to be "official".`);
+      }
+      if (!isPresent(vendor.imageSource) || !isHttpUrl(vendor.imageSourceUrl)) {
+        errors.push(`${context} official-external requires non-empty official image source metadata.`);
+      }
+      if (!isHttpUrl(media.sourceUrl) || !officialPageUrls.has(media.sourceUrl)) {
+        errors.push(`${context} official-external requires media.sourceUrl to be a traceable official page URL.`);
+      }
+      if (media.assetPath !== null) {
+        errors.push(`${context} official-external requires media.assetPath to be null.`);
+      }
+      if (media.permissionEvidence !== null) {
+        errors.push(`${context} official-external requires media.permissionEvidence to be null unless explicit evidence exists.`);
+      }
+    }
+
+    if (media.rightsStatus === 'licensed-local') {
+      if (!isPresent(media.assetPath) || !isExistingLocalAsset(root, media.assetPath)) {
+        errors.push(`${context} licensed-local requires media.assetPath to reference an existing file.`);
+      }
+      if (!isPresent(media.permissionEvidence)) {
+        errors.push(`${context} licensed-local requires non-empty media.permissionEvidence.`);
+      }
+    }
+
+    if (media.rightsStatus === 'no-approved-image') {
+      if (vendor.image !== null) {
+        errors.push(`${context} no-approved-image requires image to be null.`);
+      }
+      for (const field of ['imageSourceType', 'imageSource', 'imageSourceUrl']) {
+        if (!(vendor[field] === null || !hasOwn(vendor, field))) {
+          errors.push(`${context} no-approved-image requires ${field} to be null or absent.`);
+        }
+      }
+      if (!Array.isArray(vendor?.fieldSources?.image) || vendor.fieldSources.image.length !== 0) {
+        errors.push(`${context} no-approved-image requires fieldSources.image to be empty.`);
+      }
+      for (const field of ['sourceUrl', 'assetPath', 'permissionEvidence']) {
+        if (media[field] !== null) {
+          errors.push(`${context} no-approved-image requires media.${field} to be null.`);
+        }
+      }
+    }
+
+    const imageHostname = isHttpUrl(vendor.image) ? new URL(vendor.image).hostname : null;
+    if (imageHostname === 'unsplash.com' || imageHostname?.endsWith('.unsplash.com')) {
+      errors.push(`${context} Published vendor image must not use an Unsplash URL as a store image.`);
     }
   }
 
@@ -434,7 +503,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
 
       if (vendor.publicationStatus !== 'published') return;
       publishedVendors.push({ vendor, slug, relativeFile });
-      validatePublishedContract({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, errors });
+      validatePublishedContract({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, root, now, errors });
 
       for (const field of ['phone', 'address', 'officialSource', 'lastVerifiedAt']) {
         if (!isPresent(vendor[field])) {

@@ -22,7 +22,7 @@
       "area": "楊梅環東路",
       "price": null,
       "rating": null,
-      "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+      "image": null,
       "tags": [
         "凝膠美甲",
         "美睫",
@@ -36,7 +36,7 @@
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
       "sourceNote": "店名、電話、地址與營業時間以 Facebook / Instagram 公開資訊核實。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "03-485-5701",
       "address": "桃園市楊梅區環東路447號1樓",
       "businessHours": "10:00-19:00",
@@ -83,17 +83,20 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "no-approved-image",
         "sourceUrl": null,
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:51:37+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
         "recordedAt": null,
         "evidence": null
-      }
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
     },
     {
       "id": "nail-service-real-2",
@@ -101,7 +104,7 @@
       "area": "楊梅中山北路",
       "price": null,
       "rating": null,
-      "image": "https://images.unsplash.com/photo-1604654894611-6973b376cbde?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+      "image": null,
       "tags": [
         "美甲",
         "美睫",
@@ -115,7 +118,7 @@
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
       "sourceNote": "楊梅店電話與地址以 Facebook / Instagram 公開資訊核實；LINE 目的地待店家自控頁重新確認。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-27T10:24:18+08:00",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "0925-296-677",
       "address": "桃園市楊梅區中山北路二段23巷27號",
       "businessHours": null,
@@ -159,17 +162,20 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "no-approved-image",
         "sourceUrl": null,
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:51:37+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
         "recordedAt": null,
         "evidence": null
-      }
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
     },
     {
       "id": "nail-service-real-3",
@@ -194,7 +200,7 @@
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
       "sourceNote": "電話、地址、服務內容與預約 LINE 以妮莉莎美學官方網站核實。",
       "lastVerifiedAt": "2026-07-27",
-      "updatedAt": "2026-07-27T10:24:18+08:00",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "03-431-2061",
       "address": "326桃園市楊梅區四維路196號",
       "businessHours": null,
@@ -242,11 +248,11 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "official-external",
         "sourceUrl": "https://www.nelissa.com.tw/meijia.html",
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-27T10:24:18+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
@@ -277,7 +283,7 @@
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
       "sourceNote": "電話、地址、營業時間與服務內容以官方網站核實；四維路133號地址保留作分店辨識。",
       "lastVerifiedAt": "2026-07-27",
-      "updatedAt": "2026-07-27T10:24:18+08:00",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "03-482-0127",
       "address": "326桃園市楊梅區四維路133號",
       "businessHours": "每週 10:30-19:30",
@@ -322,11 +328,11 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "official-external",
         "sourceUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-27T10:24:18+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",

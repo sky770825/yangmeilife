@@ -39,7 +39,7 @@
       "dataSource": "data/vendors/categories/beauty-skin/vendors.json",
       "sourceNote": "電話、地址、LINE 與營業時間以官方網站及 Freetime 預約頁核實。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:26:15+0800",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "0976-866-869",
       "address": "桃園市楊梅區環東路493號2樓",
       "businessHours": "星期一至星期六 09:00-21:00；星期日休息",
@@ -94,11 +94,11 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "official-external",
         "sourceUrl": "https://www.queenie-spa.com/",
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:26:15+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
@@ -112,7 +112,7 @@
       "area": "楊梅三民路",
       "price": null,
       "rating": null,
-      "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+      "image": null,
       "tags": [
         "美容美體",
         "舒壓",
@@ -126,7 +126,7 @@
       "dataSource": "data/vendors/categories/beauty-skin/vendors.json",
       "sourceNote": "店名、電話、地址與營業資訊以 Facebook / Instagram 公開資料及公司登記核實。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:26:15+0800",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "0931-050-370",
       "address": "桃園市楊梅區三民路51號",
       "businessHours": "10:00-12:00 / 14:00-20:00",
@@ -178,17 +178,20 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "no-approved-image",
         "sourceUrl": null,
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:26:15+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
         "recordedAt": null,
         "evidence": null
-      }
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
     },
     {
       "id": "beauty-skin-real-3",
@@ -196,7 +199,7 @@
       "area": "楊梅大成路",
       "price": null,
       "rating": null,
-      "image": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=640&h=440&fit=crop&crop=center&auto=format&q=80",
+      "image": null,
       "tags": [
         "皮膚管理",
         "體雕",
@@ -210,7 +213,7 @@
       "dataSource": "data/vendors/categories/beauty-skin/vendors.json",
       "sourceNote": "店名、地址與 LINE 以 Facebook、1111 公司資訊及商工登記核實；公開電話來源有多版本，已於備註標記。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:26:15+0800",
+      "updatedAt": "2026-07-27T11:07:03+08:00",
       "phone": "03-475-0475",
       "address": "桃園市楊梅區大成路147號",
       "businessHours": null,
@@ -263,17 +266,20 @@
         "longitude": null
       },
       "media": {
-        "rightsStatus": "permission-pending",
+        "rightsStatus": "no-approved-image",
         "sourceUrl": null,
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:26:15+08:00"
+        "checkedAt": "2026-07-27T11:07:03+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
         "recordedAt": null,
         "evidence": null
-      }
+      },
+      "imageSourceType": null,
+      "imageSource": null,
+      "imageSourceUrl": null
     }
   ],
   "candidateVendors": [
