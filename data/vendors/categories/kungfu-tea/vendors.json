@@ -52,7 +52,55 @@
       "sourceUrls": [
         "https://www.kungfutea.com.tw/location/?page=11",
         "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T07:18:00+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.kungfutea.com.tw/location/?page=11",
+          "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
+          "https://line.me/R/ti/p/@359subhu"
+        ],
+        "phone": [
+          "https://www.kungfutea.com.tw/location/?page=11",
+          "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
+          "https://line.me/R/ti/p/@359subhu"
+        ],
+        "address": [
+          "https://www.kungfutea.com.tw/location/?page=11",
+          "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
+          "https://line.me/R/ti/p/@359subhu"
+        ],
+        "businessHours": [],
+        "officialUrl": [
+          "https://www.kungfutea.com.tw/location/?page=11"
+        ],
+        "lineUrl": [
+          "https://line.me/R/ti/p/@359subhu"
+        ],
+        "image": [
+          "https://www.kungfutea.com.tw/location/?page=11"
+        ]
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": "https://www.kungfutea.com.tw/location/?page=11",
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T07:18:00+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     }
   ],
   "candidateVendors": [],

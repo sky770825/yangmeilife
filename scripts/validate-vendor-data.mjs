@@ -19,6 +19,11 @@ const CATEGORY_COUNT = REQUIRED_CATEGORY_SLUGS.length;
 const PUBLIC_VENDOR_COUNT = 11;
 const MAX_VERIFICATION_AGE_MS = 90 * 24 * 60 * 60 * 1000;
 const VENDOR_SOURCE_ROOT = 'data/vendors/categories';
+const PUBLICATION_STATUSES = new Set(['published', 'hold', 'retired']);
+const MEDIA_RIGHTS_STATUSES = new Set(['licensed-local', 'official-external', 'permission-pending', 'no-approved-image']);
+const MERCHANT_CONSENT_STATUSES = new Set(['granted', 'not-required-public-source', 'not-recorded', 'declined']);
+const REQUIRED_FIELD_SOURCES = ['name', 'phone', 'address', 'businessHours', 'officialUrl', 'lineUrl', 'image'];
+const REQUIRED_PUBLISHED_EVIDENCE = new Set(['name', 'phone', 'address', 'officialUrl']);
 const KUNGFU_TEA = {
   id: 'kungfu-tea-1',
   name: '功夫茶楊梅四維店',
@@ -26,6 +31,11 @@ const KUNGFU_TEA = {
 };
 
 const isPresent = (value) => typeof value === 'string' && value.trim().length > 0;
+const isNullableString = (value) => value === null || typeof value === 'string';
+const hasOwn = (value, key) => value !== null && typeof value === 'object' && Object.hasOwn(value, key);
+const isIsoDateTimeWithTimezone = (value) => isPresent(value)
+  && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)
+  && !Number.isNaN(Date.parse(value));
 
 const taipeiCalendarDate = (date) => {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -42,6 +52,99 @@ const formatContext = ({ file, slug, vendor }) => {
   const parts = [`file=${file}`, `category=${slug}`];
   if (vendor) parts.push(`vendor=${vendor.id || vendor.name || 'unknown'}`);
   return `[${parts.join('] [')}]`;
+};
+
+const isValidCalendarDate = (value) => {
+  if (!isPresent(value) || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(`${value}T00:00:00.000Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+};
+
+const validatePublishedContract = ({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, errors }) => {
+  if (vendor?.verified !== true) {
+    errors.push(`${context} Published vendor requires verified: true.`);
+  }
+
+  if (!isIsoDateTimeWithTimezone(vendor?.sourceCheckedAt)) {
+    errors.push(`${context} Published vendor sourceCheckedAt must be an ISO datetime with timezone.`);
+  } else {
+    const sourceCheckedDate = taipeiCalendarDate(new Date(vendor.sourceCheckedAt));
+    const sourceCheckedAtMs = Date.parse(sourceCheckedDate);
+    if (sourceCheckedDate > currentTaipeiDate) {
+      errors.push(`${context} Published vendor sourceCheckedAt must not be in the future.`);
+    } else if (currentTaipeiDateMs - sourceCheckedAtMs > MAX_VERIFICATION_AGE_MS) {
+      errors.push(`${context} Published vendor sourceCheckedAt is older than 90 days.`);
+    }
+  }
+
+  if (!isValidCalendarDate(vendor?.nextReviewAt)) {
+    errors.push(`${context} Published vendor nextReviewAt must be a valid ISO date (YYYY-MM-DD).`);
+  } else if (vendor.nextReviewAt < currentTaipeiDate) {
+    errors.push(`${context} Published vendor nextReviewAt must not be before the current Taipei calendar date.`);
+  }
+
+  if (!isPresent(vendor?.reviewedBy)) {
+    errors.push(`${context} Published vendor requires a non-empty reviewedBy role.`);
+  }
+
+  if (vendor?.fieldSources === null || typeof vendor?.fieldSources !== 'object' || Array.isArray(vendor.fieldSources)) {
+    errors.push(`${context} Published vendor requires fieldSources object.`);
+  } else {
+    for (const field of REQUIRED_FIELD_SOURCES) {
+      const sources = vendor.fieldSources[field];
+      if (!Array.isArray(sources) || !sources.every(isPresent)) {
+        errors.push(`${context} Published vendor fieldSources.${field} must be an array of non-empty source URLs.`);
+      } else if (REQUIRED_PUBLISHED_EVIDENCE.has(field) && sources.length === 0) {
+        errors.push(`${context} Published vendor fieldSources.${field} must be non-empty.`);
+      }
+    }
+  }
+
+  if (!(vendor?.placeId === null || isPresent(vendor?.placeId))) {
+    errors.push(`${context} Published vendor placeId must be a string or null.`);
+  }
+
+  const coordinates = vendor?.coordinates;
+  if (coordinates === null || typeof coordinates !== 'object' || Array.isArray(coordinates)
+    || !hasOwn(coordinates, 'latitude') || !hasOwn(coordinates, 'longitude')
+    || !(coordinates.latitude === null || typeof coordinates.latitude === 'number')
+    || !(coordinates.longitude === null || typeof coordinates.longitude === 'number')) {
+    errors.push(`${context} Published vendor coordinates must provide latitude and longitude as numbers or null.`);
+  }
+
+  const media = vendor?.media;
+  if (media === null || typeof media !== 'object' || Array.isArray(media)
+    || !['rightsStatus', 'sourceUrl', 'assetPath', 'permissionEvidence', 'checkedAt'].every((field) => hasOwn(media, field))) {
+    errors.push(`${context} Published vendor requires complete media metadata.`);
+  } else {
+    if (!MEDIA_RIGHTS_STATUSES.has(media.rightsStatus)) {
+      errors.push(`${context} Published vendor media.rightsStatus is invalid.`);
+    }
+    for (const field of ['sourceUrl', 'assetPath', 'permissionEvidence']) {
+      if (!isNullableString(media[field])) {
+        errors.push(`${context} Published vendor media.${field} must be a string or null.`);
+      }
+    }
+    if (!isIsoDateTimeWithTimezone(media.checkedAt)) {
+      errors.push(`${context} Published vendor media.checkedAt must be an ISO datetime with timezone.`);
+    }
+  }
+
+  const merchantConsent = vendor?.merchantConsent;
+  if (merchantConsent === null || typeof merchantConsent !== 'object' || Array.isArray(merchantConsent)
+    || !['status', 'recordedAt', 'evidence'].every((field) => hasOwn(merchantConsent, field))) {
+    errors.push(`${context} Published vendor requires complete merchantConsent metadata.`);
+  } else {
+    if (!MERCHANT_CONSENT_STATUSES.has(merchantConsent.status)) {
+      errors.push(`${context} Published vendor merchantConsent.status is invalid.`);
+    }
+    if (!(merchantConsent.recordedAt === null || isIsoDateTimeWithTimezone(merchantConsent.recordedAt))) {
+      errors.push(`${context} Published vendor merchantConsent.recordedAt must be an ISO datetime with timezone or null.`);
+    }
+    if (!isNullableString(merchantConsent.evidence)) {
+      errors.push(`${context} Published vendor merchantConsent.evidence must be a string or null.`);
+    }
+  }
 };
 
 const isMainModule = () => process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
@@ -82,7 +185,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
     errors.push(`[file=${VENDOR_SOURCE_ROOT}] Unexpected vendor category source folders: ${unexpectedCategoryFolders.join(', ')}.`);
   }
 
-  const publicVendors = [];
+  const publishedVendors = [];
   const vendorIds = new Map();
   const sourceBySlug = new Map();
 
@@ -117,7 +220,6 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
 
     source.vendors.forEach((vendor, index) => {
       const context = formatContext({ file: relativeFile, slug, vendor });
-      publicVendors.push({ vendor, slug, relativeFile });
 
       if (!isPresent(vendor?.id)) {
         errors.push(`${context} Public vendor at vendors[${index}] requires id.`);
@@ -139,7 +241,14 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
         errors.push(`${context} Public vendor dataSource must be "${relativeFile}".`);
       }
 
-      if (vendor?.verified !== true) return;
+      if (!PUBLICATION_STATUSES.has(vendor?.publicationStatus)) {
+        errors.push(`${context} Vendor publicationStatus must be published, hold, or retired.`);
+        return;
+      }
+
+      if (vendor.publicationStatus !== 'published') return;
+      publishedVendors.push({ vendor, slug, relativeFile });
+      validatePublishedContract({ vendor, context, currentTaipeiDate, currentTaipeiDateMs, errors });
 
       for (const field of ['phone', 'address', 'officialSource', 'lastVerifiedAt']) {
         if (!isPresent(vendor[field])) {
@@ -167,8 +276,8 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
     });
   }
 
-  if (publicVendors.length !== PUBLIC_VENDOR_COUNT) {
-    errors.push(`[file=${VENDOR_SOURCE_ROOT}] Expected exactly ${PUBLIC_VENDOR_COUNT} public vendors across all vendors[] arrays; found ${publicVendors.length}.`);
+  if (publishedVendors.length > PUBLIC_VENDOR_COUNT) {
+    errors.push(`[file=${VENDOR_SOURCE_ROOT}] Expected at most ${PUBLIC_VENDOR_COUNT} published vendors across all vendors[] arrays; found ${publishedVendors.length}.`);
   }
 
   const kungfuTea = sourceBySlug.get('kungfu-tea');
@@ -179,7 +288,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
     errors.push(`${formatContext({ file: kungfuTeaFile, slug: 'kungfu-tea' })} Public vendors must be an array in vendors[].`);
   } else {
     if (kungfuTea.vendors.length !== 1) {
-      errors.push(`${formatContext({ file: kungfuTeaFile, slug: 'kungfu-tea' })} kungfu-tea must contain exactly one public vendor; found ${kungfuTea.vendors.length}.`);
+      errors.push(`${formatContext({ file: kungfuTeaFile, slug: 'kungfu-tea' })} kungfu-tea must contain exactly one public vendor source record; found ${kungfuTea.vendors.length}.`);
     }
 
     const vendor = kungfuTea.vendors[0];
@@ -199,7 +308,7 @@ export const validateVendorData = async ({ root = process.cwd(), now = new Date(
     valid: errors.length === 0,
     errors,
     categoryCount: categoryFolders.length,
-    publicVendorCount: publicVendors.length
+    publicVendorCount: publishedVendors.length
   };
 };
 

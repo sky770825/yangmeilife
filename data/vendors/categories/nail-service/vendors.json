@@ -49,7 +49,51 @@
       "sourceUrls": [
         "https://www.facebook.com/YNnewnails/",
         "https://www.instagram.com/yn_newnails/"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "phone": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "address": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/YNnewnails/",
+          "https://www.instagram.com/yn_newnails/"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/YNnewnails/"
+        ],
+        "lineUrl": [],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:51:37+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     },
     {
       "id": "nail-service-real-2",
@@ -84,7 +128,53 @@
       "sourceUrls": [
         "https://www.facebook.com/84NailSalon/",
         "https://www.instagram.com/84_nail_salon/"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/84NailSalon/",
+          "https://www.instagram.com/84_nail_salon/",
+          "https://line.me/R/ti/p/@396fiuuu"
+        ],
+        "phone": [
+          "https://www.facebook.com/84NailSalon/",
+          "https://www.instagram.com/84_nail_salon/",
+          "https://line.me/R/ti/p/@396fiuuu"
+        ],
+        "address": [
+          "https://www.facebook.com/84NailSalon/",
+          "https://www.instagram.com/84_nail_salon/",
+          "https://line.me/R/ti/p/@396fiuuu"
+        ],
+        "businessHours": [],
+        "officialUrl": [
+          "https://www.facebook.com/84NailSalon/"
+        ],
+        "lineUrl": [
+          "https://line.me/R/ti/p/@396fiuuu"
+        ],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:51:37+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     },
     {
       "id": "nail-service-real-3",
@@ -122,7 +212,50 @@
       "sourceUrls": [
         "https://www.nelissa.com.tw/meijia.html",
         "https://www.nelissa.com.tw/products.html"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.nelissa.com.tw/meijia.html",
+          "https://www.nelissa.com.tw/products.html"
+        ],
+        "phone": [
+          "https://www.nelissa.com.tw/meijia.html",
+          "https://www.nelissa.com.tw/products.html"
+        ],
+        "address": [
+          "https://www.nelissa.com.tw/meijia.html",
+          "https://www.nelissa.com.tw/products.html"
+        ],
+        "businessHours": [],
+        "officialUrl": [
+          "https://www.nelissa.com.tw/meijia.html"
+        ],
+        "lineUrl": [],
+        "image": [
+          "https://www.nelissa.com.tw/meijia.html"
+        ]
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": "https://www.nelissa.com.tw/meijia.html",
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:51:37+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     },
     {
       "id": "nail-service-real-4",
@@ -160,7 +293,53 @@
       "sourceUrls": [
         "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
         "https://www.facebook.com/relax4820127/"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+          "https://www.facebook.com/relax4820127/"
+        ],
+        "phone": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+          "https://www.facebook.com/relax4820127/"
+        ],
+        "address": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+          "https://www.facebook.com/relax4820127/"
+        ],
+        "businessHours": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+          "https://www.facebook.com/relax4820127/"
+        ],
+        "officialUrl": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ],
+        "lineUrl": [],
+        "image": [
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+        ]
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:51:37+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     }
   ],
   "candidateVendors": [

@@ -49,7 +49,57 @@
       "sourceUrls": [
         "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
         "https://www.instagram.com/p/DWQm1L0FK0j/"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/",
+          "https://lin.ee/SJ15p7G"
+        ],
+        "phone": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/",
+          "https://lin.ee/SJ15p7G"
+        ],
+        "address": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/",
+          "https://lin.ee/SJ15p7G"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+          "https://www.instagram.com/p/DWQm1L0FK0j/",
+          "https://lin.ee/SJ15p7G"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/"
+        ],
+        "lineUrl": [
+          "https://lin.ee/SJ15p7G"
+        ],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:15:32+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     },
     {
       "id": "hair-salon-real-2",
@@ -85,7 +135,55 @@
         "https://www.facebook.com/lin4856968/",
         "https://www.1111.com.tw/corp/69623666/",
         "https://www.gomaji.com/store/15289/pid/279869"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/lin4856968/",
+          "https://www.1111.com.tw/corp/69623666/",
+          "https://www.gomaji.com/store/15289/pid/279869"
+        ],
+        "phone": [
+          "https://www.facebook.com/lin4856968/",
+          "https://www.1111.com.tw/corp/69623666/",
+          "https://www.gomaji.com/store/15289/pid/279869"
+        ],
+        "address": [
+          "https://www.facebook.com/lin4856968/",
+          "https://www.1111.com.tw/corp/69623666/",
+          "https://www.gomaji.com/store/15289/pid/279869"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/lin4856968/",
+          "https://www.1111.com.tw/corp/69623666/",
+          "https://www.gomaji.com/store/15289/pid/279869"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/lin4856968/"
+        ],
+        "lineUrl": [],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:15:32+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     },
     {
       "id": "hair-salon-real-3",
@@ -121,7 +219,61 @@
         "https://www.facebook.com/yiling688/",
         "https://www.instagram.com/ylhairsalon/",
         "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/yiling688/",
+          "https://www.instagram.com/ylhairsalon/",
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+          "https://lin.ee/hxk7s94"
+        ],
+        "phone": [
+          "https://www.facebook.com/yiling688/",
+          "https://www.instagram.com/ylhairsalon/",
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+          "https://lin.ee/hxk7s94"
+        ],
+        "address": [
+          "https://www.facebook.com/yiling688/",
+          "https://www.instagram.com/ylhairsalon/",
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+          "https://lin.ee/hxk7s94"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/yiling688/",
+          "https://www.instagram.com/ylhairsalon/",
+          "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+          "https://lin.ee/hxk7s94"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/yiling688/"
+        ],
+        "lineUrl": [
+          "https://lin.ee/hxk7s94"
+        ],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:15:32+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     }
   ],
   "candidateVendors": [

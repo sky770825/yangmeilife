@@ -52,7 +52,59 @@
       "sourceUrls": [
         "https://www.queenie-spa.com/",
         "https://myfreetime.io/shop/QueenieYang"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:26:15+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.queenie-spa.com/",
+          "https://myfreetime.io/shop/QueenieYang",
+          "https://line.me/R/ti/p/@queenie0730"
+        ],
+        "phone": [
+          "https://www.queenie-spa.com/",
+          "https://myfreetime.io/shop/QueenieYang",
+          "https://line.me/R/ti/p/@queenie0730"
+        ],
+        "address": [
+          "https://www.queenie-spa.com/",
+          "https://myfreetime.io/shop/QueenieYang",
+          "https://line.me/R/ti/p/@queenie0730"
+        ],
+        "businessHours": [
+          "https://www.queenie-spa.com/",
+          "https://myfreetime.io/shop/QueenieYang",
+          "https://line.me/R/ti/p/@queenie0730"
+        ],
+        "officialUrl": [
+          "https://www.queenie-spa.com/"
+        ],
+        "lineUrl": [
+          "https://line.me/R/ti/p/@queenie0730"
+        ],
+        "image": [
+          "https://www.queenie-spa.com/"
+        ]
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": "https://www.queenie-spa.com/",
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:26:15+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     },
     {
       "id": "beauty-skin-real-2",
@@ -88,7 +140,55 @@
         "https://www.facebook.com/a220701/",
         "https://www.instagram.com/reel/DSIEEBGkvBt/",
         "https://twincn.com/item.aspx?no=60094673"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:26:15+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/a220701/",
+          "https://www.instagram.com/reel/DSIEEBGkvBt/",
+          "https://twincn.com/item.aspx?no=60094673"
+        ],
+        "phone": [
+          "https://www.facebook.com/a220701/",
+          "https://www.instagram.com/reel/DSIEEBGkvBt/",
+          "https://twincn.com/item.aspx?no=60094673"
+        ],
+        "address": [
+          "https://www.facebook.com/a220701/",
+          "https://www.instagram.com/reel/DSIEEBGkvBt/",
+          "https://twincn.com/item.aspx?no=60094673"
+        ],
+        "businessHours": [
+          "https://www.facebook.com/a220701/",
+          "https://www.instagram.com/reel/DSIEEBGkvBt/",
+          "https://twincn.com/item.aspx?no=60094673"
+        ],
+        "officialUrl": [
+          "https://www.facebook.com/a220701/"
+        ],
+        "lineUrl": [],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:26:15+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     },
     {
       "id": "beauty-skin-real-3",
@@ -124,7 +224,56 @@
         "https://www.facebook.com/Aryabeautyfly/",
         "https://www.1111.com.tw/corp/73585448/",
         "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8"
-      ]
+      ],
+      "publicationStatus": "published",
+      "sourceCheckedAt": "2026-07-03T08:26:15+08:00",
+      "nextReviewAt": "2026-10-01",
+      "reviewedBy": "2026-07-03 review migration",
+      "fieldSources": {
+        "name": [
+          "https://www.facebook.com/Aryabeautyfly/",
+          "https://www.1111.com.tw/corp/73585448/",
+          "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+          "https://lin.ee/4G3SKJf"
+        ],
+        "phone": [
+          "https://www.facebook.com/Aryabeautyfly/",
+          "https://www.1111.com.tw/corp/73585448/",
+          "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+          "https://lin.ee/4G3SKJf"
+        ],
+        "address": [
+          "https://www.facebook.com/Aryabeautyfly/",
+          "https://www.1111.com.tw/corp/73585448/",
+          "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+          "https://lin.ee/4G3SKJf"
+        ],
+        "businessHours": [],
+        "officialUrl": [
+          "https://www.facebook.com/Aryabeautyfly/"
+        ],
+        "lineUrl": [
+          "https://lin.ee/4G3SKJf"
+        ],
+        "image": []
+      },
+      "placeId": null,
+      "coordinates": {
+        "latitude": null,
+        "longitude": null
+      },
+      "media": {
+        "rightsStatus": "permission-pending",
+        "sourceUrl": null,
+        "assetPath": null,
+        "permissionEvidence": null,
+        "checkedAt": "2026-07-03T08:26:15+08:00"
+      },
+      "merchantConsent": {
+        "status": "not-recorded",
+        "recordedAt": null,
+        "evidence": null
+      }
     }
   ],
   "candidateVendors": [

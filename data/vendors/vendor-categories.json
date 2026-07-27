@@ -60,7 +60,59 @@
           "sourceUrls": [
             "https://www.queenie-spa.com/",
             "https://myfreetime.io/shop/QueenieYang"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:26:15+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.queenie-spa.com/",
+              "https://myfreetime.io/shop/QueenieYang",
+              "https://line.me/R/ti/p/@queenie0730"
+            ],
+            "phone": [
+              "https://www.queenie-spa.com/",
+              "https://myfreetime.io/shop/QueenieYang",
+              "https://line.me/R/ti/p/@queenie0730"
+            ],
+            "address": [
+              "https://www.queenie-spa.com/",
+              "https://myfreetime.io/shop/QueenieYang",
+              "https://line.me/R/ti/p/@queenie0730"
+            ],
+            "businessHours": [
+              "https://www.queenie-spa.com/",
+              "https://myfreetime.io/shop/QueenieYang",
+              "https://line.me/R/ti/p/@queenie0730"
+            ],
+            "officialUrl": [
+              "https://www.queenie-spa.com/"
+            ],
+            "lineUrl": [
+              "https://line.me/R/ti/p/@queenie0730"
+            ],
+            "image": [
+              "https://www.queenie-spa.com/"
+            ]
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": "https://www.queenie-spa.com/",
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:26:15+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         },
         {
           "id": "beauty-skin-real-2",
@@ -96,7 +148,55 @@
             "https://www.facebook.com/a220701/",
             "https://www.instagram.com/reel/DSIEEBGkvBt/",
             "https://twincn.com/item.aspx?no=60094673"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:26:15+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.facebook.com/a220701/",
+              "https://www.instagram.com/reel/DSIEEBGkvBt/",
+              "https://twincn.com/item.aspx?no=60094673"
+            ],
+            "phone": [
+              "https://www.facebook.com/a220701/",
+              "https://www.instagram.com/reel/DSIEEBGkvBt/",
+              "https://twincn.com/item.aspx?no=60094673"
+            ],
+            "address": [
+              "https://www.facebook.com/a220701/",
+              "https://www.instagram.com/reel/DSIEEBGkvBt/",
+              "https://twincn.com/item.aspx?no=60094673"
+            ],
+            "businessHours": [
+              "https://www.facebook.com/a220701/",
+              "https://www.instagram.com/reel/DSIEEBGkvBt/",
+              "https://twincn.com/item.aspx?no=60094673"
+            ],
+            "officialUrl": [
+              "https://www.facebook.com/a220701/"
+            ],
+            "lineUrl": [],
+            "image": []
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": null,
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:26:15+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         },
         {
           "id": "beauty-skin-real-3",
@@ -132,7 +232,56 @@
             "https://www.facebook.com/Aryabeautyfly/",
             "https://www.1111.com.tw/corp/73585448/",
             "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:26:15+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.facebook.com/Aryabeautyfly/",
+              "https://www.1111.com.tw/corp/73585448/",
+              "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+              "https://lin.ee/4G3SKJf"
+            ],
+            "phone": [
+              "https://www.facebook.com/Aryabeautyfly/",
+              "https://www.1111.com.tw/corp/73585448/",
+              "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+              "https://lin.ee/4G3SKJf"
+            ],
+            "address": [
+              "https://www.facebook.com/Aryabeautyfly/",
+              "https://www.1111.com.tw/corp/73585448/",
+              "https://www.findcompany.com.tw/%E6%84%9B%E9%BA%97%E9%9B%85%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8",
+              "https://lin.ee/4G3SKJf"
+            ],
+            "businessHours": [],
+            "officialUrl": [
+              "https://www.facebook.com/Aryabeautyfly/"
+            ],
+            "lineUrl": [
+              "https://lin.ee/4G3SKJf"
+            ],
+            "image": []
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": null,
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:26:15+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         }
       ]
     },
@@ -192,7 +341,57 @@
           "sourceUrls": [
             "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
             "https://www.instagram.com/p/DWQm1L0FK0j/"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+              "https://www.instagram.com/p/DWQm1L0FK0j/",
+              "https://lin.ee/SJ15p7G"
+            ],
+            "phone": [
+              "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+              "https://www.instagram.com/p/DWQm1L0FK0j/",
+              "https://lin.ee/SJ15p7G"
+            ],
+            "address": [
+              "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+              "https://www.instagram.com/p/DWQm1L0FK0j/",
+              "https://lin.ee/SJ15p7G"
+            ],
+            "businessHours": [
+              "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/",
+              "https://www.instagram.com/p/DWQm1L0FK0j/",
+              "https://lin.ee/SJ15p7G"
+            ],
+            "officialUrl": [
+              "https://www.facebook.com/p/Fashion-Hair-Salon-100065096546791/"
+            ],
+            "lineUrl": [
+              "https://lin.ee/SJ15p7G"
+            ],
+            "image": []
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": null,
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:15:32+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         },
         {
           "id": "hair-salon-real-2",
@@ -228,7 +427,55 @@
             "https://www.facebook.com/lin4856968/",
             "https://www.1111.com.tw/corp/69623666/",
             "https://www.gomaji.com/store/15289/pid/279869"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.facebook.com/lin4856968/",
+              "https://www.1111.com.tw/corp/69623666/",
+              "https://www.gomaji.com/store/15289/pid/279869"
+            ],
+            "phone": [
+              "https://www.facebook.com/lin4856968/",
+              "https://www.1111.com.tw/corp/69623666/",
+              "https://www.gomaji.com/store/15289/pid/279869"
+            ],
+            "address": [
+              "https://www.facebook.com/lin4856968/",
+              "https://www.1111.com.tw/corp/69623666/",
+              "https://www.gomaji.com/store/15289/pid/279869"
+            ],
+            "businessHours": [
+              "https://www.facebook.com/lin4856968/",
+              "https://www.1111.com.tw/corp/69623666/",
+              "https://www.gomaji.com/store/15289/pid/279869"
+            ],
+            "officialUrl": [
+              "https://www.facebook.com/lin4856968/"
+            ],
+            "lineUrl": [],
+            "image": []
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": null,
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:15:32+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         },
         {
           "id": "hair-salon-real-3",
@@ -264,7 +511,61 @@
             "https://www.facebook.com/yiling688/",
             "https://www.instagram.com/ylhairsalon/",
             "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:15:32+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.facebook.com/yiling688/",
+              "https://www.instagram.com/ylhairsalon/",
+              "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+              "https://lin.ee/hxk7s94"
+            ],
+            "phone": [
+              "https://www.facebook.com/yiling688/",
+              "https://www.instagram.com/ylhairsalon/",
+              "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+              "https://lin.ee/hxk7s94"
+            ],
+            "address": [
+              "https://www.facebook.com/yiling688/",
+              "https://www.instagram.com/ylhairsalon/",
+              "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+              "https://lin.ee/hxk7s94"
+            ],
+            "businessHours": [
+              "https://www.facebook.com/yiling688/",
+              "https://www.instagram.com/ylhairsalon/",
+              "https://www.iringo.com.tw/myecard/ecard1.php?id=BS0000875&openExternalBrowser=1",
+              "https://lin.ee/hxk7s94"
+            ],
+            "officialUrl": [
+              "https://www.facebook.com/yiling688/"
+            ],
+            "lineUrl": [
+              "https://lin.ee/hxk7s94"
+            ],
+            "image": []
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": null,
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:15:32+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         }
       ]
     },
@@ -348,7 +649,51 @@
           "sourceUrls": [
             "https://www.facebook.com/YNnewnails/",
             "https://www.instagram.com/yn_newnails/"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.facebook.com/YNnewnails/",
+              "https://www.instagram.com/yn_newnails/"
+            ],
+            "phone": [
+              "https://www.facebook.com/YNnewnails/",
+              "https://www.instagram.com/yn_newnails/"
+            ],
+            "address": [
+              "https://www.facebook.com/YNnewnails/",
+              "https://www.instagram.com/yn_newnails/"
+            ],
+            "businessHours": [
+              "https://www.facebook.com/YNnewnails/",
+              "https://www.instagram.com/yn_newnails/"
+            ],
+            "officialUrl": [
+              "https://www.facebook.com/YNnewnails/"
+            ],
+            "lineUrl": [],
+            "image": []
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": null,
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:51:37+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         },
         {
           "id": "nail-service-real-2",
@@ -383,7 +728,53 @@
           "sourceUrls": [
             "https://www.facebook.com/84NailSalon/",
             "https://www.instagram.com/84_nail_salon/"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.facebook.com/84NailSalon/",
+              "https://www.instagram.com/84_nail_salon/",
+              "https://line.me/R/ti/p/@396fiuuu"
+            ],
+            "phone": [
+              "https://www.facebook.com/84NailSalon/",
+              "https://www.instagram.com/84_nail_salon/",
+              "https://line.me/R/ti/p/@396fiuuu"
+            ],
+            "address": [
+              "https://www.facebook.com/84NailSalon/",
+              "https://www.instagram.com/84_nail_salon/",
+              "https://line.me/R/ti/p/@396fiuuu"
+            ],
+            "businessHours": [],
+            "officialUrl": [
+              "https://www.facebook.com/84NailSalon/"
+            ],
+            "lineUrl": [
+              "https://line.me/R/ti/p/@396fiuuu"
+            ],
+            "image": []
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": null,
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:51:37+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         },
         {
           "id": "nail-service-real-3",
@@ -421,7 +812,50 @@
           "sourceUrls": [
             "https://www.nelissa.com.tw/meijia.html",
             "https://www.nelissa.com.tw/products.html"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.nelissa.com.tw/meijia.html",
+              "https://www.nelissa.com.tw/products.html"
+            ],
+            "phone": [
+              "https://www.nelissa.com.tw/meijia.html",
+              "https://www.nelissa.com.tw/products.html"
+            ],
+            "address": [
+              "https://www.nelissa.com.tw/meijia.html",
+              "https://www.nelissa.com.tw/products.html"
+            ],
+            "businessHours": [],
+            "officialUrl": [
+              "https://www.nelissa.com.tw/meijia.html"
+            ],
+            "lineUrl": [],
+            "image": [
+              "https://www.nelissa.com.tw/meijia.html"
+            ]
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": "https://www.nelissa.com.tw/meijia.html",
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:51:37+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         },
         {
           "id": "nail-service-real-4",
@@ -459,7 +893,53 @@
           "sourceUrls": [
             "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
             "https://www.facebook.com/relax4820127/"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+              "https://www.facebook.com/relax4820127/"
+            ],
+            "phone": [
+              "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+              "https://www.facebook.com/relax4820127/"
+            ],
+            "address": [
+              "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+              "https://www.facebook.com/relax4820127/"
+            ],
+            "businessHours": [
+              "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+              "https://www.facebook.com/relax4820127/"
+            ],
+            "officialUrl": [
+              "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+            ],
+            "lineUrl": [],
+            "image": [
+              "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
+            ]
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T08:51:37+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         }
       ]
     },
@@ -642,7 +1122,55 @@
           "sourceUrls": [
             "https://www.kungfutea.com.tw/location/?page=11",
             "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html"
-          ]
+          ],
+          "publicationStatus": "published",
+          "sourceCheckedAt": "2026-07-03T07:18:00+08:00",
+          "nextReviewAt": "2026-10-01",
+          "reviewedBy": "2026-07-03 review migration",
+          "fieldSources": {
+            "name": [
+              "https://www.kungfutea.com.tw/location/?page=11",
+              "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
+              "https://line.me/R/ti/p/@359subhu"
+            ],
+            "phone": [
+              "https://www.kungfutea.com.tw/location/?page=11",
+              "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
+              "https://line.me/R/ti/p/@359subhu"
+            ],
+            "address": [
+              "https://www.kungfutea.com.tw/location/?page=11",
+              "https://shop5877.noon360.com/mainssl/uploads/shop5877/html/home.html",
+              "https://line.me/R/ti/p/@359subhu"
+            ],
+            "businessHours": [],
+            "officialUrl": [
+              "https://www.kungfutea.com.tw/location/?page=11"
+            ],
+            "lineUrl": [
+              "https://line.me/R/ti/p/@359subhu"
+            ],
+            "image": [
+              "https://www.kungfutea.com.tw/location/?page=11"
+            ]
+          },
+          "placeId": null,
+          "coordinates": {
+            "latitude": null,
+            "longitude": null
+          },
+          "media": {
+            "rightsStatus": "permission-pending",
+            "sourceUrl": "https://www.kungfutea.com.tw/location/?page=11",
+            "assetPath": null,
+            "permissionEvidence": null,
+            "checkedAt": "2026-07-03T07:18:00+08:00"
+          },
+          "merchantConsent": {
+            "status": "not-recorded",
+            "recordedAt": null,
+            "evidence": null
+          }
         }
       ]
     },
