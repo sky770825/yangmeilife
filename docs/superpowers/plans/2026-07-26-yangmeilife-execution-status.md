@@ -24,7 +24,7 @@
 | --- | --- | --- | --- | --- | --- |
 | Batch 0 可回復基準 | completed | Codex / M5 Hermes | Archimedes: APPROVE | 10/10 截圖 | 無 |
 | A1 資料邊界與防回生 | completed | Ohm / Codex | Heisenberg: Pass | 10/10 tests | 無 |
-| A2 最新廠商資料 | pending | - | - | - | - |
+| A2 最新廠商資料 | in_progress | Poincare / Codex | Raman: A2.0 Pass | 22/22 tests | 無 |
 | A3 廠商卡片與手機版 | pending | - | - | - | - |
 | B1 公開功能清單 | pending | - | - | - | - |
 | B2 最新在地資訊 | pending | - | - | - | - |
@@ -115,3 +115,16 @@
 - 發布原則：資料衝突、疑似停業或無法確認時先停止公開，不以候選店家補足數量。
 - 版本原則：每個核對批次獨立提交並推送，通過不同 Reviewer 後才進下一批。
 - 下一步：執行 A2.0「發布狀態、欄位來源與圖片權利資料規則」。
+
+## 2026-07-27 - A2.0 發布與證據規則核准
+
+- 狀態：`completed`
+- 版本：`e47df53..508325d`
+- 資料遷移：11 家現有公開店家補上發布狀態、欄位來源、複查日期、圖片權利與店家同意紀錄；未變更店家事實。
+- 發布規則：只有 `published` 可進入公開執行資料；`hold`、`retired` 與候選資料全部排除。
+- 來源規則：欄位證據必須為 HTTP(S) 且存在於該店家既有來源清單。
+- 日期規則：`nextReviewAt` 必須為 `lastVerifiedAt` 後 90 個台北日曆日。
+- 產生器：不再覆寫人工維護的分類 `vendors.json`。
+- 測試：22/22 通過；11 個分類、11 家公開店家驗證通過。
+- Reviewer：Raman 最終判定 `Spec Compliance: Pass`、`Code Quality: Pass`，無剩餘問題。
+- 下一步：A2.1 核對功夫茶與美容類共 4 家店的最新公開資料。
