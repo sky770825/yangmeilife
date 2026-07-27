@@ -17,8 +17,15 @@
 
 1. 編輯本資料夾的 `vendors.json`。
 2. 有官方或平台可確認來源時，才填入電話、地址、營業時間與官方連結。
-3. 從專案根目錄執行 `node scripts/build-main-structure.mjs` 同步前台與 `updates.json`。
-4. 人工核實完成後，更新 `verified`、`verificationStatus`、`verificationLevel` 與 `lastVerifiedAt`。
+3. `fieldSources` 必須逐欄列出可證明該欄位的 URL；泛用 LINE 加好友頁、目錄與搜尋摘要不能證明店名、電話、地址或營業時間。
+4. 本來源刷新作業不執行完整產生器，也不直接修改 `updates.json` 或前台輸出檔。
+5. 人工核實完成後，更新 `verified`、`verificationStatus`、`verificationLevel` 與 `lastVerifiedAt`。
+
+## 2026-07-27 來源刷新註記
+
+- 妮莉莎美學官方 `meijia.html` 直接列出四維路 196 號、03-4312061，並將「立即預約」連至 `https://lin.ee/HAYqMVL`；該店家自控頁是預約 LINE 的欄位來源，不以 LINE 泛用頁反推店家身分。
+- Relax 蕾娜絲官方網站直接列出四維路 133 號、03-4820127 與每週 10:30-19:30；此精確地址對應前台的「四維店」分店識別。
+- 嶼你 YN 與八四的 Facebook / Instagram 在本次研究環境無法讀取店家內容，因此既有消費者資料與既有整體驗證日期維持不變。八四的泛用 LINE 頁已從店名、電話與地址的欄位證據移除。
 
 ## 重要提醒
 
@@ -59,3 +66,4 @@
 - 缺官方來源：0
 - 待補候選：3
 - 最後同步：2026-07-03T09:23:39+0800
+- 最近來源刷新：2026-07-27（未執行完整產生器）

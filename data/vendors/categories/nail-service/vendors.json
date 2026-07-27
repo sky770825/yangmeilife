@@ -113,9 +113,9 @@
       "verificationLevel": "verified",
       "dataReadiness": "已核實資料",
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
-      "sourceNote": "楊梅店電話、地址與官方 LINE 以 Facebook / Instagram 公開資訊核實。",
+      "sourceNote": "楊梅店電話與地址以 Facebook / Instagram 公開資訊核實；LINE 目的地待店家自控頁重新確認。",
       "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800",
+      "updatedAt": "2026-07-27T10:24:18+08:00",
       "phone": "0925-296-677",
       "address": "桃園市楊梅區中山北路二段23巷27號",
       "businessHours": null,
@@ -136,26 +136,21 @@
       "fieldSources": {
         "name": [
           "https://www.facebook.com/84NailSalon/",
-          "https://www.instagram.com/84_nail_salon/",
-          "https://line.me/R/ti/p/@396fiuuu"
+          "https://www.instagram.com/84_nail_salon/"
         ],
         "phone": [
           "https://www.facebook.com/84NailSalon/",
-          "https://www.instagram.com/84_nail_salon/",
-          "https://line.me/R/ti/p/@396fiuuu"
+          "https://www.instagram.com/84_nail_salon/"
         ],
         "address": [
           "https://www.facebook.com/84NailSalon/",
-          "https://www.instagram.com/84_nail_salon/",
-          "https://line.me/R/ti/p/@396fiuuu"
+          "https://www.instagram.com/84_nail_salon/"
         ],
         "businessHours": [],
         "officialUrl": [
           "https://www.facebook.com/84NailSalon/"
         ],
-        "lineUrl": [
-          "https://line.me/R/ti/p/@396fiuuu"
-        ],
+        "lineUrl": [],
         "image": []
       },
       "placeId": null,
@@ -178,7 +173,7 @@
     },
     {
       "id": "nail-service-real-3",
-      "name": "妮莉莎美學 Nelissa Aesthetic",
+      "name": "妮莉莎美學",
       "area": "楊梅四維路",
       "price": null,
       "rating": null,
@@ -197,16 +192,16 @@
       "verificationLevel": "verified",
       "dataReadiness": "已核實資料",
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
-      "sourceNote": "電話、地址與服務內容以妮莉莎美學官方網站核實。",
-      "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800",
+      "sourceNote": "電話、地址、服務內容與預約 LINE 以妮莉莎美學官方網站核實。",
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T10:24:18+08:00",
       "phone": "03-431-2061",
       "address": "326桃園市楊梅區四維路196號",
       "businessHours": null,
       "officialUrl": "https://www.nelissa.com.tw/meijia.html",
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=326%E6%A1%83%E5%9C%92%E5%B8%82%E6%A5%8A%E6%A2%85%E5%8D%80%E5%9B%9B%E7%B6%AD%E8%B7%AF196%E8%99%9F",
-      "lineUrl": null,
-      "contactNote": "官方網站列示地址 326桃園市楊梅區四維路196號、電話 03-4312061。",
+      "lineUrl": "https://lin.ee/HAYqMVL",
+      "contactNote": "官方網站列示地址 326桃園市楊梅區四維路196號、電話 03-4312061，並提供店家預約 LINE 連結。",
       "missingFields": [],
       "officialSource": "妮莉莎美學官方網站",
       "sourceUrls": [
@@ -214,9 +209,9 @@
         "https://www.nelissa.com.tw/products.html"
       ],
       "publicationStatus": "published",
-      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
-      "nextReviewAt": "2026-10-01",
-      "reviewedBy": "2026-07-03 review migration",
+      "sourceCheckedAt": "2026-07-27T10:24:18+08:00",
+      "nextReviewAt": "2026-10-25",
+      "reviewedBy": "A2.3 researcher",
       "fieldSources": {
         "name": [
           "https://www.nelissa.com.tw/meijia.html",
@@ -234,7 +229,9 @@
         "officialUrl": [
           "https://www.nelissa.com.tw/meijia.html"
         ],
-        "lineUrl": [],
+        "lineUrl": [
+          "https://www.nelissa.com.tw/meijia.html"
+        ],
         "image": [
           "https://www.nelissa.com.tw/meijia.html"
         ]
@@ -249,7 +246,7 @@
         "sourceUrl": "https://www.nelissa.com.tw/meijia.html",
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:51:37+08:00"
+        "checkedAt": "2026-07-27T10:24:18+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
@@ -278,9 +275,9 @@
       "verificationLevel": "verified",
       "dataReadiness": "已核實資料",
       "dataSource": "data/vendors/categories/nail-service/vendors.json",
-      "sourceNote": "四維店電話、地址、營業時間與服務內容以官方網站及 Facebook 公開資訊核實。",
-      "lastVerifiedAt": "2026-07-03",
-      "updatedAt": "2026-07-03T08:51:37+0800",
+      "sourceNote": "四維店電話、地址、營業時間與服務內容以官方網站核實。",
+      "lastVerifiedAt": "2026-07-27",
+      "updatedAt": "2026-07-27T10:24:18+08:00",
       "phone": "03-482-0127",
       "address": "326桃園市楊梅區四維路133號",
       "businessHours": "每週 10:30-19:30",
@@ -289,31 +286,27 @@
       "lineUrl": null,
       "contactNote": "官方網站列示四維店地址與電話 03-4820127 / 0922919356；前台主電話採 03-482-0127。",
       "missingFields": [],
-      "officialSource": "Relax蕾娜絲官方網站 / Facebook 公開資訊",
+      "officialSource": "Relax蕾娜絲官方網站",
       "sourceUrls": [
         "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
         "https://www.facebook.com/relax4820127/"
       ],
       "publicationStatus": "published",
-      "sourceCheckedAt": "2026-07-03T08:51:37+08:00",
-      "nextReviewAt": "2026-10-01",
-      "reviewedBy": "2026-07-03 review migration",
+      "sourceCheckedAt": "2026-07-27T10:24:18+08:00",
+      "nextReviewAt": "2026-10-25",
+      "reviewedBy": "A2.3 researcher",
       "fieldSources": {
         "name": [
-          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-          "https://www.facebook.com/relax4820127/"
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
         ],
         "phone": [
-          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-          "https://www.facebook.com/relax4820127/"
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
         ],
         "address": [
-          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-          "https://www.facebook.com/relax4820127/"
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
         ],
         "businessHours": [
-          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
-          "https://www.facebook.com/relax4820127/"
+          "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
         ],
         "officialUrl": [
           "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html"
@@ -333,7 +326,7 @@
         "sourceUrl": "https://shop4968.noon360.com/mainssl/uploads/shop4968/html/home.html",
         "assetPath": null,
         "permissionEvidence": null,
-        "checkedAt": "2026-07-03T08:51:37+08:00"
+        "checkedAt": "2026-07-27T10:24:18+08:00"
       },
       "merchantConsent": {
         "status": "not-recorded",
