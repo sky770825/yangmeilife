@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import test from 'node:test';
+import vm from 'node:vm';
 
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 
@@ -59,6 +60,73 @@ async function generatedCategoryScript(repoRoot) {
   return page.slice(start, end);
 }
 
+async function renderGeneratedCard(repoRoot, vendor) {
+  const grid = { className: '', innerHTML: '' };
+  const nodes = new Map([
+    ['#vendorGrid', grid],
+    ['#vendorCount', { textContent: '' }],
+    ['#vendorEmpty', { hidden: false, textContent: '' }],
+    ['#vendorSearch', { addEventListener() {} }],
+    ['#vendorSort', { addEventListener() {} }],
+    ['#vendorFilter', { addEventListener() {} }],
+  ]);
+  const app = {
+    dataset: { vendorPage: 'fixture.html' },
+    addEventListener() {},
+    querySelector(selector) {
+      return nodes.get(selector);
+    },
+    querySelectorAll() {
+      return [];
+    },
+  };
+  let shellMarkup = '';
+  Object.defineProperty(app, 'innerHTML', {
+    get() {
+      return shellMarkup;
+    },
+    set(value) {
+      shellMarkup = value;
+    },
+  });
+
+  const category = {
+    page: 'fixture.html',
+    title: 'Fixture vendors',
+    displayTitle: 'Fixture vendors',
+    intro: '',
+    displayIntro: '',
+    categoryTitle: 'Fixture',
+    categoryUrl: 'pages/fixture/index.html',
+    accent: '#123456',
+    vendors: [vendor],
+  };
+  const context = {
+    window: { YANGMEI_VENDOR_CATEGORIES: [category] },
+    document: {
+      body: { appendChild() {} },
+      createElement() {
+        return { className: '', textContent: '', remove() {} };
+      },
+      getElementById(id) {
+        return id === 'vendorPageApp' ? app : null;
+      },
+    },
+    localStorage: {
+      getItem() {
+        return null;
+      },
+      setItem() {},
+    },
+    location: { pathname: '/fixture.html' },
+    setTimeout() {},
+  };
+
+  vm.runInNewContext(await generatedVendorPageScript(repoRoot), context);
+  await new Promise((resolve) => setImmediate(resolve));
+  return grid.innerHTML;
+}
+
 test('generated public vendor cards expose only verified facts and valid phone/map actions', async () => {
   await withGeneratedSite(async (repoRoot) => {
     const categories = JSON.parse(
@@ -99,5 +167,41 @@ test('generated public vendor cards never route missing store contacts to a gene
     assert.doesNotMatch(cardScript, /vendor\.lineUrl \|\| vendor\.officialUrl \|\| LINE_URL/);
     assert.match(cardScript, /inquiryHref\s*\?\s*`<a class="vendor-card-action vendor-card-action--primary"/);
     assert.match(cardScript, /aria-disabled="true"/);
+  });
+});
+
+test('generated public vendor cards omit image markup when no approved image exists', async () => {
+  await withGeneratedSite(async (repoRoot) => {
+    const fixtureVendor = {
+      id: 'fixture-no-image',
+      name: 'No approved image',
+      area: 'Yangmei',
+      price: null,
+      tags: [],
+      verified: true,
+      needsVerification: false,
+      publicationStatus: 'published',
+      phone: '03-123-4567',
+      address: 'Yangmei district',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Yangmei',
+      officialUrl: 'https://example.com/store',
+      officialSource: 'Fixture official site',
+      sourceUrls: ['https://example.com/store'],
+      lineUrl: null,
+      missingFields: [],
+    };
+
+    for (const image of [null, '', 'null', 'not-a-url']) {
+      const cardMarkup = await renderGeneratedCard(repoRoot, { ...fixtureVendor, image });
+      assert.doesNotMatch(cardMarkup, /<img\b/i);
+      assert.doesNotMatch(cardMarkup, /src="null"/);
+    }
+
+    const approvedImageMarkup = await renderGeneratedCard(repoRoot, {
+      ...fixtureVendor,
+      image: 'https://example.com/store.jpg',
+    });
+    assert.match(approvedImageMarkup, /<img\b/i);
+    assert.match(approvedImageMarkup, /src="https:\/\/example\.com\/store\.jpg"/);
   });
 });

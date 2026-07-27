@@ -931,8 +931,14 @@ const vendorPageJs = `(() => {
     const metaItems = [vendor.area, vendor.price].filter((value) => !emptyish(value));
     const inquiryHref = vendor.lineUrl || vendor.officialUrl || null;
     const phoneHref = vendor.phone ? 'tel:' + String(vendor.phone).replace(/[^0-9+#*,-]/g, '') : null;
+    const imageUrl = typeof vendor.img === 'string' && new RegExp('^(?:https?:/{2}|/(?!/)|[.]{1,2}/|assets/)', 'i').test(vendor.img.trim())
+      ? vendor.img.trim()
+      : null;
+    const imageMarkup = imageUrl
+      ? '<img class="vendor-card-image" src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(vendor.name) + '" loading="lazy" decoding="async" width="640" height="360">'
+      : '';
   return \`<article class="vendor-card" data-search="\${escapeHtml(searchHaystack(vendor))}">
-      <img class="vendor-card-image" src="\${escapeHtml(vendor.img)}" alt="\${escapeHtml(vendor.name)}" loading="lazy" decoding="async" width="640" height="360">
+      \${imageMarkup}
       <div class="vendor-card-body">
         <div class="vendor-card-heading">
           <h2 class="vendor-card-title">\${escapeHtml(vendor.name)}</h2>

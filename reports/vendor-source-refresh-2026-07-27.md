@@ -72,7 +72,7 @@ node scripts/validate-vendor-data.mjs
 git diff --check
 ```
 
-Results: both syntax checks passed; validation passed before and after the build with 11 categories and 11 public vendors; the full test suite passed 114 tests; `git diff --check` passed.
+Results: both syntax checks passed; validation passed before and after the build with 11 categories and 11 public vendors; the full test suite passed 115 tests; `git diff --check` passed.
 
 Focused public behavior coverage proves that public cards do not render or offer sorting by an unverified rating, normalize every visible phone action to `tel:`, use Google Maps search navigation for every visible address, never fall back to the site-wide platform LINE when a store lacks both LINE and official URL, and emit only `published` records to runtime data. Existing publication tests also cover candidate, `hold`, and `retired` runtime exclusion.
 
@@ -80,4 +80,4 @@ Focused public behavior coverage proves that public cards do not render or offer
 
 The ledger incorporates the distinct A2 reviewer outcomes already recorded for data research (Pascal, Curie, Aristotle), candidate exclusion (Feynman), and media rights (Lovelace). The automated release gate has no unresolved critical or important failure.
 
-Remaining non-blocking work is intentionally deferred: seven published vendors need a neutral A3 image fallback; official-image provenance is not a reuse or hotlink permission; several social pages and optional fields remain due for their scheduled review. No candidate should be promoted without a new authoritative source and a separate review.
+Remaining non-blocking work is intentionally deferred: A2.6 now omits image markup for the seven `no-approved-image` records, eliminating broken-image requests; A3 may still enhance their neutral visual fallback and card proportions. Official-image provenance is not a reuse or hotlink permission; several social pages and optional fields remain due for their scheduled review. No candidate should be promoted without a new authoritative source and a separate review.
